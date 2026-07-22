@@ -1,0 +1,267 @@
+[
+  {
+    "slug": "clubal",
+    "order": 1,
+    "code": "01",
+    "name": "ClubAL",
+    "kicker": "Operação institucional local-first",
+    "status": "Em evolução · prévia pública",
+    "statusTone": "live",
+    "summary": "Rotinas, contexto e consulta autorizada em um produto Windows que continua útil mesmo quando a rede não está disponível.",
+    "promise": "Uma fonte local. Três leituras claras. Nenhuma nuvem obrigatória.",
+    "route": "/projetos/clubal/",
+    "image": "/assets/img/clubal/rotinas-atual.png",
+    "imageAlt": "Interface atual do módulo Rotinas PEMSE do ClubAL com dados fictícios, agenda, horários operacionais e clima",
+    "imageKind": "screenshot",
+    "visualLabel": "Captura atual · dados fictícios",
+    "accent": "#45e6b4",
+    "accentRgb": "69 230 180",
+    "facts": ["Windows", "Local-first", "3 módulos formais"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Rotina operacional sem depender de improviso.",
+        "body": "O ClubAL organiza agendas, avisos e contexto operacional no PC e entrega leituras aprovadas para telas e consulta. O produto preserva funcionamento local, privacidade por superfície e implantação assistida.",
+        "points": ["Operação local e privada", "Publicação controlada para telas", "Consulta autorizada somente leitura"]
+      },
+      {
+        "id": "estrutura",
+        "label": "Três módulos",
+        "title": "Exatamente três módulos, com responsabilidades explícitas.",
+        "body": "Operação PEMSE registra e controla. Rotinas PEMSE apresenta conteúdo aprovado em TVs e ambientes compartilhados. Consulta PEMSE oferece leitura autorizada sem criar uma segunda operação.",
+        "points": ["Operação PEMSE · editar e publicar", "Rotinas PEMSE · exibir o aprovado", "Consulta PEMSE · ler sem editar"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado atual",
+        "title": "Produto ativo, com distribuição e validação em evolução.",
+        "body": "A experiência Windows, os fluxos offline-first e a publicação segura já possuem validações automatizadas. Aceites físicos de instalações, telas e redes reais continuam sendo tratados separadamente.",
+        "points": ["Código-fonte privado durante desenvolvimento", "Site e demonstrações usam apenas dados fictícios", "Cloud e login permanecem opcionais"]
+      }
+    ],
+    "links": [
+      {"label": "Ver site público atual", "href": "https://clubal.pages.dev/", "kind": "secondary"},
+      {"label": "Conversar sobre implantação", "href": "/contato/?assunto=clubal", "kind": "primary"}
+    ]
+  },
+  {
+    "slug": "maeve",
+    "order": 2,
+    "code": "02",
+    "name": "Maeve Roscaern",
+    "kicker": "RPG dark fantasy local-first",
+    "status": "Em desenvolvimento · Fase 8",
+    "statusTone": "progress",
+    "summary": "RPG single-player adulto construído em Unreal Engine 5.8, com fundações C++, composição autoral e execução totalmente offline.",
+    "promise": "Um mundo autoral onde sistemas, corpo e narrativa deixam consequências.",
+    "route": "/projetos/maeve/",
+    "image": "/assets/img/maeve/conceito-gameplay-cemiterio.png",
+    "imageAlt": "Imagem conceito de um encontro compacto em cemitério, com Maeve, uma sobrevivente e uma criatura em caminhos alternativos",
+    "imageKind": "art",
+    "visualLabel": "Imagem conceito · não é captura do jogo",
+    "gallery": [
+      {
+        "src": "/assets/img/maeve/conceito-gameplay-cemiterio.png",
+        "alt": "Imagem conceito de um encontro compacto em cemitério, com investigação à esquerda e uma criatura sob o arco à direita",
+        "label": "Gameplay-alvo viável · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/conceito-kit-modular.png",
+        "alt": "Imagem conceito de um kit modular de cemitério com mapa compacto, ruínas, props, criatura e variações de iluminação",
+        "label": "Kit de cenário modular · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/conceito-npcs-modulares.png",
+        "alt": "Imagem conceito de Maeve e quatro NPCs com roupas, cabelos e acessórios organizados como peças reutilizáveis",
+        "label": "NPCs e peças reutilizáveis · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/conceito-cenario-dun-caerwyn.png",
+        "alt": "Imagem conceito de Maeve explorando as ruínas modulares de Dun Caerwyn sob a lua",
+        "label": "Dun Caerwyn modular · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/maeve-concept-threshold.png",
+        "alt": "Imagem conceito narrativa de Maeve diante do limiar da Casa Roscaern durante uma tempestade",
+        "label": "Tom narrativo do limiar · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/maeve-concept-registry.png",
+        "alt": "Imagem conceito narrativa de Maeve consultando um registro ritual em um arquivo escuro",
+        "label": "Sangue como documento · imagem conceito"
+      }
+    ],
+    "accent": "#ef6d78",
+    "accentRgb": "239 109 120",
+    "facts": ["Unreal Engine 5.8", "Single-player", "Offline-first"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Dark fantasy adulto com identidade própria.",
+        "body": "Maeve Roscaern é um RPG local centrado em uma protagonista adulta, na Casa Roscaern e em sistemas narrativos que conectam corpo, sangue, memória e escolhas persistentes.",
+        "points": ["Experiência single-player", "Mundo e personagem autorais", "Sem conta, servidor ou API obrigatórios"]
+      },
+      {
+        "id": "direcao",
+        "label": "Alvo viável",
+        "title": "Ambição visual traduzida em peças que uma produção solo consegue entregar.",
+        "body": "As imagens desta página combinam as referências autorais do repositório com um alvo 3D estilizado e modular. Elas orientam cenários, NPCs e iluminação, mas não são capturas do jogo nem promessa de fidelidade final.",
+        "points": ["Áreas compactas e caminhos legíveis", "Kits modulares, atlas e bases reutilizáveis", "Detalhe concentrado no foco da cena"]
+      },
+      {
+        "id": "tecnica",
+        "label": "Fundação",
+        "title": "C++ para autoridades; Unreal para composição e experiência.",
+        "body": "O projeto preserva uma única autoridade para câmera, input, corpo, save e combate. Blueprints e Data Assets compõem conteúdo sobre fundações C++ testáveis, sem levar ferramentas de desenvolvimento ao pacote do jogador.",
+        "points": ["Gameplay e sistemas nativos", "Launcher Windows próprio", "Pipeline de testes e pacote reproduzível"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado atual",
+        "title": "Primeiro recorte de combate tecnicamente fechado.",
+        "body": "Combo leve, esquiva e Blood First integram o primeiro confronto da Fase 8. O pacote automatizado passou seus gates técnicos; o aceite humano de gameplay permanece pendente e nenhuma imagem de combate é apresentada como acabamento final.",
+        "points": ["Gameplay visual ainda em evolução", "Aparência atual é reversível", "Assets externos exigem procedência e licença revalidadas"]
+      }
+    ],
+    "links": [
+      {"label": "Acompanhar o projeto", "href": "/contato/?assunto=maeve", "kind": "primary"}
+    ]
+  },
+  {
+    "slug": "codex-checkpoint",
+    "order": 3,
+    "code": "03",
+    "name": "Codex Checkpoint",
+    "kicker": "Handoffs humanos que sobrevivem ao contexto",
+    "status": "Produto local · Windows",
+    "statusTone": "ready",
+    "summary": "Fila durável para validações que ainda precisam de uma pessoa: visual, gameplay, dispositivo, decisão ou ambiente restrito.",
+    "promise": "O agente avança. O humano valida quando puder. O contexto não se perde.",
+    "route": "/projetos/codex-checkpoint/",
+    "image": "/assets/img/codex-checkpoint/app.png",
+    "imageAlt": "Codex Checkpoint exibindo uma fila fictícia de validações humanas e o histórico de notas",
+    "imageKind": "screenshot",
+    "visualLabel": "Captura do produto · dados de demonstração",
+    "accent": "#36d6c0",
+    "accentRgb": "54 214 192",
+    "facts": ["WPF / .NET", "Sem conta", "Fila durável"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Uma fila de validação — não outro chat.",
+        "body": "Codex Checkpoint transforma tarefas que exigem atenção humana em cartões estruturados, pesquisáveis e duráveis. O agente registra o que testar; a pessoa volta depois e deixa uma decisão ou feedback acionável.",
+        "points": ["Chaves estáveis sem duplicatas", "Status e notas com histórico", "Vários projetos na mesma fila"]
+      },
+      {
+        "id": "seguranca",
+        "label": "Local-first",
+        "title": "Dados locais e fronteiras explícitas.",
+        "body": "A aplicação não exige conta, nuvem, telemetria, Python ou Node. Cartões e pacotes importados são tratados como entrada não confiável, com validação antes da exibição ou incorporação.",
+        "points": ["Persistência JSON atômica", "Backup e recuperação", "Formato portátil .ccard validado"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado atual",
+        "title": "Aplicação nativa e fluxo instalável para Windows.",
+        "body": "GUI, CLI, skill e integração .ccard formam o produto. Builds e pacotes passam por testes de instalação isolada; os binários atuais não possuem assinatura de código e isso permanece declarado.",
+        "points": ["Interface acessível por teclado", "Instalador por usuário", "Builds atuais não assinados"]
+      }
+    ],
+    "links": [
+      {"label": "Falar sobre o Checkpoint", "href": "/contato/?assunto=codex-checkpoint", "kind": "primary"}
+    ]
+  },
+  {
+    "slug": "nexus",
+    "order": 4,
+    "code": "04",
+    "name": "NEXUS",
+    "kicker": "Central local de projetos",
+    "status": "Ferramenta local · Windows",
+    "statusTone": "ready",
+    "summary": "Um hub C# WPF para visualizar projetos, abrir recursos e executar validações rápidas a partir de um catálogo local.",
+    "promise": "Projetos diferentes. Um único ponto de entrada. Nenhuma nuvem obrigatória.",
+    "route": "/projetos/nexus/",
+    "image": "/assets/img/nexus/app.png",
+    "imageAlt": "NEXUS exibindo o projeto ClubAL e ações locais de Operação, Rotinas e Consulta",
+    "imageKind": "screenshot",
+    "visualLabel": "Captura atual · build local validada",
+    "accent": "#8e7dff",
+    "accentRgb": "142 125 255",
+    "facts": ["C# WPF", "Catálogo JSON", "Sem nuvem"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Uma mesa de comando para o ambiente local.",
+        "body": "NEXUS centraliza os projetos em andamento sem misturar seus runtimes. Cada cartão apresenta ações, referências e validações definidas por catálogo, mantendo o hub pequeno e os produtos independentes.",
+        "points": ["Navegação unificada", "Ações por projeto", "Feedback curto de validação"]
+      },
+      {
+        "id": "arquitetura",
+        "label": "Arquitetura",
+        "title": "Interface gerenciada; comportamento orientado por dados.",
+        "body": "Projetos e ações vivem em JSON, não ficam codificados na interface. Alvos ausentes são desabilitados e validadores rodam em segundo plano com códigos de saída significativos.",
+        "points": [".NET Framework 4.8", "Configuração local ignorada no Git", "Self-test sem executar ações"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado atual",
+        "title": "Build, self-test e render smoke reproduzíveis.",
+        "body": "O render apresentado aqui foi gerado novamente para este site após build e self-test aprovados. NEXUS continua sendo uma ferramenta de desenvolvimento local, não um runtime embutido nos produtos.",
+        "points": ["Render smoke 1180×760 aprovado", "Inicialização offline", "Sem publicação automática"]
+      }
+    ],
+    "links": [
+      {"label": "Conhecer o ecossistema", "href": "/contato/?assunto=nexus", "kind": "primary"}
+    ]
+  },
+  {
+    "slug": "local-first-checklist",
+    "order": 5,
+    "code": "05",
+    "name": "Local First Checklist",
+    "kicker": "Pequena ferramenta pública em Python",
+    "status": "Projeto público · código aberto para leitura",
+    "statusTone": "lab",
+    "summary": "Checklist compacto com persistência JSON local, comandos CLI, testes e validação contínua no GitHub.",
+    "promise": "Um exemplo pequeno e verificável da mesma direção local-first.",
+    "route": "/projetos/local-first-checklist/",
+    "image": "/assets/img/local-first-checklist.svg",
+    "imageAlt": "Ilustração de uma lista local com itens verificados e um arquivo JSON",
+    "imageKind": "art",
+    "visualLabel": "Ilustração do projeto",
+    "accent": "#f2bb62",
+    "accentRgb": "242 187 98",
+    "facts": ["Python CLI", "JSON local", "Testes + CI"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Pequeno o suficiente para ser entendido por inteiro.",
+        "body": "O projeto registra tarefas em JSON local e oferece operações simples por linha de comando. Ele existe como amostra pública, honesta e testável de uma aplicação offline-first.",
+        "points": ["Sem serviço remoto", "Persistência local legível", "Documentação direta"]
+      },
+      {
+        "id": "qualidade",
+        "label": "Qualidade",
+        "title": "Comportamento simples com evidência automática.",
+        "body": "Testes unitários, compilação Python e uma execução de smoke protegem as operações principais. A automação no GitHub repete as verificações sem adicionar infraestrutura ao aplicativo.",
+        "points": ["Testes unitários", "CLI verificável", "Workflow de validação"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado atual",
+        "title": "Repositório público de aprendizagem prática.",
+        "body": "Não é apresentado como produto comercial nem como sistema complexo. Seu valor está em mostrar estrutura, documentação, testes e uma escolha arquitetural coerente em um escopo pequeno.",
+        "points": ["Escopo deliberadamente compacto", "Código público", "Sem promessas infladas"]
+      }
+    ],
+    "links": [
+      {"label": "Abrir no GitHub", "href": "https://github.com/gmdr2022/local-first-checklist", "kind": "primary"}
+    ]
+  }
+]
