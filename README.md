@@ -2,6 +2,8 @@
 
 Site estático do Guilherme Rocha e catálogo de ClubAL, Maeve Roscaern, Codex Checkpoint, NEXUS e projetos públicos selecionados.
 
+Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
+
 ## Princípios
 
 - sem framework, telemetria, anúncios ou dependências de runtime;
