@@ -3,7 +3,7 @@ import { extname, join, resolve } from "node:path";
 
 const root = resolve(process.cwd());
 const errors = [];
-const requiredProjectSlugs = ["clubal", "maeve", "codex-checkpoint", "nexus", "local-first-checklist"];
+const requiredProjectSlugs = ["clubal", "maeve", "demonyza", "codex-checkpoint", "nexus", "local-first-checklist"];
 const ignoredDirectories = new Set([".git", "dist", "node_modules", "output"]);
 
 const walk = async (directory) => {
@@ -64,11 +64,15 @@ if (clubalStructure.length !== 3 || requiredModules.some((module) => !clubalStru
 
 const maeve = projects.find((project) => project.slug === "maeve");
 if (!maeve?.visualLabel.toLowerCase().includes("imagem conceito")) errors.push("Maeve: rótulo de imagem conceito ausente");
-if (maeve?.gallery?.length !== 6) errors.push("Maeve: galeria conceitual incompleta");
+if (maeve?.gallery?.length !== 7) errors.push("Maeve: galeria conceitual incompleta");
 for (const item of maeve?.gallery || []) {
   if (!item.label.toLowerCase().includes("conceito")) errors.push(`Maeve: item sem rótulo conceitual ${item.src}`);
   if (!await exists(localTarget(item.src))) errors.push(`Maeve: imagem inexistente ${item.src}`);
 }
+const publicCopy = files.filter((path) => [".html", ".js", ".json"].includes(extname(path))).map(async (path) => readFile(path, "utf8"));
+const publicText = (await Promise.all(publicCopy)).join("\n");
+if (publicText.includes("gmdr2014@gmail.com")) errors.push("Contato pessoal antigo ainda exposto");
+if ((publicText.match(/\badulto\b/gi) || []).length !== 1) errors.push("Maeve: a classificação adulta deve aparecer exatamente uma vez");
 
 const textFiles = files.filter((path) => path !== join(root, "scripts", "validate.mjs") && [".css", ".html", ".js", ".json", ".md", ".txt", ".xml"].includes(extname(path)));
 for (const path of textFiles) {

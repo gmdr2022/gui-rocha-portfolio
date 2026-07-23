@@ -5,9 +5,9 @@
     "code": "01",
     "name": "ClubAL",
     "kicker": "Operação institucional local-first",
-    "status": "Em evolução · prévia pública",
+    "status": "Produto em evolução · prévia pública",
     "statusTone": "live",
-    "summary": "Rotinas, contexto e consulta autorizada em um produto Windows que continua útil mesmo quando a rede não está disponível.",
+    "summary": "Rotinas, avisos e consulta autorizada em um produto Windows que continua útil mesmo sem internet.",
     "promise": "Uma fonte local. Três leituras claras. Nenhuma nuvem obrigatória.",
     "route": "/projetos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
@@ -21,27 +21,27 @@
       {
         "id": "visao",
         "label": "Visão",
-        "title": "Rotina operacional sem depender de improviso.",
-        "body": "O ClubAL organiza agendas, avisos e contexto operacional no PC e entrega leituras aprovadas para telas e consulta. O produto preserva funcionamento local, privacidade por superfície e implantação assistida.",
+        "title": "A rotina certa, na tela certa.",
+        "body": "A equipe registra uma vez, aprova o que pode ser visto e entrega uma leitura clara para cada ambiente — mesmo quando a rede não está disponível.",
         "points": ["Operação local e privada", "Publicação controlada para telas", "Consulta autorizada somente leitura"]
       },
       {
         "id": "estrutura",
         "label": "Três módulos",
-        "title": "Exatamente três módulos, com responsabilidades explícitas.",
-        "body": "Operação PEMSE registra e controla. Rotinas PEMSE apresenta conteúdo aprovado em TVs e ambientes compartilhados. Consulta PEMSE oferece leitura autorizada sem criar uma segunda operação.",
+        "title": "Três módulos. Três responsabilidades.",
+        "body": "Operação PEMSE controla; Rotinas PEMSE apresenta o aprovado; Consulta PEMSE permite leitura autorizada sem criar uma segunda operação.",
         "points": ["Operação PEMSE · editar e publicar", "Rotinas PEMSE · exibir o aprovado", "Consulta PEMSE · ler sem editar"]
       },
       {
         "id": "estado",
-        "label": "Estado atual",
-        "title": "Produto ativo, com distribuição e validação em evolução.",
-        "body": "A experiência Windows, os fluxos offline-first e a publicação segura já possuem validações automatizadas. Aceites físicos de instalações, telas e redes reais continuam sendo tratados separadamente.",
-        "points": ["Código-fonte privado durante desenvolvimento", "Site e demonstrações usam apenas dados fictícios", "Cloud e login permanecem opcionais"]
+        "label": "Agora",
+        "title": "Produto ativo, validação contínua.",
+        "body": "Fluxos Windows, offline-first e publicação segura possuem testes automatizados. Instalações, telas e redes físicas seguem com aceite humano separado.",
+        "points": ["Dados públicos sempre fictícios", "Cloud e login permanecem opcionais", "Implantação assistida"]
       }
     ],
     "links": [
-      {"label": "Ver site público atual", "href": "https://clubal.pages.dev/", "kind": "secondary"},
+      {"label": "Abrir ClubAL", "href": "https://clubal.pages.dev/", "kind": "secondary"},
       {"label": "Conversar sobre implantação", "href": "/contato/?assunto=clubal", "kind": "primary"}
     ]
   },
@@ -53,18 +53,18 @@
     "kicker": "RPG dark fantasy local-first",
     "status": "Em desenvolvimento · Fase 8",
     "statusTone": "progress",
-    "summary": "RPG single-player adulto construído em Unreal Engine 5.8, com fundações C++, composição autoral e execução totalmente offline.",
+    "summary": "RPG single-player em Unreal Engine 5.8 onde sangue, memória e escolhas persistentes moldam Dun Caerwyn.",
     "promise": "Um mundo autoral onde sistemas, corpo e narrativa deixam consequências.",
     "route": "/projetos/maeve/",
-    "image": "/assets/img/maeve/conceito-gameplay-cemiterio.png",
-    "imageAlt": "Imagem conceito de um encontro compacto em cemitério, com Maeve, uma sobrevivente e uma criatura em caminhos alternativos",
+    "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+    "imageAlt": "Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn",
     "imageKind": "art",
-    "visualLabel": "Imagem conceito · não é captura do jogo",
+    "visualLabel": "Imagem conceito · alvo visual, não captura do jogo",
     "gallery": [
       {
-        "src": "/assets/img/maeve/conceito-gameplay-cemiterio.png",
-        "alt": "Imagem conceito de um encontro compacto em cemitério, com investigação à esquerda e uma criatura sob o arco à direita",
-        "label": "Gameplay-alvo viável · imagem conceito"
+        "src": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+        "alt": "Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn",
+        "label": "Encontro no cemitério · imagem conceito"
       },
       {
         "src": "/assets/img/maeve/conceito-kit-modular.png",
@@ -84,12 +84,17 @@
       {
         "src": "/assets/img/maeve/maeve-concept-threshold.png",
         "alt": "Imagem conceito narrativa de Maeve diante do limiar da Casa Roscaern durante uma tempestade",
-        "label": "Tom narrativo do limiar · imagem conceito"
+        "label": "O limiar da Casa Roscaern · imagem conceito"
       },
       {
         "src": "/assets/img/maeve/maeve-concept-registry.png",
         "alt": "Imagem conceito narrativa de Maeve consultando um registro ritual em um arquivo escuro",
         "label": "Sangue como documento · imagem conceito"
+      },
+      {
+        "src": "/assets/img/maeve/conceito-o-arquiteto.webp",
+        "alt": "Imagem conceito de Gui Rocha como O Arquiteto em um arquivo em ruínas de Dun Caerwyn",
+        "label": "O Arquiteto · imagem conceito / easter egg"
       }
     ],
     "accent": "#ef6d78",
@@ -99,45 +104,105 @@
       {
         "id": "visao",
         "label": "Visão",
-        "title": "Dark fantasy adulto com identidade própria.",
-        "body": "Maeve Roscaern é um RPG local centrado em uma protagonista adulta, na Casa Roscaern e em sistemas narrativos que conectam corpo, sangue, memória e escolhas persistentes.",
-        "points": ["Experiência single-player", "Mundo e personagem autorais", "Sem conta, servidor ou API obrigatórios"]
+        "title": "Dark fantasy com identidade própria.",
+        "body": "Uma aventura single-player de fantasia sombria voltada ao público adulto, centrada em Maeve, na Casa Roscaern e nas marcas que cada escolha deixa.",
+        "points": ["Mundo e protagonista autorais", "Sangue, memória e consequência", "Sem conta ou servidor obrigatório"]
       },
       {
         "id": "direcao",
         "label": "Alvo viável",
-        "title": "Ambição visual traduzida em peças que uma produção solo consegue entregar.",
-        "body": "As imagens desta página combinam as referências autorais do repositório com um alvo 3D estilizado e modular. Elas orientam cenários, NPCs e iluminação, mas não são capturas do jogo nem promessa de fidelidade final.",
-        "points": ["Áreas compactas e caminhos legíveis", "Kits modulares, atlas e bases reutilizáveis", "Detalhe concentrado no foco da cena"]
+        "title": "Ambição traduzida para produção solo.",
+        "body": "Áreas compactas, kits modulares e detalhe concentrado sustentam o clima sem fingir uma escala impossível. As artes orientam o alvo; não prometem o resultado final.",
+        "points": ["Caminhos curtos e legíveis", "Peças e NPCs reutilizáveis", "Luz guiando a narrativa"]
+      },
+      {
+        "id": "criador",
+        "label": "O Arquiteto",
+        "title": "O criador atravessa o próprio mundo.",
+        "body": "Gui aparece como O Arquiteto em uma arte conceitual: um easter egg sobre autoria e consequência. É uma possibilidade narrativa, não um NPC já implementado.",
+        "points": ["Retrato conceitual do Product Owner", "Identidade inspirada em Gui Rocha", "Sem alegar conteúdo jogável"]
       },
       {
         "id": "tecnica",
         "label": "Fundação",
-        "title": "C++ para autoridades; Unreal para composição e experiência.",
-        "body": "O projeto preserva uma única autoridade para câmera, input, corpo, save e combate. Blueprints e Data Assets compõem conteúdo sobre fundações C++ testáveis, sem levar ferramentas de desenvolvimento ao pacote do jogador.",
-        "points": ["Gameplay e sistemas nativos", "Launcher Windows próprio", "Pipeline de testes e pacote reproduzível"]
+        "title": "C++ dá autoridade; Unreal compõe o mundo.",
+        "body": "Câmera, input, corpo, save e combate têm responsabilidades únicas. Blueprints e Data Assets constroem conteúdo sobre fundações testáveis.",
+        "points": ["Gameplay e sistemas nativos", "Launcher Windows próprio", "Pacote reproduzível"]
       },
       {
         "id": "estado",
-        "label": "Estado atual",
-        "title": "Primeiro recorte de combate tecnicamente fechado.",
-        "body": "Combo leve, esquiva e Blood First integram o primeiro confronto da Fase 8. O pacote automatizado passou seus gates técnicos; o aceite humano de gameplay permanece pendente e nenhuma imagem de combate é apresentada como acabamento final.",
-        "points": ["Gameplay visual ainda em evolução", "Aparência atual é reversível", "Assets externos exigem procedência e licença revalidadas"]
+        "label": "Agora",
+        "title": "O primeiro combate já tem forma.",
+        "body": "Combo leve, esquiva e Blood First integram a Fase 8. Os gates técnicos passaram; o aceite humano de gameplay continua pendente.",
+        "points": ["Visual ainda em evolução", "Aparência reversível", "Licenças revalidadas antes do uso"]
       }
     ],
     "links": [
-      {"label": "Acompanhar o projeto", "href": "/contato/?assunto=maeve", "kind": "primary"}
+      {"label": "Acompanhar Maeve", "href": "/contato/?assunto=maeve", "kind": "primary"}
+    ]
+  },
+  {
+    "slug": "demonyza",
+    "order": 3,
+    "code": "03",
+    "name": "Demonyza",
+    "kicker": "Site autoral para creator & comunidade",
+    "status": "Projeto entregue · site público",
+    "statusTone": "live",
+    "summary": "Um portal dark interativo que transforma identidade, agenda e comunidade em uma experiência para explorar.",
+    "promise": "Uma presença digital que funciona como mundo — não apenas como cartão de visitas.",
+    "route": "/projetos/demonyza/",
+    "image": "/assets/img/demonyza/home.webp",
+    "imageAlt": "Página inicial pública da Demonyza com identidade visual roxa, navegação e experiências interativas",
+    "imageKind": "website",
+    "visualLabel": "Captura atual · site público",
+    "accent": "#c769ff",
+    "accentRgb": "199 105 255",
+    "facts": ["Site responsivo", "Experiência interativa", "Integrações públicas"],
+    "tabs": [
+      {
+        "id": "visao",
+        "label": "Visão",
+        "title": "Marca, presença e comunidade no mesmo lugar.",
+        "body": "O projeto foi desenvolvido para Demonyza como uma casa digital com ritmo próprio, capaz de apresentar conteúdo sem reduzir a creator a uma página de links.",
+        "points": ["Identidade dark original", "Navegação em camadas", "Ações claras para a comunidade"]
+      },
+      {
+        "id": "experiencia",
+        "label": "Experiência",
+        "title": "O site convida a descobrir.",
+        "body": "Rituais interativos, movimento e microinterações transformam a visita em percurso, sem esconder as rotas essenciais.",
+        "points": ["Interações com propósito", "Leitura responsiva", "Retorno fácil ao fluxo principal"]
+      },
+      {
+        "id": "integracoes",
+        "label": "Integrações",
+        "title": "O ecossistema público ganha contexto.",
+        "body": "Twitch, Discord e OpenDota aparecem integrados à narrativa visual, conectando conteúdo, comunidade e atividade pública.",
+        "points": ["Twitch", "Discord", "OpenDota"]
+      },
+      {
+        "id": "entrega",
+        "label": "Entrega",
+        "title": "Publicado e acessível pela web.",
+        "body": "O site está no ar pelo Cloudflare Pages e segue independente deste portfólio. A captura mostra a versão pública atual.",
+        "points": ["Hospedagem sem custo recorrente atual", "Código do cliente preservado em repositório privado", "Link direto para a experiência"]
+      }
+    ],
+    "links": [
+      {"label": "Visitar Demonyza", "href": "https://demonyza.pages.dev/", "kind": "primary"},
+      {"label": "Criar uma experiência", "href": "/contato/?assunto=demonyza", "kind": "secondary"}
     ]
   },
   {
     "slug": "codex-checkpoint",
-    "order": 3,
-    "code": "03",
+    "order": 4,
+    "code": "04",
     "name": "Codex Checkpoint",
     "kicker": "Handoffs humanos que sobrevivem ao contexto",
     "status": "Produto local · Windows",
     "statusTone": "ready",
-    "summary": "Fila durável para validações que ainda precisam de uma pessoa: visual, gameplay, dispositivo, decisão ou ambiente restrito.",
+    "summary": "Uma fila durável para tudo que ainda precisa de uma pessoa: visual, gameplay, dispositivo, decisão ou ambiente restrito.",
     "promise": "O agente avança. O humano valida quando puder. O contexto não se perde.",
     "route": "/projetos/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
@@ -152,22 +217,22 @@
         "id": "visao",
         "label": "Visão",
         "title": "Uma fila de validação — não outro chat.",
-        "body": "Codex Checkpoint transforma tarefas que exigem atenção humana em cartões estruturados, pesquisáveis e duráveis. O agente registra o que testar; a pessoa volta depois e deixa uma decisão ou feedback acionável.",
-        "points": ["Chaves estáveis sem duplicatas", "Status e notas com histórico", "Vários projetos na mesma fila"]
+        "body": "O agente registra o que precisa ser testado; a pessoa volta quando puder e deixa uma decisão ou feedback acionável.",
+        "points": ["Chaves sem duplicatas", "Status e notas com histórico", "Vários projetos na mesma fila"]
       },
       {
         "id": "seguranca",
         "label": "Local-first",
-        "title": "Dados locais e fronteiras explícitas.",
-        "body": "A aplicação não exige conta, nuvem, telemetria, Python ou Node. Cartões e pacotes importados são tratados como entrada não confiável, com validação antes da exibição ou incorporação.",
-        "points": ["Persistência JSON atômica", "Backup e recuperação", "Formato portátil .ccard validado"]
+        "title": "Dados locais, fronteiras explícitas.",
+        "body": "Sem conta, nuvem, telemetria, Python ou Node. Cartões e pacotes importados são validados antes de entrar na interface.",
+        "points": ["Persistência JSON atômica", "Backup e recuperação", "Formato .ccard validado"]
       },
       {
         "id": "estado",
-        "label": "Estado atual",
-        "title": "Aplicação nativa e fluxo instalável para Windows.",
-        "body": "GUI, CLI, skill e integração .ccard formam o produto. Builds e pacotes passam por testes de instalação isolada; os binários atuais não possuem assinatura de código e isso permanece declarado.",
-        "points": ["Interface acessível por teclado", "Instalador por usuário", "Builds atuais não assinados"]
+        "label": "Agora",
+        "title": "Aplicação nativa e instalável.",
+        "body": "GUI, CLI, skill e integração .ccard formam o produto. Os builds atuais ainda não possuem assinatura de código — e isso permanece declarado.",
+        "points": ["Interface por teclado", "Instalador por usuário", "Builds não assinados"]
       }
     ],
     "links": [
@@ -176,13 +241,13 @@
   },
   {
     "slug": "nexus",
-    "order": 4,
-    "code": "04",
+    "order": 5,
+    "code": "05",
     "name": "NEXUS",
     "kicker": "Central local de projetos",
     "status": "Ferramenta local · Windows",
     "statusTone": "ready",
-    "summary": "Um hub C# WPF para visualizar projetos, abrir recursos e executar validações rápidas a partir de um catálogo local.",
+    "summary": "Um hub C# WPF para encontrar projetos, abrir recursos e executar validações a partir de um catálogo local.",
     "promise": "Projetos diferentes. Um único ponto de entrada. Nenhuma nuvem obrigatória.",
     "route": "/projetos/nexus/",
     "image": "/assets/img/nexus/app.png",
@@ -196,23 +261,23 @@
       {
         "id": "visao",
         "label": "Visão",
-        "title": "Uma mesa de comando para o ambiente local.",
-        "body": "NEXUS centraliza os projetos em andamento sem misturar seus runtimes. Cada cartão apresenta ações, referências e validações definidas por catálogo, mantendo o hub pequeno e os produtos independentes.",
-        "points": ["Navegação unificada", "Ações por projeto", "Feedback curto de validação"]
+        "title": "Uma mesa de comando local.",
+        "body": "Cada cartão apresenta ações, referências e validações sem misturar os runtimes dos produtos.",
+        "points": ["Navegação unificada", "Ações por projeto", "Feedback de validação"]
       },
       {
         "id": "arquitetura",
         "label": "Arquitetura",
-        "title": "Interface gerenciada; comportamento orientado por dados.",
-        "body": "Projetos e ações vivem em JSON, não ficam codificados na interface. Alvos ausentes são desabilitados e validadores rodam em segundo plano com códigos de saída significativos.",
-        "points": [".NET Framework 4.8", "Configuração local ignorada no Git", "Self-test sem executar ações"]
+        "title": "Interface gerenciada por catálogo.",
+        "body": "Projetos e ações vivem em JSON. Alvos ausentes ficam desabilitados e validadores rodam em segundo plano com códigos de saída significativos.",
+        "points": [".NET Framework 4.8", "Configuração local fora do Git", "Self-test seguro"]
       },
       {
         "id": "estado",
-        "label": "Estado atual",
-        "title": "Build, self-test e render smoke reproduzíveis.",
-        "body": "O render apresentado aqui foi gerado novamente para este site após build e self-test aprovados. NEXUS continua sendo uma ferramenta de desenvolvimento local, não um runtime embutido nos produtos.",
-        "points": ["Render smoke 1180×760 aprovado", "Inicialização offline", "Sem publicação automática"]
+        "label": "Agora",
+        "title": "Build e render reproduzíveis.",
+        "body": "A captura foi regenerada após build e self-test aprovados. NEXUS segue como ferramenta de desenvolvimento local, não runtime dos produtos.",
+        "points": ["Render smoke aprovado", "Inicialização offline", "Sem publicação automática"]
       }
     ],
     "links": [
@@ -221,8 +286,8 @@
   },
   {
     "slug": "local-first-checklist",
-    "order": 5,
-    "code": "05",
+    "order": 6,
+    "code": "06",
     "name": "Local First Checklist",
     "kicker": "Pequena ferramenta pública em Python",
     "status": "Projeto público · código aberto para leitura",
@@ -241,23 +306,23 @@
       {
         "id": "visao",
         "label": "Visão",
-        "title": "Pequeno o suficiente para ser entendido por inteiro.",
-        "body": "O projeto registra tarefas em JSON local e oferece operações simples por linha de comando. Ele existe como amostra pública, honesta e testável de uma aplicação offline-first.",
-        "points": ["Sem serviço remoto", "Persistência local legível", "Documentação direta"]
+        "title": "Pequeno o suficiente para entender por inteiro.",
+        "body": "Tarefas vivem em JSON local e operações simples ficam disponíveis por linha de comando.",
+        "points": ["Sem serviço remoto", "Persistência legível", "Documentação direta"]
       },
       {
         "id": "qualidade",
         "label": "Qualidade",
-        "title": "Comportamento simples com evidência automática.",
-        "body": "Testes unitários, compilação Python e uma execução de smoke protegem as operações principais. A automação no GitHub repete as verificações sem adicionar infraestrutura ao aplicativo.",
+        "title": "Simplicidade com evidência.",
+        "body": "Testes unitários, compilação Python e smoke test protegem as operações principais sem adicionar infraestrutura ao aplicativo.",
         "points": ["Testes unitários", "CLI verificável", "Workflow de validação"]
       },
       {
         "id": "estado",
-        "label": "Estado atual",
-        "title": "Repositório público de aprendizagem prática.",
-        "body": "Não é apresentado como produto comercial nem como sistema complexo. Seu valor está em mostrar estrutura, documentação, testes e uma escolha arquitetural coerente em um escopo pequeno.",
-        "points": ["Escopo deliberadamente compacto", "Código público", "Sem promessas infladas"]
+        "label": "Agora",
+        "title": "Amostra pública, honesta e prática.",
+        "body": "Seu valor está em mostrar estrutura, documentação, testes e uma escolha arquitetural coerente em um escopo pequeno.",
+        "points": ["Escopo compacto", "Código público", "Sem promessas infladas"]
       }
     ],
     "links": [

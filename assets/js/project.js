@@ -32,8 +32,11 @@ const showGalleryItem = (requestedIndex, announce = false) => {
   activeGalleryIndex = (requestedIndex + galleryItems.length) % galleryItems.length;
   const item = galleryItems[activeGalleryIndex];
   const image = document.querySelector("[data-project-image]");
+  const visual = image.closest(".project-visual");
   image.src = item.src;
   image.alt = item.alt;
+  visual.dataset.kind = item.kind;
+  visual.style.setProperty("--visual-image", `url("${item.src}")`);
   document.querySelector("[data-visual-label]").textContent = item.label;
   document.querySelector("[data-gallery-counter]").textContent = galleryItems.length > 1
     ? `${String(activeGalleryIndex + 1).padStart(2, "0")} / ${String(galleryItems.length).padStart(2, "0")}`
@@ -48,8 +51,8 @@ const showGalleryItem = (requestedIndex, announce = false) => {
 
 const setupGallery = (project) => {
   galleryItems = project.gallery?.length
-    ? project.gallery
-    : [{ src: project.image, alt: project.imageAlt, label: project.visualLabel }];
+    ? project.gallery.map((item) => ({ ...item, kind: item.kind || project.imageKind }))
+    : [{ src: project.image, alt: project.imageAlt, label: project.visualLabel, kind: project.imageKind }];
   activeGalleryIndex = 0;
   const controls = document.querySelector("[data-gallery-controls]");
   controls.hidden = galleryItems.length < 2;

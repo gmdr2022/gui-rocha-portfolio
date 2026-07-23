@@ -13,14 +13,14 @@ const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => (
 }[character]));
 
 const cardTemplate = (project, index) => `
-  <article class="project-card" data-project-card data-index="${index}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}" aria-hidden="${index === 0 ? "false" : "true"}">
-    <div class="project-card-media ${project.imageKind === "art" ? "is-art" : "is-screenshot"}">
+  <article class="project-card" data-project-card data-image-kind="${project.imageKind}" data-index="${index}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}" aria-hidden="${index === 0 ? "false" : "true"}">
+    <div class="project-card-media is-${project.imageKind}">
       <img src="${project.image}" alt="${escapeHtml(project.imageAlt)}" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} width="1920" height="1080">
       <div class="project-card-scrim" aria-hidden="true"></div>
     </div>
     <div class="project-card-copy">
       <div class="project-card-topline"><span>${project.code}</span><p>${escapeHtml(project.kicker)}</p></div>
-      <div>
+      <div class="project-card-body">
         <span class="status-pill" data-tone="${project.statusTone}">${escapeHtml(project.status)}</span>
         <h2>${escapeHtml(project.name)}</h2>
         <p>${escapeHtml(project.summary)}</p>
@@ -52,6 +52,7 @@ const updateDeck = (requestedIndex, announce = false) => {
   if (announce) {
     const live = document.querySelector("[data-deck-live]");
     live.textContent = `${projects[activeIndex].name}: ${projects[activeIndex].status}`;
+    history.replaceState(null, "", activeIndex === 0 ? "/" : `/?projeto=${projects[activeIndex].slug}`);
   }
 };
 
@@ -62,7 +63,9 @@ const initialize = async () => {
     projects = (await response.json()).sort((a, b) => a.order - b.order);
     deck.innerHTML = projects.map(cardTemplate).join("");
     dots.innerHTML = projects.map((project, index) => `<button type="button" aria-label="Mostrar ${escapeHtml(project.name)}" data-deck-dot="${index}" aria-pressed="${index === 0}"></button>`).join("");
-    updateDeck(0);
+    const requestedSlug = new URLSearchParams(location.search).get("projeto");
+    const requestedIndex = projects.findIndex((project) => project.slug === requestedSlug);
+    updateDeck(requestedIndex >= 0 ? requestedIndex : 0);
     deck.dataset.ready = "true";
   } catch {
     deck.innerHTML = `<div class="deck-error"><strong>O catálogo não carregou.</strong><p>Use o mapa de produtos para continuar.</p><a class="button primary" href="/projetos/clubal/">Abrir ClubAL</a></div>`;

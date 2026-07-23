@@ -1,6 +1,6 @@
 # Gui Rocha — portal de produtos
 
-Site estático do Guilherme Rocha e catálogo de ClubAL, Maeve Roscaern, Codex Checkpoint, NEXUS e projetos públicos selecionados.
+Site estático do Guilherme Rocha e catálogo de ClubAL, Maeve Roscaern, Demonyza, Codex Checkpoint, NEXUS e projetos públicos selecionados.
 
 Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 

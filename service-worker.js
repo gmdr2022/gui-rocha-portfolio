@@ -1,9 +1,10 @@
-const CACHE_NAME = "gui-rocha-v1";
+const CACHE_NAME = "gui-rocha-v2";
 const CORE_ASSETS = [
   "/",
   "/sobre/",
   "/contato/",
   "/privacidade/",
+  "/projetos/demonyza/",
   "/assets/css/styles.css",
   "/assets/js/site.js",
   "/assets/js/home.js",
@@ -11,6 +12,7 @@ const CORE_ASSETS = [
   "/assets/js/contact.js",
   "/assets/data/projects.json",
   "/assets/img/gui-rocha.jpg",
+  "/assets/img/gui/panorama-visao-produto.webp",
   "/favicon.svg",
   "/manifest.webmanifest"
 ];
