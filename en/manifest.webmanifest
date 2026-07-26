@@ -1,0 +1,19 @@
+{
+  "name": "Gui Rocha — Local software, games and tools",
+  "short_name": "Gui Rocha",
+  "description": "Guilherme Rocha's portfolio and product catalog.",
+  "lang": "en",
+  "start_url": "/en/",
+  "scope": "/en/",
+  "display": "standalone",
+  "background_color": "#07100f",
+  "theme_color": "#07100f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

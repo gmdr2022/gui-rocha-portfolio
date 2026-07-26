@@ -6,7 +6,7 @@ const output = resolve(root, "dist");
 if (!output.startsWith(`${root}${sep}`) || output === root) throw new Error("Destino de build inseguro.");
 
 const entries = [
-  "404.html", "_headers", "_redirects", "assets", "contato", "favicon.svg", "index.html",
+  "404.html", "_headers", "_redirects", "assets", "contato", "en", "es", "favicon.svg", "index.html",
   "manifest.webmanifest", "privacidade", "projetos", "robots.txt", "service-worker.js", "sitemap.xml", "sobre",
 ];
 

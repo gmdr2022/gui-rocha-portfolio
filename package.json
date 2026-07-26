@@ -1,14 +1,15 @@
 {
   "name": "gui-rocha-portfolio",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Portal pessoal e catálogo de produtos de Guilherme Rocha.",
+  "description": "Portfólio multilíngue e catálogo de produtos de Guilherme Rocha.",
   "type": "module",
   "scripts": {
     "serve": "node scripts/serve.mjs",
-    "build": "node scripts/build.mjs",
-    "validate": "node scripts/validate.mjs",
-    "check": "node --check assets/js/site.js && node --check assets/js/home.js && node --check assets/js/project.js && node --check assets/js/contact.js && node --check service-worker.js && node --check scripts/serve.mjs && node --check scripts/build.mjs && node --check scripts/validate.mjs && npm run validate && npm run build"
+    "generate": "node scripts/generate-site.mjs",
+    "build": "node scripts/generate-site.mjs && node scripts/build.mjs",
+    "validate": "node scripts/generate-site.mjs && node scripts/validate.mjs",
+    "check": "npm run generate && node --check assets/js/site.js && node --check assets/js/home.js && node --check assets/js/project.js && node --check assets/js/contact.js && node --check service-worker.js && node --check scripts/serve.mjs && node --check scripts/generate-site.mjs && node --check scripts/build.mjs && node --check scripts/validate.mjs && node scripts/validate.mjs && node scripts/build.mjs"
   },
   "engines": {
     "node": ">=20"
