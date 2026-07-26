@@ -1,30 +1,109 @@
 <!doctype html>
 <html lang="pt-BR" class="no-js" data-theme="system">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ClubAL: produto Windows local-first para operação, rotinas e consulta PEMSE."><meta name="theme-color" content="#07100f">
-  <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:title" content="ClubAL — produto de Gui Rocha"><meta property="og:description" content="Uma fonte local, três leituras claras e nenhuma nuvem obrigatória."><meta property="og:image" content="https://gui-rocha.pages.dev/assets/img/clubal/rotinas-atual.png">
-  <link rel="canonical" href="https://gui-rocha.pages.dev/projetos/clubal/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/assets/css/styles.css">
-  <script src="/assets/js/site.js" defer></script><script src="/assets/js/project.js" defer></script>
-  <title>ClubAL — produto de Gui Rocha</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Software Windows para registrar rotinas, publicar o necessário em telas e liberar consulta sem edição.">
+  <meta name="theme-color" content="#071412">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="ClubAL — Gui Rocha">
+  <meta property="og:description" content="Software Windows para registrar rotinas, publicar o necessário em telas e liberar consulta sem edição.">
+  <meta property="og:url" content="https://gui-rocha.pages.dev/projetos/clubal/">
+  <meta property="og:image" content="https://gui-rocha.pages.dev/assets/img/clubal/rotinas-atual.png">
+  <link rel="canonical" href="https://gui-rocha.pages.dev/projetos/clubal/">
+  <link rel="alternate" hreflang="pt-BR" href="https://gui-rocha.pages.dev/projetos/clubal/">
+  <link rel="alternate" hreflang="en" href="https://gui-rocha.pages.dev/en/projects/clubal/">
+  <link rel="alternate" hreflang="es" href="https://gui-rocha.pages.dev/es/proyectos/clubal/">
+  <link rel="alternate" hreflang="x-default" href="https://gui-rocha.pages.dev/projetos/clubal/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/project.js" defer></script>
+  <title>ClubAL — Gui Rocha</title>
 </head>
-<body data-project="clubal">
-  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+<body class="project-page project-clubal" data-locale="pt-BR" data-page="project">
+  <a class="skip-link" href="#content">Ir para o conteúdo</a>
+
   <header class="site-header">
-    <a class="brand-lockup" href="/" aria-label="Gui Rocha, início"><span class="brand-mark" aria-hidden="true">GR</span><span class="brand-copy"><strong>Gui Rocha</strong><small>Produto · software · criação</small></span></a>
-    <nav class="site-nav" aria-label="Navegação principal"><a href="/" data-site-nav>Produtos</a><a href="/sobre/" data-site-nav>Sobre</a><a href="/contato/" data-site-nav>Contato</a></nav>
-    <div class="header-actions"><button class="theme-button" type="button" data-theme-toggle aria-label="Alterar tema"><svg class="theme-system" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg><svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"></path></svg><svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 15.3A8.5 8.5 0 118.7 4 7 7 0 0020 15.3z"></path></svg></button><a class="button ghost compact" href="/contato/">Vamos conversar</a></div>
+    <a class="brand-lockup" href="/" aria-label="Gui Rocha">
+      <span class="brand-mark" aria-hidden="true">GR</span>
+      <span class="brand-copy"><strong>Gui Rocha</strong><small>Produto · software · criação</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="/" data-site-nav="home">Projetos</a>
+      <a href="/sobre/" data-site-nav="about">Sobre</a>
+      <a href="/contato/" data-site-nav="contact">Contato</a>
+    </nav>
+    <div class="header-actions">
+
+    <details class="language-switcher">
+      <summary aria-label="Escolher idioma">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
+        <span>PT</span>
+        <strong>Português</strong>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+      </summary>
+      <nav aria-label="Idioma">
+        <a href="/projetos/clubal/" lang="pt-BR" hreflang="pt-BR" aria-current="page"><span>PT</span>Português</a><a href="/en/projects/clubal/" lang="en" hreflang="en"><span>EN</span>English</a><a href="/es/proyectos/clubal/" lang="es" hreflang="es"><span>ES</span>Español</a>
+      </nav>
+    </details>
+      <button class="icon-button theme-button" type="button" data-theme-toggle aria-label="Alterar tema"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="button compact header-talk" href="/contato/">Falar comigo</a>
+    </div>
   </header>
-  <main class="project-main" id="conteudo">
-    <section class="project-shell" data-project-shell data-ready="false">
+
+  <main class="project-main" id="content">
+    <article class="project-shell" data-project-shell style="--project-accent:#25c997;--project-accent-rgb:37 201 151">
       <div class="project-content">
-        <a class="project-breadcrumb" href="/">← Voltar ao catálogo</a>
-        <div class="project-heading"><div class="project-number"><span data-project-code>01</span> · <span data-project-kicker>Operação institucional local-first</span></div><span class="status-pill" data-project-status data-tone="live">Em evolução</span><h1 data-project-title>ClubAL</h1><p class="project-promise" data-project-promise>Uma fonte local. Três leituras claras.</p><p class="project-summary" data-project-summary>Produto Windows local-first para operação, rotinas e consulta.</p><ul class="project-facts" data-project-facts></ul></div>
-        <div class="project-explorer"><div class="project-tabs" data-project-tabs role="tablist" aria-label="Conhecer ClubAL"></div><div data-project-panels></div><div class="project-actions" data-project-links></div></div>
+        <a class="project-breadcrumb" href="/#projects"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Voltar aos projetos</span></a>
+        <header class="project-heading">
+          <p class="project-number">01 · Software Windows para rotinas institucionais</p>
+          <span class="status-pill" data-tone="live">Em evolução · implantação assistida</span>
+          <h1>ClubAL</h1>
+          <p class="project-promise">Registrar no PC, publicar para telas e consultar sem editar.</p>
+          <p class="project-summary">Software Windows para registrar rotinas, publicar o necessário em telas e liberar consulta sem edição.</p>
+          <ul class="project-facts" aria-label="ClubAL"><li>Windows</li><li>Local-first</li><li>3 módulos</li></ul>
+        </header>
+        <section class="project-explorer" aria-label="Detalhes do projeto">
+          <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
+            <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0">Problema</button><button type="button" role="tab" id="tab-fluxo" data-project-tab="fluxo" aria-controls="panel-fluxo" aria-selected="false" tabindex="-1">Três módulos</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1">Estado</button>
+          </div>
+          <div class="project-panels">
+            <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>Informação operacional se perde quando cada ambiente improvisa.</h2><p>Planilhas, papel e mensagens soltas criam versões diferentes da mesma rotina. O ClubAL concentra o registro no PC responsável e separa edição de leitura.</p><ul><li>Uma fonte de registro</li><li>Visibilidade por ambiente</li><li>Funcionamento local</li></ul></section><section class="project-tab-panel" id="panel-fluxo" role="tabpanel" aria-labelledby="tab-fluxo" hidden><h2>Cada módulo faz uma parte do trabalho.</h2><p>Operação PEMSE registra e publica; Rotinas PEMSE mostra somente o aprovado; Consulta PEMSE libera leitura autorizada sem abrir a edição.</p><ul><li>Operação PEMSE · editar e publicar</li><li>Rotinas PEMSE · exibir o aprovado</li><li>Consulta PEMSE · ler sem editar</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>O produto é demonstrável e a implantação continua assistida.</h2><p>Fluxos Windows, modo offline e regras de publicação têm validação automatizada. Instalações, telas e redes físicas ainda exigem aceite humano.</p><ul><li>Dados públicos fictícios</li><li>Sem download público por enquanto</li><li>Pacotes Windows ainda não assinados</li></ul></section>
+          </div>
+          <div class="project-actions"><a class="button secondary" href="https://clubal.pages.dev/" target="_blank" rel="noopener noreferrer">Abrir o site do ClubAL<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg></a><a class="button primary" href="/contato/?assunto=clubal">Conversar sobre um piloto</a></div>
+        </section>
       </div>
-      <figure class="project-visual" data-kind="screenshot"><a class="project-next" data-next-project href="/projetos/maeve/"><span>Próximo produto</span><i aria-hidden="true"></i><strong>Maeve Roscaern</strong></a><img data-project-image src="/assets/img/clubal/rotinas-atual.png" alt="Interface atual do módulo Rotinas PEMSE do ClubAL" width="1920" height="1080"><div class="gallery-controls" data-gallery-controls hidden></div><figcaption class="visual-caption"><span data-visual-label>Captura atual · dados fictícios</span><small data-gallery-counter></small></figcaption><p class="sr-only" aria-live="polite" data-gallery-live></p></figure>
-    </section>
+      <div class="project-visual-column">
+        <figure class="project-visual" data-kind="screenshot">
+          <div class="project-image-frame">
+            <img data-project-image src="/assets/img/clubal/rotinas-atual.png" alt="Interface atual do módulo Rotinas PEMSE do ClubAL com dados fictícios, agenda, horários operacionais e clima" width="1920" height="1080">
+            <span class="visual-label" data-visual-label>Captura atual · dados fictícios</span>
+          </div>
+          <div class="gallery-controls" hidden aria-label="Galeria do projeto">
+            <button type="button" data-gallery-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Imagem anterior</span></button>
+            <p><strong data-gallery-current>1</strong><span>/ 1</span></p>
+            <button type="button" data-gallery-next><span>Próxima imagem</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
+          </div>
+          <template data-gallery-data>[{"src":"/assets/img/clubal/rotinas-atual.png","alt":"Interface atual do módulo Rotinas PEMSE do ClubAL com dados fictícios, agenda, horários operacionais e clima","label":"Captura atual · dados fictícios"}]</template>
+          <p class="sr-only" aria-live="polite" data-gallery-live></p>
+        </figure>
+        <a class="next-project" href="/projetos/maeve/" style="--next-accent:#ef6d78"><span>Próximo projeto</span><strong>Maeve Roscaern</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
+      </div>
+    </article>
   </main>
-  <footer class="site-footer"><p>© <span data-current-year>2026</span> Guilherme Rocha.</p><nav class="footer-links" aria-label="Rodapé"><a href="https://github.com/gmdr2022" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:suporte.clubal@gmail.com">E-mail</a><a href="/privacidade/">Privacidade</a><button type="button" data-open-cookie>Cookies</button></nav></footer>
+
+  <footer class="site-footer">
+    <p>© <span data-current-year>2026</span> Guilherme Rocha.</p>
+    <nav class="footer-links" aria-label="Rodapé">
+      <a href="https://github.com/gmdr2022" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:suporte.clubal@gmail.com">E-mail</a>
+      <a href="/privacidade/">Privacidade</a>
+      <button type="button" data-open-cookie>Cookies</button>
+    </nav>
+  </footer>
 </body>
 </html>
