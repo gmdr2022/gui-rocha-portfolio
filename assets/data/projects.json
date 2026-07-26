@@ -7,13 +7,15 @@
     "kicker": "Software Windows para rotinas institucionais",
     "status": "Em evolução · implantação assistida",
     "statusTone": "live",
-    "summary": "Software Windows para registrar rotinas, publicar o necessário em telas e liberar consulta sem edição.",
-    "promise": "Registrar no PC, publicar para telas e consultar sem editar.",
+    "summary": "No ClubAL, eu organizo rotinas institucionais no Windows, publico o necessário em telas e libero consulta sem edição.",
+    "promise": "Eu concentro o registro no PC, a publicação em telas e a consulta sem edição.",
     "route": "/projetos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
-    "imageAlt": "Interface atual do módulo Rotinas PEMSE do ClubAL com dados fictícios, agenda, horários operacionais e clima",
+    "imageWidth": 1920,
+    "imageHeight": 1080,
+    "imageAlt": "Interface atual do módulo Rotinas do ClubAL com dados fictícios, agenda, horários operacionais e clima",
     "imageKind": "screenshot",
-    "visualLabel": "Captura atual · dados fictícios",
+    "visualLabel": "Composição do produto · dados fictícios",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
     "facts": ["Windows", "Local-first", "3 módulos"],
@@ -22,25 +24,25 @@
         "id": "problema",
         "label": "Problema",
         "title": "Informação operacional se perde quando cada ambiente improvisa.",
-        "body": "Planilhas, papel e mensagens soltas criam versões diferentes da mesma rotina. O ClubAL concentra o registro no PC responsável e separa edição de leitura.",
+        "body": "Planilhas, papel e mensagens soltas criam versões diferentes da mesma rotina. Eu criei o ClubAL para concentrar o registro no PC responsável e separar edição de leitura.",
         "points": ["Uma fonte de registro", "Visibilidade por ambiente", "Funcionamento local"]
       },
       {
         "id": "fluxo",
         "label": "Três módulos",
         "title": "Cada módulo faz uma parte do trabalho.",
-        "body": "Operação PEMSE registra e publica; Rotinas PEMSE mostra somente o aprovado; Consulta PEMSE libera leitura autorizada sem abrir a edição.",
+        "body": "Organizo o produto em três módulos: Operação registra e publica; Rotinas mostra somente o aprovado; Consulta libera leitura autorizada sem abrir a edição.",
         "points": [
-          "Operação PEMSE · editar e publicar",
-          "Rotinas PEMSE · exibir o aprovado",
-          "Consulta PEMSE · ler sem editar"
+          "Operação · editar e publicar",
+          "Rotinas · exibir o aprovado",
+          "Consulta · ler sem editar"
         ]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "O produto é demonstrável e a implantação continua assistida.",
-        "body": "Fluxos Windows, modo offline e regras de publicação têm validação automatizada. Instalações, telas e redes físicas ainda exigem aceite humano.",
+        "body": "Eu mantenho verificações automatizadas para os fluxos Windows, o modo offline e as regras de publicação. Instalações, telas e redes físicas são conferidas no ambiente de uso.",
         "points": ["Dados públicos fictícios", "Sem download público por enquanto", "Pacotes Windows ainda não assinados"]
       }
     ],
@@ -57,10 +59,12 @@
     "kicker": "RPG dark fantasy em produção solo",
     "status": "Em desenvolvimento · Fase 8",
     "statusTone": "progress",
-    "summary": "RPG single-player em Unreal Engine 5.8, planejado para produção solo com áreas compactas e peças modulares.",
-    "promise": "Dun Caerwyn: sangue, memória e escolhas que deixam marcas.",
+    "summary": "Eu desenvolvo um RPG single-player em Unreal Engine 5.8 com áreas compactas, peças modulares e escala viável para produção solo.",
+    "promise": "Em Dun Caerwyn, eu construo uma história de sangue, memória e escolhas que deixam marcas.",
     "route": "/projetos/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+    "imageWidth": 1672,
+    "imageHeight": 941,
     "imageAlt": "Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn",
     "imageKind": "art",
     "visualLabel": "Imagem conceito · alvo visual, não captura do jogo",
@@ -109,28 +113,28 @@
         "id": "jogo",
         "label": "Jogo",
         "title": "Uma protagonista adulta em um mundo que registra consequências.",
-        "body": "Maeve atravessa Dun Caerwyn, a Casa Roscaern e sistemas onde corpo, sangue e memória afetam a narrativa e o combate.",
+        "body": "Eu construo Dun Caerwyn, a Casa Roscaern e sistemas onde corpo, sangue e memória afetam a jornada de Maeve, a narrativa e o combate.",
         "points": ["Mundo e protagonista autorais", "Escolhas persistentes", "Sem conta ou servidor obrigatório"]
       },
       {
         "id": "producao",
         "label": "Produção",
         "title": "A escala foi desenhada para uma pessoa conseguir terminar.",
-        "body": "Áreas compactas, kits modulares e detalhe concentrado mantêm o clima sem prometer um mundo maior do que a produção solo permite.",
+        "body": "Eu uso áreas compactas, kits modulares e detalhe concentrado para manter o clima sem prometer um mundo maior do que a produção solo permite.",
         "points": ["Caminhos curtos e legíveis", "Peças e personagens reutilizáveis", "Artes marcadas como conceito"]
       },
       {
         "id": "arquiteto",
         "label": "O Arquiteto",
-        "title": "O criador aparece como uma entidade possível do mundo.",
-        "body": "A imagem de Gui como O Arquiteto é um easter egg conceitual sobre autoria e consequência. Ela inspira o projeto, mas não afirma um personagem já jogável.",
-        "points": ["Retrato conceitual do Product Owner", "Possibilidade narrativa", "Sem confundir conceito com gameplay"]
+        "title": "Eu apareço como uma entidade possível do mundo.",
+        "body": "Minha imagem como O Arquiteto é um easter egg conceitual sobre autoria e consequência. Ela inspira o projeto sem afirmar que o personagem já esteja jogável.",
+        "points": ["Meu retrato conceitual", "Possibilidade narrativa", "Sem confundir conceito com gameplay"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "O primeiro combate já tem fundação técnica.",
-        "body": "Combo leve, esquiva e Blood First integram a Fase 8. Os gates automatizados passaram; o aceite humano de gameplay continua pendente.",
+        "body": "Eu já integrei combo leve, esquiva e Blood First à Fase 8. Os gates técnicos passaram; sensação, ritmo e legibilidade do combate ainda estão em avaliação.",
         "points": ["Visual em evolução", "C++ e Unreal com responsabilidades claras", "Licenças revalidadas antes do uso"]
       }
     ],
@@ -146,10 +150,12 @@
     "kicker": "Case de presença digital para criadora de conteúdo",
     "status": "Projeto para cliente · site publicado",
     "statusTone": "live",
-    "summary": "Case que reúne apresentação, agenda, transmissões e comunidade de uma criadora de conteúdo.",
-    "promise": "Um site próprio para conteúdo, agenda e comunidade.",
+    "summary": "Eu criei um site para reunir apresentação, agenda, transmissões e comunidade de uma criadora de conteúdo.",
+    "promise": "Eu reuni conteúdo, agenda e comunidade em uma presença digital própria.",
     "route": "/projetos/demonyza/",
     "image": "/assets/img/demonyza/home.webp",
+    "imageWidth": 1600,
+    "imageHeight": 900,
     "imageAlt": "Página inicial pública da Demonyza com identidade visual roxa, navegação e áreas interativas",
     "imageKind": "website",
     "visualLabel": "Captura atual · site público",
@@ -161,21 +167,21 @@
         "id": "desafio",
         "label": "Desafio",
         "title": "Ir além de uma página de links.",
-        "body": "O site precisava apresentar a criadora, organizar canais públicos e dar à comunidade caminhos fáceis sem apagar a identidade da cliente.",
+        "body": "Eu precisava apresentar a criadora, organizar seus canais públicos e dar à comunidade caminhos fáceis sem apagar a identidade da cliente.",
         "points": ["Conteúdo e agenda no mesmo lugar", "Rotas claras para a comunidade", "Identidade visual preservada"]
       },
       {
         "id": "solucao",
         "label": "Solução",
         "title": "A identidade da cliente, com navegação clara.",
-        "body": "A experiência responsiva combina apresentação, agenda, Twitch, Discord e OpenDota em uma interface própria, acessível por celular ou computador.",
+        "body": "Eu combinei apresentação, agenda, Twitch, Discord e OpenDota em uma experiência responsiva própria para celular e computador.",
         "points": ["Navegação em camadas", "Integrações públicas", "Retorno fácil ao fluxo principal"]
       },
       {
         "id": "entrega",
         "label": "Entrega",
         "title": "Publicado e mantido de forma independente.",
-        "body": "O site está no ar no Cloudflare Pages. O código da cliente permanece preservado em repositório privado.",
+        "body": "Eu publiquei o site no Cloudflare Pages e mantive o código da cliente preservado em repositório privado.",
         "points": ["Site público", "Hospedagem sem custo recorrente atual", "Autoria indicada de forma discreta"]
       }
     ],
@@ -189,14 +195,16 @@
     "order": 4,
     "code": "04",
     "name": "Codex Checkpoint",
-    "kicker": "Fila local para validações humanas",
+    "kicker": "Fila local para validações e decisões",
     "status": "Produto local · Windows",
     "statusTone": "ready",
-    "summary": "Fila local que preserva testes pendentes, decisões e feedback entre sessões de trabalho assistidas por agentes.",
-    "promise": "O agente registra. A pessoa valida quando puder. O contexto permanece.",
+    "summary": "Eu construí uma fila local que preserva validações pendentes, decisões e feedback entre sessões de trabalho.",
+    "promise": "Eu registro o que ficou pendente, retomo no momento certo e preservo o contexto.",
     "route": "/projetos/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
-    "imageAlt": "Codex Checkpoint exibindo uma fila fictícia de validações humanas e o histórico de notas",
+    "imageWidth": 1920,
+    "imageHeight": 1080,
+    "imageAlt": "Codex Checkpoint exibindo uma fila fictícia de validações pendentes, decisões e histórico de notas",
     "imageKind": "screenshot",
     "visualLabel": "Captura do produto · dados de demonstração",
     "accent": "#36d6c0",
@@ -207,21 +215,21 @@
         "id": "problema",
         "label": "Problema",
         "title": "Nem todo teste pode ser resolvido durante a sessão.",
-        "body": "Gameplay, avaliação visual, dispositivo, autenticação e decisões práticas dependem de uma pessoa ou de outro ambiente. Sem uma fila, esse contexto desaparece.",
+        "body": "Gameplay, avaliação visual, dispositivos, autenticação e decisões práticas podem exigir outro momento ou ambiente. Sem uma fila, esse contexto desaparece.",
         "points": ["Pendências entre sessões", "Vários projetos", "Histórico de feedback"]
       },
       {
         "id": "solucao",
         "label": "Solução",
-        "title": "Uma fila de validação — não outro chat.",
-        "body": "O agente registra o checkpoint; Gui volta quando puder e deixa uma decisão ou feedback acionável.",
+        "title": "Uma fila de checkpoints — não outro chat.",
+        "body": "Eu registro cada checkpoint com contexto suficiente para retomar a pendência e deixar uma decisão ou feedback acionável.",
         "points": ["Chaves sem duplicatas", "Status e notas", "Importação de cartões validada"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "Aplicação nativa e instalável.",
-        "body": "Interface, linha de comando e integração por arquivos formam o produto. Os builds atuais ainda não têm assinatura de código, e isso permanece declarado.",
+        "body": "Eu reuni interface, linha de comando e integração por arquivos no produto. Os builds atuais ainda não têm assinatura de código, e mantenho isso declarado.",
         "points": ["Dados locais", "Backup e recuperação", "Builds não assinados"]
       }
     ],
@@ -234,40 +242,42 @@
     "order": 5,
     "code": "05",
     "name": "NEXUS",
-    "kicker": "Central Windows para projetos locais",
-    "status": "Ferramenta local · Windows",
+    "kicker": "Minha central Windows para projetos locais",
+    "status": "Ferramenta local validada · Windows",
     "statusTone": "ready",
-    "summary": "Central Windows para abrir projetos, recursos e verificações a partir de um catálogo local.",
-    "promise": "Projetos diferentes, um ponto de entrada.",
+    "summary": "Eu reuni projetos, caminhos e validações em uma central local que mostra o que está pronto e o que precisa de atenção.",
+    "promise": "Eu chego ao caminho certo sem caçar atalhos.",
     "route": "/projetos/nexus/",
     "image": "/assets/img/nexus/app.png",
-    "imageAlt": "NEXUS exibindo o projeto ClubAL e ações locais de Operação, Rotinas e Consulta",
+    "imageWidth": 1180,
+    "imageHeight": 760,
+    "imageAlt": "Visão geral atual do NEXUS com dois projetos fictícios, estados de prontidão, datas de atualização e opção de adicionar projeto.",
     "imageKind": "screenshot",
-    "visualLabel": "Captura atual · build local validada",
+    "visualLabel": "Demonstração com catálogo fictício · build local validada",
     "accent": "#8e7dff",
     "accentRgb": "142 125 255",
-    "facts": ["C# WPF", "Catálogo JSON", "Sem nuvem"],
+    "facts": ["C# WPF", "Caminhos acompanhados", "Offline por padrão"],
     "tabs": [
       {
         "id": "problema",
         "label": "Problema",
-        "title": "Projetos locais acumulam atalhos, scripts e instruções dispersas.",
-        "body": "Quando cada produto tem seu próprio runtime, encontrar a ação certa vira trabalho antes do trabalho.",
-        "points": ["Múltiplos repositórios", "Ferramentas diferentes", "Validações esquecidas"]
+        "title": "Meus projetos deixaram de caber numa pilha de atalhos.",
+        "body": "Cada produto tem builds, ferramentas e verificações próprias; eu precisava enxergar o caminho certo antes de executar.",
+        "points": ["Múltiplos projetos", "Caminhos diferentes", "Estado visível"]
       },
       {
         "id": "solucao",
         "label": "Solução",
-        "title": "Uma mesa de comando gerida por catálogo.",
-        "body": "Cada cartão apresenta ações, referências e verificações sem misturar os runtimes dos produtos.",
-        "points": ["Catálogo JSON", "Ações por projeto", "Alvos ausentes ficam desabilitados"]
+        "title": "Transformei isso numa mesa de comando local.",
+        "body": "Eu cadastro projetos e caminhos pela interface; o NEXUS só adota uma alternativa mais recente quando ela é segura e inequívoca.",
+        "points": ["Cadastro pela interface", "Caminhos acompanhados", "Alternativa somente quando inequívoca"]
       },
       {
         "id": "estado",
         "label": "Estado",
-        "title": "Ferramenta de desenvolvimento local.",
-        "body": "Build, self-test e render são reproduzíveis. NEXUS organiza o trabalho no computador; não é um runtime embutido nos produtos.",
-        "points": ["Inicialização offline", "Validação em segundo plano", "Sem publicação automática"]
+        "title": "A base local está validada e em uso.",
+        "body": "Eu abro projetos e validações em contexto de desenvolvimento, sem login obrigatório e sem misturar os runtimes dos produtos.",
+        "points": ["Inicialização offline", "Contexto de desenvolvimento", "Sem publicação automática"]
       }
     ],
     "links": [
@@ -282,10 +292,12 @@
     "kicker": "Projeto público pequeno e verificável",
     "status": "Código aberto · v1.0.0",
     "statusTone": "lab",
-    "summary": "Aplicação Python de código aberto com checklist em JSON local, linha de comando, testes e CI.",
-    "promise": "Um exemplo compacto de software local-first.",
+    "summary": "Eu publiquei uma aplicação Python de código aberto com checklist em JSON local, linha de comando, testes e CI.",
+    "promise": "Eu mostro uma arquitetura local-first em um exemplo compacto.",
     "route": "/projetos/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
     "imageAlt": "Ilustração de uma lista local com itens verificados e um arquivo JSON",
     "imageKind": "art",
     "visualLabel": "Ilustração do projeto",
@@ -297,21 +309,21 @@
         "id": "escopo",
         "label": "Escopo",
         "title": "Pequeno o suficiente para entender por inteiro.",
-        "body": "Tarefas vivem em um arquivo JSON local e operações simples ficam disponíveis pela linha de comando.",
+        "body": "Eu mantive as tarefas em um arquivo JSON local e disponibilizei as operações simples pela linha de comando.",
         "points": ["Sem serviço remoto", "Persistência legível", "Documentação direta"]
       },
       {
         "id": "qualidade",
         "label": "Qualidade",
         "title": "Simplicidade também precisa de prova.",
-        "body": "Testes unitários, compilação Python e smoke test protegem as operações principais sem adicionar infraestrutura ao aplicativo.",
+        "body": "Eu protejo as operações principais com testes unitários, compilação Python e smoke test, sem adicionar infraestrutura ao aplicativo.",
         "points": ["Testes unitários", "CLI verificável", "Workflow de validação"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "Versão 1.0.0 publicada.",
-        "body": "O repositório mostra estrutura, documentação, testes e uma escolha arquitetural coerente em escopo reduzido.",
+        "body": "Eu publiquei estrutura, documentação, testes e uma escolha arquitetural coerente em escopo reduzido.",
         "points": ["Código público", "Release versionada", "Sem dependência de nuvem"]
       }
     ],

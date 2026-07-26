@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Gui Rocha leads digital products, local software and creative projects with coding agents.">
+  <meta name="description" content="How I take digital products, local software and creative projects from direction to delivery.">
   <meta name="theme-color" content="#071412">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="About Gui Rocha">
-  <meta property="og:description" content="How Gui Rocha leads digital products, local software and creative projects with coding agents.">
+  <meta property="og:title" content="About me — Gui Rocha">
+  <meta property="og:description" content="How I take digital products, local software and creative projects from direction to delivery.">
   <meta property="og:url" content="https://gui-rocha.pages.dev/en/about/">
   <meta property="og:image" content="https://gui-rocha.pages.dev/assets/img/social-card.png">
   <link rel="canonical" href="https://gui-rocha.pages.dev/en/about/">
@@ -21,8 +21,8 @@
   <link rel="manifest" href="/en/manifest.webmanifest">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <script src="/assets/js/site.js" defer></script>
-
-  <title>About Gui Rocha</title>
+  <script src="/assets/js/about.js" defer></script>
+  <title>About me — Gui Rocha</title>
 </head>
 <body class="content-page" data-locale="en" data-page="about">
   <a class="skip-link" href="#content">Skip to content</a>
@@ -50,34 +50,81 @@
         <a href="/sobre/" lang="pt-BR" hreflang="pt-BR"><span>PT</span>Português</a><a href="/en/about/" lang="en" hreflang="en" aria-current="page"><span>EN</span>English</a><a href="/es/sobre/" lang="es" hreflang="es"><span>ES</span>Español</a>
       </nav>
     </details>
-      <button class="icon-button theme-button" type="button" data-theme-toggle aria-label="Change theme"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <button class="theme-button" type="button" data-theme-toggle aria-label="Change theme"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span data-theme-label>Theme: system</span></button>
       <a class="button compact header-talk" href="/en/contact/">Contact me</a>
     </div>
   </header>
 
   <main class="content-main about-main" id="content">
     <section class="content-hero">
-      <p class="eyebrow">About</p>
-      <h1>I work independently. Product decisions stay human.</h1>
-      <p>I define the problem, scope, experience and what needs to be proven. Coding agents help me implement and test; concepts, prototypes and products are labeled for what they are.</p>
+      <p class="eyebrow">About me</p>
+      <h1>I bring product direction and execution into every project.</h1>
+      <p>I begin with the problem, narrow the work to what matters and build the experience in verifiable steps. I present each concept, prototype and product for what it is, with its limits and current state visible.</p>
       <div class="button-row"><a class="button primary" href="/en/#projects">View projects</a><a class="button secondary" href="https://github.com/gmdr2022" target="_blank" rel="noopener noreferrer">Open GitHub <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg></a></div>
     </section>
     <figure class="landscape-map">
       <img src="/assets/img/gui/panorama-visao-produto.webp" alt="Guilherme Rocha looking over a canyon and water landscape" width="1672" height="941">
-      <div class="landscape-copy"><p class="eyebrow">Map of the work</p><h2>Different products need different rhythms.</h2><p>ClubAL organizes routines; Maeve builds a world; Checkpoint and NEXUS organize the development process itself.</p></div>
-      <nav class="landscape-routes" aria-label="Projects">
-        <a href="/en/projects/clubal/" style="--route-accent:#25c997"><span>01</span><strong>ClubAL</strong></a><a href="/en/projects/maeve/" style="--route-accent:#ef6d78"><span>02</span><strong>Maeve Roscaern</strong></a><a href="/en/projects/demonyza/" style="--route-accent:#c769ff"><span>03</span><strong>Demonyza</strong></a><a href="/en/projects/codex-checkpoint/" style="--route-accent:#36d6c0"><span>04</span><strong>Codex Checkpoint</strong></a>
-      </nav>
+      <div class="landscape-copy"><p class="eyebrow">Map of my work</p><h2>I work at different scales with the same care.</h2><p>With ClubAL, I organize institutional routines; in Maeve, I build a world; with Checkpoint and NEXUS, I keep local development well oriented.</p></div>
+      <section class="context-catalog" aria-labelledby="context-catalog-title">
+        <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">Explore by context</p><p id="context-catalog-hint">Hover, use Tab or click to open a category.</p></header>
+        <div class="context-catalog-grid" data-context-catalogs aria-describedby="context-catalog-hint">
+        <article class="context-catalog-card" data-context-card data-category="institutional" style="--context-accent:#25c997;--context-order:0">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-en-institutional">
+            <span class="context-catalog-index">01</span>
+            <span class="context-catalog-title"><strong>Institutional software</strong><small>1 project</small></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="context-catalog-panel" id="context-en-institutional" data-context-panel>
+            <ul><li><a href="/en/projects/clubal/" style="--item-accent:#25c997"><span>01</span><span><strong>ClubAL</strong><small>With ClubAL, I organize institutional routines on Windows, publish what displays need and provide read-only access.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          </div>
+        </article>
+        <article class="context-catalog-card" data-context-card data-category="games" style="--context-accent:#ef6d78;--context-order:1">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-en-games">
+            <span class="context-catalog-index">02</span>
+            <span class="context-catalog-title"><strong>Games</strong><small>1 project</small></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="context-catalog-panel" id="context-en-games" data-context-panel>
+            <ul><li><a href="/en/projects/maeve/" style="--item-accent:#ef6d78"><span>02</span><span><strong>Maeve Roscaern</strong><small>I am developing a single-player RPG in Unreal Engine 5.8 with compact areas, modular pieces and a scale suited to solo production.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          </div>
+        </article>
+        <article class="context-catalog-card" data-context-card data-category="websites" style="--context-accent:#c769ff;--context-order:2">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-en-websites">
+            <span class="context-catalog-index">03</span>
+            <span class="context-catalog-title"><strong>Websites created</strong><small>1 project</small></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="context-catalog-panel" id="context-en-websites" data-context-panel>
+            <ul><li><a href="/en/projects/demonyza/" style="--item-accent:#c769ff"><span>03</span><span><strong>Demonyza</strong><small>I created a website that brings together a content creator’s profile, schedule, streams and community.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          </div>
+        </article>
+        <article class="context-catalog-card" data-context-card data-category="windows" style="--context-accent:#8e7dff;--context-order:3">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-en-windows">
+            <span class="context-catalog-index">04</span>
+            <span class="context-catalog-title"><strong>Windows tools</strong><small>2 projects</small></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="context-catalog-panel" id="context-en-windows" data-context-panel>
+            <ul><li><a href="/en/projects/nexus/" style="--item-accent:#8e7dff"><span>05</span><span><strong>NEXUS</strong><small>I brought projects, paths and checks into one local hub that shows what is ready and what needs attention.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li><li><a href="/en/projects/codex-checkpoint/" style="--item-accent:#36d6c0"><span>04</span><span><strong>Codex Checkpoint</strong><small>I built a local queue that preserves pending validations, decisions and feedback across work sessions.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          </div>
+        </article>
+        <article class="context-catalog-card" data-context-card data-category="resources" style="--context-accent:#f2bb62;--context-order:4">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-en-resources">
+            <span class="context-catalog-index">05</span>
+            <span class="context-catalog-title"><strong>Resources</strong><small>1 project</small></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
+          </button>
+          <div class="context-catalog-panel" id="context-en-resources" data-context-panel>
+            <ul><li><a href="/en/projects/local-first-checklist/" style="--item-accent:#f2bb62"><span>06</span><span><strong>Local First Checklist</strong><small>I published an open-source Python application with a local JSON checklist, command line, tests and CI.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          </div>
+        </article></div>
+      </section>
       <figcaption>Personal archive · Serra da Canastra</figcaption>
     </figure>
-    <section class="personal-note">
-      <figure><img src="/assets/img/gui/gui-musica.webp" alt="Guilherme Rocha playing guitar" width="1086" height="1448" loading="lazy"></figure>
-      <div><p class="eyebrow">Beyond the screen</p><h2>Music, writing and social education are also part of the process.</h2><p>They shape how I think about rhythm, language and people — and help me avoid treating a product as a collection of screens.</p></div>
-    </section>
     <section class="method-section" aria-labelledby="method-title">
-      <p class="eyebrow">How I work</p>
-      <h2 id="method-title">How I work</h2>
-      <div class="method-grid"><article><span>01</span><h3>Product</h3><p>I start with the problem, the audience and the decision the product should make easier.</p></article><article><span>02</span><h3>Execution</h3><p>I use automation and agents to extend solo production without outsourcing direction.</p></article><article><span>03</span><h3>Evidence</h3><p>Automated checks and human validation stay separate; limits remain visible.</p></article></div>
+      <p class="eyebrow">My process</p>
+      <h2 id="method-title">My process</h2>
+      <div class="method-grid"><article><span>01</span><h3>Product</h3><p>I start with the problem, the audience and the decision the product should make easier.</p></article><article><span>02</span><h3>Build</h3><p>I move in small steps, keeping scope, experience and maintenance under control.</p></article><article><span>03</span><h3>Evidence</h3><p>I test what can be proven and make it clear what is still evolving.</p></article></div>
     </section>
   </main>
 

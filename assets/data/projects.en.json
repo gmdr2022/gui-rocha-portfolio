@@ -7,13 +7,15 @@
     "kicker": "Windows software for institutional routines",
     "status": "In development · assisted deployment",
     "statusTone": "live",
-    "summary": "Windows software to record routines, publish what displays need and provide read-only access.",
-    "promise": "Record on the PC, publish to displays and provide access without editing.",
+    "summary": "With ClubAL, I organize institutional routines on Windows, publish what displays need and provide read-only access.",
+    "promise": "I bring PC records, display publishing and read-only access into one flow.",
     "route": "/en/projects/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
-    "imageAlt": "Current ClubAL Rotinas PEMSE interface with fictional data, schedule, operating hours and weather",
+    "imageWidth": 1920,
+    "imageHeight": 1080,
+    "imageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
     "imageKind": "screenshot",
-    "visualLabel": "Current capture · fictional data",
+    "visualLabel": "Product composition · fictional data",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
     "facts": ["Windows", "Local-first", "3 modules"],
@@ -22,25 +24,25 @@
         "id": "problem",
         "label": "Problem",
         "title": "Operational information gets lost when every environment improvises.",
-        "body": "Spreadsheets, paper and scattered messages create different versions of the same routine. ClubAL centralizes records on the responsible PC and separates editing from reading.",
+        "body": "Spreadsheets, paper and scattered messages create different versions of the same routine. I created ClubAL to centralize records on the responsible PC and separate editing from reading.",
         "points": ["One source of record", "Visibility by environment", "Local operation"]
       },
       {
         "id": "workflow",
         "label": "Three modules",
         "title": "Each module handles one part of the work.",
-        "body": "Operação PEMSE records and publishes; Rotinas PEMSE displays only approved information; Consulta PEMSE provides authorized reading without opening editing.",
+        "body": "I organize the product into three modules: Operação records and publishes; Rotinas displays only approved information; Consulta provides authorized reading without opening editing.",
         "points": [
-          "Operação PEMSE · edit and publish",
-          "Rotinas PEMSE · display approved information",
-          "Consulta PEMSE · read without editing"
+          "Operação · edit and publish",
+          "Rotinas · display approved information",
+          "Consulta · read without editing"
         ]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "The product can be demonstrated and deployment remains assisted.",
-        "body": "Windows flows, offline mode and publishing rules have automated validation. Physical installations, displays and networks still require human acceptance.",
+        "body": "I maintain automated checks for Windows flows, offline mode and publishing rules. Installations, displays and physical networks are reviewed in their real environment.",
         "points": ["Public data is fictional", "No public download for now", "Windows packages are not code-signed yet"]
       }
     ],
@@ -57,10 +59,12 @@
     "kicker": "A dark fantasy RPG built for solo production",
     "status": "In development · Phase 8",
     "statusTone": "progress",
-    "summary": "A single-player RPG in Unreal Engine 5.8, planned for solo production with compact areas and modular pieces.",
-    "promise": "Dun Caerwyn: blood, memory and choices that leave marks.",
+    "summary": "I am developing a single-player RPG in Unreal Engine 5.8 with compact areas, modular pieces and a scale suited to solo production.",
+    "promise": "In Dun Caerwyn, I am building a story of blood, memory and choices that leave marks.",
     "route": "/en/projects/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+    "imageWidth": 1672,
+    "imageHeight": 941,
     "imageAlt": "Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery",
     "imageKind": "art",
     "visualLabel": "Concept image · visual target, not a game capture",
@@ -109,28 +113,28 @@
         "id": "game",
         "label": "Game",
         "title": "An adult protagonist in a world that records consequences.",
-        "body": "Maeve crosses Dun Caerwyn, House Roscaern and systems where body, blood and memory affect narrative and combat.",
+        "body": "I am building Dun Caerwyn, House Roscaern and systems where body, blood and memory shape Maeve’s journey, narrative and combat.",
         "points": ["Original world and protagonist", "Persistent choices", "No mandatory account or server"]
       },
       {
         "id": "production",
         "label": "Production",
         "title": "The scale is designed for one person to finish.",
-        "body": "Compact areas, modular kits and concentrated detail preserve the mood without promising a world larger than solo production can support.",
+        "body": "I use compact areas, modular kits and concentrated detail to preserve the mood without promising a world larger than solo production can support.",
         "points": ["Short, readable paths", "Reusable pieces and characters", "Artwork clearly labeled as concept"]
       },
       {
         "id": "architect",
         "label": "The Architect",
-        "title": "The creator appears as a possible entity in the world.",
-        "body": "Gui as The Architect is a conceptual easter egg about authorship and consequence. It inspires the project without claiming an implemented character.",
-        "points": ["Concept portrait of the Product Owner", "Narrative possibility", "Concept is not presented as gameplay"]
+        "title": "I appear as a possible entity in the world.",
+        "body": "My image as The Architect is a conceptual easter egg about authorship and consequence. It inspires the project without claiming that the character is already playable.",
+        "points": ["My concept portrait", "Narrative possibility", "Concept is not presented as gameplay"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "The first combat slice has a technical foundation.",
-        "body": "Light combo, dodge and Blood First are part of Phase 8. Automated gates passed; human gameplay acceptance remains pending.",
+        "body": "I have integrated light combo, dodge and Blood First into Phase 8. Technical gates passed; combat feel, rhythm and readability are still being evaluated.",
         "points": ["Visuals are evolving", "Clear C++ and Unreal responsibilities", "Licenses revalidated before use"]
       }
     ],
@@ -146,10 +150,12 @@
     "kicker": "Digital presence case for a content creator",
     "status": "Client project · live site",
     "statusTone": "live",
-    "summary": "A case bringing together a content creator’s profile, schedule, streams and community.",
-    "promise": "One home for content, schedule and community.",
+    "summary": "I created a website that brings together a content creator’s profile, schedule, streams and community.",
+    "promise": "I brought content, schedule and community into one original digital presence.",
     "route": "/en/projects/demonyza/",
     "image": "/assets/img/demonyza/home.webp",
+    "imageWidth": 1600,
+    "imageHeight": 900,
     "imageAlt": "Current Demonyza homepage with purple visual identity, navigation and interactive areas",
     "imageKind": "website",
     "visualLabel": "Current capture · public website",
@@ -161,21 +167,21 @@
         "id": "challenge",
         "label": "Challenge",
         "title": "More than a link page.",
-        "body": "The site needed to introduce the creator, organize public channels and give the community easy routes without erasing the client’s identity.",
+        "body": "I needed to introduce the creator, organize her public channels and give the community easy routes without erasing the client’s identity.",
         "points": ["Content and schedule together", "Clear community routes", "Client identity preserved"]
       },
       {
         "id": "solution",
         "label": "Solution",
         "title": "The client’s identity, with clear navigation.",
-        "body": "The responsive experience brings together profile, schedule, Twitch, Discord and OpenDota in an original interface for mobile and desktop.",
+        "body": "I brought profile, schedule, Twitch, Discord and OpenDota together in an original responsive experience for mobile and desktop.",
         "points": ["Layered navigation", "Public integrations", "Easy return to the main flow"]
       },
       {
         "id": "delivery",
         "label": "Delivery",
         "title": "Live and maintained independently.",
-        "body": "The site is live on Cloudflare Pages. The client’s code remains protected in a private repository.",
+        "body": "I published the site on Cloudflare Pages and kept the client’s code protected in a private repository.",
         "points": ["Public website", "No current recurring hosting cost", "Discrete creator credit"]
       }
     ],
@@ -189,14 +195,16 @@
     "order": 4,
     "code": "04",
     "name": "Codex Checkpoint",
-    "kicker": "A local queue for human validation",
+    "kicker": "A local queue for validations and decisions",
     "status": "Local product · Windows",
     "statusTone": "ready",
-    "summary": "A local queue that preserves pending tests, decisions and feedback across agent-assisted work sessions.",
-    "promise": "The agent records it. A person validates when available. Context remains.",
+    "summary": "I built a local queue that preserves pending validations, decisions and feedback across work sessions.",
+    "promise": "I record what remains pending, return at the right time and keep the context.",
     "route": "/en/projects/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
-    "imageAlt": "Codex Checkpoint showing a fictional queue of human validations and note history",
+    "imageWidth": 1920,
+    "imageHeight": 1080,
+    "imageAlt": "Codex Checkpoint showing a fictional queue of pending validations, decisions and note history",
     "imageKind": "screenshot",
     "visualLabel": "Product capture · demonstration data",
     "accent": "#36d6c0",
@@ -207,21 +215,21 @@
         "id": "problem",
         "label": "Problem",
         "title": "Not every test can be completed during the session.",
-        "body": "Gameplay, visual review, devices, authentication and practical decisions depend on a person or another environment. Without a queue, that context disappears.",
+        "body": "Gameplay, visual review, devices, authentication and practical decisions may require another moment or environment. Without a queue, that context disappears.",
         "points": ["Pending work across sessions", "Multiple projects", "Feedback history"]
       },
       {
         "id": "solution",
         "label": "Solution",
-        "title": "A validation queue — not another chat.",
-        "body": "The agent records the checkpoint; Gui returns when available and leaves a decision or actionable feedback.",
+        "title": "A checkpoint queue — not another chat.",
+        "body": "I record each checkpoint with enough context to return to the pending task and leave a decision or actionable feedback.",
         "points": ["Duplicate-safe keys", "Status and notes", "Validated card imports"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "A native, installable application.",
-        "body": "Interface, command line and file integration form the product. Current builds are not code-signed yet, and that remains clearly stated.",
+        "body": "I brought the interface, command line and file integration into one product. Current builds are not code-signed yet, and I keep that clearly stated.",
         "points": ["Local data", "Backup and recovery", "Unsigned builds"]
       }
     ],
@@ -234,40 +242,42 @@
     "order": 5,
     "code": "05",
     "name": "NEXUS",
-    "kicker": "A Windows hub for local projects",
-    "status": "Local tool · Windows",
+    "kicker": "My Windows hub for local projects",
+    "status": "Validated local tool · Windows",
     "statusTone": "ready",
-    "summary": "A Windows hub for opening projects, resources and checks from a local catalog.",
-    "promise": "Different projects, one entry point.",
+    "summary": "I brought projects, paths and checks into one local hub that shows what is ready and what needs attention.",
+    "promise": "I reach the right path without hunting through shortcuts.",
     "route": "/en/projects/nexus/",
     "image": "/assets/img/nexus/app.png",
-    "imageAlt": "NEXUS showing ClubAL and local actions for Operação, Rotinas and Consulta",
+    "imageWidth": 1180,
+    "imageHeight": 760,
+    "imageAlt": "Current NEXUS overview with two fictional projects, readiness states, update dates and an option to add a project.",
     "imageKind": "screenshot",
-    "visualLabel": "Current capture · validated local build",
+    "visualLabel": "Demo with a fictional catalog · validated local build",
     "accent": "#8e7dff",
     "accentRgb": "142 125 255",
-    "facts": ["C# WPF", "JSON catalog", "No cloud"],
+    "facts": ["C# WPF", "Tracked paths", "Offline by default"],
     "tabs": [
       {
         "id": "problem",
         "label": "Problem",
-        "title": "Local projects accumulate scattered shortcuts, scripts and instructions.",
-        "body": "When every product has its own runtime, finding the right action becomes work before the work.",
-        "points": ["Multiple repositories", "Different tools", "Forgotten checks"]
+        "title": "My projects outgrew a pile of shortcuts.",
+        "body": "Each product has its own builds, tools and checks; I needed to see the right path before running anything.",
+        "points": ["Multiple projects", "Different paths", "Visible state"]
       },
       {
         "id": "solution",
         "label": "Solution",
-        "title": "A command desk managed by a catalog.",
-        "body": "Each card presents actions, references and checks without mixing product runtimes.",
-        "points": ["JSON catalog", "Actions by project", "Missing targets stay disabled"]
+        "title": "I turned that need into a local command desk.",
+        "body": "I add projects and paths from the interface; NEXUS only adopts a newer alternative when the match is safe and unambiguous.",
+        "points": ["Interface-based setup", "Tracked paths", "Only unambiguous alternatives"]
       },
       {
         "id": "status",
         "label": "Status",
-        "title": "A local development tool.",
-        "body": "Build, self-test and rendering are reproducible. NEXUS organizes work on the computer; it is not embedded in product runtimes.",
-        "points": ["Offline startup", "Background validation", "No automatic publishing"]
+        "title": "The local foundation is validated and in use.",
+        "body": "I open projects and checks in development context, without a required login and without mixing product runtimes.",
+        "points": ["Offline startup", "Development context", "No automatic publishing"]
       }
     ],
     "links": [
@@ -282,10 +292,12 @@
     "kicker": "A small, verifiable public project",
     "status": "Open source · v1.0.0",
     "statusTone": "lab",
-    "summary": "An open-source Python application with a local JSON checklist, command line, tests and CI.",
-    "promise": "A compact example of local-first software.",
+    "summary": "I published an open-source Python application with a local JSON checklist, command line, tests and CI.",
+    "promise": "I demonstrate a local-first architecture in a compact example.",
     "route": "/en/projects/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
     "imageAlt": "Illustration of a local checklist with completed items and a JSON file",
     "imageKind": "art",
     "visualLabel": "Project illustration",
@@ -297,21 +309,21 @@
         "id": "scope",
         "label": "Scope",
         "title": "Small enough to understand end to end.",
-        "body": "Tasks live in a local JSON file and simple operations are available through the command line.",
+        "body": "I kept tasks in a local JSON file and made the simple operations available through the command line.",
         "points": ["No remote service", "Readable persistence", "Direct documentation"]
       },
       {
         "id": "quality",
         "label": "Quality",
         "title": "Simplicity still needs evidence.",
-        "body": "Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.",
+        "body": "I protect the main operations with unit tests, Python compilation and a smoke test without adding infrastructure to the application.",
         "points": ["Unit tests", "Verifiable CLI", "Validation workflow"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "Version 1.0.0 is published.",
-        "body": "The repository demonstrates structure, documentation, tests and a coherent architectural choice in a limited scope.",
+        "body": "I published the structure, documentation, tests and a coherent architectural choice in a limited scope.",
         "points": ["Public code", "Versioned release", "No cloud dependency"]
       }
     ],

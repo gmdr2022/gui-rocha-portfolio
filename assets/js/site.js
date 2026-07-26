@@ -10,7 +10,7 @@ const THEME_SEQUENCE = ["system", "dark", "light"];
 
 const ui = {
   "pt-BR": {
-    theme: { system: "Tema do sistema", dark: "Tema escuro", light: "Tema claro", action: "Alterar tema" },
+    theme: { system: "Tema: sistema", dark: "Tema: escuro", light: "Tema: claro", action: "Alterar tema" },
     accessibility: {
       open: "Abrir opções de acessibilidade",
       kicker: "Experiência",
@@ -56,7 +56,7 @@ const ui = {
     },
   },
   en: {
-    theme: { system: "System theme", dark: "Dark theme", light: "Light theme", action: "Change theme" },
+    theme: { system: "Theme: system", dark: "Theme: dark", light: "Theme: light", action: "Change theme" },
     accessibility: {
       open: "Open accessibility options",
       kicker: "Experience",
@@ -102,7 +102,7 @@ const ui = {
     },
   },
   es: {
-    theme: { system: "Tema del sistema", dark: "Tema oscuro", light: "Tema claro", action: "Cambiar tema" },
+    theme: { system: "Tema: sistema", dark: "Tema: oscuro", light: "Tema: claro", action: "Cambiar tema" },
     accessibility: {
       open: "Abrir opciones de accesibilidad",
       kicker: "Experiencia",
@@ -235,6 +235,8 @@ const applyPreferences = () => {
     button.dataset.activeTheme = preferences.theme;
     button.setAttribute("aria-label", `${ui.theme[preferences.theme]}. ${ui.theme.action}.`);
     button.title = ui.theme[preferences.theme];
+    const label = button.querySelector("[data-theme-label]");
+    if (label) label.textContent = ui.theme[preferences.theme];
   });
 };
 

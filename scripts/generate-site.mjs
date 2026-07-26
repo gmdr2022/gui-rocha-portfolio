@@ -24,6 +24,29 @@ const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => (
   "\"": "&quot;",
 }[character]));
 
+const safeDimension = (value, fallback) => Number.isInteger(value) && value > 0 ? value : fallback;
+
+const clubalMediaCopy = {
+  "pt-BR": {
+    operation: "OPERAÇÃO",
+    environment: "AMBIENTE DEMO",
+    ready: "PRONTO",
+    weatherAlt: "Recorte seguro da superfície Flet de clima do ClubAL com dados fictícios",
+  },
+  en: {
+    operation: "OPERATIONS",
+    environment: "DEMO SPACE",
+    ready: "READY",
+    weatherAlt: "Safe crop of ClubAL's Flet weather surface with fictional data",
+  },
+  es: {
+    operation: "OPERACIÓN",
+    environment: "ESPACIO DEMO",
+    ready: "LISTO",
+    weatherAlt: "Recorte seguro de la superficie Flet de clima de ClubAL con datos ficticios",
+  },
+};
+
 const routeFor = (locale, page) => {
   const config = locales[locale];
   if (page.type === "home") return config.home;
@@ -102,7 +125,7 @@ const header = (locale, page) => {
     </nav>
     <div class="header-actions">
       ${languageSwitcher(locale, page)}
-      <button class="icon-button theme-button" type="button" data-theme-toggle aria-label="${escapeHtml(common.theme)}">${icon("theme")}</button>
+      <button class="theme-button" type="button" data-theme-toggle aria-label="${escapeHtml(common.theme)}">${icon("theme")}<span data-theme-label>${escapeHtml(common.themeInitial)}</span></button>
       <a class="button compact header-talk" href="${config.routes.contact}">${escapeHtml(common.talk)}</a>
     </div>
   </header>`;
@@ -165,10 +188,31 @@ const layout = ({ locale, page, title, description, main, scripts = [], bodyClas
 const projectCard = (locale, project, index) => {
   const config = locales[locale];
   const common = config.common;
+  const imageWidth = safeDimension(project.imageWidth, 1600);
+  const imageHeight = safeDimension(project.imageHeight, 900);
+  const media = project.slug === "clubal" ? (() => {
+    const copy = clubalMediaCopy[locale];
+    return `
+            <div class="clubal-showcase">
+              <div class="clubal-operation-panel" aria-hidden="true">
+                <div class="clubal-operation-header"><strong>${escapeHtml(copy.operation)}</strong><span>01</span></div>
+                <div class="clubal-operation-summary">
+                  <span>${escapeHtml(copy.environment)}</span>
+                  <strong>${escapeHtml(copy.ready)}</strong>
+                </div>
+                <div class="clubal-operation-rows">
+                  <i></i><i></i><i></i>
+                </div>
+              </div>
+              <img class="clubal-weather-surface" src="/assets/img/clubal/clima-flet-demo.png" alt="${escapeHtml(copy.weatherAlt)}" width="1936" height="1066"${index === 0 ? "" : ' loading="lazy"'}>
+              <img class="clubal-rotinas-surface" src="${project.image}" alt="${escapeHtml(project.imageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
+            </div>`;
+  })() : `
+            <img src="${project.image}" alt="${escapeHtml(project.imageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
   return `
-        <article class="project-card" data-project-card data-index="${index}" data-kind="${project.imageKind}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
+        <article class="project-card" data-project-card data-project="${project.slug}" data-index="${index}" data-kind="${project.imageKind}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
           <div class="project-card-media">
-            <img src="${project.image}" alt="${escapeHtml(project.imageAlt)}" width="1920" height="1080"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
+            ${media}
             <span class="visual-label">${escapeHtml(project.visualLabel)}</span>
           </div>
           <div class="project-card-content">
@@ -234,7 +278,24 @@ const aboutPage = (locale) => {
   const config = locales[locale];
   const copy = config.aboutPage;
   const page = { type: "about" };
-  const featured = projectsByLocale[locale].slice(0, 4);
+  const projects = new Map(projectsByLocale[locale].map((project) => [project.slug, project]));
+  const catalogCards = copy.catalogs.map(([key, title, slugs], categoryIndex) => {
+    const items = slugs.map((slug) => projects.get(slug)).filter(Boolean);
+    const panelId = `context-${locale.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${key}`;
+    const count = items.length === 1 ? copy.catalogSingle : `${items.length} ${copy.catalogMultiple}`;
+    const accent = items[0]?.accent || "#a9ed34";
+    return `
+        <article class="context-catalog-card" data-context-card data-category="${key}" style="--context-accent:${accent};--context-order:${categoryIndex}">
+          <button type="button" data-context-trigger aria-expanded="true" aria-controls="${panelId}">
+            <span class="context-catalog-index">${String(categoryIndex + 1).padStart(2, "0")}</span>
+            <span class="context-catalog-title"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>
+            ${icon("chevron")}
+          </button>
+          <div class="context-catalog-panel" id="${panelId}" data-context-panel>
+            <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}"><span>${project.code}</span><span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
+          </div>
+        </article>`;
+  }).join("");
   const main = `
   <main class="content-main about-main" id="content">
     <section class="content-hero">
@@ -246,22 +307,19 @@ const aboutPage = (locale) => {
     <figure class="landscape-map">
       <img src="/assets/img/gui/panorama-visao-produto.webp" alt="${escapeHtml(copy.landscapeAlt)}" width="1672" height="941">
       <div class="landscape-copy"><p class="eyebrow">${escapeHtml(copy.landscapeKicker)}</p><h2>${escapeHtml(copy.landscapeTitle)}</h2><p>${escapeHtml(copy.landscapeBody)}</p></div>
-      <nav class="landscape-routes" aria-label="${escapeHtml(config.common.products)}">
-        ${featured.map((project) => `<a href="${project.route}" style="--route-accent:${project.accent}"><span>${project.code}</span><strong>${escapeHtml(project.name)}</strong></a>`).join("")}
-      </nav>
+      <section class="context-catalog" aria-labelledby="context-catalog-title">
+        <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">${escapeHtml(copy.catalogKicker)}</p><p id="context-catalog-hint">${escapeHtml(copy.catalogHint)}</p></header>
+        <div class="context-catalog-grid" data-context-catalogs aria-describedby="context-catalog-hint">${catalogCards}</div>
+      </section>
       <figcaption>${escapeHtml(copy.landscapeCaption)}</figcaption>
     </figure>
-    <section class="personal-note">
-      <figure><img src="/assets/img/gui/gui-musica.webp" alt="${escapeHtml(copy.musicAlt)}" width="1086" height="1448" loading="lazy"></figure>
-      <div><p class="eyebrow">${escapeHtml(copy.musicKicker)}</p><h2>${escapeHtml(copy.musicTitle)}</h2><p>${escapeHtml(copy.musicBody)}</p></div>
-    </section>
     <section class="method-section" aria-labelledby="method-title">
       <p class="eyebrow">${escapeHtml(copy.methodTitle)}</p>
       <h2 id="method-title">${escapeHtml(copy.methodTitle)}</h2>
       <div class="method-grid">${copy.method.map(([number, title, body]) => `<article><span>${number}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("")}</div>
     </section>
   </main>`;
-  return layout({ locale, page, title: copy.title, description: copy.description, main, bodyClass: "content-page" });
+  return layout({ locale, page, title: copy.title, description: copy.description, main, scripts: ["/assets/js/about.js"], bodyClass: "content-page" });
 };
 
 const contactPage = (locale) => {
@@ -315,6 +373,8 @@ const projectPage = (locale, project, index) => {
     alt: project.imageAlt,
     label: project.visualLabel,
   }];
+  const imageWidth = safeDimension(gallery[0].width ?? project.imageWidth, 1600);
+  const imageHeight = safeDimension(gallery[0].height ?? project.imageHeight, 900);
   const main = `
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
@@ -344,7 +404,7 @@ const projectPage = (locale, project, index) => {
       <div class="project-visual-column">
         <figure class="project-visual" data-kind="${project.imageKind}">
           <div class="project-image-frame">
-            <img data-project-image src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="1920" height="1080">
+            <img data-project-image src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}">
             <span class="visual-label" data-visual-label>${escapeHtml(gallery[0].label)}</span>
           </div>
           <div class="gallery-controls"${gallery.length < 2 ? " hidden" : ""} aria-label="${escapeHtml(common.galleryLabel)}">

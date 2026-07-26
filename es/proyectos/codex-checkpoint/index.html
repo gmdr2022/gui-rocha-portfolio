@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Cola local que conserva pruebas pendientes, decisiones y comentarios entre sesiones de trabajo asistidas por agentes.">
+  <meta name="description" content="Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.">
   <meta name="theme-color" content="#071412">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:title" content="Codex Checkpoint — Gui Rocha">
-  <meta property="og:description" content="Cola local que conserva pruebas pendientes, decisiones y comentarios entre sesiones de trabajo asistidas por agentes.">
+  <meta property="og:description" content="Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.">
   <meta property="og:url" content="https://gui-rocha.pages.dev/es/proyectos/codex-checkpoint/">
   <meta property="og:image" content="https://gui-rocha.pages.dev/assets/img/codex-checkpoint/app.png">
   <link rel="canonical" href="https://gui-rocha.pages.dev/es/proyectos/codex-checkpoint/">
@@ -50,7 +50,7 @@
         <a href="/projetos/codex-checkpoint/" lang="pt-BR" hreflang="pt-BR"><span>PT</span>Português</a><a href="/en/projects/codex-checkpoint/" lang="en" hreflang="en"><span>EN</span>English</a><a href="/es/proyectos/codex-checkpoint/" lang="es" hreflang="es" aria-current="page"><span>ES</span>Español</a>
       </nav>
     </details>
-      <button class="icon-button theme-button" type="button" data-theme-toggle aria-label="Cambiar tema"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <button class="theme-button" type="button" data-theme-toggle aria-label="Cambiar tema"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span data-theme-label>Tema: sistema</span></button>
       <a class="button compact header-talk" href="/es/contacto/">Hablar conmigo</a>
     </div>
   </header>
@@ -60,11 +60,11 @@
       <div class="project-content">
         <a class="project-breadcrumb" href="/es/#projects"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Volver a proyectos</span></a>
         <header class="project-heading">
-          <p class="project-number">04 · Cola local para validaciones humanas</p>
+          <p class="project-number">04 · Cola local para validaciones y decisiones</p>
           <span class="status-pill" data-tone="ready">Producto local · Windows</span>
           <h1>Codex Checkpoint</h1>
-          <p class="project-promise">El agente registra. La persona valida cuando puede. El contexto permanece.</p>
-          <p class="project-summary">Cola local que conserva pruebas pendientes, decisiones y comentarios entre sesiones de trabajo asistidas por agentes.</p>
+          <p class="project-promise">Registro lo que queda pendiente, lo retomo en el momento adecuado y conservo el contexto.</p>
+          <p class="project-summary">Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</p>
           <ul class="project-facts" aria-label="Codex Checkpoint"><li>WPF / .NET</li><li>Sin cuenta</li><li>Cola duradera</li></ul>
         </header>
         <section class="project-explorer" aria-label="Detalles del proyecto">
@@ -72,7 +72,7 @@
             <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0">Problema</button><button type="button" role="tab" id="tab-solucion" data-project-tab="solucion" aria-controls="panel-solucion" aria-selected="false" tabindex="-1">Solución</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1">Estado</button>
           </div>
           <div class="project-panels">
-            <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>No todas las pruebas pueden resolverse durante la sesión.</h2><p>Gameplay, revisión visual, dispositivos, autenticación y decisiones prácticas dependen de una persona o de otro entorno. Sin una cola, ese contexto desaparece.</p><ul><li>Pendientes entre sesiones</li><li>Varios proyectos</li><li>Historial de comentarios</li></ul></section><section class="project-tab-panel" id="panel-solucion" role="tabpanel" aria-labelledby="tab-solucion" hidden><h2>Una cola de validación, no otro chat.</h2><p>El agente registra el checkpoint; Gui vuelve cuando puede y deja una decisión o comentario accionable.</p><ul><li>Claves sin duplicados</li><li>Estados y notas</li><li>Importación validada de tarjetas</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>Aplicación nativa e instalable.</h2><p>Interfaz, línea de comandos e integración por archivos forman el producto. Las versiones actuales todavía no tienen firma de código, y eso permanece declarado.</p><ul><li>Datos locales</li><li>Copia de seguridad y recuperación</li><li>Builds sin firma</li></ul></section>
+            <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>No todas las pruebas pueden resolverse durante la sesión.</h2><p>Gameplay, revisión visual, dispositivos, autenticación y decisiones prácticas pueden exigir otro momento o entorno. Sin una cola, ese contexto desaparece.</p><ul><li>Pendientes entre sesiones</li><li>Varios proyectos</li><li>Historial de comentarios</li></ul></section><section class="project-tab-panel" id="panel-solucion" role="tabpanel" aria-labelledby="tab-solucion" hidden><h2>Una cola de checkpoints, no otro chat.</h2><p>Registro cada checkpoint con contexto suficiente para retomar la tarea pendiente y dejar una decisión o comentario accionable.</p><ul><li>Claves sin duplicados</li><li>Estados y notas</li><li>Importación validada de tarjetas</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>Aplicación nativa e instalable.</h2><p>Reuní interfaz, línea de comandos e integración por archivos en el producto. Las versiones actuales todavía no tienen firma de código, y mantengo eso declarado.</p><ul><li>Datos locales</li><li>Copia de seguridad y recuperación</li><li>Builds sin firma</li></ul></section>
           </div>
           <div class="project-actions"><a class="button primary" href="/es/contacto/?asunto=codex-checkpoint">Hablar sobre Checkpoint</a></div>
         </section>
@@ -80,7 +80,7 @@
       <div class="project-visual-column">
         <figure class="project-visual" data-kind="screenshot">
           <div class="project-image-frame">
-            <img data-project-image src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint mostrando una cola ficticia de validaciones humanas y el historial de notas" width="1920" height="1080">
+            <img data-project-image src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas" width="1920" height="1080">
             <span class="visual-label" data-visual-label>Captura del producto · datos de demostración</span>
           </div>
           <div class="gallery-controls" hidden aria-label="Galería del proyecto">
@@ -88,7 +88,7 @@
             <p><strong data-gallery-current>1</strong><span>/ 1</span></p>
             <button type="button" data-gallery-next><span>Siguiente imagen</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/codex-checkpoint/app.png","alt":"Codex Checkpoint mostrando una cola ficticia de validaciones humanas y el historial de notas","label":"Captura del producto · datos de demostración"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/codex-checkpoint/app.png","alt":"Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas","label":"Captura del producto · datos de demostración"}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
         </figure>
         <a class="next-project" href="/es/proyectos/nexus/" style="--next-accent:#8e7dff"><span>Siguiente proyecto</span><strong>NEXUS</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

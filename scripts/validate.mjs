@@ -6,6 +6,14 @@ const root = resolve(process.cwd());
 const origin = "https://gui-rocha.pages.dev";
 const errors = [];
 const requiredProjectSlugs = ["clubal", "maeve", "demonyza", "codex-checkpoint", "nexus", "local-first-checklist"];
+const expectedProjectDimensions = {
+  clubal: [1920, 1080],
+  maeve: [1672, 941],
+  demonyza: [1600, 900],
+  "codex-checkpoint": [1920, 1080],
+  nexus: [1180, 760],
+  "local-first-checklist": [1600, 1000],
+};
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
 const ignoredDirectories = new Set([".git", "dist", "node_modules", "output"]);
 
@@ -85,6 +93,21 @@ for (const expected of expectedPages) {
   if (!html.includes("skip-link")) errors.push(`${label}: skip link ausente`);
   if (!html.includes('data-open-cookie')) errors.push(`${label}: controle de cookies ausente`);
   if (!html.includes("language-switcher")) errors.push(`${label}: seletor de idioma ausente`);
+  if (!html.includes("data-theme-label")) errors.push(`${label}: controle de tema sem texto visível`);
+  if (expected.type === "home") {
+    if (!html.includes('data-project="clubal"')) errors.push(`${label}: card ClubAL sem identificação própria`);
+    if (!html.includes("clubal-operation-panel")) errors.push(`${label}: painel abstrato de Operação ausente`);
+    if (!html.includes('src="/assets/img/clubal/clima-flet-demo.png"')) errors.push(`${label}: superfície Flet de clima ausente`);
+    if (!html.includes("clubal-rotinas-surface")) errors.push(`${label}: Rotinas atual ausente da composição`);
+  }
+  if (expected.type === "about") {
+    if ((html.match(/data-context-card/g) || []).length !== 5) errors.push(`${label}: catálogo por contexto incompleto`);
+    if (!html.includes('src="/assets/js/about.js"')) errors.push(`${label}: comportamento do catálogo contextual ausente`);
+    if (html.includes("personal-note")) errors.push(`${label}: seção pessoal removida voltou a ser gerada`);
+    for (const project of projectsByLocale[expected.locale]) {
+      if (!html.includes(`href="${project.route}"`)) errors.push(`${label}: projeto ausente no catálogo por contexto ${project.slug}`);
+    }
+  }
   for (const targetLocale of localeOrder) {
     const hreflang = targetLocale === "pt-BR" ? "pt-BR" : targetLocale;
     const alternate = `${origin}${routeFor(targetLocale, expected.type, expected.slug)}`;
@@ -149,10 +172,14 @@ for (const locale of localeOrder) {
     if (project.route !== routeFor(locale, "project", slug)) errors.push(`${label}: rota localizada incorreta para ${slug}`);
     if (!await exists(localTarget(project.route))) errors.push(`${label}: rota inexistente ${project.route}`);
     if (!await exists(localTarget(project.image))) errors.push(`${label}: imagem inexistente ${project.image}`);
+    const [expectedWidth, expectedHeight] = expectedProjectDimensions[slug];
+    if (project.imageWidth !== expectedWidth || project.imageHeight !== expectedHeight) {
+      errors.push(`${label}: dimensões da imagem principal incorretas para ${slug}`);
+    }
   }
 
   const clubal = projects.find((project) => project.slug === "clubal");
-  const moduleNames = ["Operação PEMSE", "Rotinas PEMSE", "Consulta PEMSE"];
+  const moduleNames = ["Operação", "Rotinas", "Consulta"];
   const modulePoints = clubal.tabs.flatMap((tab) => tab.points).filter((point) => moduleNames.some((name) => point.startsWith(name)));
   if (modulePoints.length !== 3 || moduleNames.some((name) => modulePoints.filter((point) => point.startsWith(name)).length !== 1)) {
     errors.push(`${label}: contrato de exatamente três módulos do ClubAL não preservado`);
@@ -185,6 +212,15 @@ for (const phrase of [
 for (const phrase of ["portal dark", "rituais interativos", "funciona como mundo", "gmdr2014@gmail.com"]) {
   if (publicText.toLowerCase().includes(phrase.toLowerCase())) errors.push(`copy pública proibida ainda presente: ${phrase}`);
 }
+for (const [label, pattern] of [
+  ["cargo socioeducativo", /socioeducador|social educator|educador social/iu],
+  ["inteligência artificial", /\b(?:IA|AI)\b|intelig[eê]ncia artificial|artificial intelligence|inteligencia artificial/iu],
+  ["agentes", /\b(?:agente|agentes|agent|agents)\b|agent-assisted|coding agents/iu],
+  ["validação humana", /valida[cç][aã]o humana|validaci[oó]n humana|human validation|human acceptance|aceite humano|aceptaci[oó]n humana/iu],
+  ["sigla interna do ClubAL", /\bPEMSE\b/u],
+]) {
+  if (pattern.test(publicText)) errors.push(`copy pública proibida ainda presente: ${label}`);
+}
 
 const textFiles = files.filter((path) => !path.endsWith("validate.mjs") && [".css", ".html", ".js", ".json", ".md", ".mjs", ".txt", ".xml"].includes(extname(path)));
 for (const path of textFiles) {
@@ -215,8 +251,17 @@ for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:"
 const contactScript = await readFile(join(root, "assets", "js", "contact.js"), "utf8");
 if (!contactScript.includes('params.get("asunto")')) errors.push("contact.js: parâmetro contextual espanhol ausente");
 const styles = await readFile(join(root, "assets", "css", "styles.css"), "utf8");
-for (const marker of [".no-js .project-tabs", ".no-js .project-tab-panel[hidden]"]) {
+for (const marker of [
+  ".no-js .project-tabs",
+  ".no-js .project-tab-panel[hidden]",
+  ".context-catalog-grid",
+  '.project-card[data-position="active"]',
+]) {
   if (!styles.includes(marker)) errors.push(`styles.css: fallback sem JavaScript ausente ${marker}`);
+}
+const aboutScript = await readFile(join(root, "assets", "js", "about.js"), "utf8");
+for (const marker of ["data-context-card", "pointerenter", "focusin", "Escape", "aria-expanded"]) {
+  if (!aboutScript.includes(marker)) errors.push(`about.js: interação contextual ausente ${marker}`);
 }
 const headers = await readFile(join(root, "_headers"), "utf8");
 for (const header of ["Content-Security-Policy", "Permissions-Policy", "Referrer-Policy", "X-Content-Type-Options"]) {

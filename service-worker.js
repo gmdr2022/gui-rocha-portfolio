@@ -1,4 +1,4 @@
-const CACHE_NAME = "gui-rocha-v4";
+const CACHE_NAME = "gui-rocha-v6";
 const CORE_ASSETS = [
   "/",
   "/en/",
@@ -6,6 +6,7 @@ const CORE_ASSETS = [
   "/assets/css/styles.css",
   "/assets/js/site.js",
   "/assets/js/home.js",
+  "/assets/js/about.js",
   "/assets/js/project.js",
   "/assets/js/contact.js",
   "/assets/img/gui-rocha.jpg",
