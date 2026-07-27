@@ -49,5 +49,13 @@
     "kind": "project-illustration",
     "source": "Existing Local First Checklist illustration in this portal",
     "note": "Ilustração do projeto já publicada; não é apresentada como logotipo."
+  },
+  "c7-engineering-system": {
+    "src": "/assets/img/c7-engineering-system.svg",
+    "width": 1600,
+    "height": 1000,
+    "official": false,
+    "kind": "project-illustration",
+    "source": "Original project illustration created for this portal"
   }
 }

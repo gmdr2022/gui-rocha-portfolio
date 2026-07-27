@@ -5,7 +5,7 @@ import { localeOrder, locales } from "../content/pages.mjs";
 const root = resolve(process.cwd());
 const origin = "https://gui-rocha.pages.dev";
 const errors = [];
-const requiredProjectSlugs = ["clubal", "maeve", "demonyza", "codex-checkpoint", "nexus", "local-first-checklist"];
+const requiredProjectSlugs = ["clubal", "maeve", "demonyza", "codex-checkpoint", "nexus", "local-first-checklist", "c7-engineering-system"];
 const expectedProjectDimensions = {
   clubal: [1920, 1080],
   maeve: [1672, 941],
@@ -13,6 +13,7 @@ const expectedProjectDimensions = {
   "codex-checkpoint": [1920, 1080],
   nexus: [1180, 760],
   "local-first-checklist": [1600, 1000],
+  "c7-engineering-system": [1600, 1000],
 };
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
 const conceptLabels = { "pt-BR": "Imagem conceito", en: "Concept image", es: "Imagen conceptual" };
@@ -197,7 +198,9 @@ for (const locale of localeOrder) {
   const label = projectFiles[locale];
   if (projects.length !== requiredProjectSlugs.length) errors.push(`${label}: quantidade inesperada de projetos`);
   if (new Set(projects.map((project) => project.slug)).size !== projects.length) errors.push(`${label}: slugs duplicados`);
-  if (projects.map((project) => project.order).join(",") !== "1,2,3,4,5,6") errors.push(`${label}: ordem inválida`);
+  if (projects.map((project) => project.order).join(",") !== requiredProjectSlugs.map((_, index) => index + 1).join(",")) {
+    errors.push(`${label}: ordem inválida`);
+  }
 
   for (const slug of requiredProjectSlugs) {
     const project = projects.find((item) => item.slug === slug);

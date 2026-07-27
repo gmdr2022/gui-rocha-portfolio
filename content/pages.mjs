@@ -77,7 +77,7 @@ export const locales = {
         ["games", "Jogos", ["maeve"]],
         ["websites", "Sites criados", ["demonyza"]],
         ["windows", "Ferramentas Windows", ["nexus", "codex-checkpoint"]],
-        ["resources", "Recursos", ["local-first-checklist"]],
+        ["resources", "Recursos", ["local-first-checklist", "c7-engineering-system"]],
       ],
       methodTitle: "Meu processo",
       method: [
@@ -217,7 +217,7 @@ export const locales = {
         ["games", "Games", ["maeve"]],
         ["websites", "Websites created", ["demonyza"]],
         ["windows", "Windows tools", ["nexus", "codex-checkpoint"]],
-        ["resources", "Resources", ["local-first-checklist"]],
+        ["resources", "Resources", ["local-first-checklist", "c7-engineering-system"]],
       ],
       methodTitle: "My process",
       method: [
@@ -357,7 +357,7 @@ export const locales = {
         ["games", "Juegos", ["maeve"]],
         ["websites", "Sitios creados", ["demonyza"]],
         ["windows", "Herramientas para Windows", ["nexus", "codex-checkpoint"]],
-        ["resources", "Recursos", ["local-first-checklist"]],
+        ["resources", "Recursos", ["local-first-checklist", "c7-engineering-system"]],
       ],
       methodTitle: "Mi proceso",
       method: [

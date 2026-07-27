@@ -375,5 +375,66 @@
     "links": [
       {"label": "Abrir no GitHub", "href": "https://github.com/gmdr2022/local-first-checklist", "kind": "primary"}
     ]
+  },
+  {
+    "slug": "c7-engineering-system",
+    "order": 7,
+    "code": "07",
+    "name": "C7 Engineering System",
+    "kicker": "Camada local de engenharia para Codex",
+    "status": "Ativo localmente · v1.0.0",
+    "statusTone": "ready",
+    "summary": "Eu construí uma camada local que organiza contexto, risco, validação e retomada para manter projetos distintos sob controle.",
+    "promise": "Eu transformo tarefas comuns em um fluxo proporcional, verificável e reversível.",
+    "route": "/projetos/c7-engineering-system/",
+    "image": "/assets/img/c7-engineering-system.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
+    "imageAlt": "Ilustração do C7 Engineering System com sete lentes conectadas a um núcleo local, validação e rollback",
+    "imageKind": "art",
+    "visualLabel": "Arquitetura do sistema",
+    "accent": "#a9ed34",
+    "accentRgb": "169 237 52",
+    "facts": ["Local-first", "9 skills", "Rollback validado"],
+    "tabs": [
+      {
+        "id": "problema",
+        "label": "Problema",
+        "title": "Projetos diferentes exigem contexto, rigor e custo proporcionais.",
+        "body": "Trabalhos simultâneos podem misturar regras, repetir investigação ou pressionar uma máquina limitada. Eu criei o C7ES para identificar o projeto certo, preservar decisões e aplicar profundidade conforme o risco.",
+        "points": ["Separação entre projetos", "Risco de R0 a R4", "Continuidade por checkpoints"]
+      },
+      {
+        "id": "sistema",
+        "label": "Sistema",
+        "title": "Um núcleo curto com conhecimento sob demanda.",
+        "body": "O sistema combina instruções globais compactas, nove skills progressivas, cinco perfis especializados, proteções determinísticas e uma biblioteca local indexada.",
+        "points": ["Sete lentes em quórum", "Roteamento progressivo", "Sem serviço residente"]
+      },
+      {
+        "id": "evidencia",
+        "label": "Evidência",
+        "title": "A ativação dependeu de testes, comparação e rollback real.",
+        "body": "A versão 1.0.0 passou 42 testes Pester, 24 verificações no ambiente instalado, evals comparativos e restauração byte a byte em perfil descartável.",
+        "points": ["42 testes Pester", "24 checks instalados", "Rollback byte a byte"]
+      },
+      {
+        "id": "capacidade",
+        "label": "Capacidade",
+        "title": "O trabalho se adapta ao computador disponível.",
+        "body": "Antes de tarefas pesadas, o C7ES observa CPU, memória, paginação e armazenamento. Em host limitado, serializa etapas, reduz prioridade e retoma casos válidos sem repetir chamadas.",
+        "points": ["Sem alterar plano de energia", "Concorrência proporcional", "Economia por retomada"]
+      },
+      {
+        "id": "estado",
+        "label": "Estado",
+        "title": "Versão 1.0.0 ativa, local e reversível.",
+        "body": "Kernel, skills, perfis, regras e três proteções determinísticas estão instalados e verificados. O funcionamento cotidiano não exige serviço externo, assinatura adicional ou custo recorrente.",
+        "points": ["Uso local", "Backup versionado", "Manutenção verificável"]
+      }
+    ],
+    "links": [
+      {"label": "Conversar sobre engenharia local", "href": "/contato/?assunto=c7-engineering-system", "kind": "primary"}
+    ]
   }
 ]

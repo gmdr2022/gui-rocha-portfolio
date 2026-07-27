@@ -535,4 +535,5 @@ for (const locale of localeOrder) {
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map((url) => `  <url><loc>${url}</loc></url>`).join("\n")}\n</urlset>\n`;
 await writeFile(join(root, "sitemap.xml"), sitemap, "utf8");
 
-process.stdout.write(`Generated ${localeOrder.length * 10 + 1} localized pages and sitemap.xml.\n`);
+const generatedPageCount = localeOrder.reduce((total, locale) => total + 4 + projectsByLocale[locale].length, 0) + 1;
+process.stdout.write(`Generated ${generatedPageCount} localized pages and sitemap.xml.\n`);
