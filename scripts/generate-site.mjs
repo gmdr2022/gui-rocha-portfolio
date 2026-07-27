@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { localeOrder, locales } from "../content/pages.mjs";
@@ -10,6 +11,20 @@ const projectFiles = {
   es: "projects.es.json",
 };
 const projectAssets = JSON.parse(await readFile(join(root, "assets", "data", "project-assets.json"), "utf8"));
+const mutableAssetPaths = [
+  "assets/css/styles.css",
+  "assets/js/site.js",
+  "assets/js/home.js",
+  "assets/js/about.js",
+  "assets/js/project.js",
+  "assets/js/contact.js",
+];
+const assetVersionHash = createHash("sha256");
+for (const path of mutableAssetPaths) {
+  assetVersionHash.update(await readFile(join(root, path)));
+}
+const assetVersion = assetVersionHash.digest("hex").slice(0, 12);
+const versionedAsset = (path) => `${path}?v=${assetVersion}`;
 
 const projectsByLocale = Object.fromEntries(await Promise.all(localeOrder.map(async (locale) => {
   const path = join(root, "assets", "data", projectFiles[locale]);
@@ -123,8 +138,12 @@ const header = (locale, page) => {
   const common = config.common;
   return `
   <header class="site-header">
-    <a class="brand-lockup" href="${config.home}" aria-label="Gui Rocha">
+    <a class="brand-lockup" href="${config.home}" aria-label="Guilherme Rocha">
       <span class="brand-logo" aria-hidden="true"></span>
+      <span class="brand-copy">
+        <strong>Guilherme Rocha</strong>
+        <small>${escapeHtml(common.brandTagline)}</small>
+      </span>
     </a>
     <nav class="site-nav" aria-label="${escapeHtml(common.navLabel)}">
       <a href="${config.routes.contact}" data-site-nav="contact">${escapeHtml(common.contact)}</a>
@@ -177,9 +196,9 @@ const layout = ({ locale, page, title, description, main, scripts = [], bodyClas
   <link rel="alternate" hreflang="x-default" href="${origin}${routeFor("pt-BR", page)}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="${manifest}">
-  <link rel="stylesheet" href="/assets/css/styles.css">
-  <script src="/assets/js/site.js" defer></script>
-  ${scripts.map((script) => `<script src="${script}" defer></script>`).join("\n  ")}
+  <link rel="stylesheet" href="${versionedAsset("/assets/css/styles.css")}">
+  <script src="${versionedAsset("/assets/js/site.js")}" defer></script>
+  ${scripts.map((script) => `<script src="${versionedAsset(script)}" defer></script>`).join("\n  ")}
   <title>${escapeHtml(title)}</title>
 </head>
 <body class="${bodyClass}" data-locale="${locale}" data-page="${page.type}">

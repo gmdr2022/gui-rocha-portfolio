@@ -60,6 +60,7 @@
     --line-strong: #9eaea8;
     --brand: #77b900;
     --brand-bright: #a9ed34;
+    --brand-copy: #416f00;
     --brand-ink: #142600;
     --focus: #006edb;
     --shadow-sm: 0 8px 28px rgb(15 45 34 / 8%);
@@ -86,6 +87,7 @@
     --line-strong: #47605a;
     --brand: #b6ff42;
     --brand-bright: #c8ff71;
+    --brand-copy: #b6ff42;
     --brand-ink: #0a1900;
     --focus: #70b7ff;
     --shadow-sm: 0 8px 30px rgb(0 0 0 / 24%);
@@ -107,6 +109,7 @@
       --line-strong: #47605a;
       --brand: #b6ff42;
       --brand-bright: #c8ff71;
+      --brand-copy: #b6ff42;
       --brand-ink: #0a1900;
       --focus: #70b7ff;
       --shadow-sm: 0 8px 30px rgb(0 0 0 / 24%);
@@ -223,7 +226,7 @@
     z-index: 50;
     top: 12px;
     display: grid;
-    grid-template-columns: minmax(210px, 1fr) auto minmax(250px, 1fr);
+    grid-template-columns: minmax(230px, 1fr) auto minmax(250px, 1fr);
     align-items: center;
     min-height: 68px;
     margin-top: 12px;
@@ -278,25 +281,40 @@
   .brand-lockup {
     display: inline-flex;
     align-items: center;
-    width: 210px;
+    width: 230px;
     min-width: 0;
     min-height: 48px;
+    gap: 10px;
   }
 
   .brand-logo {
-    width: 100%;
-    height: 44px;
-    background: url("../img/brand/guilherme-rocha-horizontal-for-light.svg") left center / contain no-repeat;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    background: url("../img/brand/gr-mark-primary.svg") center / contain no-repeat;
   }
 
-  :root[data-theme="dark"] .brand-logo {
-    background-image: url("../img/brand/guilherme-rocha-horizontal-for-dark.svg");
+  .brand-copy {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+    line-height: 1.1;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root[data-theme="system"] .brand-logo {
-      background-image: url("../img/brand/guilherme-rocha-horizontal-for-dark.svg");
-    }
+  .brand-copy strong {
+    color: var(--ink);
+    font-size: .95rem;
+    font-weight: 760;
+    letter-spacing: -.025em;
+    white-space: nowrap;
+  }
+
+  .brand-copy small {
+    color: var(--brand-copy);
+    font-size: .7rem;
+    font-weight: 720;
+    letter-spacing: .025em;
+    white-space: nowrap;
   }
 
   .project-icon {
@@ -2136,7 +2154,7 @@
 
   @media (max-width: 1280px) {
     .site-header {
-      grid-template-columns: minmax(190px, 1fr) auto minmax(250px, 1fr);
+      grid-template-columns: minmax(230px, 1fr) auto minmax(250px, 1fr);
     }
 
     .header-talk {
@@ -2174,21 +2192,7 @@
     }
 
     .brand-lockup {
-      width: 176px;
-    }
-
-    .brand-logo {
-      background-image: url("../img/brand/gui-rocha-compact-for-light.svg");
-    }
-
-    :root[data-theme="dark"] .brand-logo {
-      background-image: url("../img/brand/gui-rocha-compact-for-dark.svg");
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root[data-theme="system"] .brand-logo {
-        background-image: url("../img/brand/gui-rocha-compact-for-dark.svg");
-      }
+      width: 230px;
     }
 
     .site-nav {
@@ -2559,14 +2563,16 @@
     .brand-lockup {
       width: 44px;
       min-height: 44px;
+      gap: 0;
     }
 
-    .brand-logo,
-    :root[data-theme="dark"] .brand-logo,
-    :root[data-theme="system"] .brand-logo {
+    .brand-logo {
+      flex-basis: 44px;
       height: 44px;
-      background-image: url("../img/brand/gr-mark-primary.svg");
-      background-position: center;
+    }
+
+    .brand-copy {
+      display: none;
     }
 
     .theme-button {

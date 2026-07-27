@@ -16,7 +16,7 @@ const expectedProjectDimensions = {
 };
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
 const conceptLabels = { "pt-BR": "Imagem conceito", en: "Concept image", es: "Imagen conceptual" };
-const ignoredDirectories = new Set([".git", "dist", "node_modules", "output"]);
+const ignoredDirectories = new Set([".git", ".wrangler", "dist", "node_modules", "output"]);
 
 const walk = async (directory) => {
   const files = [];
@@ -113,6 +113,10 @@ for (const expected of expectedPages) {
   if (!html.includes("language-switcher")) errors.push(`${label}: seletor de idioma ausente`);
   if (!html.includes("data-theme-label")) errors.push(`${label}: controle de tema sem texto visível`);
   if (!html.includes("brand-logo")) errors.push(`${label}: identidade Guilherme Rocha ausente do cabeçalho`);
+  if (!html.includes("brand-copy")) errors.push(`${label}: nome e especialidade legíveis ausentes do cabeçalho`);
+  if (!html.includes(config.common.brandTagline)) errors.push(`${label}: especialidade localizada ausente do cabeçalho`);
+  if (!/href="\/assets\/css\/styles\.css\?v=[a-f0-9]{12}"/.test(html)) errors.push(`${label}: CSS sem versão de conteúdo`);
+  if (!/src="\/assets\/js\/site\.js\?v=[a-f0-9]{12}"/.test(html)) errors.push(`${label}: JavaScript base sem versão de conteúdo`);
   const headerOrder = [
     `href="${config.routes.contact}"`,
     `href="${config.routes.about}"`,
@@ -131,7 +135,7 @@ for (const expected of expectedPages) {
     if ((html.match(/data-context-card/g) || []).length !== 5) errors.push(`${label}: catálogo por contexto incompleto`);
     if ((html.match(/aria-expanded="false"/g) || []).length < 5) errors.push(`${label}: catálogos contextuais devem iniciar recolhidos`);
     if ((html.match(/context-catalog-panel"[^>]* hidden/g) || []).length !== 5) errors.push(`${label}: painéis contextuais sem estado inicial oculto`);
-    if (!html.includes('src="/assets/js/about.js"')) errors.push(`${label}: comportamento do catálogo contextual ausente`);
+    if (!html.includes('src="/assets/js/about.js?v=')) errors.push(`${label}: comportamento do catálogo contextual ausente`);
     if (html.includes("personal-note")) errors.push(`${label}: seção pessoal removida voltou a ser gerada`);
     for (const project of projectsByLocale[expected.locale]) {
       if (!html.includes(`href="${project.route}"`)) errors.push(`${label}: projeto ausente no catálogo por contexto ${project.slug}`);
@@ -287,16 +291,20 @@ for (const path of files) {
 }
 
 const siteScript = await readFile(join(root, "assets", "js", "site.js"), "utf8");
-for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", 'updateViaCache: "none"']) {
+for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", "getRegistrations", 'startsWith("gui-rocha-")', 'sessionStorage.getItem("gui-sw-retired")']) {
   if (!siteScript.includes(marker)) errors.push(`site.js: marcador ausente ${marker}`);
 }
 const projectScript = await readFile(join(root, "assets", "js", "project.js"), "utf8");
 for (const marker of ["galleryImage.width", "galleryImage.height", "--gallery-ratio", "ArrowLeft", "ArrowRight", "preload"]) {
   if (!projectScript.includes(marker)) errors.push(`project.js: comportamento de galeria ausente ${marker}`);
 }
+const homeScript = await readFile(join(root, "assets", "js", "home.js"), "utf8");
+for (const marker of ["isInteractiveTarget", "pointercancel", 'closest("a, button, summary, input, select, textarea, label")']) {
+  if (!homeScript.includes(marker)) errors.push(`home.js: proteção de links da vitrine ausente ${marker}`);
+}
 const serviceWorker = await readFile(join(root, "service-worker.js"), "utf8");
-for (const marker of ['CACHE_NAME = "gui-rocha-v7"', "networkFirst", 'endsWith(".css")', 'endsWith(".js")']) {
-  if (!serviceWorker.includes(marker)) errors.push(`service-worker.js: política de atualização ausente ${marker}`);
+for (const marker of ["self.registration.unregister()", 'name.startsWith("gui-rocha-")', "self.clients.matchAll"]) {
+  if (!serviceWorker.includes(marker)) errors.push(`service-worker.js: retirada segura do cache legado ausente ${marker}`);
 }
 const contactScript = await readFile(join(root, "assets", "js", "contact.js"), "utf8");
 if (!contactScript.includes('params.get("asunto")')) errors.push("contact.js: parâmetro contextual espanhol ausente");
@@ -320,9 +328,11 @@ const headers = await readFile(join(root, "_headers"), "utf8");
 for (const header of ["Content-Security-Policy", "Permissions-Policy", "Referrer-Policy", "X-Content-Type-Options"]) {
   if (!headers.includes(header)) errors.push(`cabeçalho ausente: ${header}`);
 }
-for (const route of ["/assets/css/*", "/assets/js/*", "/assets/img/*"]) {
-  const rule = new RegExp(`${route.replace(/[/*]/g, "\\$&")}\\s+Cache-Control: public, max-age=0, must-revalidate`);
-  if (!rule.test(headers)) errors.push(`_headers: recurso mutável sem revalidação ${route}`);
+if (!/\/service-worker\.js\s+Cache-Control: no-store, max-age=0/.test(headers)) {
+  errors.push("_headers: Service Worker legado pode permanecer em cache");
+}
+if ((headers.match(/Cache-Control:/g) || []).length !== 1) {
+  errors.push("_headers: regras de cache sobrepostas podem concatenar diretivas");
 }
 
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");

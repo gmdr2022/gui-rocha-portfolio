@@ -6,19 +6,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  Cache-Control: public, max-age=0, must-revalidate
 
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/assets/css/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/assets/js/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/assets/img/*
-  Cache-Control: public, max-age=0, must-revalidate
-
+# Os demais assets usam a revalidação padrão da Cloudflare por ETag.
 /service-worker.js
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-store, max-age=0

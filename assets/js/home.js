@@ -12,6 +12,11 @@ const liveRegion = document.querySelector("[data-deck-live]");
 let activeIndex = 0;
 let pointerStart = null;
 
+const isInteractiveTarget = (target) => (
+  target instanceof Element
+  && Boolean(target.closest("a, button, summary, input, select, textarea, label"))
+);
+
 const wrappedOffset = (index) => {
   let offset = index - activeIndex;
   if (offset > cards.length / 2) offset -= cards.length;
@@ -77,14 +82,25 @@ deck?.addEventListener("click", (event) => {
 });
 
 deck?.addEventListener("pointerdown", (event) => {
-  pointerStart = event.clientX;
+  if (event.button !== 0 || isInteractiveTarget(event.target)) {
+    pointerStart = null;
+    return;
+  }
+  pointerStart = {
+    x: event.clientX,
+    pointerId: event.pointerId,
+  };
   deck.setPointerCapture?.(event.pointerId);
 });
 
 deck?.addEventListener("pointerup", (event) => {
-  if (pointerStart === null) return;
-  const delta = event.clientX - pointerStart;
+  if (pointerStart === null || pointerStart.pointerId !== event.pointerId) return;
+  const delta = event.clientX - pointerStart.x;
   if (Math.abs(delta) > 56) updateDeck(activeIndex + (delta < 0 ? 1 : -1), true);
+  pointerStart = null;
+});
+
+deck?.addEventListener("pointercancel", () => {
   pointerStart = null;
 });
 

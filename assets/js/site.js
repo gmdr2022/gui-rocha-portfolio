@@ -399,8 +399,32 @@ document.querySelectorAll("[data-current-year]").forEach((element) => {
   element.textContent = String(new Date().getFullYear());
 });
 
+const retireLegacyServiceWorker = async () => {
+  const wasControlled = Boolean(navigator.serviceWorker.controller);
+  const registrations = await navigator.serviceWorker.getRegistrations();
+  const localRegistrations = registrations.filter((registration) => (
+    registration.scope.startsWith(`${location.origin}/`)
+  ));
+
+  await Promise.all(localRegistrations.map((registration) => registration.unregister()));
+
+  if ("caches" in window) {
+    const cacheNames = await caches.keys();
+    await Promise.all(
+      cacheNames
+        .filter((name) => name.startsWith("gui-rocha-"))
+        .map((name) => caches.delete(name)),
+    );
+  }
+
+  if (wasControlled && localRegistrations.length && !sessionStorage.getItem("gui-sw-retired")) {
+    sessionStorage.setItem("gui-sw-retired", "1");
+    location.reload();
+  }
+};
+
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js", { updateViaCache: "none" }).catch(() => {});
+    retireLegacyServiceWorker().catch(() => {});
   });
 }
