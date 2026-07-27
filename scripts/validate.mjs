@@ -15,6 +15,7 @@ const expectedProjectDimensions = {
   "local-first-checklist": [1600, 1000],
 };
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
+const conceptLabels = { "pt-BR": "Imagem conceito", en: "Concept image", es: "Imagen conceptual" };
 const ignoredDirectories = new Set([".git", "dist", "node_modules", "output"]);
 
 const walk = async (directory) => {
@@ -58,6 +59,23 @@ const files = await walk(root);
 const htmlFiles = files.filter((path) => extname(path) === ".html");
 const expectedPages = [];
 const projectsByLocale = {};
+const projectAssets = JSON.parse(await readFile(join(root, "assets", "data", "project-assets.json"), "utf8"));
+
+for (const slug of requiredProjectSlugs) {
+  const asset = projectAssets[slug];
+  if (!asset) {
+    errors.push(`project-assets.json: origem ausente para ${slug}`);
+    continue;
+  }
+  if (!asset.src.startsWith("/") || /^https?:/i.test(asset.src)) errors.push(`project-assets.json: ícone não local para ${slug}`);
+  if (!Number.isInteger(asset.width) || !Number.isInteger(asset.height) || asset.width < 1 || asset.height < 1) {
+    errors.push(`project-assets.json: dimensões inválidas para ${slug}`);
+  }
+  if (typeof asset.official !== "boolean" || !asset.kind || !asset.source) {
+    errors.push(`project-assets.json: metadados de origem incompletos para ${slug}`);
+  }
+  if (!await exists(localTarget(asset.src))) errors.push(`project-assets.json: arquivo inexistente para ${slug}: ${asset.src}`);
+}
 
 for (const locale of localeOrder) {
   const path = join(root, "assets", "data", projectFiles[locale]);
@@ -94,6 +112,15 @@ for (const expected of expectedPages) {
   if (!html.includes('data-open-cookie')) errors.push(`${label}: controle de cookies ausente`);
   if (!html.includes("language-switcher")) errors.push(`${label}: seletor de idioma ausente`);
   if (!html.includes("data-theme-label")) errors.push(`${label}: controle de tema sem texto visível`);
+  if (!html.includes("brand-logo")) errors.push(`${label}: identidade Guilherme Rocha ausente do cabeçalho`);
+  const headerOrder = [
+    `href="${config.routes.contact}"`,
+    `href="${config.routes.about}"`,
+    `href="${config.home}#projects"`,
+  ].map((marker) => html.indexOf(marker));
+  if (headerOrder.some((position) => position < 0) || headerOrder.some((position, index) => index && position <= headerOrder[index - 1])) {
+    errors.push(`${label}: navegação deve seguir Contato, Sobre, Projetos`);
+  }
   if (expected.type === "home") {
     if (!html.includes('data-project="clubal"')) errors.push(`${label}: card ClubAL sem identificação própria`);
     if (!html.includes("clubal-operation-panel")) errors.push(`${label}: painel abstrato de Operação ausente`);
@@ -102,6 +129,8 @@ for (const expected of expectedPages) {
   }
   if (expected.type === "about") {
     if ((html.match(/data-context-card/g) || []).length !== 5) errors.push(`${label}: catálogo por contexto incompleto`);
+    if ((html.match(/aria-expanded="false"/g) || []).length < 5) errors.push(`${label}: catálogos contextuais devem iniciar recolhidos`);
+    if ((html.match(/context-catalog-panel"[^>]* hidden/g) || []).length !== 5) errors.push(`${label}: painéis contextuais sem estado inicial oculto`);
     if (!html.includes('src="/assets/js/about.js"')) errors.push(`${label}: comportamento do catálogo contextual ausente`);
     if (html.includes("personal-note")) errors.push(`${label}: seção pessoal removida voltou a ser gerada`);
     for (const project of projectsByLocale[expected.locale]) {
@@ -135,6 +164,9 @@ for (const [locale, contract] of Object.entries({
   if (manifest.lang !== locale) errors.push(`${contract.path}: idioma incorreto`);
   if (manifest.start_url !== contract.start) errors.push(`${contract.path}: start_url incorreto`);
   if (manifest.scope !== contract.scope) errors.push(`${contract.path}: scope incorreto`);
+  if (!manifest.icons?.some((icon) => icon.src === "/assets/img/brand/favicon-512.png" && icon.sizes === "512x512")) {
+    errors.push(`${contract.path}: ícone PNG 512 da identidade ausente`);
+  }
 }
 
 for (const path of htmlFiles) {
@@ -172,6 +204,8 @@ for (const locale of localeOrder) {
     if (project.route !== routeFor(locale, "project", slug)) errors.push(`${label}: rota localizada incorreta para ${slug}`);
     if (!await exists(localTarget(project.route))) errors.push(`${label}: rota inexistente ${project.route}`);
     if (!await exists(localTarget(project.image))) errors.push(`${label}: imagem inexistente ${project.image}`);
+    const icon = projectAssets[slug];
+    if (!icon || !await exists(localTarget(icon.src))) errors.push(`${label}: ícone de projeto inexistente para ${slug}`);
     const [expectedWidth, expectedHeight] = expectedProjectDimensions[slug];
     if (project.imageWidth !== expectedWidth || project.imageHeight !== expectedHeight) {
       errors.push(`${label}: dimensões da imagem principal incorretas para ${slug}`);
@@ -179,6 +213,12 @@ for (const locale of localeOrder) {
   }
 
   const clubal = projects.find((project) => project.slug === "clubal");
+  if (clubal.gallery?.length !== 4) errors.push(`${label}: galeria do ClubAL deve conter quatro capturas`);
+  if (!clubal.galleryNote) errors.push(`${label}: nota de dados demonstrativos da galeria ClubAL ausente`);
+  for (const item of clubal.gallery || []) {
+    if (!await exists(localTarget(item.src))) errors.push(`${label}: captura do ClubAL inexistente ${item.src}`);
+    if (!Number.isInteger(item.width) || !Number.isInteger(item.height)) errors.push(`${label}: captura do ClubAL sem dimensões ${item.src}`);
+  }
   const moduleNames = ["Operação", "Rotinas", "Consulta"];
   const modulePoints = clubal.tabs.flatMap((tab) => tab.points).filter((point) => moduleNames.some((name) => point.startsWith(name)));
   if (modulePoints.length !== 3 || moduleNames.some((name) => modulePoints.filter((point) => point.startsWith(name)).length !== 1)) {
@@ -187,9 +227,11 @@ for (const locale of localeOrder) {
 
   const maeve = projects.find((project) => project.slug === "maeve");
   if (maeve.gallery?.length !== 7) errors.push(`${label}: galeria conceitual de Maeve incompleta`);
+  if (maeve.visualLabel !== conceptLabels[locale]) errors.push(`${label}: rótulo principal de Maeve deve ser ${conceptLabels[locale]}`);
   for (const item of maeve.gallery || []) {
     if (!await exists(localTarget(item.src))) errors.push(`${label}: imagem de Maeve inexistente ${item.src}`);
-    if (!/conceito|concept|conceptual/i.test(item.label)) errors.push(`${label}: arte de Maeve sem rótulo conceitual ${item.src}`);
+    if (item.label !== conceptLabels[locale]) errors.push(`${label}: arte de Maeve sem rótulo conceitual exato ${item.src}`);
+    if (item.width !== 1672 || item.height !== 941) errors.push(`${label}: arte de Maeve sem dimensões corretas ${item.src}`);
   }
   const localeText = JSON.stringify(projects);
   const adultPattern = locale === "en" ? /\badult\b/gi : locale === "es" ? /\badulta\b/gi : /\badulta\b/gi;
@@ -228,7 +270,7 @@ for (const path of textFiles) {
   if (/\blorem ipsum\b/i.test(content) || /\bTODO\b/.test(content)) errors.push(`${path.slice(root.length + 1)}: marcador provisório`);
 }
 
-const imageFiles = files.filter((path) => [".jpg", ".jpeg", ".png", ".svg", ".webp"].includes(extname(path).toLowerCase()));
+const imageFiles = files.filter((path) => [".ico", ".jpg", ".jpeg", ".png", ".svg", ".webp"].includes(extname(path).toLowerCase()));
 let imageBytes = 0;
 for (const path of imageFiles) {
   const size = (await stat(path)).size;
@@ -245,8 +287,16 @@ for (const path of files) {
 }
 
 const siteScript = await readFile(join(root, "assets", "js", "site.js"), "utf8");
-for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage"]) {
+for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", 'updateViaCache: "none"']) {
   if (!siteScript.includes(marker)) errors.push(`site.js: marcador ausente ${marker}`);
+}
+const projectScript = await readFile(join(root, "assets", "js", "project.js"), "utf8");
+for (const marker of ["galleryImage.width", "galleryImage.height", "--gallery-ratio", "ArrowLeft", "ArrowRight", "preload"]) {
+  if (!projectScript.includes(marker)) errors.push(`project.js: comportamento de galeria ausente ${marker}`);
+}
+const serviceWorker = await readFile(join(root, "service-worker.js"), "utf8");
+for (const marker of ['CACHE_NAME = "gui-rocha-v7"', "networkFirst", 'endsWith(".css")', 'endsWith(".js")']) {
+  if (!serviceWorker.includes(marker)) errors.push(`service-worker.js: política de atualização ausente ${marker}`);
 }
 const contactScript = await readFile(join(root, "assets", "js", "contact.js"), "utf8");
 if (!contactScript.includes('params.get("asunto")')) errors.push("contact.js: parâmetro contextual espanhol ausente");
@@ -254,7 +304,10 @@ const styles = await readFile(join(root, "assets", "css", "styles.css"), "utf8")
 for (const marker of [
   ".no-js .project-tabs",
   ".no-js .project-tab-panel[hidden]",
+  ".no-js .context-catalog-panel[hidden]",
   ".context-catalog-grid",
+  ".project-visual[data-kind=\"screenshot\"] .project-image-frame",
+  "@media (max-width: 260px)",
   '.project-card[data-position="active"]',
 ]) {
   if (!styles.includes(marker)) errors.push(`styles.css: fallback sem JavaScript ausente ${marker}`);
@@ -266,6 +319,10 @@ for (const marker of ["data-context-card", "pointerenter", "focusin", "Escape", 
 const headers = await readFile(join(root, "_headers"), "utf8");
 for (const header of ["Content-Security-Policy", "Permissions-Policy", "Referrer-Policy", "X-Content-Type-Options"]) {
   if (!headers.includes(header)) errors.push(`cabeçalho ausente: ${header}`);
+}
+for (const route of ["/assets/css/*", "/assets/js/*", "/assets/img/*"]) {
+  const rule = new RegExp(`${route.replace(/[/*]/g, "\\$&")}\\s+Cache-Control: public, max-age=0, must-revalidate`);
+  if (!rule.test(headers)) errors.push(`_headers: recurso mutável sem revalidação ${route}`);
 }
 
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");

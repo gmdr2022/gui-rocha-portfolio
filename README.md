@@ -13,6 +13,13 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - conceitos de Maeve sempre identificados como conceito, nunca como captura do jogo;
 - build estático compatível com Cloudflare Pages no plano gratuito.
 
+## Identidade e mídia
+
+- a marca pessoal canônica fica em `assets/img/brand/`; o cabeçalho alterna assinaturas vetoriais conforme tema e largura;
+- `assets/data/project-assets.json` registra a origem e informa quando um ícone é oficial, motivo visual ou apenas ilustração de catálogo;
+- a galeria do ClubAL usa capturas locais da interface com dados demonstrativos; artes de Maeve mantêm o rótulo explícito “Imagem conceito”;
+- CSS, JavaScript e capturas mutáveis exigem revalidação no `_headers`; o service worker usa rede primeiro para navegação e recursos de layout.
+
 ## Desenvolvimento
 
 Requer Node.js 20 ou superior.

@@ -11,8 +11,14 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-/assets/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/img/*
+  Cache-Control: public, max-age=0, must-revalidate
 
 /service-worker.js
   Cache-Control: public, max-age=0, must-revalidate

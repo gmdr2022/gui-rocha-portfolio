@@ -15,7 +15,38 @@
     "imageHeight": 1080,
     "imageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
     "imageKind": "screenshot",
-    "visualLabel": "Product composition · fictional data",
+    "visualLabel": "Product interface",
+    "gallery": [
+      {
+        "src": "/assets/img/clubal/rotinas-atual.png",
+        "alt": "ClubAL Routines module interface with schedules, times and demonstration data",
+        "label": "Routines module",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/assets/img/clubal/rotinas-visitas-demo.png",
+        "alt": "ClubAL Routines module interface in the visits view with demonstration data",
+        "label": "Routines · visits",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/assets/img/clubal/clima-flet-demo.png",
+        "alt": "ClubAL interface in the light theme with demonstration weather and operational context",
+        "label": "Weather and context · light",
+        "width": 1936,
+        "height": 1066
+      },
+      {
+        "src": "/assets/img/clubal/clima-flet-noturno-demo.png",
+        "alt": "ClubAL interface in the dark theme with demonstration weather and operational context",
+        "label": "Weather and context · dark",
+        "width": 1936,
+        "height": 1066
+      }
+    ],
+    "galleryNote": "Real interface captures with demonstration data.",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
     "facts": ["Windows", "Local-first", "3 modules"],
@@ -67,42 +98,56 @@
     "imageHeight": 941,
     "imageAlt": "Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery",
     "imageKind": "art",
-    "visualLabel": "Concept image · visual target, not a game capture",
+    "visualLabel": "Concept image",
     "gallery": [
       {
         "src": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
         "alt": "Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery",
-        "label": "Cemetery encounter · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/conceito-kit-modular.png",
         "alt": "Concept image of a modular cemetery kit with a compact map, ruins, props, a creature and lighting variations",
-        "label": "Modular environment kit · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/conceito-npcs-modulares.png",
         "alt": "Concept image of Maeve and four characters with reusable clothes, hair and accessories",
-        "label": "Characters and reusable pieces · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/conceito-cenario-dun-caerwyn.png",
         "alt": "Concept image of Maeve exploring the modular ruins of Dun Caerwyn under the moon",
-        "label": "Modular Dun Caerwyn · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/maeve-concept-threshold.png",
         "alt": "Narrative concept image of Maeve at the threshold of House Roscaern during a storm",
-        "label": "The threshold of House Roscaern · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/maeve-concept-registry.png",
         "alt": "Narrative concept image of Maeve consulting a ritual record in a dark archive",
-        "label": "Blood as a document · concept image"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       },
       {
         "src": "/assets/img/maeve/conceito-o-arquiteto.webp",
         "alt": "Concept image of Gui Rocha as The Architect in a ruined Dun Caerwyn archive",
-        "label": "The Architect · concept image and easter egg"
+        "label": "Concept image",
+        "width": 1672,
+        "height": 941
       }
     ],
     "accent": "#ef6d78",
@@ -158,7 +203,7 @@
     "imageHeight": 900,
     "imageAlt": "Current Demonyza homepage with purple visual identity, navigation and interactive areas",
     "imageKind": "website",
-    "visualLabel": "Current capture · public website",
+    "visualLabel": "Public website",
     "accent": "#c769ff",
     "accentRgb": "199 105 255",
     "facts": ["Client project", "Responsive website", "Cloudflare Pages"],
@@ -206,7 +251,7 @@
     "imageHeight": 1080,
     "imageAlt": "Codex Checkpoint showing a fictional queue of pending validations, decisions and note history",
     "imageKind": "screenshot",
-    "visualLabel": "Product capture · demonstration data",
+    "visualLabel": "Product · demonstration data",
     "accent": "#36d6c0",
     "accentRgb": "54 214 192",
     "facts": ["WPF / .NET", "No account", "Durable queue"],
@@ -253,7 +298,7 @@
     "imageHeight": 760,
     "imageAlt": "Current NEXUS overview with two fictional projects, readiness states, update dates and an option to add a project.",
     "imageKind": "screenshot",
-    "visualLabel": "Demo with a fictional catalog · validated local build",
+    "visualLabel": "Demonstration catalog",
     "accent": "#8e7dff",
     "accentRgb": "142 125 255",
     "facts": ["C# WPF", "Tracked paths", "Offline by default"],

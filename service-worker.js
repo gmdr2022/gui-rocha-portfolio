@@ -1,4 +1,4 @@
-const CACHE_NAME = "gui-rocha-v6";
+const CACHE_NAME = "gui-rocha-v7";
 const CORE_ASSETS = [
   "/",
   "/en/",
@@ -10,6 +10,12 @@ const CORE_ASSETS = [
   "/assets/js/project.js",
   "/assets/js/contact.js",
   "/assets/img/gui-rocha.jpg",
+  "/assets/img/brand/gr-mark-primary.svg",
+  "/assets/img/brand/gui-rocha-compact-for-light.svg",
+  "/assets/img/brand/gui-rocha-compact-for-dark.svg",
+  "/assets/img/brand/guilherme-rocha-horizontal-for-light.svg",
+  "/assets/img/brand/guilherme-rocha-horizontal-for-dark.svg",
+  "/assets/img/brand/favicon-512.png",
   "/favicon.svg",
   "/manifest.webmanifest",
   "/en/manifest.webmanifest",
@@ -34,6 +40,30 @@ const localeFallback = (pathname) => {
   return "/";
 };
 
+const cacheResponse = async (request, response) => {
+  if (response.ok) {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(request, response.clone());
+  }
+  return response;
+};
+
+const networkFirst = async (request) => {
+  try {
+    return await cacheResponse(request, await fetch(request));
+  } catch (error) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw error;
+  }
+};
+
+const cacheFirst = async (request) => {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+  return cacheResponse(request, await fetch(request));
+};
+
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -41,24 +71,13 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).then((response) => {
-      if (response.ok) {
-        const copy = response.clone();
-        event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)));
-      }
-      return response;
-    }).catch(async () => {
+    event.respondWith(networkFirst(request).catch(async () => {
       const cached = await caches.match(request);
       return cached || caches.match(localeFallback(url.pathname));
     }));
     return;
   }
 
-  event.respondWith(caches.match(request).then((cached) => cached || fetch(request).then((response) => {
-    if (response.ok) {
-      const copy = response.clone();
-      event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)));
-    }
-    return response;
-  })));
+  const isMutableAsset = url.pathname.endsWith(".css") || url.pathname.endsWith(".js");
+  event.respondWith(isMutableAsset ? networkFirst(request) : cacheFirst(request));
 });

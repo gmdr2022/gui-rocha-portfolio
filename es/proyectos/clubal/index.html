@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/es/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Producto · software · creación</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
-      <a href="/es/" data-site-nav="home">Proyectos</a>
-      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
       <a href="/es/contacto/" data-site-nav="contact">Contacto</a>
+      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
+      <a href="/es/#projects" data-site-nav="home">Proyectos</a>
     </nav>
     <div class="header-actions">
 
@@ -62,7 +61,7 @@
         <header class="project-heading">
           <p class="project-number">01 · Software para Windows destinado a rutinas institucionales</p>
           <span class="status-pill" data-tone="live">En evolución · implementación asistida</span>
-          <h1>ClubAL</h1>
+          <div class="project-heading-title"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/clubal/icon.png" alt="" width="192" height="192" decoding="async" aria-hidden="true"></span><h1>ClubAL</h1></div>
           <p class="project-promise">Reúno el registro en el PC, la publicación en pantallas y la consulta sin edición.</p>
           <p class="project-summary">Con ClubAL, organizo rutinas institucionales en Windows, publico lo necesario en pantallas y ofrezco consulta sin edición.</p>
           <ul class="project-facts" aria-label="ClubAL"><li>Windows</li><li>Local-first</li><li>3 módulos</li></ul>
@@ -78,18 +77,19 @@
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="screenshot">
+        <figure class="project-visual" data-kind="screenshot" style="--gallery-ratio:1920 / 1080" data-project-gallery tabindex="0" aria-label="Galería del proyecto">
           <div class="project-image-frame">
-            <img data-project-image src="/assets/img/clubal/rotinas-atual.png" alt="Interfaz actual del módulo Rotinas de ClubAL con datos ficticios, agenda, horarios operativos y clima" width="1920" height="1080">
-            <span class="visual-label" data-visual-label>Composición del producto · datos ficticios</span>
+            <img data-project-image src="/assets/img/clubal/rotinas-atual.png" alt="Interfaz del módulo Rutinas de ClubAL con agenda, horarios y datos demostrativos" width="1920" height="1080">
+            <span class="visual-label" data-visual-label>Módulo Rutinas</span>
           </div>
-          <div class="gallery-controls" hidden aria-label="Galería del proyecto">
+          <div class="gallery-controls" aria-label="Galería del proyecto">
             <button type="button" data-gallery-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Imagen anterior</span></button>
-            <p><strong data-gallery-current>1</strong><span>/ 1</span></p>
+            <p><strong data-gallery-current>1</strong><span>/ 4</span></p>
             <button type="button" data-gallery-next><span>Siguiente imagen</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/clubal/rotinas-atual.png","alt":"Interfaz actual del módulo Rotinas de ClubAL con datos ficticios, agenda, horarios operativos y clima","label":"Composición del producto · datos ficticios"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/clubal/rotinas-atual.png","alt":"Interfaz del módulo Rutinas de ClubAL con agenda, horarios y datos demostrativos","label":"Módulo Rutinas","width":1920,"height":1080},{"src":"/assets/img/clubal/rotinas-visitas-demo.png","alt":"Interfaz del módulo Rutinas de ClubAL en la vista de visitas con datos demostrativos","label":"Rutinas · visitas","width":1920,"height":1080},{"src":"/assets/img/clubal/clima-flet-demo.png","alt":"Interfaz de ClubAL en tema claro con clima y contexto operativo demostrativos","label":"Clima y contexto · claro","width":1936,"height":1066},{"src":"/assets/img/clubal/clima-flet-noturno-demo.png","alt":"Interfaz de ClubAL en tema oscuro con clima y contexto operativo demostrativos","label":"Clima y contexto · oscuro","width":1936,"height":1066}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+          <figcaption class="gallery-note">Capturas reales de la interfaz con datos demostrativos.</figcaption>
         </figure>
         <a class="next-project" href="/es/proyectos/maeve/" style="--next-accent:#ef6d78"><span>Siguiente proyecto</span><strong>Maeve Roscaern</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
       </div>

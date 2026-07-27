@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Produto · software · criação</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Navegação principal">
-      <a href="/" data-site-nav="home">Projetos</a>
-      <a href="/sobre/" data-site-nav="about">Sobre</a>
       <a href="/contato/" data-site-nav="contact">Contato</a>
+      <a href="/sobre/" data-site-nav="about">Sobre</a>
+      <a href="/#projects" data-site-nav="home">Projetos</a>
     </nav>
     <div class="header-actions">
 
@@ -62,7 +61,7 @@
         <header class="project-heading">
           <p class="project-number">02 · RPG dark fantasy em produção solo</p>
           <span class="status-pill" data-tone="progress">Em desenvolvimento · Fase 8</span>
-          <h1>Maeve Roscaern</h1>
+          <div class="project-heading-title"><span class="project-icon" data-icon-kind="catalog-art" title="Arte de catálogo existente; Maeve ainda não possui um ícone oficial neste portal."><img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" aria-hidden="true"></span><h1>Maeve Roscaern</h1></div>
           <p class="project-promise">Em Dun Caerwyn, eu construo uma história de sangue, memória e escolhas que deixam marcas.</p>
           <p class="project-summary">Eu desenvolvo um RPG single-player em Unreal Engine 5.8 com áreas compactas, peças modulares e escala viável para produção solo.</p>
           <ul class="project-facts" aria-label="Maeve Roscaern"><li>Unreal Engine 5.8</li><li>Single-player</li><li>Offline-first</li></ul>
@@ -78,18 +77,19 @@
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="art">
+        <figure class="project-visual" data-kind="art" style="--gallery-ratio:1672 / 941" data-project-gallery tabindex="0" aria-label="Galeria do projeto">
           <div class="project-image-frame">
             <img data-project-image src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn" width="1672" height="941">
-            <span class="visual-label" data-visual-label>Encontro no cemitério · imagem conceito</span>
+            <span class="visual-label" data-visual-label>Imagem conceito</span>
           </div>
           <div class="gallery-controls" aria-label="Galeria do projeto">
             <button type="button" data-gallery-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Imagem anterior</span></button>
             <p><strong data-gallery-current>1</strong><span>/ 7</span></p>
             <button type="button" data-gallery-next><span>Próxima imagem</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp","alt":"Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn","label":"Encontro no cemitério · imagem conceito"},{"src":"/assets/img/maeve/conceito-kit-modular.png","alt":"Imagem conceito de um kit modular de cemitério com mapa compacto, ruínas, objetos, criatura e variações de iluminação","label":"Kit de cenário modular · imagem conceito"},{"src":"/assets/img/maeve/conceito-npcs-modulares.png","alt":"Imagem conceito de Maeve e quatro personagens com roupas, cabelos e acessórios organizados como peças reutilizáveis","label":"Personagens e peças reutilizáveis · imagem conceito"},{"src":"/assets/img/maeve/conceito-cenario-dun-caerwyn.png","alt":"Imagem conceito de Maeve explorando as ruínas modulares de Dun Caerwyn sob a lua","label":"Dun Caerwyn modular · imagem conceito"},{"src":"/assets/img/maeve/maeve-concept-threshold.png","alt":"Imagem conceito narrativa de Maeve diante do limiar da Casa Roscaern durante uma tempestade","label":"O limiar da Casa Roscaern · imagem conceito"},{"src":"/assets/img/maeve/maeve-concept-registry.png","alt":"Imagem conceito narrativa de Maeve consultando um registro ritual em um arquivo escuro","label":"Sangue como documento · imagem conceito"},{"src":"/assets/img/maeve/conceito-o-arquiteto.webp","alt":"Imagem conceito de Gui Rocha como O Arquiteto em um arquivo em ruínas de Dun Caerwyn","label":"O Arquiteto · imagem conceito e easter egg"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp","alt":"Imagem conceito iluminada de Maeve, uma sobrevivente e um cão amaldiçoado em um cemitério de Dun Caerwyn","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-kit-modular.png","alt":"Imagem conceito de um kit modular de cemitério com mapa compacto, ruínas, objetos, criatura e variações de iluminação","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-npcs-modulares.png","alt":"Imagem conceito de Maeve e quatro personagens com roupas, cabelos e acessórios organizados como peças reutilizáveis","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-cenario-dun-caerwyn.png","alt":"Imagem conceito de Maeve explorando as ruínas modulares de Dun Caerwyn sob a lua","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/maeve-concept-threshold.png","alt":"Imagem conceito narrativa de Maeve diante do limiar da Casa Roscaern durante uma tempestade","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/maeve-concept-registry.png","alt":"Imagem conceito narrativa de Maeve consultando um registro ritual em um arquivo escuro","label":"Imagem conceito","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-o-arquiteto.webp","alt":"Imagem conceito de Gui Rocha como O Arquiteto em um arquivo em ruínas de Dun Caerwyn","label":"Imagem conceito","width":1672,"height":941}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+
         </figure>
         <a class="next-project" href="/projetos/demonyza/" style="--next-accent:#c769ff"><span>Próximo projeto</span><strong>Demonyza</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
       </div>

@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/es/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Producto · software · creación</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
-      <a href="/es/" data-site-nav="home">Proyectos</a>
-      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
       <a href="/es/contacto/" data-site-nav="contact">Contacto</a>
+      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
+      <a href="/es/#projects" data-site-nav="home">Proyectos</a>
     </nav>
     <div class="header-actions">
 
@@ -62,7 +61,7 @@
         <header class="project-heading">
           <p class="project-number">06 · Proyecto público pequeño y verificable</p>
           <span class="status-pill" data-tone="lab">Código abierto · v1.0.0</span>
-          <h1>Local First Checklist</h1>
+          <div class="project-heading-title"><span class="project-icon" data-icon-kind="project-illustration" title="Ilustração do projeto já publicada; não é apresentada como logotipo."><img src="/assets/img/local-first-checklist.svg" alt="" width="1600" height="1000" decoding="async" aria-hidden="true"></span><h1>Local First Checklist</h1></div>
           <p class="project-promise">Muestro una arquitectura local-first en un ejemplo compacto.</p>
           <p class="project-summary">Publiqué una aplicación Python de código abierto con checklist en JSON local, línea de comandos, pruebas y CI.</p>
           <ul class="project-facts" aria-label="Local First Checklist"><li>Python CLI</li><li>JSON local</li><li>Pruebas + CI</li></ul>
@@ -78,7 +77,7 @@
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="art">
+        <figure class="project-visual" data-kind="art" style="--gallery-ratio:1600 / 1000">
           <div class="project-image-frame">
             <img data-project-image src="/assets/img/local-first-checklist.svg" alt="Ilustración de una lista local con elementos completados y un archivo JSON" width="1600" height="1000">
             <span class="visual-label" data-visual-label>Ilustración del proyecto</span>
@@ -88,8 +87,9 @@
             <p><strong data-gallery-current>1</strong><span>/ 1</span></p>
             <button type="button" data-gallery-next><span>Siguiente imagen</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/local-first-checklist.svg","alt":"Ilustración de una lista local con elementos completados y un archivo JSON","label":"Ilustración del proyecto"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/local-first-checklist.svg","alt":"Ilustración de una lista local con elementos completados y un archivo JSON","label":"Ilustración del proyecto","width":1600,"height":1000}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+
         </figure>
         <a class="next-project" href="/es/proyectos/clubal/" style="--next-accent:#25c997"><span>Siguiente proyecto</span><strong>ClubAL</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
       </div>

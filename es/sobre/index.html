@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/es/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Producto · software · creación</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
-      <a href="/es/" data-site-nav="home">Proyectos</a>
-      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
       <a href="/es/contacto/" data-site-nav="contact">Contacto</a>
+      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
+      <a href="/es/#projects" data-site-nav="home">Proyectos</a>
     </nav>
     <div class="header-actions">
 
@@ -69,53 +68,53 @@
         <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">Explorar por contexto</p><p id="context-catalog-hint">Pase el cursor, use Tab o haga clic para abrir una categoría.</p></header>
         <div class="context-catalog-grid" data-context-catalogs aria-describedby="context-catalog-hint">
         <article class="context-catalog-card" data-context-card data-category="institutional" style="--context-accent:#25c997;--context-order:0">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-es-institutional">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-es-institutional">
             <span class="context-catalog-index">01</span>
             <span class="context-catalog-title"><strong>Software institucional</strong><small>1 proyecto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-es-institutional" data-context-panel>
-            <ul><li><a href="/es/proyectos/clubal/" style="--item-accent:#25c997"><span>01</span><span><strong>ClubAL</strong><small>Con ClubAL, organizo rutinas institucionales en Windows, publico lo necesario en pantallas y ofrezco consulta sin edición.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          <div class="context-catalog-panel" id="context-es-institutional" data-context-panel hidden>
+            <ul><li><a href="/es/proyectos/clubal/" style="--item-accent:#25c997"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/clubal/icon.png" alt="" width="192" height="192" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>ClubAL</strong><small>Con ClubAL, organizo rutinas institucionales en Windows, publico lo necesario en pantallas y ofrezco consulta sin edición.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
         <article class="context-catalog-card" data-context-card data-category="games" style="--context-accent:#ef6d78;--context-order:1">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-es-games">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-es-games">
             <span class="context-catalog-index">02</span>
             <span class="context-catalog-title"><strong>Juegos</strong><small>1 proyecto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-es-games" data-context-panel>
-            <ul><li><a href="/es/proyectos/maeve/" style="--item-accent:#ef6d78"><span>02</span><span><strong>Maeve Roscaern</strong><small>Desarrollo un RPG para un jugador en Unreal Engine 5.8 con áreas compactas, piezas modulares y una escala viable para producción individual.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          <div class="context-catalog-panel" id="context-es-games" data-context-panel hidden>
+            <ul><li><a href="/es/proyectos/maeve/" style="--item-accent:#ef6d78"><span class="project-icon" data-icon-kind="catalog-art" title="Arte de catálogo existente; Maeve ainda não possui um ícone oficial neste portal."><img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Maeve Roscaern</strong><small>Desarrollo un RPG para un jugador en Unreal Engine 5.8 con áreas compactas, piezas modulares y una escala viable para producción individual.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
         <article class="context-catalog-card" data-context-card data-category="websites" style="--context-accent:#c769ff;--context-order:2">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-es-websites">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-es-websites">
             <span class="context-catalog-index">03</span>
             <span class="context-catalog-title"><strong>Sitios creados</strong><small>1 proyecto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-es-websites" data-context-panel>
-            <ul><li><a href="/es/proyectos/demonyza/" style="--item-accent:#c769ff"><span>03</span><span><strong>Demonyza</strong><small>Creé un sitio que reúne presentación, agenda, transmisiones y comunidad de una creadora de contenido.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          <div class="context-catalog-panel" id="context-es-websites" data-context-panel hidden>
+            <ul><li><a href="/es/proyectos/demonyza/" style="--item-accent:#c769ff"><span class="project-icon" data-icon-kind="existing-site-motif" title="Motivo visual já usado no site da Demonyza; não é apresentado como logotipo."><img src="/assets/img/demonyza/icon-black-rose.png" alt="" width="500" height="500" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Demonyza</strong><small>Creé un sitio que reúne presentación, agenda, transmisiones y comunidad de una creadora de contenido.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
         <article class="context-catalog-card" data-context-card data-category="windows" style="--context-accent:#8e7dff;--context-order:3">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-es-windows">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-es-windows">
             <span class="context-catalog-index">04</span>
             <span class="context-catalog-title"><strong>Herramientas para Windows</strong><small>2 proyectos</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-es-windows" data-context-panel>
-            <ul><li><a href="/es/proyectos/nexus/" style="--item-accent:#8e7dff"><span>05</span><span><strong>NEXUS</strong><small>Reuní proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li><li><a href="/es/proyectos/codex-checkpoint/" style="--item-accent:#36d6c0"><span>04</span><span><strong>Codex Checkpoint</strong><small>Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          <div class="context-catalog-panel" id="context-es-windows" data-context-panel hidden>
+            <ul><li><a href="/es/proyectos/nexus/" style="--item-accent:#8e7dff"><span class="project-icon" data-icon-kind="application-icon"><img src="/assets/img/nexus/icon.ico" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>NEXUS</strong><small>Reuní proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li><li><a href="/es/proyectos/codex-checkpoint/" style="--item-accent:#36d6c0"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/codex-checkpoint/icon.png" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Codex Checkpoint</strong><small>Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
         <article class="context-catalog-card" data-context-card data-category="resources" style="--context-accent:#f2bb62;--context-order:4">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-es-resources">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-es-resources">
             <span class="context-catalog-index">05</span>
             <span class="context-catalog-title"><strong>Recursos</strong><small>1 proyecto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-es-resources" data-context-panel>
-            <ul><li><a href="/es/proyectos/local-first-checklist/" style="--item-accent:#f2bb62"><span>06</span><span><strong>Local First Checklist</strong><small>Publiqué una aplicación Python de código abierto con checklist en JSON local, línea de comandos, pruebas y CI.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
+          <div class="context-catalog-panel" id="context-es-resources" data-context-panel hidden>
+            <ul><li><a href="/es/proyectos/local-first-checklist/" style="--item-accent:#f2bb62"><span class="project-icon" data-icon-kind="project-illustration" title="Ilustração do projeto já publicada; não é apresentada como logotipo."><img src="/assets/img/local-first-checklist.svg" alt="" width="1600" height="1000" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Local First Checklist</strong><small>Publiqué una aplicación Python de código abierto con checklist en JSON local, línea de comandos, pruebas y CI.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article></div>
       </section>

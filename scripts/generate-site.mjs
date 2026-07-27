@@ -9,6 +9,7 @@ const projectFiles = {
   en: "projects.en.json",
   es: "projects.es.json",
 };
+const projectAssets = JSON.parse(await readFile(join(root, "assets", "data", "project-assets.json"), "utf8"));
 
 const projectsByLocale = Object.fromEntries(await Promise.all(localeOrder.map(async (locale) => {
   const path = join(root, "assets", "data", projectFiles[locale]);
@@ -25,6 +26,14 @@ const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => (
 }[character]));
 
 const safeDimension = (value, fallback) => Number.isInteger(value) && value > 0 ? value : fallback;
+
+const projectIcon = (project, { eager = false, className = "" } = {}) => {
+  const asset = projectAssets[project.slug];
+  if (!asset) throw new Error(`Missing shared project asset for ${project.slug}`);
+  const loading = eager ? "" : ' loading="lazy"';
+  const note = asset.official === false && asset.note ? ` title="${escapeHtml(asset.note)}"` : "";
+  return `<span class="project-icon${className ? ` ${className}` : ""}" data-icon-kind="${escapeHtml(asset.kind)}"${note}><img src="${escapeHtml(asset.src)}" alt="" width="${safeDimension(asset.width, 96)}" height="${safeDimension(asset.height, 96)}" decoding="async"${loading} aria-hidden="true"></span>`;
+};
 
 const clubalMediaCopy = {
   "pt-BR": {
@@ -115,13 +124,12 @@ const header = (locale, page) => {
   return `
   <header class="site-header">
     <a class="brand-lockup" href="${config.home}" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>${escapeHtml(common.brandTagline)}</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="${escapeHtml(common.navLabel)}">
-      <a href="${config.home}" data-site-nav="home">${escapeHtml(common.products)}</a>
-      <a href="${config.routes.about}" data-site-nav="about">${escapeHtml(common.about)}</a>
       <a href="${config.routes.contact}" data-site-nav="contact">${escapeHtml(common.contact)}</a>
+      <a href="${config.routes.about}" data-site-nav="about">${escapeHtml(common.about)}</a>
+      <a href="${config.home}#projects" data-site-nav="home">${escapeHtml(common.products)}</a>
     </nav>
     <div class="header-actions">
       ${languageSwitcher(locale, page)}
@@ -218,7 +226,7 @@ const projectCard = (locale, project, index) => {
           <div class="project-card-content">
             <div class="project-card-meta"><span>${project.code}</span><p>${escapeHtml(project.kicker)}</p></div>
             <span class="status-pill" data-tone="${project.statusTone}">${escapeHtml(project.status)}</span>
-            <h2>${escapeHtml(project.name)}</h2>
+            <div class="project-title-row">${projectIcon(project, { eager: index === 0 })}<h2>${escapeHtml(project.name)}</h2></div>
             <p>${escapeHtml(project.summary)}</p>
             <div class="project-card-footer">
               <ul aria-label="${escapeHtml(project.name)}">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
@@ -286,13 +294,13 @@ const aboutPage = (locale) => {
     const accent = items[0]?.accent || "#a9ed34";
     return `
         <article class="context-catalog-card" data-context-card data-category="${key}" style="--context-accent:${accent};--context-order:${categoryIndex}">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="${panelId}">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="${panelId}">
             <span class="context-catalog-index">${String(categoryIndex + 1).padStart(2, "0")}</span>
             <span class="context-catalog-title"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>
             ${icon("chevron")}
           </button>
-          <div class="context-catalog-panel" id="${panelId}" data-context-panel>
-            <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}"><span>${project.code}</span><span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
+          <div class="context-catalog-panel" id="${panelId}" data-context-panel hidden>
+            <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}">${projectIcon(project)}<span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
           </div>
         </article>`;
   }).join("");
@@ -372,6 +380,8 @@ const projectPage = (locale, project, index) => {
     src: project.image,
     alt: project.imageAlt,
     label: project.visualLabel,
+    width: project.imageWidth,
+    height: project.imageHeight,
   }];
   const imageWidth = safeDimension(gallery[0].width ?? project.imageWidth, 1600);
   const imageHeight = safeDimension(gallery[0].height ?? project.imageHeight, 900);
@@ -383,7 +393,7 @@ const projectPage = (locale, project, index) => {
         <header class="project-heading">
           <p class="project-number">${project.code} · ${escapeHtml(project.kicker)}</p>
           <span class="status-pill" data-tone="${project.statusTone}">${escapeHtml(project.status)}</span>
-          <h1>${escapeHtml(project.name)}</h1>
+          <div class="project-heading-title">${projectIcon(project, { eager: true })}<h1>${escapeHtml(project.name)}</h1></div>
           <p class="project-promise">${escapeHtml(project.promise)}</p>
           <p class="project-summary">${escapeHtml(project.summary)}</p>
           <ul class="project-facts" aria-label="${escapeHtml(project.name)}">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
@@ -402,7 +412,7 @@ const projectPage = (locale, project, index) => {
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="${project.imageKind}">
+        <figure class="project-visual" data-kind="${project.imageKind}" style="--gallery-ratio:${imageWidth} / ${imageHeight}"${gallery.length > 1 ? ` data-project-gallery tabindex="0" aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
             <img data-project-image src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}">
             <span class="visual-label" data-visual-label>${escapeHtml(gallery[0].label)}</span>
@@ -414,6 +424,7 @@ const projectPage = (locale, project, index) => {
           </div>
           <template data-gallery-data>${JSON.stringify(gallery).replaceAll("<", "\\u003c")}</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+          ${project.galleryNote ? `<figcaption class="gallery-note">${escapeHtml(project.galleryNote)}</figcaption>` : ""}
         </figure>
         <a class="next-project" href="${next.route}" style="--next-accent:${next.accent}"><span>${escapeHtml(common.nextProject)}</span><strong>${escapeHtml(next.name)}</strong>${icon("arrowRight")}</a>
       </div>
@@ -488,7 +499,10 @@ for (const [locale, manifest] of Object.entries(localizedManifests)) {
     display: "standalone",
     background_color: "#07100f",
     theme_color: "#07100f",
-    icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }],
+    icons: [
+      { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+      { src: "/assets/img/brand/favicon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
+    ],
   }, null, 2)}\n`, "utf8");
 }
 

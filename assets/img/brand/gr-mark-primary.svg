@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
   <title id="title">Monograma GR</title>
   <desc id="desc">Marca pessoal de Guilherme Rocha formada pelas letras G e R em construção geométrica modular.</desc>
-  <rect x="0" y="0" width="256" height="256" rx="58" fill="#B6FF42"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#B6FF42"/>
 
   <g fill="none" stroke="#06100E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
     <path d="M116 58H89C61 58 47 74 47 102v53c0 28 15 43 43 43h26c15 0 23-8 23-23v-38h-36"/>

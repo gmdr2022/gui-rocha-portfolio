@@ -1,0 +1,53 @@
+{
+  "clubal": {
+    "src": "/assets/img/clubal/icon.png",
+    "width": 192,
+    "height": 192,
+    "official": true,
+    "kind": "official-icon",
+    "source": "ClubAL site/assets/clubal-icon.png"
+  },
+  "maeve": {
+    "src": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+    "width": 1672,
+    "height": 941,
+    "official": false,
+    "kind": "catalog-art",
+    "source": "Existing Maeve concept art in this portal",
+    "note": "Arte de catálogo existente; Maeve ainda não possui um ícone oficial neste portal."
+  },
+  "demonyza": {
+    "src": "/assets/img/demonyza/icon-black-rose.png",
+    "width": 500,
+    "height": 500,
+    "official": false,
+    "kind": "existing-site-motif",
+    "source": "Demonyza assets/img/icons/relics/black-rose.png",
+    "note": "Motivo visual já usado no site da Demonyza; não é apresentado como logotipo."
+  },
+  "codex-checkpoint": {
+    "src": "/assets/img/codex-checkpoint/icon.png",
+    "width": 1024,
+    "height": 1024,
+    "official": true,
+    "kind": "official-icon",
+    "source": "CodexCheckpoint assets/CodexCheckpoint.png"
+  },
+  "nexus": {
+    "src": "/assets/img/nexus/icon.ico",
+    "width": 256,
+    "height": 256,
+    "official": true,
+    "kind": "application-icon",
+    "source": "NexusDevHub/NexusDevHub.ico"
+  },
+  "local-first-checklist": {
+    "src": "/assets/img/local-first-checklist.svg",
+    "width": 1600,
+    "height": 1000,
+    "official": false,
+    "kind": "project-illustration",
+    "source": "Existing Local First Checklist illustration in this portal",
+    "note": "Ilustração do projeto já publicada; não é apresentada como logotipo."
+  }
+}

@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/en/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Product · software · creation</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Main navigation">
-      <a href="/en/" data-site-nav="home">Projects</a>
-      <a href="/en/about/" data-site-nav="about">About</a>
       <a href="/en/contact/" data-site-nav="contact">Contact</a>
+      <a href="/en/about/" data-site-nav="about">About</a>
+      <a href="/en/#projects" data-site-nav="home">Projects</a>
     </nav>
     <div class="header-actions">
 
@@ -62,7 +61,7 @@
         <header class="project-heading">
           <p class="project-number">02 · A dark fantasy RPG built for solo production</p>
           <span class="status-pill" data-tone="progress">In development · Phase 8</span>
-          <h1>Maeve Roscaern</h1>
+          <div class="project-heading-title"><span class="project-icon" data-icon-kind="catalog-art" title="Arte de catálogo existente; Maeve ainda não possui um ícone oficial neste portal."><img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" aria-hidden="true"></span><h1>Maeve Roscaern</h1></div>
           <p class="project-promise">In Dun Caerwyn, I am building a story of blood, memory and choices that leave marks.</p>
           <p class="project-summary">I am developing a single-player RPG in Unreal Engine 5.8 with compact areas, modular pieces and a scale suited to solo production.</p>
           <ul class="project-facts" aria-label="Maeve Roscaern"><li>Unreal Engine 5.8</li><li>Single-player</li><li>Offline-first</li></ul>
@@ -78,18 +77,19 @@
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="art">
+        <figure class="project-visual" data-kind="art" style="--gallery-ratio:1672 / 941" data-project-gallery tabindex="0" aria-label="Project gallery">
           <div class="project-image-frame">
             <img data-project-image src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery" width="1672" height="941">
-            <span class="visual-label" data-visual-label>Cemetery encounter · concept image</span>
+            <span class="visual-label" data-visual-label>Concept image</span>
           </div>
           <div class="gallery-controls" aria-label="Project gallery">
             <button type="button" data-gallery-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Previous image</span></button>
             <p><strong data-gallery-current>1</strong><span>/ 7</span></p>
             <button type="button" data-gallery-next><span>Next image</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp","alt":"Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery","label":"Cemetery encounter · concept image"},{"src":"/assets/img/maeve/conceito-kit-modular.png","alt":"Concept image of a modular cemetery kit with a compact map, ruins, props, a creature and lighting variations","label":"Modular environment kit · concept image"},{"src":"/assets/img/maeve/conceito-npcs-modulares.png","alt":"Concept image of Maeve and four characters with reusable clothes, hair and accessories","label":"Characters and reusable pieces · concept image"},{"src":"/assets/img/maeve/conceito-cenario-dun-caerwyn.png","alt":"Concept image of Maeve exploring the modular ruins of Dun Caerwyn under the moon","label":"Modular Dun Caerwyn · concept image"},{"src":"/assets/img/maeve/maeve-concept-threshold.png","alt":"Narrative concept image of Maeve at the threshold of House Roscaern during a storm","label":"The threshold of House Roscaern · concept image"},{"src":"/assets/img/maeve/maeve-concept-registry.png","alt":"Narrative concept image of Maeve consulting a ritual record in a dark archive","label":"Blood as a document · concept image"},{"src":"/assets/img/maeve/conceito-o-arquiteto.webp","alt":"Concept image of Gui Rocha as The Architect in a ruined Dun Caerwyn archive","label":"The Architect · concept image and easter egg"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp","alt":"Concept image of Maeve, a survivor and a cursed hound in a lit Dun Caerwyn cemetery","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-kit-modular.png","alt":"Concept image of a modular cemetery kit with a compact map, ruins, props, a creature and lighting variations","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-npcs-modulares.png","alt":"Concept image of Maeve and four characters with reusable clothes, hair and accessories","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-cenario-dun-caerwyn.png","alt":"Concept image of Maeve exploring the modular ruins of Dun Caerwyn under the moon","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/maeve-concept-threshold.png","alt":"Narrative concept image of Maeve at the threshold of House Roscaern during a storm","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/maeve-concept-registry.png","alt":"Narrative concept image of Maeve consulting a ritual record in a dark archive","label":"Concept image","width":1672,"height":941},{"src":"/assets/img/maeve/conceito-o-arquiteto.webp","alt":"Concept image of Gui Rocha as The Architect in a ruined Dun Caerwyn archive","label":"Concept image","width":1672,"height":941}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+
         </figure>
         <a class="next-project" href="/en/projects/demonyza/" style="--next-accent:#c769ff"><span>Next project</span><strong>Demonyza</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
       </div>

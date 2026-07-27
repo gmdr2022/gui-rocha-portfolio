@@ -29,13 +29,12 @@
 
   <header class="site-header">
     <a class="brand-lockup" href="/es/" aria-label="Gui Rocha">
-      <span class="brand-mark" aria-hidden="true">GR</span>
-      <span class="brand-copy"><strong>Gui Rocha</strong><small>Producto · software · creación</small></span>
+      <span class="brand-logo" aria-hidden="true"></span>
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
-      <a href="/es/" data-site-nav="home">Proyectos</a>
-      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
       <a href="/es/contacto/" data-site-nav="contact">Contacto</a>
+      <a href="/es/sobre/" data-site-nav="about">Sobre mí</a>
+      <a href="/es/#projects" data-site-nav="home">Proyectos</a>
     </nav>
     <div class="header-actions">
 
@@ -62,7 +61,7 @@
         <header class="project-heading">
           <p class="project-number">04 · Cola local para validaciones y decisiones</p>
           <span class="status-pill" data-tone="ready">Producto local · Windows</span>
-          <h1>Codex Checkpoint</h1>
+          <div class="project-heading-title"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/codex-checkpoint/icon.png" alt="" width="1024" height="1024" decoding="async" aria-hidden="true"></span><h1>Codex Checkpoint</h1></div>
           <p class="project-promise">Registro lo que queda pendiente, lo retomo en el momento adecuado y conservo el contexto.</p>
           <p class="project-summary">Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</p>
           <ul class="project-facts" aria-label="Codex Checkpoint"><li>WPF / .NET</li><li>Sin cuenta</li><li>Cola duradera</li></ul>
@@ -78,18 +77,19 @@
         </section>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="screenshot">
+        <figure class="project-visual" data-kind="screenshot" style="--gallery-ratio:1920 / 1080">
           <div class="project-image-frame">
             <img data-project-image src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas" width="1920" height="1080">
-            <span class="visual-label" data-visual-label>Captura del producto · datos de demostración</span>
+            <span class="visual-label" data-visual-label>Producto · datos demostrativos</span>
           </div>
           <div class="gallery-controls" hidden aria-label="Galería del proyecto">
             <button type="button" data-gallery-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Imagen anterior</span></button>
             <p><strong data-gallery-current>1</strong><span>/ 1</span></p>
             <button type="button" data-gallery-next><span>Siguiente imagen</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
           </div>
-          <template data-gallery-data>[{"src":"/assets/img/codex-checkpoint/app.png","alt":"Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas","label":"Captura del producto · datos de demostración"}]</template>
+          <template data-gallery-data>[{"src":"/assets/img/codex-checkpoint/app.png","alt":"Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas","label":"Producto · datos demostrativos","width":1920,"height":1080}]</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
+
         </figure>
         <a class="next-project" href="/es/proyectos/nexus/" style="--next-accent:#8e7dff"><span>Siguiente proyecto</span><strong>NEXUS</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
       </div>

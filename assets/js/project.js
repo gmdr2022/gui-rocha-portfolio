@@ -7,7 +7,9 @@ const galleryImage = document.querySelector("[data-project-image]");
 const galleryLabel = document.querySelector("[data-visual-label]");
 const galleryCurrent = document.querySelector("[data-gallery-current]");
 const galleryLive = document.querySelector("[data-gallery-live]");
+const galleryRoot = document.querySelector("[data-project-gallery]");
 let activeGalleryIndex = 0;
+const preloadedGalleryItems = new Set();
 
 const activateTab = (id, focus = false) => {
   tabButtons.forEach((button) => {
@@ -50,10 +52,37 @@ const showGalleryItem = (requestedIndex, announce = false) => {
   const item = galleryItems[activeGalleryIndex];
   galleryImage.src = item.src;
   galleryImage.alt = item.alt;
-  galleryLabel.textContent = item.label;
+  if (Number.isInteger(item.width) && item.width > 0) galleryImage.width = item.width;
+  if (Number.isInteger(item.height) && item.height > 0) galleryImage.height = item.height;
+  if (galleryRoot && Number.isInteger(item.width) && Number.isInteger(item.height) && item.width > 0 && item.height > 0) {
+    galleryRoot.style.setProperty("--gallery-ratio", `${item.width} / ${item.height}`);
+  }
+  if (galleryLabel) galleryLabel.textContent = item.label;
   if (galleryCurrent) galleryCurrent.textContent = String(activeGalleryIndex + 1);
   if (announce && galleryLive) galleryLive.textContent = `${item.label}. ${activeGalleryIndex + 1} / ${galleryItems.length}.`;
+
+  const nextItem = galleryItems[(activeGalleryIndex + 1) % galleryItems.length];
+  if (nextItem?.src && !preloadedGalleryItems.has(nextItem.src)) {
+    const preload = new Image();
+    preload.decoding = "async";
+    preload.src = nextItem.src;
+    preloadedGalleryItems.add(nextItem.src);
+  }
 };
 
 document.querySelector("[data-gallery-previous]")?.addEventListener("click", () => showGalleryItem(activeGalleryIndex - 1, true));
 document.querySelector("[data-gallery-next]")?.addEventListener("click", () => showGalleryItem(activeGalleryIndex + 1, true));
+
+galleryRoot?.addEventListener("keydown", (event) => {
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    showGalleryItem(activeGalleryIndex - 1, true);
+  }
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    showGalleryItem(activeGalleryIndex + 1, true);
+  }
+});
+
+showGalleryItem(0);
