@@ -399,6 +399,34 @@ document.querySelectorAll("[data-current-year]").forEach((element) => {
   element.textContent = String(new Date().getFullYear());
 });
 
+const scrollProgress = document.querySelector("[data-scroll-progress]");
+const scrollProgressTrack = scrollProgress?.closest(".site-scroll-progress");
+let scrollProgressFrame = 0;
+
+const updateScrollProgress = () => {
+  if (!scrollProgress || !scrollProgressTrack) return;
+  const range = Math.max(root.scrollHeight - window.innerHeight, 0);
+  const ratio = range > 0 ? Math.min(Math.max(window.scrollY / range, 0), 1) : 0;
+  scrollProgressTrack.hidden = range < 4;
+  scrollProgress.style.transform = `scaleX(${ratio.toFixed(4)})`;
+  scrollProgressFrame = 0;
+};
+
+const requestScrollProgress = () => {
+  if (scrollProgressFrame) return;
+  scrollProgressFrame = window.requestAnimationFrame(updateScrollProgress);
+};
+
+if (scrollProgress) {
+  updateScrollProgress();
+  window.addEventListener("scroll", requestScrollProgress, { passive: true });
+  window.addEventListener("resize", requestScrollProgress);
+  window.addEventListener("load", requestScrollProgress);
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(requestScrollProgress).observe(document.body);
+  }
+}
+
 const retireLegacyServiceWorker = async () => {
   const wasControlled = Boolean(navigator.serviceWorker.controller);
   const registrations = await navigator.serviceWorker.getRegistrations();

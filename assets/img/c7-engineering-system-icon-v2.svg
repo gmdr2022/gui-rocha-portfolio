@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title description">
+  <title id="title">C7 Engineering System</title>
+  <desc id="description">Monograma C7 centralizado, circundado por sete facetas idênticas e equilibradas.</desc>
+  <defs>
+    <linearGradient id="surface" x1="108" y1="76" x2="892" y2="948" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f7faf8"/>
+      <stop offset=".56" stop-color="#e4ece7"/>
+      <stop offset="1" stop-color="#cbd9d2"/>
+    </linearGradient>
+    <linearGradient id="core" x1="352" y1="312" x2="680" y2="724" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173d32"/>
+      <stop offset="1" stop-color="#09241d"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#163b31" flood-opacity=".2"/>
+    </filter>
+    <rect id="facet" x="461" y="105" width="102" height="102" rx="28" transform="rotate(45 512 156)"/>
+  </defs>
+  <rect x="28" y="28" width="968" height="968" rx="228" fill="url(#surface)" stroke="#b6c8bf" stroke-width="12"/>
+  <circle cx="512" cy="512" r="330" fill="none" stroke="#7f978d" stroke-opacity=".34" stroke-width="8"/>
+  <g stroke="#f7fbf8" stroke-opacity=".76" stroke-width="10">
+    <use href="#facet" fill="#c7ef39"/>
+    <use href="#facet" fill="#69cbb1" transform="rotate(51.4286 512 512)"/>
+    <use href="#facet" fill="#2c947d" transform="rotate(102.8571 512 512)"/>
+    <use href="#facet" fill="#a9d72f" transform="rotate(154.2857 512 512)"/>
+    <use href="#facet" fill="#4fb59d" transform="rotate(205.7143 512 512)"/>
+    <use href="#facet" fill="#317d65" transform="rotate(257.1429 512 512)"/>
+    <use href="#facet" fill="#b8e337" transform="rotate(308.5714 512 512)"/>
+  </g>
+  <circle cx="512" cy="512" r="224" fill="url(#core)" stroke="#dce9e2" stroke-width="12" filter="url(#shadow)"/>
+  <circle cx="512" cy="512" r="188" fill="none" stroke="#7dd7bb" stroke-opacity=".28" stroke-width="6"/>
+  <text x="512" y="610" fill="#f8fbf9" font-family="Segoe UI, Arial, sans-serif" font-size="284" font-weight="800" letter-spacing="-22" text-anchor="middle">C7</text>
+</svg>

@@ -17,7 +17,7 @@ const expectedProjectDimensions = {
 };
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
 const conceptLabels = { "pt-BR": "Imagem conceito", en: "Concept image", es: "Imagen conceptual" };
-const ignoredDirectories = new Set([".git", ".wrangler", "dist", "node_modules", "output"]);
+const ignoredDirectories = new Set([".git", ".playwright-cli", ".wrangler", "dist", "node_modules", "output"]);
 
 const walk = async (directory) => {
   const files = [];
@@ -76,6 +76,9 @@ for (const slug of requiredProjectSlugs) {
     errors.push(`project-assets.json: metadados de origem incompletos para ${slug}`);
   }
   if (!await exists(localTarget(asset.src))) errors.push(`project-assets.json: arquivo inexistente para ${slug}: ${asset.src}`);
+}
+if (projectAssets["c7-engineering-system"]?.src !== "/assets/img/c7-engineering-system-icon-v2.svg") {
+  errors.push("project-assets.json: ícone oficial do C7ES incorreto");
 }
 
 for (const locale of localeOrder) {
@@ -248,11 +251,24 @@ for (const locale of localeOrder) {
     if (item.width !== 1672 || item.height !== 941) errors.push(`${label}: arte de Maeve sem dimensões corretas ${item.src}`);
   }
   const c7 = projects.find((project) => project.slug === "c7-engineering-system");
-  if (c7.cardImage !== "/assets/img/c7-engineering-system-showcase.png" || c7.cardImageWidth !== 1600 || c7.cardImageHeight !== 800) {
-    errors.push(`${label}: recorte de vitrine do C7ES incorreto`);
+  if (
+    c7.image !== "/assets/img/c7-engineering-system-hero-v2.webp" ||
+    c7.imageWidth !== 1600 ||
+    c7.imageHeight !== 1000 ||
+    c7.cardImage !== "/assets/img/c7-engineering-system-showcase-v2.webp" ||
+    c7.cardImageWidth !== 1600 ||
+    c7.cardImageHeight !== 800
+  ) {
+    errors.push(`${label}: identidade visual responsiva do C7ES incorreta`);
   }
-  if (c7.faq?.items?.length !== 7 || !c7.faq.eyebrow || !c7.faq.title || !c7.faq.intro) {
+  if (c7.faq?.items?.length !== 7 || !c7.faq.eyebrow || !c7.faq.title || !c7.faq.intro || !c7.faq.jumpLabel) {
     errors.push(`${label}: FAQ do C7ES deve conter introdução e sete respostas`);
+  }
+  if (!c7.faq?.closing || !c7.faq?.closingLabel || !c7.faq?.closingHref) {
+    errors.push(`${label}: FAQ do C7ES deve concluir com chamada comercial`);
+  }
+  if (/clubal/i.test(JSON.stringify(c7.faq))) {
+    errors.push(`${label}: FAQ pública do C7ES não deve depender de outro projeto`);
   }
   for (const item of c7.faq?.items || []) {
     if (!item.question || !item.answer) errors.push(`${label}: item incompleto na FAQ do C7ES`);
@@ -311,7 +327,7 @@ for (const path of files) {
 }
 
 const siteScript = await readFile(join(root, "assets", "js", "site.js"), "utf8");
-for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", "getRegistrations", 'startsWith("gui-rocha-")', 'sessionStorage.getItem("gui-sw-retired")']) {
+for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", "getRegistrations", 'startsWith("gui-rocha-")', 'sessionStorage.getItem("gui-sw-retired")', "[data-scroll-progress]", "ResizeObserver", "scaleX("]) {
   if (!siteScript.includes(marker)) errors.push(`site.js: marcador ausente ${marker}`);
 }
 const projectScript = await readFile(join(root, "assets", "js", "project.js"), "utf8");
@@ -338,12 +354,19 @@ for (const marker of [
   "@media (max-width: 260px)",
   '.project-card[data-position="active"]',
   ".project-faq-list summary",
+  ".site-scroll-progress",
+  ".project-faq-index",
+  ".project-faq-closing",
 ]) {
   if (!styles.includes(marker)) errors.push(`styles.css: fallback sem JavaScript ausente ${marker}`);
 }
 const aboutScript = await readFile(join(root, "assets", "js", "about.js"), "utf8");
 for (const marker of ["data-context-card", "pointerenter", "focusin", "Escape", "aria-expanded"]) {
   if (!aboutScript.includes(marker)) errors.push(`about.js: interação contextual ausente ${marker}`);
+}
+const serveScript = await readFile(join(root, "scripts", "serve.mjs"), "utf8");
+if (!serveScript.includes('".webp": "image/webp"')) {
+  errors.push("serve.mjs: MIME de WebP ausente");
 }
 const headers = await readFile(join(root, "_headers"), "utf8");
 for (const header of ["Content-Security-Policy", "Permissions-Policy", "Referrer-Policy", "X-Content-Type-Options"]) {

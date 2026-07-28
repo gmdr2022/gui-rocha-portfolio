@@ -381,99 +381,103 @@
     "order": 7,
     "code": "07",
     "name": "C7 Engineering System",
-    "kicker": "Capa local de ingeniería para Codex",
-    "status": "Activo localmente · v1.0.0",
+    "kicker": "Sistema local de ingeniería para Codex",
+    "status": "Sistema activo · v1.0.0",
     "statusTone": "ready",
-    "summary": "Construí una capa local que organiza contexto, riesgo, validación y reanudación para mantener distintos proyectos bajo control.",
-    "promise": "Convierto tareas cotidianas en un flujo proporcional, verificable y reversible.",
+    "summary": "C7 coordina contexto, riesgo, ejecución y validación para que Codex avance con autonomía sin perder el control humano.",
+    "promise": "Más autonomía donde es seguro. Más control donde importa.",
     "route": "/es/proyectos/c7-engineering-system/",
-    "image": "/assets/img/c7-engineering-system-hero.png",
+    "image": "/assets/img/c7-engineering-system-hero-v2.webp",
     "imageWidth": 1600,
     "imageHeight": 1000,
-    "imageAlt": "Identidad oficial de C7 Engineering System con el monograma C7, siete facetas coordinadas y dos rutas reversibles",
-    "cardImage": "/assets/img/c7-engineering-system-showcase.png",
+    "imageAlt": "C7 Engineering System organizando flujos complejos alrededor de un núcleo con siete facetas equilibradas",
+    "cardImage": "/assets/img/c7-engineering-system-showcase-v2.webp",
     "cardImageWidth": 1600,
     "cardImageHeight": 800,
-    "cardImageAlt": "Monograma C7 rodeado por siete facetas en una composición horizontal",
+    "cardImageAlt": "Flujos de proyectos convergiendo en el monograma C7 y siete facetas coordinadas",
     "imageKind": "art",
-    "visualLabel": "Identidad oficial",
+    "visualLabel": "Identidad del sistema",
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
-    "facts": ["Siete lentes", "Local-first", "Rollback validado"],
+    "facts": ["Rigor proporcional", "Autonomía gobernada", "Rollback validado"],
     "tabs": [
       {
         "id": "problema",
         "label": "Problema",
-        "title": "Proyectos diferentes necesitan contexto, rigor y costo proporcionales.",
-        "body": "Los trabajos simultáneos pueden mezclar reglas, repetir investigaciones o sobrecargar un ordenador limitado. Creé C7ES para identificar el proyecto correcto, conservar decisiones y ajustar la profundidad al riesgo.",
-        "points": ["Separación entre proyectos", "Riesgo de R0 a R4", "Continuidad con checkpoints"]
+        "title": "Más capacidad no compensa un contexto equivocado.",
+        "body": "Los asistentes de desarrollo fallan no solo por falta de capacidad, sino por un alcance confuso, una profundidad desproporcionada o un cierre sin pruebas. C7 establece el contrato antes de ejecutar.",
+        "points": ["Alcance protegido", "Menos retrabajo", "Conclusión verificable"]
       },
       {
         "id": "sistema",
-        "label": "Sistema",
-        "title": "Un núcleo breve con conocimiento bajo demanda.",
-        "body": "El sistema combina instrucciones globales compactas, nueve skills progresivas, cinco perfiles especializados, protecciones deterministas y una biblioteca local indexada.",
-        "points": ["Quórum de siete lentes", "Enrutamiento progresivo", "Sin servicio residente"]
+        "label": "Cómo funciona",
+        "title": "Un núcleo compacto activa profundidad solo cuando aporta valor.",
+        "body": "C7 lee las reglas del proyecto, clasifica el riesgo de R0 a R4 y activa skills, conocimiento y revisión proporcionales: una respuesta coherente, no una fila de voces.",
+        "points": ["Contexto antes del código", "Quórum silencioso", "Conocimiento bajo demanda"]
       },
       {
         "id": "evidencia",
         "label": "Evidencia",
-        "title": "La activación exigió pruebas, comparación y rollback real.",
+        "title": "La arquitectura se convierte en producto cuando resiste la prueba y el retorno.",
         "body": "La versión 1.0.0 superó 42 pruebas Pester, 24 verificaciones en el entorno instalado, evaluaciones comparativas y restauración byte a byte en un perfil desechable.",
         "points": ["42 pruebas Pester", "24 verificaciones instaladas", "Rollback byte a byte"]
       },
       {
         "id": "capacidad",
-        "label": "Capacidad",
-        "title": "El trabajo se adapta al ordenador disponible.",
-        "body": "Antes de tareas pesadas, C7ES observa CPU, memoria, paginación y almacenamiento. En un host limitado, serializa etapas, reduce la prioridad y reanuda casos válidos sin repetir llamadas.",
-        "points": ["Sin cambios de energía", "Concurrencia proporcional", "Ahorro por reanudación"]
+        "label": "Entorno",
+        "title": "La ejecución se adapta a la máquina disponible.",
+        "body": "Antes de trabajos pesados, C7 comprueba CPU, memoria, paginación y almacenamiento. En un entorno limitado, serializa etapas, reduce la presión y reutiliza validaciones ya completadas.",
+        "points": ["Sin cambios de energía", "Carga proporcional", "Reanudación sin repetición"]
       },
       {
         "id": "estado",
-        "label": "Estado",
-        "title": "Versión 1.0.0 activa, local y reversible.",
-        "body": "El núcleo, las skills, los perfiles, las reglas y tres protecciones deterministas están instalados y verificados. El uso cotidiano no necesita servicio externo, suscripción adicional ni costo recurrente.",
-        "points": ["Uso local", "Copia versionada", "Mantenimiento verificable"]
+        "label": "Control",
+        "title": "Autonomía técnica sin delegar la autoridad.",
+        "body": "Las decisiones rutinarias avanzan de forma autónoma dentro del alcance. La publicación, las credenciales, los costos y las operaciones difíciles de revertir siguen bajo aprobación humana explícita.",
+        "points": ["La rutina avanza autónomamente", "El impacto externo exige aprobación", "Rollback disponible"]
       }
     ],
     "faq": {
-      "eyebrow": "Uso cotidiano",
-      "title": "Sin comando de activación. Abre el proyecto y trabaja con normalidad.",
-      "intro": "C7ES funciona como una capa de Codex: identifica el contexto, aplica un rigor proporcional e involucra al responsable solo cuando una decisión realmente exige autoridad humana.",
+      "eyebrow": "C7 en siete respuestas",
+      "title": "De la solicitud a la entrega, sin perder contexto ni control.",
+      "intro": "C7 convierte una solicitud en trabajo de ingeniería: entiende el entorno, dimensiona el riesgo, ejecuta con la profundidad adecuada y cierra con evidencia.",
+      "jumpLabel": "Comprende C7 en siete respuestas",
       "items": [
         {
-          "question": "¿Necesito ejecutar un programa o comando para iniciar C7?",
-          "answer": "No. Una vez instalado, C7ES es cargado por Codex. Basta con abrir una tarea en el proyecto correcto y describir el resultado deseado; no existe launcher, ejecutable ni ritual cotidiano."
+          "question": "¿Qué problema resuelve C7?",
+          "answer": "Evita que los asistentes de desarrollo avancen con un contexto equivocado, un rigor excesivo para tareas simples o una verificación insuficiente para cambios críticos. El sistema calibra el trabajo antes de ejecutar."
         },
         {
-          "question": "¿Necesito invocar al Consejo de los Siete?",
-          "answer": "No. El Consejo representa siete lentes funcionales coordinadas, no siete robots ni siete respuestas simultáneas. El quórum es automático; “Consejo completo” solo hace visibles las perspectivas cuando resulta útil."
+          "question": "¿Qué cambia en la práctica?",
+          "answer": "Cada tarea obtiene un resultado observable, un alcance protegido, ejecución proporcional y evidencia de conclusión. Las decisiones y los checkpoints quedan disponibles para retomar sin repetir trabajo válido."
         },
         {
-          "question": "¿Funciona en ClubAL y en otros proyectos?",
-          "answer": "Sí. C7ES trabaja en proyectos distintos sin presuponer un producto. Las instrucciones locales y el comportamiento real del repositorio siguen prevaleciendo, evitando mezclar el contexto entre trabajos."
+          "question": "¿Cómo ajusta el rigor de cada tarea?",
+          "answer": "C7 clasifica el riesgo de R0 a R4 según alcance, reversibilidad, datos, privilegio, efecto externo y costo del error. La profundidad aumenta solo cuando el impacto lo justifica."
         },
         {
-          "question": "¿Qué autonomía posee?",
-          "answer": "Asume decisiones técnicas rutinarias y puede inspeccionar, implementar, probar y revisar dentro del workspace y del alcance autorizados. La autonomía nunca amplía silenciosamente el objetivo ni los permisos."
+          "question": "¿Por qué el sistema utiliza siete lentes?",
+          "answer": "Arquitectura, experiencia humana, efectos de segundo orden, operación, alternativas, seguridad y cierre se verifican en conjunto. No son siete robots: el resultado sigue siendo una decisión coherente."
         },
         {
-          "question": "¿Cuándo solicita aprobación?",
-          "answer": "Antes de producción, publicación, DNS, credenciales, costos, reducción de seguridad u operaciones destructivas y difíciles de revertir. Las acciones locales, reversibles y bien definidas avanzan de forma autónoma."
+          "question": "¿Hasta dónde llega la autonomía?",
+          "answer": "C7 asume decisiones técnicas rutinarias dentro del alcance autorizado. Las acciones externas, destructivas, financieras o difíciles de revertir permanecen bajo aprobación humana objetiva."
         },
         {
-          "question": "¿Monitorea el ordenador continuamente?",
-          "answer": "No. C7ES no instala un daemon ni cambia el plan de energía. La capacidad se comprueba bajo demanda antes de trabajos pesados; en un ordenador limitado, las etapas pueden serializarse y retomarse desde checkpoints."
+          "question": "¿Cómo se adapta a proyectos, equipos y máquinas diferentes?",
+          "answer": "Las reglas del proyecto siguen prevaleciendo y la capacidad del ordenador se comprueba bajo demanda. C7 no instala un daemon ni impone la misma carga o ceremonia en todos los entornos."
         },
         {
-          "question": "¿Garantiza ahorro de tokens y tiempo?",
-          "answer": "No garantiza cuotas ni vuelve más rápido el hardware. Está diseñado para reducir contexto innecesario, repetición y retrabajo, además de reutilizar etapas válidas. La mejora real depende de la tarea y del entorno."
+          "question": "¿Qué se ha comprobado?",
+          "answer": "La versión 1.0.0 está activa y saludable. El release superó 42 pruebas Pester, 24 verificaciones instaladas, evaluaciones comparativas y un rollback byte a byte en un entorno desechable."
         }
-      ]
+      ],
+      "closing": "C7 ya funciona como una capa independiente y no tiene vínculo oficial con OpenAI. Su arquitectura puede discutirse para adopción, integración o evolución de producto.",
+      "closingLabel": "Hablar sobre C7",
+      "closingHref": "/es/contacto/?asunto=c7-engineering-system"
     },
     "links": [
-      {"label": "Hablar sobre ingeniería local", "href": "/es/contacto/?asunto=c7-engineering-system", "kind": "primary"}
+      {"label": "Hablar sobre C7", "href": "/es/contacto/?asunto=c7-engineering-system", "kind": "primary"}
     ]
   }
 ]

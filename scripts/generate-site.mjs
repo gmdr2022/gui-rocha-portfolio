@@ -96,6 +96,7 @@ const icon = (name) => {
   const paths = {
     arrowLeft: '<path d="M14.5 5 7.5 12l7 7"/>',
     arrowRight: '<path d="m9.5 5 7 7-7 7"/>',
+    arrowDown: '<path d="m5 9.5 7 7 7-7"/>',
     chevron: '<path d="m7 9 5 5 5-5"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/>',
     theme: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
@@ -155,6 +156,7 @@ const header = (locale, page) => {
       <button class="theme-button" type="button" data-theme-toggle aria-label="${escapeHtml(common.theme)}">${icon("theme")}<span data-theme-label>${escapeHtml(common.themeInitial)}</span></button>
       <a class="button compact header-talk" href="${config.routes.contact}">${escapeHtml(common.talk)}</a>
     </div>
+    <span class="site-scroll-progress" aria-hidden="true"><span data-scroll-progress></span></span>
   </header>`;
 };
 
@@ -416,8 +418,9 @@ const projectPage = (locale, project, index) => {
         <p>${escapeHtml(project.faq.intro)}</p>
       </header>
       <div class="project-faq-list">
-        ${project.faq.items.map((item, itemIndex) => `<details${itemIndex === 0 ? " open" : ""}><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`).join("")}
+        ${project.faq.items.map((item, itemIndex) => `<details${itemIndex === 0 ? " open" : ""}><summary><span class="project-faq-index" aria-hidden="true">${String(itemIndex + 1).padStart(2, "0")}</span><span>${escapeHtml(item.question)}</span></summary><p>${escapeHtml(item.answer)}</p></details>`).join("")}
       </div>
+      ${project.faq.closing && project.faq.closingLabel && project.faq.closingHref ? `<footer class="project-faq-closing"><p>${escapeHtml(project.faq.closing)}</p><a href="${project.faq.closingHref}">${escapeHtml(project.faq.closingLabel)}${icon("arrowRight")}</a></footer>` : ""}
     </section>` : "";
   const main = `
   <main class="project-main" id="content">
@@ -431,6 +434,7 @@ const projectPage = (locale, project, index) => {
           <p class="project-promise">${escapeHtml(project.promise)}</p>
           <p class="project-summary">${escapeHtml(project.summary)}</p>
           <ul class="project-facts" aria-label="${escapeHtml(project.name)}">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
+          ${project.faq?.jumpLabel ? `<a class="project-more-link" href="#faq-title-${project.slug}"><span>${escapeHtml(project.faq.jumpLabel)}</span>${icon("arrowDown")}</a>` : ""}
         </header>
         <section class="project-explorer" aria-label="${escapeHtml(common.detailsLabel)}">
           <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
