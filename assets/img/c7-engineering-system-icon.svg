@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title description">
+  <title id="title">C7 Engineering System</title>
+  <desc id="description">Monograma C7 circundado por sete facetas coordenadas.</desc>
+  <rect x="32" y="32" width="960" height="960" rx="224" fill="#071412"/>
+  <circle cx="512" cy="512" r="244" fill="#0b201b" stroke="#58d7b5" stroke-opacity=".22" stroke-width="4"/>
+  <g>
+    <path d="M512 128 632 198 512 268 392 198Z" fill="#a9ed34"/>
+    <path d="m668 232 94 66 24 142-102-58Z" fill="#58d7b5"/>
+    <path d="m792 472 22 150-98 102-22-154Z" fill="#f4f7f0"/>
+    <path d="m650 746 84 76-130 74-50-102Z" fill="#a9ed34"/>
+    <path d="m470 794-50 102-130-74 84-76Z" fill="#58d7b5"/>
+    <path d="m330 570-22 154-98-102 22-150Z" fill="#f4f7f0"/>
+    <path d="m340 232-16 150-102 58 24-142Z" fill="#a9ed34"/>
+  </g>
+  <text x="512" y="622" fill="#f4f7f0" font-family="Segoe UI, Arial, sans-serif" font-size="310" font-weight="800" letter-spacing="-24" text-anchor="middle">C7</text>
+</svg>

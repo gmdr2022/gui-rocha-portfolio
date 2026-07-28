@@ -387,15 +387,19 @@
     "summary": "Eu construí uma camada local que organiza contexto, risco, validação e retomada para manter projetos distintos sob controle.",
     "promise": "Eu transformo tarefas comuns em um fluxo proporcional, verificável e reversível.",
     "route": "/projetos/c7-engineering-system/",
-    "image": "/assets/img/c7-engineering-system.svg",
+    "image": "/assets/img/c7-engineering-system-hero.png",
     "imageWidth": 1600,
     "imageHeight": 1000,
-    "imageAlt": "Ilustração do C7 Engineering System com sete lentes conectadas a um núcleo local, validação e rollback",
+    "imageAlt": "Identidade oficial do C7 Engineering System com o monograma C7, sete facetas coordenadas e duas rotas reversíveis",
+    "cardImage": "/assets/img/c7-engineering-system-showcase.png",
+    "cardImageWidth": 1600,
+    "cardImageHeight": 800,
+    "cardImageAlt": "Monograma C7 circundado por sete facetas em uma composição horizontal",
     "imageKind": "art",
-    "visualLabel": "Arquitetura do sistema",
+    "visualLabel": "Identidade oficial",
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
-    "facts": ["Local-first", "9 skills", "Rollback validado"],
+    "facts": ["Sete lentes", "Local-first", "Rollback validado"],
     "tabs": [
       {
         "id": "problema",
@@ -433,6 +437,41 @@
         "points": ["Uso local", "Backup versionado", "Manutenção verificável"]
       }
     ],
+    "faq": {
+      "eyebrow": "Uso cotidiano",
+      "title": "Sem comando de ativação. Abra o projeto e trabalhe normalmente.",
+      "intro": "O C7ES opera como uma camada do Codex: identifica contexto, aplica rigor proporcional e chama o responsável apenas quando uma decisão realmente exige autoridade humana.",
+      "items": [
+        {
+          "question": "Preciso executar um programa ou comando para iniciar o C7?",
+          "answer": "Não. Depois de instalado, o C7ES é carregado pelo Codex. Basta abrir a tarefa no projeto correto e descrever o resultado desejado; não existe launcher, .exe ou ritual cotidiano."
+        },
+        {
+          "question": "Preciso chamar o Conselho dos Sete?",
+          "answer": "Não. O Conselho representa sete lentes funcionais coordenadas, não sete robôs nem sete respostas simultâneas. O quórum é automático; “Conselho completo” apenas torna os pareceres visíveis quando isso for útil."
+        },
+        {
+          "question": "Ele funciona no ClubAL e em outros projetos?",
+          "answer": "Sim. O C7ES atua em projetos distintos sem presumir um produto. As instruções locais e o comportamento real do repositório continuam prevalecendo, evitando misturar contexto entre trabalhos."
+        },
+        {
+          "question": "Que autonomia ele possui?",
+          "answer": "Ele assume decisões técnicas rotineiras, inspeciona, implementa, testa e revisa dentro do workspace e do escopo autorizados. A autonomia não amplia silenciosamente o objetivo nem as permissões."
+        },
+        {
+          "question": "Quando ele pede aprovação?",
+          "answer": "Antes de produção, publicação, DNS, credenciais, custos, redução de segurança ou operações destrutivas e difíceis de reverter. Ações locais, reversíveis e bem definidas seguem autonomamente."
+        },
+        {
+          "question": "Ele monitora o computador o tempo todo?",
+          "answer": "Não. O C7ES não instala daemon nem altera o plano de energia. A capacidade é verificada sob demanda antes de trabalho pesado; em máquina limitada, as etapas podem ser serializadas e retomadas por checkpoint."
+        },
+        {
+          "question": "Ele garante economia de tokens e tempo?",
+          "answer": "Não garante cotas nem torna o hardware mais rápido. Foi projetado para reduzir contexto desnecessário, repetição e retrabalho, além de reutilizar etapas válidas. O ganho real depende da tarefa e do ambiente."
+        }
+      ]
+    },
     "links": [
       {"label": "Conversar sobre engenharia local", "href": "/contato/?assunto=c7-engineering-system", "kind": "primary"}
     ]

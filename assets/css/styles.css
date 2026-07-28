@@ -1610,6 +1610,10 @@
     letter-spacing: -.05em;
   }
 
+  .project-c7-engineering-system .project-heading h1 {
+    font-size: clamp(2.7rem, 4vw, 4.35rem);
+  }
+
   .project-promise {
     max-width: 35ch;
     color: var(--project-accent);
@@ -1842,6 +1846,110 @@
     border: 1px solid var(--line);
     border-radius: 18px;
     background: var(--bg-elevated);
+  }
+
+  .project-faq {
+    display: grid;
+    gap: clamp(24px, 4vw, 44px);
+    margin-top: 24px;
+    padding: clamp(28px, 4vw, 58px);
+    border: 1px solid color-mix(in srgb, var(--project-accent) 30%, var(--line));
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 8% 0%, rgb(var(--project-accent-rgb) / 13%), transparent 30rem),
+      var(--bg-elevated);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .project-faq-heading {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(300px, 1.1fr);
+    gap: clamp(24px, 5vw, 72px);
+    align-items: end;
+  }
+
+  .project-faq-heading > div {
+    display: grid;
+    gap: 12px;
+  }
+
+  .project-faq-heading .eyebrow {
+    color: var(--project-accent);
+  }
+
+  .project-faq-heading h2 {
+    max-width: 20ch;
+    scroll-margin-top: 160px;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+  }
+
+  .project-faq-heading > p {
+    max-width: 62ch;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+
+  .project-faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-items: start;
+  }
+
+  .project-faq-list details {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--bg-elevated) 88%, var(--project-accent) 12%);
+  }
+
+  .project-faq-list details[open] {
+    border-color: color-mix(in srgb, var(--project-accent) 52%, var(--line));
+  }
+
+  .project-faq-list summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34px;
+    gap: 16px;
+    align-items: center;
+    min-height: 66px;
+    padding: 14px 16px 14px 20px;
+    list-style: none;
+    cursor: pointer;
+    font-size: .92rem;
+    font-weight: 760;
+    line-height: 1.35;
+  }
+
+  .project-faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-faq-list summary::after {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--ink);
+    background: var(--bg-elevated);
+    content: "+";
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .project-faq-list details[open] summary::after {
+    border-color: var(--project-accent);
+    content: "−";
+  }
+
+  .project-faq-list details > p {
+    max-width: 68ch;
+    padding: 0 20px 20px;
+    color: var(--ink-soft);
+    font-size: .84rem;
+    line-height: 1.7;
   }
 
   .next-project:hover {
@@ -2242,6 +2350,11 @@
     .project-image-frame img {
       min-height: 520px;
     }
+
+    .project-faq-heading,
+    .project-faq-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 760px) {
@@ -2510,6 +2623,10 @@
       font-size: clamp(3rem, 14vw, 4.35rem);
     }
 
+    .project-c7-engineering-system .project-heading h1 {
+      font-size: clamp(2.55rem, 12.5vw, 3.65rem);
+    }
+
     .project-tab-panel {
       min-height: 230px;
     }
@@ -2531,6 +2648,15 @@
     .project-visual[data-kind="website"] .project-image-frame img {
       min-height: 0;
       padding: 12px;
+    }
+
+    .project-faq {
+      margin-top: 14px;
+      padding: 26px 20px;
+    }
+
+    .project-faq-heading {
+      gap: 18px;
     }
 
     .gallery-controls button span {

@@ -51,11 +51,11 @@
     "note": "Ilustração do projeto já publicada; não é apresentada como logotipo."
   },
   "c7-engineering-system": {
-    "src": "/assets/img/c7-engineering-system.svg",
-    "width": 1600,
-    "height": 1000,
-    "official": false,
-    "kind": "project-illustration",
-    "source": "Original project illustration created for this portal"
+    "src": "/assets/img/c7-engineering-system-icon.svg",
+    "width": 1024,
+    "height": 1024,
+    "official": true,
+    "kind": "official-icon",
+    "source": "Official C7ES identity created for this portal"
   }
 }

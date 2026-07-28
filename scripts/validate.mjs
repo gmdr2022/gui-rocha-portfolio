@@ -211,6 +211,13 @@ for (const locale of localeOrder) {
     if (project.route !== routeFor(locale, "project", slug)) errors.push(`${label}: rota localizada incorreta para ${slug}`);
     if (!await exists(localTarget(project.route))) errors.push(`${label}: rota inexistente ${project.route}`);
     if (!await exists(localTarget(project.image))) errors.push(`${label}: imagem inexistente ${project.image}`);
+    if (project.cardImage) {
+      if (!await exists(localTarget(project.cardImage))) errors.push(`${label}: imagem de vitrine inexistente ${project.cardImage}`);
+      if (!Number.isInteger(project.cardImageWidth) || !Number.isInteger(project.cardImageHeight)) {
+        errors.push(`${label}: imagem de vitrine sem dimensões para ${slug}`);
+      }
+      if (!project.cardImageAlt) errors.push(`${label}: imagem de vitrine sem texto alternativo para ${slug}`);
+    }
     const icon = projectAssets[slug];
     if (!icon || !await exists(localTarget(icon.src))) errors.push(`${label}: ícone de projeto inexistente para ${slug}`);
     const [expectedWidth, expectedHeight] = expectedProjectDimensions[slug];
@@ -239,6 +246,16 @@ for (const locale of localeOrder) {
     if (!await exists(localTarget(item.src))) errors.push(`${label}: imagem de Maeve inexistente ${item.src}`);
     if (item.label !== conceptLabels[locale]) errors.push(`${label}: arte de Maeve sem rótulo conceitual exato ${item.src}`);
     if (item.width !== 1672 || item.height !== 941) errors.push(`${label}: arte de Maeve sem dimensões corretas ${item.src}`);
+  }
+  const c7 = projects.find((project) => project.slug === "c7-engineering-system");
+  if (c7.cardImage !== "/assets/img/c7-engineering-system-showcase.png" || c7.cardImageWidth !== 1600 || c7.cardImageHeight !== 800) {
+    errors.push(`${label}: recorte de vitrine do C7ES incorreto`);
+  }
+  if (c7.faq?.items?.length !== 7 || !c7.faq.eyebrow || !c7.faq.title || !c7.faq.intro) {
+    errors.push(`${label}: FAQ do C7ES deve conter introdução e sete respostas`);
+  }
+  for (const item of c7.faq?.items || []) {
+    if (!item.question || !item.answer) errors.push(`${label}: item incompleto na FAQ do C7ES`);
   }
   const localeText = JSON.stringify(projects);
   const adultPattern = locale === "en" ? /\badult\b/gi : locale === "es" ? /\badulta\b/gi : /\badulta\b/gi;
@@ -320,6 +337,7 @@ for (const marker of [
   ".project-visual[data-kind=\"screenshot\"] .project-image-frame",
   "@media (max-width: 260px)",
   '.project-card[data-position="active"]',
+  ".project-faq-list summary",
 ]) {
   if (!styles.includes(marker)) errors.push(`styles.css: fallback sem JavaScript ausente ${marker}`);
 }

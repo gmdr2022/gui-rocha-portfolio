@@ -215,8 +215,10 @@ const layout = ({ locale, page, title, description, main, scripts = [], bodyClas
 const projectCard = (locale, project, index) => {
   const config = locales[locale];
   const common = config.common;
-  const imageWidth = safeDimension(project.imageWidth, 1600);
-  const imageHeight = safeDimension(project.imageHeight, 900);
+  const cardImage = project.cardImage ?? project.image;
+  const cardImageAlt = project.cardImageAlt ?? project.imageAlt;
+  const imageWidth = safeDimension(project.cardImageWidth ?? project.imageWidth, 1600);
+  const imageHeight = safeDimension(project.cardImageHeight ?? project.imageHeight, 900);
   const media = project.slug === "clubal" ? (() => {
     const copy = clubalMediaCopy[locale];
     return `
@@ -232,10 +234,10 @@ const projectCard = (locale, project, index) => {
                 </div>
               </div>
               <img class="clubal-weather-surface" src="/assets/img/clubal/clima-flet-demo.png" alt="${escapeHtml(copy.weatherAlt)}" width="1936" height="1066"${index === 0 ? "" : ' loading="lazy"'}>
-              <img class="clubal-rotinas-surface" src="${project.image}" alt="${escapeHtml(project.imageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
+              <img class="clubal-rotinas-surface" src="${cardImage}" alt="${escapeHtml(cardImageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
             </div>`;
   })() : `
-            <img src="${project.image}" alt="${escapeHtml(project.imageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
+            <img src="${cardImage}" alt="${escapeHtml(cardImageAlt)}" width="${imageWidth}" height="${imageHeight}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
   return `
         <article class="project-card" data-project-card data-project="${project.slug}" data-index="${index}" data-kind="${project.imageKind}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
           <div class="project-card-media">
@@ -404,6 +406,19 @@ const projectPage = (locale, project, index) => {
   }];
   const imageWidth = safeDimension(gallery[0].width ?? project.imageWidth, 1600);
   const imageHeight = safeDimension(gallery[0].height ?? project.imageHeight, 900);
+  const faq = project.faq?.items?.length ? `
+    <section class="project-faq" aria-labelledby="faq-title-${project.slug}">
+      <header class="project-faq-heading">
+        <div>
+          <p class="eyebrow">${escapeHtml(project.faq.eyebrow)}</p>
+          <h2 id="faq-title-${project.slug}">${escapeHtml(project.faq.title)}</h2>
+        </div>
+        <p>${escapeHtml(project.faq.intro)}</p>
+      </header>
+      <div class="project-faq-list">
+        ${project.faq.items.map((item, itemIndex) => `<details${itemIndex === 0 ? " open" : ""}><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`).join("")}
+      </div>
+    </section>` : "";
   const main = `
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
@@ -448,6 +463,7 @@ const projectPage = (locale, project, index) => {
         <a class="next-project" href="${next.route}" style="--next-accent:${next.accent}"><span>${escapeHtml(common.nextProject)}</span><strong>${escapeHtml(next.name)}</strong>${icon("arrowRight")}</a>
       </div>
     </article>
+    ${faq}
   </main>`;
   return layout({
     locale,
