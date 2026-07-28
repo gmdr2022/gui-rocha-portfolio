@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Ícone conceitual de sites responsivos</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#a9ed34"/>
+      <stop offset=".48" stop-color="#36d6c0"/>
+      <stop offset="1" stop-color="#4f8cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="64" fill="#0a1916"/>
+  <rect x="34" y="48" width="164" height="116" rx="20" fill="#f3f8f5" stroke="url(#g)" stroke-width="8"/>
+  <path d="M38 78h156" stroke="#9fb6ad" stroke-width="8"/>
+  <circle cx="58" cy="63" r="5" fill="#ef6d78"/>
+  <circle cx="75" cy="63" r="5" fill="#f2bb62"/>
+  <circle cx="92" cy="63" r="5" fill="#25c997"/>
+  <rect x="56" y="98" width="76" height="12" rx="6" fill="#102b27"/>
+  <rect x="56" y="121" width="112" height="8" rx="4" fill="#9db2aa"/>
+  <rect x="56" y="139" width="82" height="8" rx="4" fill="#c3d1cb"/>
+  <rect x="150" y="104" width="66" height="116" rx="20" fill="#11213d" stroke="#4f8cff" stroke-width="7"/>
+  <rect x="171" y="115" width="24" height="5" rx="2.5" fill="#d8e6ff"/>
+  <rect x="163" y="136" width="40" height="36" rx="10" fill="url(#g)"/>
+  <rect x="163" y="182" width="40" height="8" rx="4" fill="#9eb1d6"/>
+  <rect x="163" y="198" width="30" height="8" rx="4" fill="#6577a3"/>
+</svg>

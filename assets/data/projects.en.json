@@ -7,13 +7,18 @@
     "kicker": "Windows software for institutional routines",
     "status": "In development · assisted deployment",
     "statusTone": "live",
-    "summary": "With ClubAL, I organize institutional routines on Windows, publish what displays need and provide read-only access.",
-    "promise": "I bring PC records, display publishing and read-only access into one flow.",
+    "summary": "ClubAL organizes institutional routines on Windows, publishes what displays need and provides read-only access.",
+    "promise": "A local flow for recording, publishing and reading without mixing responsibilities.",
+    "cardCta": "Explore the product",
     "route": "/en/projects/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
     "imageWidth": 1920,
     "imageHeight": 1080,
     "imageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
+    "cardImage": "/assets/img/clubal/rotinas-home.webp",
+    "cardImageWidth": 960,
+    "cardImageHeight": 540,
+    "cardImageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
     "imageKind": "screenshot",
     "visualLabel": "Product interface",
     "gallery": [
@@ -55,14 +60,14 @@
         "id": "problem",
         "label": "Problem",
         "title": "Operational information gets lost when every environment improvises.",
-        "body": "Spreadsheets, paper and scattered messages create different versions of the same routine. I created ClubAL to centralize records on the responsible PC and separate editing from reading.",
+        "body": "Spreadsheets, paper and scattered messages create different versions of the same routine. ClubAL centralizes records on the responsible PC and separates editing from reading.",
         "points": ["One source of record", "Visibility by environment", "Local operation"]
       },
       {
         "id": "workflow",
         "label": "Three modules",
         "title": "Each module handles one part of the work.",
-        "body": "I organize the product into three modules: Operação records and publishes; Rotinas displays only approved information; Consulta provides authorized reading without opening editing.",
+        "body": "The product separates responsibilities across three modules: Operação records and publishes; Rotinas displays only approved information; Consulta provides authorized reading without opening editing.",
         "points": [
           "Operação · edit and publish",
           "Rotinas · display approved information",
@@ -73,12 +78,13 @@
         "id": "status",
         "label": "Status",
         "title": "The product can be demonstrated and deployment remains assisted.",
-        "body": "I maintain automated checks for Windows flows, offline mode and publishing rules. Installations, displays and physical networks are reviewed in their real environment.",
+        "body": "Automated checks cover Windows flows, offline mode and publishing rules. Installations, displays and physical networks remain subject to review in their real environment.",
         "points": ["Public data is fictional", "No public download for now", "Windows packages are not code-signed yet"]
       }
     ],
     "links": [
-      {"label": "Open the ClubAL website", "href": "https://clubal.pages.dev/en/", "kind": "secondary"},
+      {"label": "View the commercial website case", "href": "/en/sites/clubal/", "kind": "secondary"},
+      {"label": "Visit the commercial website", "href": "https://clubal.pages.dev/en/", "kind": "secondary"},
       {"label": "Discuss a pilot", "href": "/en/contact/?subject=clubal", "kind": "primary"}
     ]
   },
@@ -90,8 +96,9 @@
     "kicker": "A dark fantasy RPG built for solo production",
     "status": "In development · Phase 8",
     "statusTone": "progress",
-    "summary": "I am developing a single-player RPG in Unreal Engine 5.8 with compact areas, modular pieces and a scale suited to solo production.",
-    "promise": "In Dun Caerwyn, I am building a story of blood, memory and choices that leave marks.",
+    "summary": "Maeve Roscaern is a single-player RPG in Unreal Engine 5.8, with compact areas, modular pieces and a scale suited to solo production.",
+    "promise": "Dun Caerwyn turns blood, memory and choices into persistent marks.",
+    "cardCta": "Enter the world",
     "route": "/en/projects/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
     "imageWidth": 1672,
@@ -158,20 +165,20 @@
         "id": "game",
         "label": "Game",
         "title": "An adult protagonist in a world that records consequences.",
-        "body": "I am building Dun Caerwyn, House Roscaern and systems where body, blood and memory shape Maeve’s journey, narrative and combat.",
+        "body": "Dun Caerwyn, House Roscaern and its systems make body, blood and memory shape Maeve’s journey, narrative and combat.",
         "points": ["Original world and protagonist", "Persistent choices", "No mandatory account or server"]
       },
       {
         "id": "production",
         "label": "Production",
         "title": "The scale is designed for one person to finish.",
-        "body": "I use compact areas, modular kits and concentrated detail to preserve the mood without promising a world larger than solo production can support.",
+        "body": "Compact areas, modular kits and concentrated detail preserve the mood without promising a world larger than solo production can support.",
         "points": ["Short, readable paths", "Reusable pieces and characters", "Artwork clearly labeled as concept"]
       },
       {
         "id": "architect",
         "label": "The Architect",
-        "title": "I appear as a possible entity in the world.",
+        "title": "The Architect connects authorship and consequence.",
         "body": "My image as The Architect is a conceptual easter egg about authorship and consequence. It inspires the project without claiming that the character is already playable.",
         "points": ["My concept portrait", "Narrative possibility", "Concept is not presented as gameplay"]
       },
@@ -179,7 +186,7 @@
         "id": "status",
         "label": "Status",
         "title": "The first combat slice has a technical foundation.",
-        "body": "I have integrated light combo, dodge and Blood First into Phase 8. Technical gates passed; combat feel, rhythm and readability are still being evaluated.",
+        "body": "Light combo, dodge and Blood First now form part of Phase 8. Technical gates passed; combat feel, rhythm and readability are still being evaluated.",
         "points": ["Visuals are evolving", "Clear C++ and Unreal responsibilities", "Licenses revalidated before use"]
       }
     ],
@@ -195,8 +202,9 @@
     "kicker": "Digital presence case for a content creator",
     "status": "Client project · live site",
     "statusTone": "live",
-    "summary": "I created a website that brings together a content creator’s profile, schedule, streams and community.",
-    "promise": "I brought content, schedule and community into one original digital presence.",
+    "summary": "The website brings profile, schedule, streams and community together in a responsive experience for mobile and desktop.",
+    "promise": "Content and community in an original digital presence that is recognizable and easy to navigate.",
+    "cardCta": "View the case study",
     "route": "/en/projects/demonyza/",
     "image": "/assets/img/demonyza/home.webp",
     "imageWidth": 1600,
@@ -212,27 +220,27 @@
         "id": "challenge",
         "label": "Challenge",
         "title": "More than a link page.",
-        "body": "I needed to introduce the creator, organize her public channels and give the community easy routes without erasing the client’s identity.",
+        "body": "The starting point was to introduce the creator, organize her public channels and give the community clear routes without erasing the client’s identity.",
         "points": ["Content and schedule together", "Clear community routes", "Client identity preserved"]
       },
       {
         "id": "solution",
         "label": "Solution",
         "title": "The client’s identity, with clear navigation.",
-        "body": "I brought profile, schedule, Twitch, Discord and OpenDota together in an original responsive experience for mobile and desktop.",
+        "body": "Profile, schedule, Twitch, Discord and OpenDota form an original responsive experience for mobile and desktop.",
         "points": ["Layered navigation", "Public integrations", "Easy return to the main flow"]
       },
       {
         "id": "delivery",
         "label": "Delivery",
         "title": "Live and maintained independently.",
-        "body": "I published the site on Cloudflare Pages and kept the client’s code protected in a private repository.",
+        "body": "The website is live on Cloudflare Pages; the client’s code remains protected in a private repository.",
         "points": ["Public website", "No current recurring hosting cost", "Discrete creator credit"]
       }
     ],
     "links": [
-      {"label": "Open site", "href": "https://demonyza.pages.dev/en/", "kind": "primary"},
-      {"label": "Discuss a digital presence", "href": "/en/contact/?subject=digital-presence", "kind": "secondary"}
+      {"label": "Visit official website", "href": "https://demonyza.pages.dev/en/", "kind": "primary"},
+      {"label": "Discuss a similar website", "href": "/en/contact/?subject=digital-presence", "kind": "secondary"}
     ]
   },
   {
@@ -243,8 +251,9 @@
     "kicker": "A local queue for validations and decisions",
     "status": "Local product · Windows",
     "statusTone": "ready",
-    "summary": "I built a local queue that preserves pending validations, decisions and feedback across work sessions.",
-    "promise": "I record what remains pending, return at the right time and keep the context.",
+    "summary": "Codex Checkpoint preserves pending validations, decisions and feedback across work sessions.",
+    "promise": "Pending work resumes at the right time with context and decisions intact.",
+    "cardCta": "See how it works",
     "route": "/en/projects/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
     "imageWidth": 1920,
@@ -267,14 +276,14 @@
         "id": "solution",
         "label": "Solution",
         "title": "A checkpoint queue — not another chat.",
-        "body": "I record each checkpoint with enough context to return to the pending task and leave a decision or actionable feedback.",
+        "body": "Each checkpoint records enough context to return to the pending task and leave a decision or actionable feedback.",
         "points": ["Duplicate-safe keys", "Status and notes", "Validated card imports"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "A native, installable application.",
-        "body": "I brought the interface, command line and file integration into one product. Current builds are not code-signed yet, and I keep that clearly stated.",
+        "body": "Interface, command line and file integration form one product. Current builds are not code-signed yet, and that limit remains clearly stated.",
         "points": ["Local data", "Backup and recovery", "Unsigned builds"]
       }
     ],
@@ -287,11 +296,12 @@
     "order": 5,
     "code": "05",
     "name": "NEXUS",
-    "kicker": "My Windows hub for local projects",
+    "kicker": "A Windows hub for local projects",
     "status": "Validated local tool · Windows",
     "statusTone": "ready",
-    "summary": "I brought projects, paths and checks into one local hub that shows what is ready and what needs attention.",
-    "promise": "I reach the right path without hunting through shortcuts.",
+    "summary": "NEXUS brings projects, paths and checks into one local hub that shows what is ready and what needs attention.",
+    "promise": "The right path appears before execution — without hunting through shortcuts.",
+    "cardCta": "Explore the hub",
     "route": "/en/projects/nexus/",
     "image": "/assets/img/nexus/app.png",
     "imageWidth": 1180,
@@ -306,22 +316,22 @@
       {
         "id": "problem",
         "label": "Problem",
-        "title": "My projects outgrew a pile of shortcuts.",
-        "body": "Each product has its own builds, tools and checks; I needed to see the right path before running anything.",
+        "title": "Multiple projects outgrew a pile of shortcuts.",
+        "body": "Each product has its own builds, tools and checks; the right path needs to appear before anything runs.",
         "points": ["Multiple projects", "Different paths", "Visible state"]
       },
       {
         "id": "solution",
         "label": "Solution",
-        "title": "I turned that need into a local command desk.",
-        "body": "I add projects and paths from the interface; NEXUS only adopts a newer alternative when the match is safe and unambiguous.",
+        "title": "A local command desk replaces the pile of shortcuts.",
+        "body": "Projects and paths are added from the interface; NEXUS only adopts a newer alternative when the match is safe and unambiguous.",
         "points": ["Interface-based setup", "Tracked paths", "Only unambiguous alternatives"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "The local foundation is validated and in use.",
-        "body": "I open projects and checks in development context, without a required login and without mixing product runtimes.",
+        "body": "Projects and checks open in development context, without a required login and without mixing product runtimes.",
         "points": ["Offline startup", "Development context", "No automatic publishing"]
       }
     ],
@@ -337,8 +347,9 @@
     "kicker": "A small, verifiable public project",
     "status": "Open source · v1.0.0",
     "statusTone": "lab",
-    "summary": "I published an open-source Python application with a local JSON checklist, command line, tests and CI.",
-    "promise": "I demonstrate a local-first architecture in a compact example.",
+    "summary": "An open-source Python application demonstrates a local JSON checklist, command line, tests and CI.",
+    "promise": "Local-first architecture demonstrated in a compact, verifiable example.",
+    "cardCta": "View the public project",
     "route": "/en/projects/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
     "imageWidth": 1600,
@@ -354,21 +365,21 @@
         "id": "scope",
         "label": "Scope",
         "title": "Small enough to understand end to end.",
-        "body": "I kept tasks in a local JSON file and made the simple operations available through the command line.",
+        "body": "Tasks remain in a local JSON file, with simple operations available through the command line.",
         "points": ["No remote service", "Readable persistence", "Direct documentation"]
       },
       {
         "id": "quality",
         "label": "Quality",
         "title": "Simplicity still needs evidence.",
-        "body": "I protect the main operations with unit tests, Python compilation and a smoke test without adding infrastructure to the application.",
+        "body": "Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.",
         "points": ["Unit tests", "Verifiable CLI", "Validation workflow"]
       },
       {
         "id": "status",
         "label": "Status",
         "title": "Version 1.0.0 is published.",
-        "body": "I published the structure, documentation, tests and a coherent architectural choice in a limited scope.",
+        "body": "The published version brings together structure, documentation, tests and a coherent architectural choice within a limited scope.",
         "points": ["Public code", "Versioned release", "No cloud dependency"]
       }
     ],
@@ -400,6 +411,7 @@
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
     "facts": ["Proportional rigor", "Governed autonomy", "Validated rollback"],
+    "cardCta": "Understand C7",
     "tabs": [
       {
         "id": "problem",

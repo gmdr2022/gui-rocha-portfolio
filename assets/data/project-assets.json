@@ -1,11 +1,11 @@
 {
   "clubal": {
-    "src": "/assets/img/clubal/icon.png",
-    "width": 192,
-    "height": 192,
+    "src": "/assets/img/clubal/icon-web.webp",
+    "width": 128,
+    "height": 128,
     "official": true,
     "kind": "official-icon",
-    "source": "ClubAL site/assets/clubal-icon.png"
+    "source": "Optimized derivative of ClubAL site/assets/clubal-icon.png"
   },
   "maeve": {
     "src": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
@@ -24,6 +24,15 @@
     "kind": "existing-site-motif",
     "source": "Demonyza assets/img/icons/relics/black-rose.png",
     "note": "Motivo visual já usado no site da Demonyza; não é apresentado como logotipo."
+  },
+  "sites": {
+    "src": "/assets/img/sites/sites-category-icon.svg",
+    "width": 256,
+    "height": 256,
+    "official": false,
+    "kind": "collection-illustration",
+    "source": "Original conceptual website icon created for this portal",
+    "note": "Ícone conceitual da categoria; não representa marca ou entrega de cliente."
   },
   "codex-checkpoint": {
     "src": "/assets/img/codex-checkpoint/icon.png",

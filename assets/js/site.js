@@ -310,7 +310,7 @@ const closeDialog = (dialog) => {
 };
 
 const syncPreferenceControls = () => {
-  document.querySelectorAll("[data-text-scale]").forEach((button) => {
+  globalUi.querySelectorAll("button[data-text-scale]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.textScale === preferences.textScale));
   });
   document.querySelectorAll("[data-pref]").forEach((input) => {
@@ -349,7 +349,7 @@ document.addEventListener("click", (event) => {
   const consentButton = event.target.closest("[data-consent]");
   if (consentButton) setConsent(consentButton.dataset.consent);
 
-  const textScaleButton = event.target.closest("[data-text-scale]");
+  const textScaleButton = event.target.closest("button[data-text-scale]");
   if (textScaleButton) {
     preferences.textScale = textScaleButton.dataset.textScale;
     savePreferences();
@@ -392,7 +392,7 @@ if (!consentLevel()) {
 }
 
 const page = document.body.dataset.page;
-const activeNav = page === "project" ? "home" : page;
+const activeNav = ["project", "site", "sites"].includes(page) ? "home" : page;
 document.querySelector(`[data-site-nav="${activeNav}"]`)?.setAttribute("aria-current", "page");
 
 document.querySelectorAll("[data-current-year]").forEach((element) => {

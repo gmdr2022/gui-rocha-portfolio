@@ -7,6 +7,9 @@
     "presenca-digital": "presença digital",
     "digital-presence": "digital presence",
     "presencia-digital": "presencia digital",
+    "site-clubal": "site comercial do ClubAL",
+    "clubal-website": "ClubAL commercial website",
+    "sitio-clubal": "sitio comercial de ClubAL",
   };
 
   const locale = document.body.dataset.locale || "pt-BR";

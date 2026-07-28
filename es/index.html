@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mi portafolio reúne ClubAL, Maeve Roscaern, Codex Checkpoint, NEXUS y proyectos web con estado y evidencias reales.">
+  <meta name="description" content="Portafolio de Guilherme Rocha: software local-first, herramientas para Windows, sitios publicados y un RPG en producción, con alcance, estado y evidencias claros.">
   <meta name="theme-color" content="#071412">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
-  <meta property="og:title" content="Gui Rocha — software, juegos y herramientas locales">
-  <meta property="og:description" content="Mi portafolio reúne ClubAL, Maeve Roscaern, Codex Checkpoint, NEXUS y proyectos web con estado y evidencias reales.">
+  <meta property="og:title" content="Gui Rocha — productos digitales, software y sitios">
+  <meta property="og:description" content="Portafolio de Guilherme Rocha: software local-first, herramientas para Windows, sitios publicados y un RPG en producción, con alcance, estado y evidencias claros.">
   <meta property="og:url" content="https://gui-rocha.pages.dev/es/">
   <meta property="og:image" content="https://gui-rocha.pages.dev/assets/img/social-card.png">
   <link rel="canonical" href="https://gui-rocha.pages.dev/es/">
@@ -19,10 +19,11 @@
   <link rel="alternate" hreflang="x-default" href="https://gui-rocha.pages.dev/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/es/manifest.webmanifest">
-  <link rel="stylesheet" href="/assets/css/styles.css?v=619e92e8316a">
-  <script src="/assets/js/site.js?v=619e92e8316a" defer></script>
-  <script src="/assets/js/home.js?v=619e92e8316a" defer></script>
-  <title>Gui Rocha — software, juegos y herramientas locales</title>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=d4f9b0f9caed">
+  <script src="/assets/js/site.js?v=d4f9b0f9caed" defer></script>
+  <script src="/assets/js/home.js?v=d4f9b0f9caed" defer></script>
+  <script src="/assets/js/sites.js?v=d4f9b0f9caed" defer></script>
+  <title>Gui Rocha — productos digitales, software y sitios</title>
 </head>
 <body class="home-page" data-locale="es" data-page="home">
   <a class="skip-link" href="#content">Ir al contenido</a>
@@ -43,7 +44,7 @@
     <div class="header-actions">
 
     <details class="language-switcher">
-      <summary aria-label="Elegir idioma">
+      <summary aria-label="Elegir idioma: ES Español">
         <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
         <span>ES</span>
         <strong>Español</strong>
@@ -62,15 +63,15 @@
   <main class="home-main" id="content">
     <section class="home-intro" aria-labelledby="home-title">
       <div class="portrait-line">
-        <img src="/assets/img/gui-rocha.jpg" alt="Retrato de Guilherme Rocha" width="104" height="104">
+        <img src="/assets/img/gui-rocha-home.webp" alt="Retrato de Guilherme Rocha" width="104" height="104">
         <p><strong>Guilherme Rocha</strong><span>Alfenas, Brasil</span></p>
       </div>
       <p class="eyebrow">Gui Rocha · producto y creación digital</p>
-      <h1 id="home-title">Creo software para organizar el trabajo y juegos para explorar otros mundos.</h1>
-      <p class="home-lead">Desarrollo ClubAL, el mundo de Maeve y herramientas para Windows que mantienen organizados los proyectos locales.</p>
+      <h1 id="home-title">Productos digitales para organizar operaciones, orientar decisiones y construir experiencias propias.</h1>
+      <p class="home-lead">Software local-first, herramientas para Windows, sitios a medida y un RPG en producción: cada entrega presentada con alcance, estado y evidencias claros.</p>
       <div class="button-row">
-        <a class="button primary" href="#projects">Ver proyectos</a>
-        <a class="button secondary" href="/es/contacto/">Hablar conmigo</a>
+        <a class="button primary" href="#projects">Explorar proyectos</a>
+        <a class="button secondary" href="/es/contacto/">Conversar sobre una idea</a>
       </div>
     </section>
     <section class="project-catalog" id="projects" aria-labelledby="projects-title" data-project-catalog style="--active-accent:#25c997;--active-accent-rgb:37 201 151">
@@ -80,7 +81,7 @@
       </header>
       <div class="project-deck" data-project-deck>
 
-        <article class="project-card" data-project-card data-project="clubal" data-index="0" data-kind="screenshot" data-position="active" aria-hidden="false" style="--project-accent:#25c997;--project-accent-rgb:37 201 151">
+        <article class="project-card" data-project-card data-project="clubal" data-index="0" data-kind="screenshot" data-deck-name="ClubAL" data-position="active" aria-hidden="false" style="--project-accent:#25c997;--project-accent-rgb:37 201 151">
           <div class="project-card-media">
 
             <div class="clubal-showcase">
@@ -94,134 +95,134 @@
                   <i></i><i></i><i></i>
                 </div>
               </div>
-              <img class="clubal-weather-surface" src="/assets/img/clubal/clima-flet-demo.png" alt="Recorte seguro de la superficie Flet de clima de ClubAL con datos ficticios" width="1936" height="1066">
-              <img class="clubal-rotinas-surface" src="/assets/img/clubal/rotinas-atual.png" alt="Interfaz actual del módulo Rotinas de ClubAL con datos ficticios, agenda, horarios operativos y clima" width="1920" height="1080" fetchpriority="high">
+              <img class="clubal-weather-surface" src="/assets/img/clubal/clima-flet-home.webp" alt="Recorte seguro de la superficie Flet de clima de ClubAL con datos ficticios" width="968" height="533">
+              <img class="clubal-rotinas-surface" src="/assets/img/clubal/rotinas-home.webp" alt="Interfaz actual del módulo Rotinas de ClubAL con datos ficticios, agenda, horarios operativos y clima" width="960" height="540" fetchpriority="high">
             </div>
             <span class="visual-label">Interfaz del producto</span>
           </div>
           <div class="project-card-content">
             <div class="project-card-meta"><span>01</span><p>Software para Windows destinado a rutinas institucionales</p></div>
             <span class="status-pill" data-tone="live">En evolución · implementación asistida</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/clubal/icon.png" alt="" width="192" height="192" decoding="async" aria-hidden="true"></span><h2>ClubAL</h2></div>
-            <p>Con ClubAL, organizo rutinas institucionales en Windows, publico lo necesario en pantallas y ofrezco consulta sin edición.</p>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/clubal/icon-web.webp" alt="" width="128" height="128" decoding="async" aria-hidden="true"></span><h2>ClubAL</h2></div>
+            <p>ClubAL organiza rutinas institucionales en Windows, publica lo necesario en pantallas y ofrece consulta sin edición.</p>
             <div class="project-card-footer">
               <ul aria-label="ClubAL"><li>Windows</li><li>Local-first</li><li>3 módulos</li></ul>
-              <a class="card-link" href="/es/proyectos/clubal/" aria-label="Ver proyecto: ClubAL">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/clubal/" aria-label="Explorar el producto: ClubAL">
+                <span>Explorar el producto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="maeve" data-index="1" data-kind="art" data-position="hidden" aria-hidden="true" style="--project-accent:#ef6d78;--project-accent-rgb:239 109 120">
+        <article class="project-card" data-project-card data-project="maeve" data-index="1" data-kind="art" data-deck-name="Maeve Roscaern" data-position="hidden" aria-hidden="true" style="--project-accent:#ef6d78;--project-accent-rgb:239 109 120">
           <div class="project-card-media">
 
-            <img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="Imagen conceptual de Maeve, una superviviente y un sabueso maldito en un cementerio iluminado de Dun Caerwyn" width="1672" height="941" loading="lazy">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="Imagen conceptual de Maeve, una superviviente y un sabueso maldito en un cementerio iluminado de Dun Caerwyn" width="1672" height="941" loading="lazy">
             <span class="visual-label">Imagen conceptual</span>
           </div>
           <div class="project-card-content">
             <div class="project-card-meta"><span>02</span><p>RPG dark fantasy diseñado para producción individual</p></div>
             <span class="status-pill" data-tone="progress">En desarrollo · Fase 8</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="catalog-art" title="Arte de catálogo existente; Maeve ainda não possui um ícone oficial neste portal."><img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Maeve Roscaern</h2></div>
-            <p>Desarrollo un RPG para un jugador en Unreal Engine 5.8 con áreas compactas, piezas modulares y una escala viable para producción individual.</p>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="catalog-art"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Maeve Roscaern</h2></div>
+            <p>Maeve Roscaern es un RPG para un jugador en Unreal Engine 5.8, con áreas compactas, piezas modulares y una escala viable para producción individual.</p>
             <div class="project-card-footer">
               <ul aria-label="Maeve Roscaern"><li>Unreal Engine 5.8</li><li>Un jugador</li><li>Offline-first</li></ul>
-              <a class="card-link" href="/es/proyectos/maeve/" aria-label="Ver proyecto: Maeve Roscaern">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/maeve/" aria-label="Conocer el universo: Maeve Roscaern">
+                <span>Conocer el universo</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="demonyza" data-index="2" data-kind="website" data-position="hidden" aria-hidden="true" style="--project-accent:#c769ff;--project-accent-rgb:199 105 255">
+        <article class="project-card" data-project-card data-project="sites" data-index="2" data-kind="site-collection" data-deck-name="Sitios" data-position="hidden" aria-hidden="true" style="--project-accent:#4f8cff;--project-accent-rgb:79 140 255">
           <div class="project-card-media">
 
-            <img src="/assets/img/demonyza/home.webp" alt="Página inicial actual de Demonyza con identidad visual morada, navegación y áreas interactivas" width="1600" height="900" loading="lazy">
-            <span class="visual-label">Sitio público</span>
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/sites/sites-collection-concept.svg" alt="Composición conceptual original con tres interfaces abstractas de sitios en pantallas de escritorio y móvil; no representa una captura de cliente" width="1600" height="1000" loading="lazy">
+            <span class="visual-label">Composición conceptual</span>
           </div>
           <div class="project-card-content">
-            <div class="project-card-meta"><span>03</span><p>Caso de presencia digital para creadora de contenido</p></div>
-            <span class="status-pill" data-tone="live">Proyecto para cliente · sitio publicado</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="existing-site-motif" title="Motivo visual já usado no site da Demonyza; não é apresentado como logotipo."><img src="/assets/img/demonyza/icon-black-rose.png" alt="" width="500" height="500" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Demonyza</h2></div>
-            <p>Creé un sitio que reúne presentación, agenda, transmisiones y comunidad de una creadora de contenido.</p>
+            <div class="project-card-meta"><span>03</span><p>Sitios responsivos y presencia digital a medida</p></div>
+            <span class="status-pill" data-tone="live">2 sitios publicados</span>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="collection-illustration"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/sites/sites-category-icon.svg" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Sitios y experiencias digitales</h2></div>
+            <p>Arquitectura de contenido, identidad visual, responsividad y publicación se unen en experiencias adaptadas al público y al objetivo de cada entrega.</p>
             <div class="project-card-footer">
-              <ul aria-label="Demonyza"><li>Proyecto para cliente</li><li>Sitio responsivo</li><li>Cloudflare Pages</li></ul>
-              <a class="card-link" href="/es/proyectos/demonyza/" aria-label="Ver proyecto: Demonyza">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <ul aria-label="Sitios y experiencias digitales"><li>2 sitios publicados</li><li>Escritorio + móvil</li><li>Publicación en Cloudflare</li></ul>
+              <a class="card-link" href="/es/sitios/" aria-label="Explorar sitios entregados: Sitios y experiencias digitales" data-sites-opener>
+                <span>Explorar sitios entregados</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="codex-checkpoint" data-index="3" data-kind="screenshot" data-position="hidden" aria-hidden="true" style="--project-accent:#36d6c0;--project-accent-rgb:54 214 192">
+        <article class="project-card" data-project-card data-project="codex-checkpoint" data-index="3" data-kind="screenshot" data-deck-name="Codex Checkpoint" data-position="hidden" aria-hidden="true" style="--project-accent:#36d6c0;--project-accent-rgb:54 214 192">
           <div class="project-card-media">
 
-            <img src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas" width="1920" height="1080" loading="lazy">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint mostrando una cola ficticia de validaciones pendientes, decisiones y un historial de notas" width="1920" height="1080" loading="lazy">
             <span class="visual-label">Producto · datos demostrativos</span>
           </div>
           <div class="project-card-content">
             <div class="project-card-meta"><span>04</span><p>Cola local para validaciones y decisiones</p></div>
             <span class="status-pill" data-tone="ready">Producto local · Windows</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/codex-checkpoint/icon.png" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Codex Checkpoint</h2></div>
-            <p>Construí una cola local que conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</p>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/codex-checkpoint/icon.png" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Codex Checkpoint</h2></div>
+            <p>Codex Checkpoint conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.</p>
             <div class="project-card-footer">
               <ul aria-label="Codex Checkpoint"><li>WPF / .NET</li><li>Sin cuenta</li><li>Cola duradera</li></ul>
-              <a class="card-link" href="/es/proyectos/codex-checkpoint/" aria-label="Ver proyecto: Codex Checkpoint">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/codex-checkpoint/" aria-label="Ver cómo funciona: Codex Checkpoint">
+                <span>Ver cómo funciona</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="nexus" data-index="4" data-kind="screenshot" data-position="hidden" aria-hidden="true" style="--project-accent:#8e7dff;--project-accent-rgb:142 125 255">
+        <article class="project-card" data-project-card data-project="nexus" data-index="4" data-kind="screenshot" data-deck-name="NEXUS" data-position="hidden" aria-hidden="true" style="--project-accent:#8e7dff;--project-accent-rgb:142 125 255">
           <div class="project-card-media">
 
-            <img src="/assets/img/nexus/app.png" alt="Vista general actual de NEXUS con dos proyectos ficticios, estados de preparación, fechas de actualización y opción para añadir un proyecto." width="1180" height="760" loading="lazy">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/nexus/app.png" alt="Vista general actual de NEXUS con dos proyectos ficticios, estados de preparación, fechas de actualización y opción para añadir un proyecto." width="1180" height="760" loading="lazy">
             <span class="visual-label">Catálogo demostrativo</span>
           </div>
           <div class="project-card-content">
-            <div class="project-card-meta"><span>05</span><p>Mi central para Windows de proyectos locales</p></div>
+            <div class="project-card-meta"><span>05</span><p>Central para Windows de proyectos locales</p></div>
             <span class="status-pill" data-tone="ready">Herramienta local validada · Windows</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="application-icon"><img src="/assets/img/nexus/icon.ico" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><h2>NEXUS</h2></div>
-            <p>Reuní proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.</p>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="application-icon"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/nexus/icon.ico" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><h2>NEXUS</h2></div>
+            <p>NEXUS reúne proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.</p>
             <div class="project-card-footer">
               <ul aria-label="NEXUS"><li>C# WPF</li><li>Seguimiento de rutas</li><li>Sin conexión por defecto</li></ul>
-              <a class="card-link" href="/es/proyectos/nexus/" aria-label="Ver proyecto: NEXUS">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/nexus/" aria-label="Explorar la central: NEXUS">
+                <span>Explorar la central</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="local-first-checklist" data-index="5" data-kind="art" data-position="hidden" aria-hidden="true" style="--project-accent:#f2bb62;--project-accent-rgb:242 187 98">
+        <article class="project-card" data-project-card data-project="local-first-checklist" data-index="5" data-kind="art" data-deck-name="Local First Checklist" data-position="hidden" aria-hidden="true" style="--project-accent:#f2bb62;--project-accent-rgb:242 187 98">
           <div class="project-card-media">
 
-            <img src="/assets/img/local-first-checklist.svg" alt="Ilustración de una lista local con elementos completados y un archivo JSON" width="1600" height="1000" loading="lazy">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/local-first-checklist.svg" alt="Ilustración de una lista local con elementos completados y un archivo JSON" width="1600" height="1000" loading="lazy">
             <span class="visual-label">Ilustración del proyecto</span>
           </div>
           <div class="project-card-content">
             <div class="project-card-meta"><span>06</span><p>Proyecto público pequeño y verificable</p></div>
             <span class="status-pill" data-tone="lab">Código abierto · v1.0.0</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="project-illustration" title="Ilustração do projeto já publicada; não é apresentada como logotipo."><img src="/assets/img/local-first-checklist.svg" alt="" width="1600" height="1000" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Local First Checklist</h2></div>
-            <p>Publiqué una aplicación Python de código abierto con checklist en JSON local, línea de comandos, pruebas y CI.</p>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="project-illustration"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/local-first-checklist.svg" alt="" width="1600" height="1000" decoding="async" loading="lazy" aria-hidden="true"></span><h2>Local First Checklist</h2></div>
+            <p>Una aplicación Python de código abierto demuestra checklist en JSON local, línea de comandos, pruebas y CI.</p>
             <div class="project-card-footer">
               <ul aria-label="Local First Checklist"><li>Python CLI</li><li>JSON local</li><li>Pruebas + CI</li></ul>
-              <a class="card-link" href="/es/proyectos/local-first-checklist/" aria-label="Ver proyecto: Local First Checklist">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/local-first-checklist/" aria-label="Ver el proyecto público: Local First Checklist">
+                <span>Ver el proyecto público</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </article>
-        <article class="project-card" data-project-card data-project="c7-engineering-system" data-index="6" data-kind="art" data-position="hidden" aria-hidden="true" style="--project-accent:#a9ed34;--project-accent-rgb:169 237 52">
+        <article class="project-card" data-project-card data-project="c7-engineering-system" data-index="6" data-kind="art" data-deck-name="C7 Engineering System" data-position="hidden" aria-hidden="true" style="--project-accent:#a9ed34;--project-accent-rgb:169 237 52">
           <div class="project-card-media">
 
-            <img src="/assets/img/c7-engineering-system-showcase-v2.webp" alt="Flujos de proyectos convergiendo en el monograma C7 y siete facetas coordinadas" width="1600" height="800" loading="lazy">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/c7-engineering-system-showcase-v2.webp" alt="Flujos de proyectos convergiendo en el monograma C7 y siete facetas coordinadas" width="1600" height="800" loading="lazy">
             <span class="visual-label">Identidad del sistema</span>
           </div>
           <div class="project-card-content">
             <div class="project-card-meta"><span>07</span><p>Sistema local de ingeniería para Codex</p></div>
             <span class="status-pill" data-tone="ready">Sistema activo · v1.0.0</span>
-            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/c7-engineering-system-icon-v2.svg" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><h2>C7 Engineering System</h2></div>
+            <div class="project-title-row"><span class="project-icon" data-icon-kind="official-icon"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-deferred-src="/assets/img/c7-engineering-system-icon-v2.svg" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><h2>C7 Engineering System</h2></div>
             <p>C7 coordina contexto, riesgo, ejecución y validación para que Codex avance con autonomía sin perder el control humano.</p>
             <div class="project-card-footer">
               <ul aria-label="C7 Engineering System"><li>Rigor proporcional</li><li>Autonomía gobernada</li><li>Rollback validado</li></ul>
-              <a class="card-link" href="/es/proyectos/c7-engineering-system/" aria-label="Ver proyecto: C7 Engineering System">
-                <span>Ver proyecto</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+              <a class="card-link" href="/es/proyectos/c7-engineering-system/" aria-label="Comprender C7: C7 Engineering System">
+                <span>Comprender C7</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
               </a>
             </div>
           </div>
@@ -230,14 +231,111 @@
       <div class="deck-controls">
         <button class="deck-button" type="button" data-deck-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Anterior</span></button>
         <div class="deck-progress" role="group" aria-label="Proyectos">
-          <button type="button" data-deck-dot="0" aria-label="Ver proyecto: ClubAL" aria-pressed="true"><span>01</span></button><button type="button" data-deck-dot="1" aria-label="Ver proyecto: Maeve Roscaern" aria-pressed="false"><span>02</span></button><button type="button" data-deck-dot="2" aria-label="Ver proyecto: Demonyza" aria-pressed="false"><span>03</span></button><button type="button" data-deck-dot="3" aria-label="Ver proyecto: Codex Checkpoint" aria-pressed="false"><span>04</span></button><button type="button" data-deck-dot="4" aria-label="Ver proyecto: NEXUS" aria-pressed="false"><span>05</span></button><button type="button" data-deck-dot="5" aria-label="Ver proyecto: Local First Checklist" aria-pressed="false"><span>06</span></button><button type="button" data-deck-dot="6" aria-label="Ver proyecto: C7 Engineering System" aria-pressed="false"><span>07</span></button>
+          <button type="button" data-deck-dot="0" aria-label="Explorar el producto: ClubAL" aria-pressed="true"><span>01</span></button><button type="button" data-deck-dot="1" aria-label="Conocer el universo: Maeve Roscaern" aria-pressed="false"><span>02</span></button><button type="button" data-deck-dot="2" aria-label="Explorar sitios entregados: Sitios y experiencias digitales" aria-pressed="false"><span>03</span></button><button type="button" data-deck-dot="3" aria-label="Ver cómo funciona: Codex Checkpoint" aria-pressed="false"><span>04</span></button><button type="button" data-deck-dot="4" aria-label="Explorar la central: NEXUS" aria-pressed="false"><span>05</span></button><button type="button" data-deck-dot="5" aria-label="Ver el proyecto público: Local First Checklist" aria-pressed="false"><span>06</span></button><button type="button" data-deck-dot="6" aria-label="Comprender C7: C7 Engineering System" aria-pressed="false"><span>07</span></button>
         </div>
         <p class="deck-current"><strong data-deck-current>ClubAL</strong><span data-deck-counter>01 / 07</span></p>
         <button class="deck-button" type="button" data-deck-next><span>Siguiente</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
       </div>
       <p class="sr-only" aria-live="polite" data-deck-live></p>
-      <noscript><p class="noscript-links">Elija un proyecto: <a href="/es/proyectos/clubal/">ClubAL</a> · <a href="/es/proyectos/maeve/">Maeve Roscaern</a> · <a href="/es/proyectos/demonyza/">Demonyza</a> · <a href="/es/proyectos/codex-checkpoint/">Codex Checkpoint</a> · <a href="/es/proyectos/nexus/">NEXUS</a> · <a href="/es/proyectos/local-first-checklist/">Local First Checklist</a> · <a href="/es/proyectos/c7-engineering-system/">C7 Engineering System</a></p></noscript>
+      <noscript><p class="noscript-links">Elija un proyecto: <a href="/es/proyectos/clubal/">ClubAL</a> · <a href="/es/proyectos/maeve/">Maeve Roscaern</a> · <a href="/es/sitios/">Sitios y experiencias digitales</a> · <a href="/es/proyectos/codex-checkpoint/">Codex Checkpoint</a> · <a href="/es/proyectos/nexus/">NEXUS</a> · <a href="/es/proyectos/local-first-checklist/">Local First Checklist</a> · <a href="/es/proyectos/c7-engineering-system/">C7 Engineering System</a></p></noscript>
     </section>
+
+    <dialog class="sites-dialog" data-sites-dialog data-sites-title="Sitios entregados — Gui Rocha" aria-labelledby="sites-overlay-title" aria-describedby="sites-overlay-description" aria-modal="true">
+
+    <section class="sites-window" data-site-collection aria-labelledby="sites-overlay-title" aria-describedby="sites-overlay-description">
+      <header class="sites-window-header">
+        <div class="sites-window-identity">
+          <span class="sites-window-mark" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 21h10M12 18v3M3 8h18"/></svg></span>
+          <div>
+            <p class="eyebrow">Sitios y experiencias digitales</p>
+            <h2 id="sites-overlay-title">Sitios entregados</h2>
+          </div>
+        </div>
+        <p id="sites-overlay-description">Una selección de experiencias publicadas con contexto, decisiones de diseño, vistas previas locales y acceso a cada sitio oficial.</p>
+        <span class="sites-window-count"><strong>2</strong> sitios publicados</span>
+        <button class="sites-window-close" type="button" data-site-collection-close aria-label="Cerrar sitios entregados"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </header>
+      <div class="sites-workspace">
+        <nav class="sites-catalog" aria-label="Catálogo de sitios">
+
+            <a href="#sites-overlay-demonyza" data-site-select="demonyza" aria-controls="sites-overlay-demonyza" aria-current="true">
+              <img src="/assets/img/demonyza/icon-black-rose.png" alt="" width="500" height="500" loading="lazy" decoding="async" aria-hidden="true">
+              <span><strong>Demonyza</strong><small>Contenido y comunidad</small></span>
+              <em><i aria-hidden="true"></i>Sitio publicado</em>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#sites-overlay-clubal" data-site-select="clubal" aria-controls="sites-overlay-clubal" aria-current="false">
+              <img src="/assets/img/clubal/icon-web.webp" alt="" width="128" height="128" loading="lazy" decoding="async" aria-hidden="true">
+              <span><strong>Sitio de ClubAL</strong><small>Producto y comunicación</small></span>
+              <em><i aria-hidden="true"></i>Sitio publicado</em>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg>
+            </a>
+        </nav>
+        <div class="sites-stage" aria-label="Sitio seleccionado">
+
+            <article class="site-feature-panel" id="sites-overlay-demonyza" data-site-panel="demonyza" style="--site-accent:#c769ff;--site-accent-rgb:199 105 255">
+              <figure class="site-feature-cover">
+                <img src="/assets/img/demonyza/home.webp" alt="Página inicial publicada de Demonyza con identidad visual morada, navegación y áreas de contenido" width="1600" height="900" loading="lazy" decoding="async">
+                <figcaption>Sitio publicado</figcaption>
+              </figure>
+              <div class="site-feature-copy">
+                <div class="site-feature-meta">
+                  <span class="status-pill" data-tone="live">Sitio publicado</span>
+                  <span>01 / 02</span>
+                </div>
+                <p class="eyebrow">Contenido y comunidad</p>
+                <h3>Demonyza</h3>
+                <p class="site-feature-summary">Una presencia digital propia reúne presentación, agenda, transmisiones y rutas para la comunidad sin borrar la identidad de la creadora.</p>
+                <div class="site-feature-objective">
+                  <strong>Objetivo de la entrega</strong>
+                  <p>Sustituir una secuencia dispersa de enlaces por una experiencia reconocible, navegable y útil en móvil y escritorio.</p>
+                </div>
+                <ul class="site-feature-tags" aria-label="Demonyza"><li>Responsivo</li><li>Agenda</li><li>Comunidad</li></ul>
+                <div class="site-feature-evidence">
+                  <strong>Qué se entregó</strong>
+                  <ul><li>Identidad de la cliente preservada</li><li>Navegación en capas</li><li>Cloudflare Pages</li></ul>
+                </div>
+                <div class="site-feature-actions">
+                  <a class="button primary" href="/es/proyectos/demonyza/">Ver presentación<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
+                  <a class="button secondary" href="https://demonyza.pages.dev/es/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+
+                </div>
+              </div>
+            </article>
+            <article class="site-feature-panel" id="sites-overlay-clubal" data-site-panel="clubal" style="--site-accent:#25c997;--site-accent-rgb:37 201 151">
+              <figure class="site-feature-cover">
+                <img src="/assets/img/sites/clubal-site-light-1600x1000.png" alt="Página inicial publicada del sitio comercial de ClubAL en tema claro, con propuesta, módulos y una captura demostrativa del producto" width="1600" height="1000" loading="lazy" decoding="async">
+                <figcaption>Sitio oficial · tema claro</figcaption>
+              </figure>
+              <div class="site-feature-copy">
+                <div class="site-feature-meta">
+                  <span class="status-pill" data-tone="live">Sitio publicado</span>
+                  <span>02 / 02</span>
+                </div>
+                <p class="eyebrow">Producto y comunicación</p>
+                <h3>Sitio de ClubAL</h3>
+                <p class="site-feature-summary">El sitio comercial transforma un producto Windows de tres módulos en una narrativa clara, responsiva y coherente con su estado real.</p>
+                <div class="site-feature-objective">
+                  <strong>Objetivo de la entrega</strong>
+                  <p>Explicar problema, flujo, módulos e implementación sin confundir el sitio de comunicación con el software presentado.</p>
+                </div>
+                <ul class="site-feature-tags" aria-label="Sitio de ClubAL"><li>3 idiomas</li><li>Temas claro y oscuro</li><li>Responsivo</li></ul>
+                <div class="site-feature-evidence">
+                  <strong>Qué se entregó</strong>
+                  <ul><li>Narrativa de los tres módulos</li><li>Privacidad sin analítica</li><li>Cloudflare Pages</li></ul>
+                </div>
+                <div class="site-feature-actions">
+                  <a class="button primary" href="/es/sitios/clubal/">Ver presentación<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
+                  <a class="button secondary" href="https://clubal.pages.dev/es/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                  <a class="text-link" href="/es/proyectos/clubal/">Explorar el producto ClubAL<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
+                </div>
+              </div>
+            </article>
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-site-live></p>
+    </section>
+    </dialog>
   </main>
 
   <footer class="site-footer">

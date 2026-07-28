@@ -6,6 +6,7 @@ const root = resolve(process.cwd());
 const origin = "https://gui-rocha.pages.dev";
 const errors = [];
 const requiredProjectSlugs = ["clubal", "maeve", "demonyza", "codex-checkpoint", "nexus", "local-first-checklist", "c7-engineering-system"];
+const requiredSiteSlugs = ["demonyza", "clubal"];
 const expectedProjectDimensions = {
   clubal: [1920, 1080],
   maeve: [1672, 941],
@@ -16,8 +17,9 @@ const expectedProjectDimensions = {
   "c7-engineering-system": [1600, 1000],
 };
 const projectFiles = { "pt-BR": "projects.json", en: "projects.en.json", es: "projects.es.json" };
+const siteFiles = { "pt-BR": "sites.json", en: "sites.en.json", es: "sites.es.json" };
 const conceptLabels = { "pt-BR": "Imagem conceito", en: "Concept image", es: "Imagen conceptual" };
-const ignoredDirectories = new Set([".git", ".playwright-cli", ".wrangler", "dist", "node_modules", "output"]);
+const ignoredDirectories = new Set([".git", ".playwright-cli", ".wrangler", "dist", "node_modules", "output", "test-results"]);
 
 const walk = async (directory) => {
   const files = [];
@@ -44,6 +46,8 @@ const routeFor = (locale, type, slug = "") => {
   if (type === "about") return config.routes.about;
   if (type === "contact") return config.routes.contact;
   if (type === "privacy") return config.routes.privacy;
+  if (type === "sites") return config.routes.sites;
+  if (type === "site") return `${config.routes.sites}${slug}/`;
   return `${config.routes.projects}${slug}/`;
 };
 
@@ -60,6 +64,7 @@ const files = await walk(root);
 const htmlFiles = files.filter((path) => extname(path) === ".html");
 const expectedPages = [];
 const projectsByLocale = {};
+const sitesByLocale = {};
 const projectAssets = JSON.parse(await readFile(join(root, "assets", "data", "project-assets.json"), "utf8"));
 
 for (const slug of requiredProjectSlugs) {
@@ -80,17 +85,41 @@ for (const slug of requiredProjectSlugs) {
 if (projectAssets["c7-engineering-system"]?.src !== "/assets/img/c7-engineering-system-icon-v2.svg") {
   errors.push("project-assets.json: ícone oficial do C7ES incorreto");
 }
+if (
+  projectAssets.clubal?.src !== "/assets/img/clubal/icon-web.webp"
+  || projectAssets.clubal?.width !== 128
+  || projectAssets.clubal?.height !== 128
+) {
+  errors.push("project-assets.json: derivado web do ícone ClubAL ausente ou incorreto");
+}
+if (
+  projectAssets.sites?.src !== "/assets/img/sites/sites-category-icon.svg"
+  || projectAssets.sites?.kind !== "collection-illustration"
+  || !await exists(localTarget(projectAssets.sites?.src || ""))
+) {
+  errors.push("project-assets.json: ícone conceitual da coleção de sites ausente ou incorreto");
+}
 
 for (const locale of localeOrder) {
   const path = join(root, "assets", "data", projectFiles[locale]);
   const projects = JSON.parse(await readFile(path, "utf8"));
   projectsByLocale[locale] = projects;
+  const sitePath = join(root, "assets", "data", siteFiles[locale]);
+  const siteContent = JSON.parse(await readFile(sitePath, "utf8"));
+  sitesByLocale[locale] = {
+    collection: siteContent.collection,
+    sites: siteContent.sites.filter((site) => site.visible !== false).sort((a, b) => a.order - b.order),
+  };
   expectedPages.push({ locale, type: "home", route: routeFor(locale, "home") });
   expectedPages.push({ locale, type: "about", route: routeFor(locale, "about") });
   expectedPages.push({ locale, type: "contact", route: routeFor(locale, "contact") });
   expectedPages.push({ locale, type: "privacy", route: routeFor(locale, "privacy") });
+  expectedPages.push({ locale, type: "sites", route: routeFor(locale, "sites") });
   for (const slug of requiredProjectSlugs) {
     expectedPages.push({ locale, type: "project", slug, route: routeFor(locale, "project", slug) });
+  }
+  for (const site of sitesByLocale[locale].sites.filter((item) => item.case)) {
+    expectedPages.push({ locale, type: "site", slug: site.slug, route: routeFor(locale, "site", site.slug) });
   }
 }
 
@@ -132,8 +161,14 @@ for (const expected of expectedPages) {
   if (expected.type === "home") {
     if (!html.includes('data-project="clubal"')) errors.push(`${label}: card ClubAL sem identificação própria`);
     if (!html.includes("clubal-operation-panel")) errors.push(`${label}: painel abstrato de Operação ausente`);
-    if (!html.includes('src="/assets/img/clubal/clima-flet-demo.png"')) errors.push(`${label}: superfície Flet de clima ausente`);
+    if (!html.includes('src="/assets/img/clubal/clima-flet-home.webp"')) errors.push(`${label}: superfície Flet otimizada de clima ausente`);
+    if (!html.includes("data-deferred-src=")) errors.push(`${label}: mídias dos cards inativos não são adiadas`);
     if (!html.includes("clubal-rotinas-surface")) errors.push(`${label}: Rotinas atual ausente da composição`);
+    if (!html.includes('data-project="sites"')) errors.push(`${label}: entrada genérica da coleção de sites ausente`);
+    if (html.includes('data-project="demonyza"')) errors.push(`${label}: Demonyza ainda aparece como produto principal`);
+    if (!html.includes('data-sites-dialog') || !html.includes('data-sites-opener') || !html.includes('data-sites-title=')) errors.push(`${label}: melhoria progressiva da janela de sites ausente`);
+    if (!html.includes('src="/assets/js/sites.js?v=')) errors.push(`${label}: comportamento da coleção de sites ausente`);
+    if (!html.includes('data-project="c7-engineering-system"')) errors.push(`${label}: C7 ausente da vitrine principal`);
   }
   if (expected.type === "about") {
     if ((html.match(/data-context-card/g) || []).length !== 5) errors.push(`${label}: catálogo por contexto incompleto`);
@@ -141,8 +176,37 @@ for (const expected of expectedPages) {
     if ((html.match(/context-catalog-panel"[^>]* hidden/g) || []).length !== 5) errors.push(`${label}: painéis contextuais sem estado inicial oculto`);
     if (!html.includes('src="/assets/js/about.js?v=')) errors.push(`${label}: comportamento do catálogo contextual ausente`);
     if (html.includes("personal-note")) errors.push(`${label}: seção pessoal removida voltou a ser gerada`);
-    for (const project of projectsByLocale[expected.locale]) {
+    for (const project of projectsByLocale[expected.locale].filter((item) => item.slug !== "demonyza")) {
       if (!html.includes(`href="${project.route}"`)) errors.push(`${label}: projeto ausente no catálogo por contexto ${project.slug}`);
+    }
+    if (!html.includes(`href="${sitesByLocale[expected.locale].collection.route}"`)) errors.push(`${label}: coleção de sites ausente no catálogo por contexto`);
+  }
+  if (expected.type === "sites") {
+    const siteContent = sitesByLocale[expected.locale];
+    if (!html.includes("data-site-collection")) errors.push(`${label}: coleção de sites ausente`);
+    if (!html.includes(`aria-label="${siteContent.collection.backLabel}"`)) errors.push(`${label}: retorno ao portal sem nome acessível`);
+    if (!html.includes('src="/assets/js/sites.js?v=')) errors.push(`${label}: JavaScript da coleção ausente`);
+    if ((html.match(/data-site-select=/g) || []).length !== siteContent.sites.length) errors.push(`${label}: catálogo não deriva da quantidade de sites`);
+    if (/data-site-panel="[^"]+"[^>]*\shidden\b/.test(html)) errors.push(`${label}: conteúdo direto depende de JavaScript para aparecer`);
+    for (const site of siteContent.sites) {
+      if (!html.includes(`data-site-panel="${site.slug}"`)) errors.push(`${label}: painel ausente para ${site.slug}`);
+      if (!html.includes(`href="${site.route}"`)) errors.push(`${label}: apresentação interna ausente para ${site.slug}`);
+      if (!html.includes(`href="${site.officialUrl}" target="_blank" rel="noopener noreferrer"`)) errors.push(`${label}: link oficial inseguro ou ausente para ${site.slug}`);
+    }
+  }
+  if (expected.type === "project" && expected.slug === "demonyza") {
+    if (!html.includes("site-case-navigation")) errors.push(`${label}: navegação entre sites ausente no case Demonyza`);
+    if (!html.includes(`href="${sitesByLocale[expected.locale].collection.route}"`)) errors.push(`${label}: retorno à coleção ausente no case Demonyza`);
+  }
+  if (expected.type === "site") {
+    const site = sitesByLocale[expected.locale].sites.find((item) => item.slug === expected.slug);
+    if (!site?.case) errors.push(`${label}: case de site sem fonte de dados`);
+    if (!html.includes("site-case-navigation")) errors.push(`${label}: navegação entre sites ausente`);
+    if (!html.includes(`href="${site?.officialUrl}" target="_blank" rel="noopener noreferrer"`)) errors.push(`${label}: link oficial do case ausente ou inseguro`);
+    if (site?.relatedProduct && !html.includes(`href="${site.relatedProduct.route}"`)) errors.push(`${label}: ligação com produto relacionado ausente`);
+    if (!html.includes("data-project-gallery")) errors.push(`${label}: galeria do case de site ausente`);
+    if (!/data-gallery-previous aria-label="[^"]+"/.test(html) || !/data-gallery-next aria-label="[^"]+"/.test(html)) {
+      errors.push(`${label}: controles da galeria sem nome acessível`);
     }
   }
   for (const targetLocale of localeOrder) {
@@ -184,8 +248,13 @@ for (const path of htmlFiles) {
     const target = localTarget(value);
     if (target && !await exists(target)) errors.push(`${label}: referência local inexistente ${value}`);
   }
+  for (const [, value] of html.matchAll(/data-deferred-src="([^"]+)"/g)) {
+    const target = localTarget(value);
+    if (target && !await exists(target)) errors.push(`${label}: mídia adiada inexistente ${value}`);
+  }
   for (const [tag] of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) {
     if (!/rel="[^"]*noopener[^"]*"/.test(tag)) errors.push(`${label}: link externo sem noopener`);
+    if (!/rel="[^"]*noreferrer[^"]*"/.test(tag)) errors.push(`${label}: link externo sem noreferrer`);
   }
   for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
     if (!/\balt="[^"]*"/.test(tag)) errors.push(`${label}: imagem sem texto alternativo`);
@@ -230,6 +299,13 @@ for (const locale of localeOrder) {
   }
 
   const clubal = projects.find((project) => project.slug === "clubal");
+  if (
+    clubal.cardImage !== "/assets/img/clubal/rotinas-home.webp"
+    || clubal.cardImageWidth !== 960
+    || clubal.cardImageHeight !== 540
+  ) {
+    errors.push(`${label}: derivado responsivo da vitrine ClubAL ausente ou incorreto`);
+  }
   if (clubal.gallery?.length !== 4) errors.push(`${label}: galeria do ClubAL deve conter quatro capturas`);
   if (!clubal.galleryNote) errors.push(`${label}: nota de dados demonstrativos da galeria ClubAL ausente`);
   for (const item of clubal.gallery || []) {
@@ -277,6 +353,134 @@ for (const locale of localeOrder) {
   const adultPattern = locale === "en" ? /\badult\b/gi : locale === "es" ? /\badulta\b/gi : /\badulta\b/gi;
   if ((localeText.match(adultPattern) || []).length !== 1) errors.push(`${label}: classificação adulta deve aparecer exatamente uma vez`);
 }
+
+const siteOrdersByLocale = [];
+for (const locale of localeOrder) {
+  const { collection, sites } = sitesByLocale[locale];
+  const label = siteFiles[locale];
+  const requiredCollectionFields = [
+    "slug",
+    "name",
+    "kicker",
+    "summary",
+    "promise",
+    "route",
+    "image",
+    "imageAlt",
+    "visualLabel",
+    "cardCta",
+    "title",
+    "description",
+    "eyebrow",
+    "heading",
+    "lead",
+    "catalogLabel",
+    "selectedLabel",
+    "countSingular",
+    "countPlural",
+    "closeLabel",
+    "backLabel",
+    "viewCase",
+    "visitOfficial",
+    "external",
+    "objectiveLabel",
+    "evidenceLabel",
+    "previous",
+    "all",
+    "next",
+  ];
+  for (const field of requiredCollectionFields) {
+    if (typeof collection?.[field] !== "string" || !collection[field].trim()) {
+      errors.push(`${label}: campo localizado incompleto em collection.${field}`);
+    }
+  }
+  if (collection?.route !== routeFor(locale, "sites")) errors.push(`${label}: rota da coleção incorreta`);
+  if (collection?.image !== "/assets/img/sites/sites-collection-concept.svg") errors.push(`${label}: composição neutra da coleção incorreta`);
+  if (!Number.isInteger(collection?.imageWidth) || !Number.isInteger(collection?.imageHeight)) errors.push(`${label}: composição da coleção sem dimensões`);
+  if (!await exists(localTarget(collection?.image || ""))) errors.push(`${label}: composição da coleção inexistente`);
+  if (!Array.isArray(collection?.facts) || collection.facts.length < 2 || collection.facts.some((item) => typeof item !== "string" || !item.trim())) {
+    errors.push(`${label}: fatos da coleção incompletos`);
+  }
+  if (sites.length < requiredSiteSlugs.length) errors.push(`${label}: coleção de sites incompleta`);
+  if (new Set(sites.map((site) => site.slug)).size !== sites.length) errors.push(`${label}: slugs de sites duplicados`);
+  if (new Set(sites.map((site) => site.id)).size !== sites.length) errors.push(`${label}: IDs de sites duplicados`);
+  if (sites.map((site) => site.order).join(",") !== sites.map((_, index) => index + 1).join(",")) {
+    errors.push(`${label}: ordem de sites inválida`);
+  }
+  for (const slug of requiredSiteSlugs) {
+    if (!sites.some((site) => site.slug === slug)) errors.push(`${label}: site obrigatório ausente ${slug}`);
+  }
+  siteOrdersByLocale.push(sites.map((site) => site.slug).join(","));
+
+  for (const site of sites) {
+    const requiredSiteFields = ["id", "slug", "name", "category", "status", "summary", "objective", "icon", "route", "officialUrl"];
+    for (const field of requiredSiteFields) {
+      if (typeof site[field] !== "string" || !site[field].trim()) errors.push(`${label}: ${site.slug || "site"} sem ${field}`);
+    }
+    if (!Number.isInteger(site.order) || site.order < 1) errors.push(`${label}: ordem inválida para ${site.slug}`);
+    if (site.visible !== true) errors.push(`${label}: visibilidade explícita ausente para ${site.slug}`);
+    if (!/^#[0-9a-f]{6}$/i.test(site.accent || "") || !/^\d{1,3} \d{1,3} \d{1,3}$/.test(site.accentRgb || "")) {
+      errors.push(`${label}: cor de destaque inválida para ${site.slug}`);
+    }
+    if (!site.icon.startsWith("/") || /^https?:/i.test(site.icon) || !await exists(localTarget(site.icon))) {
+      errors.push(`${label}: ícone local inexistente para ${site.slug}`);
+    }
+    if (!Number.isInteger(site.iconWidth) || !Number.isInteger(site.iconHeight)) errors.push(`${label}: ícone sem dimensões para ${site.slug}`);
+    if (!site.cover || !site.cover.src?.startsWith("/") || /^https?:/i.test(site.cover?.src || "") || !await exists(localTarget(site.cover?.src || ""))) {
+      errors.push(`${label}: capa local inexistente para ${site.slug}`);
+    }
+    for (const field of ["alt", "label"]) {
+      if (typeof site.cover?.[field] !== "string" || !site.cover[field].trim()) errors.push(`${label}: capa sem ${field} para ${site.slug}`);
+    }
+    if (!Number.isInteger(site.cover?.width) || !Number.isInteger(site.cover?.height)) errors.push(`${label}: capa sem dimensões para ${site.slug}`);
+    if (!site.route.startsWith("/") || /^https?:/i.test(site.route)) errors.push(`${label}: rota interna inválida para ${site.slug}`);
+    if (!await exists(localTarget(site.route))) errors.push(`${label}: rota interna inexistente para ${site.slug}`);
+    if (!/^https:\/\//i.test(site.officialUrl)) errors.push(`${label}: URL oficial deve usar HTTPS para ${site.slug}`);
+    if (!Array.isArray(site.tags) || site.tags.length < 1 || site.tags.some((item) => typeof item !== "string" || !item.trim())) {
+      errors.push(`${label}: tags incompletas para ${site.slug}`);
+    }
+    if (!Array.isArray(site.evidence) || site.evidence.length < 1 || site.evidence.some((item) => typeof item !== "string" || !item.trim())) {
+      errors.push(`${label}: evidências incompletas para ${site.slug}`);
+    }
+    if (!Array.isArray(site.gallery) || site.gallery.length < 1) errors.push(`${label}: galeria ausente para ${site.slug}`);
+    for (const item of site.gallery || []) {
+      if (!item.src?.startsWith("/") || /^https?:/i.test(item.src || "") || !await exists(localTarget(item.src || ""))) {
+        errors.push(`${label}: imagem local da galeria inexistente para ${site.slug}`);
+      }
+      if (!item.alt || !item.label) errors.push(`${label}: galeria sem rótulo ou alternativa para ${site.slug}`);
+      if (!Number.isInteger(item.width) || !Number.isInteger(item.height)) errors.push(`${label}: galeria sem dimensões para ${site.slug}`);
+      if (
+        ("frameWidth" in item || "frameHeight" in item)
+        && (!Number.isInteger(item.frameWidth) || !Number.isInteger(item.frameHeight))
+      ) {
+        errors.push(`${label}: moldura opcional incompleta para ${site.slug}`);
+      }
+    }
+    if (site.case) {
+      if (site.route !== routeFor(locale, "site", site.slug)) errors.push(`${label}: rota do case incorreta para ${site.slug}`);
+      if (!site.case.code || !site.case.kicker || !site.case.status || !site.case.promise || !site.case.summary) {
+        errors.push(`${label}: conteúdo do case incompleto para ${site.slug}`);
+      }
+      if (!Array.isArray(site.case.facts) || site.case.facts.length < 2) errors.push(`${label}: fatos do case incompletos para ${site.slug}`);
+      if (!Array.isArray(site.case.tabs) || site.case.tabs.length < 3) errors.push(`${label}: tabs do case incompletas para ${site.slug}`);
+      for (const tab of site.case.tabs || []) {
+        if (!tab.id || !tab.label || !tab.title || !tab.body || !Array.isArray(tab.points) || tab.points.length < 1) {
+          errors.push(`${label}: tab de case incompleta para ${site.slug}`);
+        }
+      }
+      if (!Array.isArray(site.case.links) || !site.case.links.some((link) => link.href === site.officialUrl)) {
+        errors.push(`${label}: case sem link oficial para ${site.slug}`);
+      }
+      if (!site.case.galleryNote) errors.push(`${label}: case sem nota de origem das capturas para ${site.slug}`);
+    } else if (site.slug === "demonyza" && site.route !== routeFor(locale, "project", "demonyza")) {
+      errors.push(`${label}: Demonyza deve reutilizar o case já publicado`);
+    }
+    if (site.relatedProduct && (!site.relatedProduct.label || !site.relatedProduct.route || !await exists(localTarget(site.relatedProduct.route)))) {
+      errors.push(`${label}: produto relacionado inválido para ${site.slug}`);
+    }
+  }
+}
+if (new Set(siteOrdersByLocale).size !== 1) errors.push("sites: slugs e ordem divergem entre idiomas");
 
 const publicTextPaths = files.filter((path) => [".html", ".js", ".json", ".mjs"].includes(extname(path)) && !path.endsWith("validate.mjs"));
 const publicText = (await Promise.all(publicTextPaths.map((path) => readFile(path, "utf8")))).join("\n");
@@ -330,12 +534,19 @@ const siteScript = await readFile(join(root, "assets", "js", "site.js"), "utf8")
 for (const marker of ['CONSENT_COOKIE = "gui_consent"', '"pt-BR":', "en:", "es:", "readStorage", "writeStorage", "getRegistrations", 'startsWith("gui-rocha-")', 'sessionStorage.getItem("gui-sw-retired")', "[data-scroll-progress]", "ResizeObserver", "scaleX("]) {
   if (!siteScript.includes(marker)) errors.push(`site.js: marcador ausente ${marker}`);
 }
+if (!siteScript.includes('globalUi.querySelectorAll("button[data-text-scale]")') || !siteScript.includes('closest("button[data-text-scale]")')) {
+  errors.push("site.js: controles de tamanho de texto podem atingir o elemento raiz");
+}
 const projectScript = await readFile(join(root, "assets", "js", "project.js"), "utf8");
-for (const marker of ["galleryImage.width", "galleryImage.height", "--gallery-ratio", "ArrowLeft", "ArrowRight", "preload"]) {
+for (const marker of ["galleryImage.width", "galleryImage.height", "frameWidth", "frameHeight", "--gallery-ratio", "ArrowLeft", "ArrowRight", "preload"]) {
   if (!projectScript.includes(marker)) errors.push(`project.js: comportamento de galeria ausente ${marker}`);
 }
+const sitesScript = await readFile(join(root, "assets", "js", "sites.js"), "utf8");
+for (const marker of ["data-site-collection", "data-sites-dialog", "history.pushState", "popstate", "showModal", "cancel", "focus", "document.title", "focusableElements", 'event.key !== "Tab"']) {
+  if (!sitesScript.includes(marker)) errors.push(`sites.js: comportamento acessível ausente ${marker}`);
+}
 const homeScript = await readFile(join(root, "assets", "js", "home.js"), "utf8");
-for (const marker of ["isInteractiveTarget", "pointercancel", 'closest("a, button, summary, input, select, textarea, label")']) {
+for (const marker of ["isInteractiveTarget", "pointercancel", 'closest("a, button, summary, input, select, textarea, label")', "hydrateCard", "data-deferred-src"]) {
   if (!homeScript.includes(marker)) errors.push(`home.js: proteção de links da vitrine ausente ${marker}`);
 }
 const serviceWorker = await readFile(join(root, "service-worker.js"), "utf8");
@@ -357,6 +568,11 @@ for (const marker of [
   ".site-scroll-progress",
   ".project-faq-index",
   ".project-faq-closing",
+  ".sites-dialog",
+  ".sites-window",
+  ".site-case-navigation",
+  "@supports (backdrop-filter",
+  "@media (forced-colors: active)",
 ]) {
   if (!styles.includes(marker)) errors.push(`styles.css: fallback sem JavaScript ausente ${marker}`);
 }
@@ -393,4 +609,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-process.stdout.write(`Validação aprovada: ${htmlFiles.length} páginas, ${requiredProjectSlugs.length} projetos × ${localeOrder.length} idiomas, ${(imageBytes / 1024 / 1024).toFixed(2)} MiB de imagens e nenhum ponteiro LFS.\n`);
+process.stdout.write(`Validação aprovada: ${htmlFiles.length} páginas, ${requiredProjectSlugs.length} projetos × ${localeOrder.length} idiomas, ${sitesByLocale["pt-BR"].sites.length} sites na coleção, ${(imageBytes / 1024 / 1024).toFixed(2)} MiB de imagens e nenhum ponteiro LFS.\n`);

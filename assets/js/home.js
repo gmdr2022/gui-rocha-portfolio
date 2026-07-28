@@ -12,6 +12,15 @@ const liveRegion = document.querySelector("[data-deck-live]");
 let activeIndex = 0;
 let pointerStart = null;
 
+const hydrateCard = (card) => {
+  card?.querySelectorAll("[data-deferred-src]").forEach((image) => {
+    const source = image.dataset.deferredSrc;
+    if (!source) return;
+    image.src = source;
+    delete image.dataset.deferredSrc;
+  });
+};
+
 const isInteractiveTarget = (target) => (
   target instanceof Element
   && Boolean(target.closest("a, button, summary, input, select, textarea, label"))
@@ -28,7 +37,9 @@ const updateDeck = (requestedIndex, announce = false) => {
   if (!cards.length) return;
   activeIndex = (requestedIndex + cards.length) % cards.length;
   const activeCard = cards[activeIndex];
+  hydrateCard(activeCard);
   const projectName = activeCard.querySelector("h2")?.textContent?.trim() || "";
+  const deckName = activeCard.dataset.deckName || projectName;
 
   cards.forEach((card, index) => {
     const offset = wrappedOffset(index);
@@ -40,7 +51,7 @@ const updateDeck = (requestedIndex, announce = false) => {
   });
 
   dots.forEach((dot, index) => dot.setAttribute("aria-pressed", String(index === activeIndex)));
-  currentName.textContent = projectName;
+  currentName.textContent = deckName;
   catalogTitle.textContent = projectName;
   counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
   catalog.style.setProperty("--active-accent", activeCard.style.getPropertyValue("--project-accent"));

@@ -1,0 +1,176 @@
+{
+  "collection": {
+    "slug": "sites",
+    "order": 3,
+    "code": "03",
+    "name": "Websites and digital experiences",
+    "shortName": "Websites",
+    "kicker": "Responsive websites and tailored digital presence",
+    "summary": "Content architecture, visual identity, responsiveness and publishing come together in experiences shaped around each audience and delivery goal.",
+    "promise": "A digital presence built around each project’s purpose.",
+    "route": "/en/sites/",
+    "image": "/assets/img/sites/sites-collection-concept.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
+    "imageAlt": "Original conceptual composition with three abstract website interfaces across desktop and mobile screens; it is not a client capture",
+    "imageKind": "site-collection",
+    "visualLabel": "Conceptual composition",
+    "accent": "#4f8cff",
+    "accentRgb": "79 140 255",
+    "facts": ["Desktop + mobile", "Published on Cloudflare"],
+    "cardCta": "Explore delivered websites",
+    "title": "Delivered websites — Gui Rocha",
+    "description": "Websites published by Gui Rocha, with context, design decisions, local captures and access to the official experiences.",
+    "eyebrow": "Websites and digital experiences",
+    "heading": "Delivered websites",
+    "lead": "A selection of published experiences with context, design decisions, local previews and access to each official website.",
+    "catalogLabel": "Website catalog",
+    "selectedLabel": "Selected website",
+    "countSingular": "published website",
+    "countPlural": "published websites",
+    "closeLabel": "Close delivered websites",
+    "backLabel": "Back to the portal",
+    "viewCase": "View case study",
+    "visitOfficial": "Visit official website",
+    "external": "opens in a new tab",
+    "objectiveLabel": "Delivery goal",
+    "evidenceLabel": "What was delivered",
+    "previous": "Previous website",
+    "all": "All websites",
+    "next": "Next website"
+  },
+  "sites": [
+    {
+      "id": "demonyza",
+      "slug": "demonyza",
+      "order": 1,
+      "visible": true,
+      "name": "Demonyza",
+      "category": "Content and community",
+      "accent": "#c769ff",
+      "accentRgb": "199 105 255",
+      "status": "Live website",
+      "statusTone": "live",
+      "summary": "An original digital presence brings profile, schedule, streams and community routes together without erasing the creator’s identity.",
+      "objective": "Replace a scattered set of links with a recognizable, navigable experience that works on mobile and desktop.",
+      "icon": "/assets/img/demonyza/icon-black-rose.png",
+      "iconWidth": 500,
+      "iconHeight": 500,
+      "cover": {
+        "src": "/assets/img/demonyza/home.webp",
+        "alt": "Published Demonyza homepage with purple visual identity, navigation and content areas",
+        "label": "Live website",
+        "width": 1600,
+        "height": 900
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/demonyza/home.webp",
+          "alt": "Published Demonyza homepage with purple visual identity, navigation and content areas",
+          "label": "Homepage",
+          "width": 1600,
+          "height": 900
+        }
+      ],
+      "route": "/en/projects/demonyza/",
+      "officialUrl": "https://demonyza.pages.dev/en/",
+      "tags": ["Responsive", "Schedule", "Community"],
+      "evidence": ["Client identity preserved", "Layered navigation", "Cloudflare Pages"]
+    },
+    {
+      "id": "clubal-site",
+      "slug": "clubal",
+      "order": 2,
+      "visible": true,
+      "name": "ClubAL website",
+      "category": "Product and communication",
+      "accent": "#25c997",
+      "accentRgb": "37 201 151",
+      "status": "Live website",
+      "statusTone": "live",
+      "summary": "The commercial website turns a three-module Windows product into a clear, responsive narrative that reflects its actual status.",
+      "objective": "Explain the problem, flow, modules and deployment without confusing the communication website with the software it presents.",
+      "icon": "/assets/img/clubal/icon-web.webp",
+      "iconWidth": 128,
+      "iconHeight": 128,
+      "cover": {
+        "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+        "alt": "Published ClubAL commercial homepage in the light theme, with its proposition, modules and a demonstration product capture",
+        "label": "Official website · light theme",
+        "width": 1600,
+        "height": 1000
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+          "alt": "Published ClubAL commercial homepage in the light theme",
+          "label": "Desktop · light theme",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-dark-1600x1000.png",
+          "alt": "Published ClubAL commercial homepage in the dark theme",
+          "label": "Desktop · dark theme",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-mobile-390x844.png",
+          "alt": "Published opening of the ClubAL commercial website on a narrow mobile screen",
+          "label": "Mobile · 390 × 844",
+          "width": 390,
+          "height": 844,
+          "frameWidth": 1600,
+          "frameHeight": 1000
+        }
+      ],
+      "route": "/en/sites/clubal/",
+      "officialUrl": "https://clubal.pages.dev/en/",
+      "relatedProduct": {
+        "label": "Explore the ClubAL product",
+        "route": "/en/projects/clubal/"
+      },
+      "tags": ["3 languages", "Light and dark themes", "Responsive"],
+      "evidence": ["Three-module narrative", "Privacy with no analytics", "Cloudflare Pages"],
+      "case": {
+        "code": "SITE 02",
+        "kicker": "ClubAL commercial website case",
+        "status": "Live · three languages",
+        "statusTone": "live",
+        "promise": "Product complexity presented through a direct journey with honest privacy and status.",
+        "summary": "This case study covers the website as a communication delivery. The ClubAL product page remains dedicated to the Windows software, its modules and deployment.",
+        "facts": ["PT · EN · ES", "Light + dark themes", "No analytics"],
+        "tabs": [
+          {
+            "id": "challenge",
+            "label": "Challenge",
+            "title": "Explain a three-module product without overwhelming the first visit.",
+            "body": "The content needed to present value, workflow and limits before technical detail, keeping the product understandable for visitors who do not know its architecture.",
+            "points": ["Problem before technology", "Current status visible", "Product and website kept distinct"]
+          },
+          {
+            "id": "architecture",
+            "label": "Architecture",
+            "title": "The narrative follows the visitor’s decision.",
+            "body": "The page starts with the operational outcome, shows how the three modules connect and leads into deployment, frequently asked questions and direct contact.",
+            "points": ["Information hierarchy", "Anchor navigation", "Context-specific calls to action"]
+          },
+          {
+            "id": "delivery",
+            "label": "Delivery",
+            "title": "A published, localized experience with no tracking.",
+            "body": "The website supports Portuguese, English and Spanish, light and dark themes, responsive layout, local assets and static publishing on Cloudflare Pages.",
+            "points": ["Three languages", "Persistent themes", "Explicit privacy"]
+          }
+        ],
+        "links": [
+          {"label": "Visit official website", "href": "https://clubal.pages.dev/en/", "kind": "primary"},
+          {"label": "Explore the ClubAL product", "href": "/en/projects/clubal/", "kind": "secondary"},
+          {"label": "Discuss a similar project", "href": "/en/contact/?subject=clubal-website", "kind": "secondary"}
+        ],
+        "galleryNote": "Captures of the public website taken on July 28, 2026; internal product screens use demonstration data."
+      }
+    }
+  ]
+}

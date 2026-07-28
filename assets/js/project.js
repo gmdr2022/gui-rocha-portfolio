@@ -55,7 +55,9 @@ const showGalleryItem = (requestedIndex, announce = false) => {
   if (Number.isInteger(item.width) && item.width > 0) galleryImage.width = item.width;
   if (Number.isInteger(item.height) && item.height > 0) galleryImage.height = item.height;
   if (galleryRoot && Number.isInteger(item.width) && Number.isInteger(item.height) && item.width > 0 && item.height > 0) {
-    galleryRoot.style.setProperty("--gallery-ratio", `${item.width} / ${item.height}`);
+    const frameWidth = Number.isInteger(item.frameWidth) && item.frameWidth > 0 ? item.frameWidth : item.width;
+    const frameHeight = Number.isInteger(item.frameHeight) && item.frameHeight > 0 ? item.frameHeight : item.height;
+    galleryRoot.style.setProperty("--gallery-ratio", `${frameWidth} / ${frameHeight}`);
   }
   if (galleryLabel) galleryLabel.textContent = item.label;
   if (galleryCurrent) galleryCurrent.textContent = String(activeGalleryIndex + 1);

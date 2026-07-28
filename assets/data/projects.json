@@ -7,13 +7,18 @@
     "kicker": "Software Windows para rotinas institucionais",
     "status": "Em evolução · implantação assistida",
     "statusTone": "live",
-    "summary": "No ClubAL, eu organizo rotinas institucionais no Windows, publico o necessário em telas e libero consulta sem edição.",
-    "promise": "Eu concentro o registro no PC, a publicação em telas e a consulta sem edição.",
+    "summary": "O ClubAL organiza rotinas institucionais no Windows, publica o necessário em telas e libera consulta sem edição.",
+    "promise": "Um fluxo local para registrar, publicar e consultar sem misturar responsabilidades.",
+    "cardCta": "Explorar o produto",
     "route": "/projetos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
     "imageWidth": 1920,
     "imageHeight": 1080,
     "imageAlt": "Interface atual do módulo Rotinas do ClubAL com dados fictícios, agenda, horários operacionais e clima",
+    "cardImage": "/assets/img/clubal/rotinas-home.webp",
+    "cardImageWidth": 960,
+    "cardImageHeight": 540,
+    "cardImageAlt": "Interface atual do módulo Rotinas do ClubAL com dados fictícios, agenda, horários operacionais e clima",
     "imageKind": "screenshot",
     "visualLabel": "Interface do produto",
     "gallery": [
@@ -55,14 +60,14 @@
         "id": "problema",
         "label": "Problema",
         "title": "Informação operacional se perde quando cada ambiente improvisa.",
-        "body": "Planilhas, papel e mensagens soltas criam versões diferentes da mesma rotina. Eu criei o ClubAL para concentrar o registro no PC responsável e separar edição de leitura.",
+        "body": "Planilhas, papel e mensagens soltas criam versões diferentes da mesma rotina. O ClubAL concentra o registro no PC responsável e separa edição de leitura.",
         "points": ["Uma fonte de registro", "Visibilidade por ambiente", "Funcionamento local"]
       },
       {
         "id": "fluxo",
         "label": "Três módulos",
         "title": "Cada módulo faz uma parte do trabalho.",
-        "body": "Organizo o produto em três módulos: Operação registra e publica; Rotinas mostra somente o aprovado; Consulta libera leitura autorizada sem abrir a edição.",
+        "body": "O produto separa responsabilidades em três módulos: Operação registra e publica; Rotinas mostra somente o aprovado; Consulta libera leitura autorizada sem abrir a edição.",
         "points": [
           "Operação · editar e publicar",
           "Rotinas · exibir o aprovado",
@@ -73,12 +78,13 @@
         "id": "estado",
         "label": "Estado",
         "title": "O produto é demonstrável e a implantação continua assistida.",
-        "body": "Eu mantenho verificações automatizadas para os fluxos Windows, o modo offline e as regras de publicação. Instalações, telas e redes físicas são conferidas no ambiente de uso.",
+        "body": "Verificações automatizadas cobrem os fluxos Windows, o modo offline e as regras de publicação. Instalações, telas e redes físicas continuam sendo conferidas no ambiente de uso.",
         "points": ["Dados públicos fictícios", "Sem download público por enquanto", "Pacotes Windows ainda não assinados"]
       }
     ],
     "links": [
-      {"label": "Abrir o site do ClubAL", "href": "https://clubal.pages.dev/", "kind": "secondary"},
+      {"label": "Ver case do site comercial", "href": "/sites/clubal/", "kind": "secondary"},
+      {"label": "Visitar o site comercial", "href": "https://clubal.pages.dev/", "kind": "secondary"},
       {"label": "Conversar sobre um piloto", "href": "/contato/?assunto=clubal", "kind": "primary"}
     ]
   },
@@ -90,8 +96,9 @@
     "kicker": "RPG dark fantasy em produção solo",
     "status": "Em desenvolvimento · Fase 8",
     "statusTone": "progress",
-    "summary": "Eu desenvolvo um RPG single-player em Unreal Engine 5.8 com áreas compactas, peças modulares e escala viável para produção solo.",
-    "promise": "Em Dun Caerwyn, eu construo uma história de sangue, memória e escolhas que deixam marcas.",
+    "summary": "Maeve Roscaern é um RPG single-player em Unreal Engine 5.8, com áreas compactas, peças modulares e escala viável para produção solo.",
+    "promise": "Dun Caerwyn transforma sangue, memória e escolhas em marcas persistentes.",
+    "cardCta": "Conhecer o universo",
     "route": "/projetos/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
     "imageWidth": 1672,
@@ -158,20 +165,20 @@
         "id": "jogo",
         "label": "Jogo",
         "title": "Uma protagonista adulta em um mundo que registra consequências.",
-        "body": "Eu construo Dun Caerwyn, a Casa Roscaern e sistemas onde corpo, sangue e memória afetam a jornada de Maeve, a narrativa e o combate.",
+        "body": "Dun Caerwyn, a Casa Roscaern e seus sistemas fazem corpo, sangue e memória afetarem a jornada de Maeve, a narrativa e o combate.",
         "points": ["Mundo e protagonista autorais", "Escolhas persistentes", "Sem conta ou servidor obrigatório"]
       },
       {
         "id": "producao",
         "label": "Produção",
         "title": "A escala foi desenhada para uma pessoa conseguir terminar.",
-        "body": "Eu uso áreas compactas, kits modulares e detalhe concentrado para manter o clima sem prometer um mundo maior do que a produção solo permite.",
+        "body": "Áreas compactas, kits modulares e detalhe concentrado preservam o clima sem prometer um mundo maior do que a produção solo permite.",
         "points": ["Caminhos curtos e legíveis", "Peças e personagens reutilizáveis", "Artes marcadas como conceito"]
       },
       {
         "id": "arquiteto",
         "label": "O Arquiteto",
-        "title": "Eu apareço como uma entidade possível do mundo.",
+        "title": "O Arquiteto conecta autoria e consequência.",
         "body": "Minha imagem como O Arquiteto é um easter egg conceitual sobre autoria e consequência. Ela inspira o projeto sem afirmar que o personagem já esteja jogável.",
         "points": ["Meu retrato conceitual", "Possibilidade narrativa", "Sem confundir conceito com gameplay"]
       },
@@ -179,7 +186,7 @@
         "id": "estado",
         "label": "Estado",
         "title": "O primeiro combate já tem fundação técnica.",
-        "body": "Eu já integrei combo leve, esquiva e Blood First à Fase 8. Os gates técnicos passaram; sensação, ritmo e legibilidade do combate ainda estão em avaliação.",
+        "body": "Combo leve, esquiva e Blood First já integram a Fase 8. Os gates técnicos passaram; sensação, ritmo e legibilidade do combate ainda estão em avaliação.",
         "points": ["Visual em evolução", "C++ e Unreal com responsabilidades claras", "Licenças revalidadas antes do uso"]
       }
     ],
@@ -195,8 +202,9 @@
     "kicker": "Case de presença digital para criadora de conteúdo",
     "status": "Projeto para cliente · site publicado",
     "statusTone": "live",
-    "summary": "Eu criei um site para reunir apresentação, agenda, transmissões e comunidade de uma criadora de conteúdo.",
-    "promise": "Eu reuni conteúdo, agenda e comunidade em uma presença digital própria.",
+    "summary": "O site reúne apresentação, agenda, transmissões e comunidade em uma experiência responsiva para celular e computador.",
+    "promise": "Conteúdo e comunidade em uma presença digital própria, reconhecível e fácil de navegar.",
+    "cardCta": "Ver o case",
     "route": "/projetos/demonyza/",
     "image": "/assets/img/demonyza/home.webp",
     "imageWidth": 1600,
@@ -212,27 +220,27 @@
         "id": "desafio",
         "label": "Desafio",
         "title": "Ir além de uma página de links.",
-        "body": "Eu precisava apresentar a criadora, organizar seus canais públicos e dar à comunidade caminhos fáceis sem apagar a identidade da cliente.",
+        "body": "O ponto de partida era apresentar a criadora, organizar seus canais públicos e oferecer caminhos claros à comunidade sem apagar a identidade da cliente.",
         "points": ["Conteúdo e agenda no mesmo lugar", "Rotas claras para a comunidade", "Identidade visual preservada"]
       },
       {
         "id": "solucao",
         "label": "Solução",
         "title": "A identidade da cliente, com navegação clara.",
-        "body": "Eu combinei apresentação, agenda, Twitch, Discord e OpenDota em uma experiência responsiva própria para celular e computador.",
+        "body": "Apresentação, agenda, Twitch, Discord e OpenDota formam uma experiência responsiva própria para celular e computador.",
         "points": ["Navegação em camadas", "Integrações públicas", "Retorno fácil ao fluxo principal"]
       },
       {
         "id": "entrega",
         "label": "Entrega",
         "title": "Publicado e mantido de forma independente.",
-        "body": "Eu publiquei o site no Cloudflare Pages e mantive o código da cliente preservado em repositório privado.",
+        "body": "O site está publicado no Cloudflare Pages; o código da cliente permanece preservado em repositório privado.",
         "points": ["Site público", "Hospedagem sem custo recorrente atual", "Autoria indicada de forma discreta"]
       }
     ],
     "links": [
-      {"label": "Abrir o site", "href": "https://demonyza.pages.dev/", "kind": "primary"},
-      {"label": "Conversar sobre presença digital", "href": "/contato/?assunto=presenca-digital", "kind": "secondary"}
+      {"label": "Visitar site oficial", "href": "https://demonyza.pages.dev/", "kind": "primary"},
+      {"label": "Discutir um site semelhante", "href": "/contato/?assunto=presenca-digital", "kind": "secondary"}
     ]
   },
   {
@@ -243,8 +251,9 @@
     "kicker": "Fila local para validações e decisões",
     "status": "Produto local · Windows",
     "statusTone": "ready",
-    "summary": "Eu construí uma fila local que preserva validações pendentes, decisões e feedback entre sessões de trabalho.",
-    "promise": "Eu registro o que ficou pendente, retomo no momento certo e preservo o contexto.",
+    "summary": "O Codex Checkpoint preserva validações pendentes, decisões e feedback entre sessões de trabalho.",
+    "promise": "Pendências retomadas no momento certo, com contexto e decisão preservados.",
+    "cardCta": "Ver como funciona",
     "route": "/projetos/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
     "imageWidth": 1920,
@@ -267,14 +276,14 @@
         "id": "solucao",
         "label": "Solução",
         "title": "Uma fila de checkpoints — não outro chat.",
-        "body": "Eu registro cada checkpoint com contexto suficiente para retomar a pendência e deixar uma decisão ou feedback acionável.",
+        "body": "Cada checkpoint registra contexto suficiente para retomar a pendência e deixar uma decisão ou feedback acionável.",
         "points": ["Chaves sem duplicatas", "Status e notas", "Importação de cartões validada"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "Aplicação nativa e instalável.",
-        "body": "Eu reuni interface, linha de comando e integração por arquivos no produto. Os builds atuais ainda não têm assinatura de código, e mantenho isso declarado.",
+        "body": "Interface, linha de comando e integração por arquivos compõem o produto. Os builds atuais ainda não têm assinatura de código, e esse limite permanece declarado.",
         "points": ["Dados locais", "Backup e recuperação", "Builds não assinados"]
       }
     ],
@@ -287,11 +296,12 @@
     "order": 5,
     "code": "05",
     "name": "NEXUS",
-    "kicker": "Minha central Windows para projetos locais",
+    "kicker": "Central Windows para projetos locais",
     "status": "Ferramenta local validada · Windows",
     "statusTone": "ready",
-    "summary": "Eu reuni projetos, caminhos e validações em uma central local que mostra o que está pronto e o que precisa de atenção.",
-    "promise": "Eu chego ao caminho certo sem caçar atalhos.",
+    "summary": "O NEXUS reúne projetos, caminhos e validações em uma central local que mostra o que está pronto e o que precisa de atenção.",
+    "promise": "O caminho certo aparece antes da execução — sem caçar atalhos.",
+    "cardCta": "Explorar a central",
     "route": "/projetos/nexus/",
     "image": "/assets/img/nexus/app.png",
     "imageWidth": 1180,
@@ -306,22 +316,22 @@
       {
         "id": "problema",
         "label": "Problema",
-        "title": "Meus projetos deixaram de caber numa pilha de atalhos.",
-        "body": "Cada produto tem builds, ferramentas e verificações próprias; eu precisava enxergar o caminho certo antes de executar.",
+        "title": "Muitos projetos deixaram de caber numa pilha de atalhos.",
+        "body": "Cada produto tem builds, ferramentas e verificações próprias; o caminho certo precisa aparecer antes da execução.",
         "points": ["Múltiplos projetos", "Caminhos diferentes", "Estado visível"]
       },
       {
         "id": "solucao",
         "label": "Solução",
-        "title": "Transformei isso numa mesa de comando local.",
-        "body": "Eu cadastro projetos e caminhos pela interface; o NEXUS só adota uma alternativa mais recente quando ela é segura e inequívoca.",
+        "title": "Uma mesa de comando local substitui a pilha de atalhos.",
+        "body": "Projetos e caminhos são cadastrados pela interface; o NEXUS só adota uma alternativa mais recente quando ela é segura e inequívoca.",
         "points": ["Cadastro pela interface", "Caminhos acompanhados", "Alternativa somente quando inequívoca"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "A base local está validada e em uso.",
-        "body": "Eu abro projetos e validações em contexto de desenvolvimento, sem login obrigatório e sem misturar os runtimes dos produtos.",
+        "body": "Projetos e validações abrem no contexto de desenvolvimento, sem login obrigatório e sem misturar os runtimes dos produtos.",
         "points": ["Inicialização offline", "Contexto de desenvolvimento", "Sem publicação automática"]
       }
     ],
@@ -337,8 +347,9 @@
     "kicker": "Projeto público pequeno e verificável",
     "status": "Código aberto · v1.0.0",
     "statusTone": "lab",
-    "summary": "Eu publiquei uma aplicação Python de código aberto com checklist em JSON local, linha de comando, testes e CI.",
-    "promise": "Eu mostro uma arquitetura local-first em um exemplo compacto.",
+    "summary": "Uma aplicação Python de código aberto demonstra checklist em JSON local, linha de comando, testes e CI.",
+    "promise": "Arquitetura local-first demonstrada em um exemplo compacto e verificável.",
+    "cardCta": "Ver o projeto público",
     "route": "/projetos/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
     "imageWidth": 1600,
@@ -354,21 +365,21 @@
         "id": "escopo",
         "label": "Escopo",
         "title": "Pequeno o suficiente para entender por inteiro.",
-        "body": "Eu mantive as tarefas em um arquivo JSON local e disponibilizei as operações simples pela linha de comando.",
+        "body": "As tarefas permanecem em um arquivo JSON local, com operações simples disponíveis pela linha de comando.",
         "points": ["Sem serviço remoto", "Persistência legível", "Documentação direta"]
       },
       {
         "id": "qualidade",
         "label": "Qualidade",
         "title": "Simplicidade também precisa de prova.",
-        "body": "Eu protejo as operações principais com testes unitários, compilação Python e smoke test, sem adicionar infraestrutura ao aplicativo.",
+        "body": "Testes unitários, compilação Python e smoke test protegem as operações principais sem adicionar infraestrutura ao aplicativo.",
         "points": ["Testes unitários", "CLI verificável", "Workflow de validação"]
       },
       {
         "id": "estado",
         "label": "Estado",
         "title": "Versão 1.0.0 publicada.",
-        "body": "Eu publiquei estrutura, documentação, testes e uma escolha arquitetural coerente em escopo reduzido.",
+        "body": "A versão publicada reúne estrutura, documentação, testes e uma escolha arquitetural coerente em escopo reduzido.",
         "points": ["Código público", "Release versionada", "Sem dependência de nuvem"]
       }
     ],
@@ -400,6 +411,7 @@
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
     "facts": ["Rigor proporcional", "Autonomia governada", "Rollback validado"],
+    "cardCta": "Entender o C7",
     "tabs": [
       {
         "id": "problema",

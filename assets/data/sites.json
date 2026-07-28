@@ -1,0 +1,176 @@
+{
+  "collection": {
+    "slug": "sites",
+    "order": 3,
+    "code": "03",
+    "name": "Sites e experiências digitais",
+    "shortName": "Sites",
+    "kicker": "Sites responsivos e presença digital sob medida",
+    "summary": "Arquitetura de conteúdo, identidade visual, responsividade e publicação reunidas em experiências ajustadas ao público e ao objetivo de cada entrega.",
+    "promise": "Presença digital construída para o objetivo de cada projeto.",
+    "route": "/sites/",
+    "image": "/assets/img/sites/sites-collection-concept.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
+    "imageAlt": "Composição conceitual original com três interfaces abstratas de sites em telas desktop e celular; não representa uma captura de cliente",
+    "imageKind": "site-collection",
+    "visualLabel": "Composição conceitual",
+    "accent": "#4f8cff",
+    "accentRgb": "79 140 255",
+    "facts": ["Desktop + mobile", "Publicação no Cloudflare"],
+    "cardCta": "Explorar sites entregues",
+    "title": "Sites entregues — Gui Rocha",
+    "description": "Sites publicados por Gui Rocha, com contexto, decisões de design, capturas locais e acesso às experiências oficiais.",
+    "eyebrow": "Sites e experiências digitais",
+    "heading": "Sites entregues",
+    "lead": "Uma seleção de experiências publicadas, com contexto, decisões de design, pré-visualizações locais e acesso ao site oficial.",
+    "catalogLabel": "Catálogo de sites",
+    "selectedLabel": "Site selecionado",
+    "countSingular": "site publicado",
+    "countPlural": "sites publicados",
+    "closeLabel": "Fechar sites entregues",
+    "backLabel": "Voltar ao portal",
+    "viewCase": "Ver apresentação",
+    "visitOfficial": "Visitar site oficial",
+    "external": "abre em nova aba",
+    "objectiveLabel": "Objetivo da entrega",
+    "evidenceLabel": "O que foi entregue",
+    "previous": "Site anterior",
+    "all": "Todos os sites",
+    "next": "Próximo site"
+  },
+  "sites": [
+    {
+      "id": "demonyza",
+      "slug": "demonyza",
+      "order": 1,
+      "visible": true,
+      "name": "Demonyza",
+      "category": "Conteúdo e comunidade",
+      "accent": "#c769ff",
+      "accentRgb": "199 105 255",
+      "status": "Site publicado",
+      "statusTone": "live",
+      "summary": "Uma presença digital própria reúne apresentação, agenda, transmissões e caminhos para a comunidade sem apagar a identidade da criadora.",
+      "objective": "Substituir uma sequência dispersa de links por uma experiência reconhecível, navegável e útil em celular e desktop.",
+      "icon": "/assets/img/demonyza/icon-black-rose.png",
+      "iconWidth": 500,
+      "iconHeight": 500,
+      "cover": {
+        "src": "/assets/img/demonyza/home.webp",
+        "alt": "Página inicial publicada da Demonyza com identidade visual roxa, navegação e áreas de conteúdo",
+        "label": "Site publicado",
+        "width": 1600,
+        "height": 900
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/demonyza/home.webp",
+          "alt": "Página inicial publicada da Demonyza com identidade visual roxa, navegação e áreas de conteúdo",
+          "label": "Página inicial",
+          "width": 1600,
+          "height": 900
+        }
+      ],
+      "route": "/projetos/demonyza/",
+      "officialUrl": "https://demonyza.pages.dev/",
+      "tags": ["Responsivo", "Agenda", "Comunidade"],
+      "evidence": ["Identidade da cliente preservada", "Navegação em camadas", "Cloudflare Pages"]
+    },
+    {
+      "id": "clubal-site",
+      "slug": "clubal",
+      "order": 2,
+      "visible": true,
+      "name": "Site do ClubAL",
+      "category": "Produto e comunicação",
+      "accent": "#25c997",
+      "accentRgb": "37 201 151",
+      "status": "Site publicado",
+      "statusTone": "live",
+      "summary": "O site comercial transforma um produto Windows de três módulos em uma narrativa clara, responsiva e coerente com seu estado real.",
+      "objective": "Explicar problema, fluxo, módulos e implantação sem confundir o site de comunicação com o software apresentado.",
+      "icon": "/assets/img/clubal/icon-web.webp",
+      "iconWidth": 128,
+      "iconHeight": 128,
+      "cover": {
+        "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+        "alt": "Página inicial publicada do site comercial do ClubAL em tema claro, com proposta, módulos e captura demonstrativa do produto",
+        "label": "Site oficial · tema claro",
+        "width": 1600,
+        "height": 1000
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+          "alt": "Página inicial publicada do site comercial do ClubAL em tema claro",
+          "label": "Desktop · tema claro",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-dark-1600x1000.png",
+          "alt": "Página inicial publicada do site comercial do ClubAL em tema escuro",
+          "label": "Desktop · tema escuro",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-mobile-390x844.png",
+          "alt": "Abertura publicada do site comercial do ClubAL em uma tela móvel estreita",
+          "label": "Mobile · 390 × 844",
+          "width": 390,
+          "height": 844,
+          "frameWidth": 1600,
+          "frameHeight": 1000
+        }
+      ],
+      "route": "/sites/clubal/",
+      "officialUrl": "https://clubal.pages.dev/",
+      "relatedProduct": {
+        "label": "Explorar o produto ClubAL",
+        "route": "/projetos/clubal/"
+      },
+      "tags": ["3 idiomas", "Temas claro e escuro", "Responsivo"],
+      "evidence": ["Narrativa dos três módulos", "Privacidade sem analytics", "Cloudflare Pages"],
+      "case": {
+        "code": "SITE 02",
+        "kicker": "Case do site comercial do ClubAL",
+        "status": "Publicado · três idiomas",
+        "statusTone": "live",
+        "promise": "Complexidade de produto apresentada em um percurso direto, com privacidade e estado reais.",
+        "summary": "Este case trata do site enquanto entrega de comunicação. A página do produto ClubAL continua dedicada ao software Windows, seus módulos e sua implantação.",
+        "facts": ["PT · EN · ES", "Tema claro + escuro", "Sem analytics"],
+        "tabs": [
+          {
+            "id": "desafio",
+            "label": "Desafio",
+            "title": "Explicar um produto de três módulos sem sobrecarregar a primeira visita.",
+            "body": "O conteúdo precisava apresentar valor, fluxo e limites antes dos detalhes técnicos, mantendo o produto compreensível para quem ainda não conhece sua arquitetura.",
+            "points": ["Problema antes da tecnologia", "Estado atual visível", "Produto e site sem confusão"]
+          },
+          {
+            "id": "arquitetura",
+            "label": "Arquitetura",
+            "title": "A narrativa acompanha a decisão do visitante.",
+            "body": "A página parte do resultado operacional, mostra como os três módulos se conectam e conduz até implantação, perguntas frequentes e contato direto.",
+            "points": ["Hierarquia de informação", "Navegação por âncoras", "CTAs específicos"]
+          },
+          {
+            "id": "entrega",
+            "label": "Entrega",
+            "title": "Uma experiência publicada, localizada e sem rastreamento.",
+            "body": "O site oferece português, inglês e espanhol, temas claro e escuro, layout responsivo, assets locais e publicação estática no Cloudflare Pages.",
+            "points": ["Três idiomas", "Temas persistentes", "Privacidade explícita"]
+          }
+        ],
+        "links": [
+          {"label": "Visitar site oficial", "href": "https://clubal.pages.dev/", "kind": "primary"},
+          {"label": "Explorar o produto ClubAL", "href": "/projetos/clubal/", "kind": "secondary"},
+          {"label": "Discutir um projeto semelhante", "href": "/contato/?assunto=site-clubal", "kind": "secondary"}
+        ],
+        "galleryNote": "Capturas do site público em 28 de julho de 2026; as telas internas do produto usam dados demonstrativos."
+      }
+    }
+  ]
+}

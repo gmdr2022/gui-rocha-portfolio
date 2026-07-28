@@ -1,6 +1,6 @@
 # Gui Rocha — portal de produtos
 
-Site estático do Guilherme Rocha e catálogo de ClubAL, Maeve Roscaern, Demonyza, Codex Checkpoint, NEXUS, C7 Engineering System e projetos públicos selecionados.
+Site estático do Guilherme Rocha e catálogo de ClubAL, Maeve Roscaern, Codex Checkpoint, NEXUS, C7 Engineering System, sites entregues e projetos públicos selecionados.
 
 Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 
@@ -8,6 +8,7 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 
 - sem framework, telemetria, anúncios ou dependências de runtime;
 - catálogo orientado por `assets/data/projects.json`;
+- coleção de sites orientada por `assets/data/sites.json`, com paridade em `sites.en.json` e `sites.es.json`;
 - páginas curtas com navegação direta, teclado, toque e redução de movimento;
 - tema, acessibilidade e consentimento funcionais no navegador;
 - conceitos de Maeve sempre identificados como conceito, nunca como captura do jogo;
@@ -18,7 +19,7 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - a marca pessoal canônica fica em `assets/img/brand/`; o cabeçalho alterna assinaturas vetoriais conforme tema e largura;
 - `assets/data/project-assets.json` registra a origem e informa quando um ícone é oficial, motivo visual ou apenas ilustração de catálogo;
 - a galeria do ClubAL usa capturas locais da interface com dados demonstrativos; artes de Maeve mantêm o rótulo explícito “Imagem conceito”;
-- CSS, JavaScript e capturas mutáveis exigem revalidação no `_headers`; o service worker usa rede primeiro para navegação e recursos de layout.
+- CSS e JavaScript recebem versão de conteúdo; os demais assets usam a revalidação padrão da Cloudflare. O service worker atual apenas remove registros e caches legados.
 
 ## Desenvolvimento
 
@@ -34,6 +35,13 @@ npm run serve -- --port 4173
 - comando de build: `npm run build`
 - diretório de saída: `dist`
 - branch de produção: `main`
+
+## Adicionar um site à coleção
+
+1. Adicione o registro localizado aos três arquivos `assets/data/sites*.json`, mantendo o mesmo `id`, `slug` e `order`.
+2. Armazene capa, galeria e ícone em `assets/img/`; não use imagens remotas em runtime.
+3. Quando houver case próprio, inclua o bloco `case`. Sem esse bloco, `route` deve apontar para uma apresentação interna já existente.
+4. Execute `npm run check`. Contagem, ordem, catálogo, navegação entre sites, rotas localizadas e sitemap são derivados dos dados.
 
 ## Privacidade
 

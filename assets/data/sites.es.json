@@ -1,0 +1,176 @@
+{
+  "collection": {
+    "slug": "sitios",
+    "order": 3,
+    "code": "03",
+    "name": "Sitios y experiencias digitales",
+    "shortName": "Sitios",
+    "kicker": "Sitios responsivos y presencia digital a medida",
+    "summary": "Arquitectura de contenido, identidad visual, responsividad y publicación se unen en experiencias adaptadas al público y al objetivo de cada entrega.",
+    "promise": "Presencia digital construida para el objetivo de cada proyecto.",
+    "route": "/es/sitios/",
+    "image": "/assets/img/sites/sites-collection-concept.svg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
+    "imageAlt": "Composición conceptual original con tres interfaces abstractas de sitios en pantallas de escritorio y móvil; no representa una captura de cliente",
+    "imageKind": "site-collection",
+    "visualLabel": "Composición conceptual",
+    "accent": "#4f8cff",
+    "accentRgb": "79 140 255",
+    "facts": ["Escritorio + móvil", "Publicación en Cloudflare"],
+    "cardCta": "Explorar sitios entregados",
+    "title": "Sitios entregados — Gui Rocha",
+    "description": "Sitios publicados por Gui Rocha, con contexto, decisiones de diseño, capturas locales y acceso a las experiencias oficiales.",
+    "eyebrow": "Sitios y experiencias digitales",
+    "heading": "Sitios entregados",
+    "lead": "Una selección de experiencias publicadas con contexto, decisiones de diseño, vistas previas locales y acceso a cada sitio oficial.",
+    "catalogLabel": "Catálogo de sitios",
+    "selectedLabel": "Sitio seleccionado",
+    "countSingular": "sitio publicado",
+    "countPlural": "sitios publicados",
+    "closeLabel": "Cerrar sitios entregados",
+    "backLabel": "Volver al portal",
+    "viewCase": "Ver presentación",
+    "visitOfficial": "Visitar sitio oficial",
+    "external": "se abre en una pestaña nueva",
+    "objectiveLabel": "Objetivo de la entrega",
+    "evidenceLabel": "Qué se entregó",
+    "previous": "Sitio anterior",
+    "all": "Todos los sitios",
+    "next": "Siguiente sitio"
+  },
+  "sites": [
+    {
+      "id": "demonyza",
+      "slug": "demonyza",
+      "order": 1,
+      "visible": true,
+      "name": "Demonyza",
+      "category": "Contenido y comunidad",
+      "accent": "#c769ff",
+      "accentRgb": "199 105 255",
+      "status": "Sitio publicado",
+      "statusTone": "live",
+      "summary": "Una presencia digital propia reúne presentación, agenda, transmisiones y rutas para la comunidad sin borrar la identidad de la creadora.",
+      "objective": "Sustituir una secuencia dispersa de enlaces por una experiencia reconocible, navegable y útil en móvil y escritorio.",
+      "icon": "/assets/img/demonyza/icon-black-rose.png",
+      "iconWidth": 500,
+      "iconHeight": 500,
+      "cover": {
+        "src": "/assets/img/demonyza/home.webp",
+        "alt": "Página inicial publicada de Demonyza con identidad visual morada, navegación y áreas de contenido",
+        "label": "Sitio publicado",
+        "width": 1600,
+        "height": 900
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/demonyza/home.webp",
+          "alt": "Página inicial publicada de Demonyza con identidad visual morada, navegación y áreas de contenido",
+          "label": "Página inicial",
+          "width": 1600,
+          "height": 900
+        }
+      ],
+      "route": "/es/proyectos/demonyza/",
+      "officialUrl": "https://demonyza.pages.dev/es/",
+      "tags": ["Responsivo", "Agenda", "Comunidad"],
+      "evidence": ["Identidad de la cliente preservada", "Navegación en capas", "Cloudflare Pages"]
+    },
+    {
+      "id": "clubal-site",
+      "slug": "clubal",
+      "order": 2,
+      "visible": true,
+      "name": "Sitio de ClubAL",
+      "category": "Producto y comunicación",
+      "accent": "#25c997",
+      "accentRgb": "37 201 151",
+      "status": "Sitio publicado",
+      "statusTone": "live",
+      "summary": "El sitio comercial transforma un producto Windows de tres módulos en una narrativa clara, responsiva y coherente con su estado real.",
+      "objective": "Explicar problema, flujo, módulos e implementación sin confundir el sitio de comunicación con el software presentado.",
+      "icon": "/assets/img/clubal/icon-web.webp",
+      "iconWidth": 128,
+      "iconHeight": 128,
+      "cover": {
+        "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+        "alt": "Página inicial publicada del sitio comercial de ClubAL en tema claro, con propuesta, módulos y una captura demostrativa del producto",
+        "label": "Sitio oficial · tema claro",
+        "width": 1600,
+        "height": 1000
+      },
+      "gallery": [
+        {
+          "src": "/assets/img/sites/clubal-site-light-1600x1000.png",
+          "alt": "Página inicial publicada del sitio comercial de ClubAL en tema claro",
+          "label": "Escritorio · tema claro",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-dark-1600x1000.png",
+          "alt": "Página inicial publicada del sitio comercial de ClubAL en tema oscuro",
+          "label": "Escritorio · tema oscuro",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "src": "/assets/img/sites/clubal-site-mobile-390x844.png",
+          "alt": "Apertura publicada del sitio comercial de ClubAL en una pantalla móvil estrecha",
+          "label": "Móvil · 390 × 844",
+          "width": 390,
+          "height": 844,
+          "frameWidth": 1600,
+          "frameHeight": 1000
+        }
+      ],
+      "route": "/es/sitios/clubal/",
+      "officialUrl": "https://clubal.pages.dev/es/",
+      "relatedProduct": {
+        "label": "Explorar el producto ClubAL",
+        "route": "/es/proyectos/clubal/"
+      },
+      "tags": ["3 idiomas", "Temas claro y oscuro", "Responsivo"],
+      "evidence": ["Narrativa de los tres módulos", "Privacidad sin analítica", "Cloudflare Pages"],
+      "case": {
+        "code": "SITIO 02",
+        "kicker": "Caso del sitio comercial de ClubAL",
+        "status": "Publicado · tres idiomas",
+        "statusTone": "live",
+        "promise": "Complejidad de producto presentada en un recorrido directo, con privacidad y estado reales.",
+        "summary": "Este caso trata el sitio como entrega de comunicación. La página del producto ClubAL continúa dedicada al software Windows, sus módulos y su implementación.",
+        "facts": ["PT · EN · ES", "Temas claro + oscuro", "Sin analítica"],
+        "tabs": [
+          {
+            "id": "desafio",
+            "label": "Desafío",
+            "title": "Explicar un producto de tres módulos sin sobrecargar la primera visita.",
+            "body": "El contenido debía presentar valor, flujo y límites antes de los detalles técnicos, manteniendo el producto comprensible para quien aún no conoce su arquitectura.",
+            "points": ["Problema antes que tecnología", "Estado actual visible", "Producto y sitio sin confusión"]
+          },
+          {
+            "id": "arquitectura",
+            "label": "Arquitectura",
+            "title": "La narrativa acompaña la decisión del visitante.",
+            "body": "La página parte del resultado operativo, muestra cómo se conectan los tres módulos y conduce a implementación, preguntas frecuentes y contacto directo.",
+            "points": ["Jerarquía de información", "Navegación por anclas", "Llamadas a la acción específicas"]
+          },
+          {
+            "id": "entrega",
+            "label": "Entrega",
+            "title": "Una experiencia publicada, localizada y sin seguimiento.",
+            "body": "El sitio ofrece portugués, inglés y español, temas claro y oscuro, diseño responsivo, recursos locales y publicación estática en Cloudflare Pages.",
+            "points": ["Tres idiomas", "Temas persistentes", "Privacidad explícita"]
+          }
+        ],
+        "links": [
+          {"label": "Visitar sitio oficial", "href": "https://clubal.pages.dev/es/", "kind": "primary"},
+          {"label": "Explorar el producto ClubAL", "href": "/es/proyectos/clubal/", "kind": "secondary"},
+          {"label": "Hablar sobre un proyecto similar", "href": "/es/contacto/?asunto=sitio-clubal", "kind": "secondary"}
+        ],
+        "galleryNote": "Capturas del sitio público tomadas el 28 de julio de 2026; las pantallas internas del producto usan datos demostrativos."
+      }
+    }
+  ]
+}
