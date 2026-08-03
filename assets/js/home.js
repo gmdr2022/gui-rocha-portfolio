@@ -4,13 +4,36 @@ const cards = [...document.querySelectorAll("[data-project-card]")];
 const dots = [...document.querySelectorAll("[data-deck-dot]")];
 const previousButton = document.querySelector("[data-deck-previous]");
 const nextButton = document.querySelector("[data-deck-next]");
+const previewButton = document.querySelector("[data-deck-preview]");
 const currentName = document.querySelector("[data-deck-current]");
+const currentHeading = document.querySelector("[data-deck-current-heading]");
+const subtitle = document.querySelector("[data-deck-subtitle]");
 const counter = document.querySelector("[data-deck-counter]");
-const catalogTitle = document.querySelector("#projects-title");
 const liveRegion = document.querySelector("[data-deck-live]");
+const languageLinks = [...document.querySelectorAll("[data-language-link]")];
+
+const slugAliases = new Map([
+  ["cc", "codex-checkpoint"],
+  ["checkpoint", "codex-checkpoint"],
+  ["maeve-roscaern", "maeve"],
+  ["demonyza", "sites"],
+  ["site", "sites"],
+  ["presenca-digital", "sites"],
+  ["presencia-digital", "sites"],
+  ["digital-presence", "sites"],
+  ["local-first", "local-first-checklist"],
+  ["c7", "c7-engineering-system"],
+  ["c7es", "c7-engineering-system"],
+]);
 
 let activeIndex = 0;
 let pointerStart = null;
+let suppressNextClick = false;
+
+const normalizeSlug = (value) => {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  return slugAliases.get(normalized) ?? normalized;
+};
 
 const hydrateCard = (card) => {
   card?.querySelectorAll("[data-deferred-src]").forEach((image) => {
@@ -33,13 +56,41 @@ const wrappedOffset = (index) => {
   return offset;
 };
 
-const updateDeck = (requestedIndex, announce = false) => {
-  if (!cards.length) return;
-  activeIndex = (requestedIndex + cards.length) % cards.length;
+const updateLanguageLinks = (slug) => {
+  languageLinks.forEach((link) => {
+    const target = new URL(link.getAttribute("href"), location.origin);
+    target.searchParams.set("project", slug);
+    target.searchParams.delete("projeto");
+    target.searchParams.delete("proyecto");
+    link.href = `${target.pathname}${target.search}`;
+  });
+};
+
+const updateUrl = (slug) => {
+  const url = new URL(location.href);
+  url.searchParams.set("project", slug);
+  url.searchParams.delete("projeto");
+  url.searchParams.delete("proyecto");
+  history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+};
+
+const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false } = {}) => {
+  if (!cards.length || !catalog) return false;
+
+  const slug = normalizeSlug(requestedSlug);
+  const requestedIndex = cards.findIndex((card) => card.dataset.project === slug);
+  if (requestedIndex < 0) return false;
+
+  activeIndex = requestedIndex;
   const activeCard = cards[activeIndex];
   hydrateCard(activeCard);
+  hydrateCard(cards[(activeIndex + 1) % cards.length]);
+
   const projectName = activeCard.querySelector("h2")?.textContent?.trim() || "";
   const deckName = activeCard.dataset.deckName || projectName;
+  const projectSubtitle = activeCard.dataset.showcaseSubtitle || "";
+  const nextCard = cards[(activeIndex + 1) % cards.length];
+  const nextName = nextCard.querySelector("h2")?.textContent?.trim() || "";
 
   cards.forEach((card, index) => {
     const offset = wrappedOffset(index);
@@ -51,78 +102,112 @@ const updateDeck = (requestedIndex, announce = false) => {
   });
 
   dots.forEach((dot, index) => dot.setAttribute("aria-pressed", String(index === activeIndex)));
-  currentName.textContent = deckName;
-  catalogTitle.textContent = projectName;
-  counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+  if (currentName) currentName.textContent = deckName;
+  if (currentHeading) currentHeading.textContent = projectName;
+  if (subtitle) subtitle.textContent = projectSubtitle;
+  if (counter) counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
   catalog.style.setProperty("--active-accent", activeCard.style.getPropertyValue("--project-accent"));
   catalog.style.setProperty("--active-accent-rgb", activeCard.style.getPropertyValue("--project-accent-rgb"));
-
-  if (announce) {
-    const status = activeCard.querySelector(".status-pill")?.textContent?.trim() || "";
-    liveRegion.textContent = `${projectName}. ${status}`;
-    const url = new URL(location.href);
-    if (activeIndex === 0) {
-      url.searchParams.delete("project");
-      url.searchParams.delete("projeto");
-    } else {
-      const slug = activeCard.querySelector(".card-link")?.getAttribute("href")?.split("/").filter(Boolean).at(-1);
-      url.searchParams.set("project", slug);
-      url.searchParams.delete("projeto");
-    }
-    history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  if (previewButton) {
+    previewButton.setAttribute("aria-controls", nextCard.id);
+    previewButton.setAttribute("aria-label", `${previewButton.dataset.previewLabel}: ${nextName}`);
   }
+  updateLanguageLinks(slug);
+
+  if (writeUrl) updateUrl(slug);
+  if (announce && liveRegion) {
+    liveRegion.textContent = `${projectName}, ${activeIndex + 1} / ${cards.length}.`;
+  }
+  return true;
 };
 
-const requestedSlug = new URLSearchParams(location.search).get("project")
-  || new URLSearchParams(location.search).get("projeto");
-const requestedIndex = cards.findIndex((card) => card.querySelector(".card-link")?.getAttribute("href")?.includes(`/${requestedSlug}/`));
-updateDeck(requestedIndex >= 0 ? requestedIndex : 0);
+const slugAtOffset = (offset) => cards[(activeIndex + offset + cards.length) % cards.length]?.dataset.project;
+const selectOffset = (offset, announce = true) => {
+  const slug = slugAtOffset(offset);
+  if (slug) applyActiveProject(slug, { announce, writeUrl: true });
+};
 
-previousButton?.addEventListener("click", () => updateDeck(activeIndex - 1, true));
-nextButton?.addEventListener("click", () => updateDeck(activeIndex + 1, true));
+const parameters = new URLSearchParams(location.search);
+const requestedSlug = parameters.get("project") ?? parameters.get("projeto") ?? parameters.get("proyecto");
+const initialSlug = normalizeSlug(requestedSlug || cards[0]?.dataset.project);
+if (!applyActiveProject(initialSlug, { writeUrl: Boolean(requestedSlug) })) {
+  applyActiveProject(cards[0]?.dataset.project);
+  if (requestedSlug) {
+    const cleanUrl = new URL(location.href);
+    cleanUrl.searchParams.delete("project");
+    cleanUrl.searchParams.delete("projeto");
+    cleanUrl.searchParams.delete("proyecto");
+    history.replaceState(null, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+  }
+}
+
+previousButton?.addEventListener("click", () => selectOffset(-1));
+nextButton?.addEventListener("click", () => selectOffset(1));
+previewButton?.addEventListener("click", () => selectOffset(1));
 
 dots.forEach((dot, index) => {
-  dot.addEventListener("click", () => updateDeck(index, true));
+  dot.addEventListener("click", () => {
+    const slug = cards[index]?.dataset.project;
+    if (slug) applyActiveProject(slug, { announce: true, writeUrl: true });
+  });
 });
 
 deck?.addEventListener("click", (event) => {
-  const card = event.target.closest("[data-project-card]");
+  if (suppressNextClick) {
+    suppressNextClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  const card = event.target.closest("[data-project-card]")
+    ?? document.elementsFromPoint(event.clientX, event.clientY).find((element) => element.matches?.("[data-project-card]"));
   if (!card || card.dataset.position === "active") return;
   event.preventDefault();
-  updateDeck(Number(card.dataset.index), true);
+  applyActiveProject(card.dataset.project, { announce: true, writeUrl: true });
 });
 
 deck?.addEventListener("pointerdown", (event) => {
-  if (event.button !== 0 || isInteractiveTarget(event.target)) {
+  if (!event.isPrimary || event.button !== 0 || isInteractiveTarget(event.target)) {
     pointerStart = null;
     return;
   }
   pointerStart = {
     x: event.clientX,
+    y: event.clientY,
     pointerId: event.pointerId,
   };
   deck.setPointerCapture?.(event.pointerId);
 });
 
-deck?.addEventListener("pointerup", (event) => {
-  if (pointerStart === null || pointerStart.pointerId !== event.pointerId) return;
-  const delta = event.clientX - pointerStart.x;
-  if (Math.abs(delta) > 56) updateDeck(activeIndex + (delta < 0 ? 1 : -1), true);
+const finishPointer = (event, allowSelection) => {
+  if (!pointerStart || pointerStart.pointerId !== event.pointerId) return;
+  const deltaX = event.clientX - pointerStart.x;
+  const deltaY = event.clientY - pointerStart.y;
+  const horizontalGesture = Math.abs(deltaX) > 56 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
+  if (allowSelection && horizontalGesture) {
+    suppressNextClick = true;
+    setTimeout(() => {
+      suppressNextClick = false;
+    }, 0);
+    selectOffset(deltaX < 0 ? 1 : -1);
+  }
+  if (deck.hasPointerCapture?.(event.pointerId)) deck.releasePointerCapture(event.pointerId);
   pointerStart = null;
+};
+
+deck?.addEventListener("pointerup", (event) => finishPointer(event, true));
+deck?.addEventListener("pointercancel", (event) => finishPointer(event, false));
+deck?.addEventListener("lostpointercapture", (event) => {
+  if (pointerStart?.pointerId === event.pointerId) pointerStart = null;
 });
 
-deck?.addEventListener("pointercancel", () => {
-  pointerStart = null;
-});
-
-catalog?.addEventListener("keydown", (event) => {
-  if (event.target.matches("a, button, summary")) return;
+deck?.addEventListener("keydown", (event) => {
+  if (isInteractiveTarget(event.target)) return;
   if (event.key === "ArrowRight") {
     event.preventDefault();
-    updateDeck(activeIndex + 1, true);
-  }
-  if (event.key === "ArrowLeft") {
+    selectOffset(1);
+  } else if (event.key === "ArrowLeft") {
     event.preventDefault();
-    updateDeck(activeIndex - 1, true);
+    selectOffset(-1);
   }
 });

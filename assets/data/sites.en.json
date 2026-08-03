@@ -1,6 +1,8 @@
 {
   "collection": {
     "slug": "sites",
+    "kind": "collection",
+    "catalogGroup": "main",
     "order": 3,
     "code": "03",
     "name": "Websites and digital experiences",
@@ -8,6 +10,7 @@
     "kicker": "Responsive websites and tailored digital presence",
     "summary": "Content architecture, visual identity, responsiveness and publishing come together in experiences shaped around each audience and delivery goal.",
     "promise": "A digital presence built around each project’s purpose.",
+    "showcaseSubtitle": "Turns identity, content and goals into clear, owned digital experiences designed for each audience.",
     "route": "/en/sites/",
     "image": "/assets/img/sites/sites-collection-concept.svg",
     "imageWidth": 1600,
@@ -19,11 +22,11 @@
     "accentRgb": "79 140 255",
     "facts": ["Desktop + mobile", "Published on Cloudflare"],
     "cardCta": "Explore delivered websites",
-    "title": "Delivered websites — Gui Rocha",
+    "title": "Published digital presences — Gui Rocha",
     "description": "Websites published by Gui Rocha, with context, design decisions, local captures and access to the official experiences.",
     "eyebrow": "Websites and digital experiences",
-    "heading": "Delivered websites",
-    "lead": "A selection of published experiences with context, design decisions, local previews and access to each official website.",
+    "heading": "Published digital presences",
+    "lead": "A selection of published websites, presented with the context for each delivery, its key decisions and access to the live experience.",
     "catalogLabel": "Website catalog",
     "selectedLabel": "Selected website",
     "countSingular": "published website",
@@ -43,6 +46,8 @@
     {
       "id": "demonyza",
       "slug": "demonyza",
+      "kind": "siteCase",
+      "catalogGroup": "sites",
       "order": 1,
       "visible": true,
       "name": "Demonyza",
@@ -80,6 +85,8 @@
     {
       "id": "clubal-site",
       "slug": "clubal",
+      "kind": "siteCase",
+      "catalogGroup": "sites",
       "order": 2,
       "visible": true,
       "name": "ClubAL website",
@@ -88,8 +95,8 @@
       "accentRgb": "37 201 151",
       "status": "Live website",
       "statusTone": "live",
-      "summary": "The commercial website turns a three-module Windows product into a clear, responsive narrative that reflects its actual status.",
-      "objective": "Explain the problem, flow, modules and deployment without confusing the communication website with the software it presents.",
+      "summary": "The website presents ClubAL’s Windows base, the Operador module’s move to a web platform under validation, and the integrated Flet weather feature.",
+      "objective": "Present ClubAL’s current base and the validation of the Operador web platform.",
       "icon": "/assets/img/clubal/icon-web.webp",
       "iconWidth": 128,
       "iconHeight": 128,
@@ -132,44 +139,43 @@
         "route": "/en/projects/clubal/"
       },
       "tags": ["3 languages", "Light and dark themes", "Responsive"],
-      "evidence": ["Three-module narrative", "Privacy with no analytics", "Cloudflare Pages"],
+      "evidence": ["Operação · Rotinas · Consulta", "Web platform under validation", "Weather/Flet integrated", "Privacy with no analytics", "Cloudflare Pages"],
       "case": {
         "code": "SITE 02",
         "kicker": "ClubAL commercial website case",
         "status": "Live · three languages",
         "statusTone": "live",
-        "promise": "Product complexity presented through a direct journey with honest privacy and status.",
-        "summary": "This case study covers the website as a communication delivery. The ClubAL product page remains dedicated to the Windows software, its modules and deployment.",
+        "promise": "A direct presentation of ClubAL and the Operador module’s move to the web.",
+        "summary": "The website organizes the Windows base, the Operador web platform under validation and the integrated Flet weather feature.",
         "facts": ["PT · EN · ES", "Light + dark themes", "No analytics"],
         "tabs": [
           {
             "id": "challenge",
             "label": "Challenge",
-            "title": "Explain a three-module product without overwhelming the first visit.",
-            "body": "The content needed to present value, workflow and limits before technical detail, keeping the product understandable for visitors who do not know its architecture.",
-            "points": ["Problem before technology", "Current status visible", "Product and website kept distinct"]
+            "title": "Present an evolving product clearly.",
+            "body": "The content presents the proposition, the three modules and the Operador module’s move to the web platform.",
+            "points": ["Problem before technology", "Current product", "Visible evolution"]
           },
           {
             "id": "architecture",
             "label": "Architecture",
-            "title": "The narrative follows the visitor’s decision.",
-            "body": "The page starts with the operational outcome, shows how the three modules connect and leads into deployment, frequently asked questions and direct contact.",
-            "points": ["Information hierarchy", "Anchor navigation", "Context-specific calls to action"]
+            "title": "The narrative follows the product architecture.",
+            "body": "Operação, Rotinas and Consulta form the current base. The Operador web platform is under validation and incorporates the Flet weather feature.",
+            "points": ["Operação · Rotinas · Consulta", "Web platform under validation", "Weather/Flet integrated"]
           },
           {
             "id": "delivery",
             "label": "Delivery",
-            "title": "A published, localized experience with no tracking.",
-            "body": "The website supports Portuguese, English and Spanish, light and dark themes, responsive layout, local assets and static publishing on Cloudflare Pages.",
-            "points": ["Three languages", "Persistent themes", "Explicit privacy"]
+            "title": "A digital presence ready to evolve with the product.",
+            "body": "The website brings together Portuguese, English and Spanish, light and dark themes, responsive layout, local assets and static publishing.",
+            "points": ["PT · EN · ES", "Light + dark", "Responsive · no analytics"]
           }
         ],
         "links": [
           {"label": "Visit official website", "href": "https://clubal.pages.dev/en/", "kind": "primary"},
-          {"label": "Explore the ClubAL product", "href": "/en/projects/clubal/", "kind": "secondary"},
-          {"label": "Discuss a similar project", "href": "/en/contact/?subject=clubal-website", "kind": "secondary"}
+          {"label": "Explore the ClubAL product", "href": "/en/projects/clubal/", "kind": "secondary"}
         ],
-        "galleryNote": "Captures of the public website taken on July 28, 2026; internal product screens use demonstration data."
+        "galleryNote": "Public website captures from July 28, 2026, using demonstration data."
       }
     }
   ]

@@ -1,40 +1,49 @@
 (() => {
-  const products = {
-    clubal: "ClubAL",
-    maeve: "Maeve Roscaern",
-    "codex-checkpoint": "Codex Checkpoint",
-    nexus: "NEXUS",
-    "presenca-digital": "presença digital",
-    "digital-presence": "digital presence",
-    "presencia-digital": "presencia digital",
-    "site-clubal": "site comercial do ClubAL",
-    "clubal-website": "ClubAL commercial website",
-    "sitio-clubal": "sitio comercial de ClubAL",
-  };
+  const root = document.querySelector("[data-contact-contexts]");
+  const lead = document.querySelector("[data-contact-lead]");
+  const emailLink = document.querySelector("[data-email-link]");
+  if (!root || !lead || !emailLink) return;
 
-  const locale = document.body.dataset.locale || "pt-BR";
-  const params = new URLSearchParams(location.search);
-  const requestedSubject = params.get("assunto") || params.get("subject") || params.get("asunto");
-  const productName = products[requestedSubject];
-
-  const copy = {
-    "pt-BR": {
-      lead: (name) => `Você veio do case ${name}. Escolha o canal mais confortável para continuar a conversa diretamente comigo.`,
-      email: (name) => `Contato pelo portfólio — ${name}`,
-    },
-    en: {
-      lead: (name) => `You came from the ${name} case. Choose the most convenient channel to continue the conversation directly with me.`,
-      email: (name) => `Portfolio contact — ${name}`,
-    },
-    es: {
-      lead: (name) => `Llegó desde el caso ${name}. Elija el canal más cómodo para continuar la conversación directamente conmigo.`,
-      email: (name) => `Contacto desde el portafolio — ${name}`,
-    },
-  }[locale];
-
-  if (productName && copy) {
-    document.querySelector("[data-contact-lead]").textContent = copy.lead(productName);
-    const emailLink = document.querySelector("[data-email-link]");
-    emailLink.href = `mailto:suporte.clubal@gmail.com?subject=${encodeURIComponent(copy.email(productName))}`;
+  let contexts = [];
+  try {
+    contexts = JSON.parse(root.dataset.contactContexts || "[]");
+  } catch {
+    return;
   }
+
+  const parameters = new URLSearchParams(location.search);
+  const requested = parameters.get("assunto")
+    ?? parameters.get("subject")
+    ?? parameters.get("asunto")
+    ?? parameters.get("project")
+    ?? parameters.get("projeto")
+    ?? parameters.get("proyecto");
+  const normalized = requested?.trim().toLowerCase();
+  if (!normalized) return;
+
+  const context = contexts.find((item) => (
+    item.slug === normalized
+    || item.aliases?.some((alias) => alias === normalized)
+  ));
+  if (!context) return;
+
+  const render = (template) => String(template || "").replace("{project}", context.name);
+  lead.textContent = render(root.dataset.contextLead);
+
+  const target = new URL(emailLink.href);
+  target.searchParams.set("subject", render(root.dataset.contextSubject));
+  emailLink.href = target.href;
+
+  const localizedParameter = {
+    "pt-BR": "assunto",
+    en: "subject",
+    es: "asunto",
+  };
+  document.querySelectorAll("[data-language-link]").forEach((link) => {
+    const parameter = localizedParameter[link.dataset.languageLink];
+    if (!parameter) return;
+    const localizedTarget = new URL(link.href, location.origin);
+    localizedTarget.searchParams.set(parameter, context.slug);
+    link.href = `${localizedTarget.pathname}${localizedTarget.search}`;
+  });
 })();

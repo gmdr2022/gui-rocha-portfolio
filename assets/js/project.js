@@ -11,16 +11,34 @@ const galleryRoot = document.querySelector("[data-project-gallery]");
 let activeGalleryIndex = 0;
 const preloadedGalleryItems = new Set();
 
+if (galleryRoot) galleryRoot.tabIndex = 0;
+
+const revealTab = (button) => {
+  if (!tablist || !button) return;
+  const listBounds = tablist.getBoundingClientRect();
+  const buttonBounds = button.getBoundingClientRect();
+  if (buttonBounds.left < listBounds.left) {
+    tablist.scrollBy({ left: buttonBounds.left - listBounds.left - 8 });
+  } else if (buttonBounds.right > listBounds.right) {
+    tablist.scrollBy({ left: buttonBounds.right - listBounds.right + 8 });
+  }
+};
+
 const activateTab = (id, focus = false) => {
+  let selectedButton = null;
   tabButtons.forEach((button) => {
     const selected = button.dataset.projectTab === id;
     button.setAttribute("aria-selected", String(selected));
     button.tabIndex = selected ? 0 : -1;
-    if (selected && focus) button.focus();
+    if (selected) {
+      selectedButton = button;
+      if (focus) button.focus();
+    }
   });
   panels.forEach((panel) => {
     panel.hidden = panel.id !== `panel-${id}`;
   });
+  revealTab(selectedButton);
   history.replaceState(null, "", `#${id}`);
 };
 
@@ -41,7 +59,12 @@ tablist?.addEventListener("keydown", (event) => {
   activateTab(tabButtons[target].dataset.projectTab, true);
 });
 
-const requestedTab = decodeURIComponent(location.hash.slice(1));
+let requestedTab = "";
+try {
+  requestedTab = decodeURIComponent(location.hash.slice(1));
+} catch {
+  requestedTab = "";
+}
 if (requestedTab && tabButtons.some((button) => button.dataset.projectTab === requestedTab)) {
   activateTab(requestedTab);
 }
@@ -63,12 +86,14 @@ const showGalleryItem = (requestedIndex, announce = false) => {
   if (galleryCurrent) galleryCurrent.textContent = String(activeGalleryIndex + 1);
   if (announce && galleryLive) galleryLive.textContent = `${item.label}. ${activeGalleryIndex + 1} / ${galleryItems.length}.`;
 
-  const nextItem = galleryItems[(activeGalleryIndex + 1) % galleryItems.length];
-  if (nextItem?.src && !preloadedGalleryItems.has(nextItem.src)) {
-    const preload = new Image();
-    preload.decoding = "async";
-    preload.src = nextItem.src;
-    preloadedGalleryItems.add(nextItem.src);
+  if (announce && galleryItems.length > 1) {
+    const nextItem = galleryItems[(activeGalleryIndex + 1) % galleryItems.length];
+    if (nextItem?.src && !preloadedGalleryItems.has(nextItem.src)) {
+      const preload = new Image();
+      preload.decoding = "async";
+      preload.src = nextItem.src;
+      preloadedGalleryItems.add(nextItem.src);
+    }
   }
 };
 

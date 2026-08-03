@@ -35,20 +35,20 @@
     "note": "Ícone conceitual da categoria; não representa marca ou entrega de cliente."
   },
   "codex-checkpoint": {
-    "src": "/assets/img/codex-checkpoint/icon.png",
-    "width": 1024,
-    "height": 1024,
+    "src": "/assets/img/codex-checkpoint/icon-256.webp",
+    "width": 256,
+    "height": 256,
     "official": true,
     "kind": "official-icon",
-    "source": "CodexCheckpoint assets/CodexCheckpoint.png"
+    "source": "Optimized derivative of CodexCheckpoint assets/CodexCheckpoint.png"
   },
   "nexus": {
-    "src": "/assets/img/nexus/icon.ico",
+    "src": "/assets/img/nexus/icon-256.webp",
     "width": 256,
     "height": 256,
     "official": true,
     "kind": "application-icon",
-    "source": "NexusDevHub/NexusDevHub.ico"
+    "source": "Optimized derivative of NexusDevHub/NexusDevHub.ico"
   },
   "local-first-checklist": {
     "src": "/assets/img/local-first-checklist.svg",

@@ -391,10 +391,6 @@ if (!consentLevel()) {
   cookieBanner.hidden = false;
 }
 
-const page = document.body.dataset.page;
-const activeNav = ["project", "site", "sites"].includes(page) ? "home" : page;
-document.querySelector(`[data-site-nav="${activeNav}"]`)?.setAttribute("aria-current", "page");
-
 document.querySelectorAll("[data-current-year]").forEach((element) => {
   element.textContent = String(new Date().getFullYear());
 });
@@ -431,7 +427,7 @@ const retireLegacyServiceWorker = async () => {
   const wasControlled = Boolean(navigator.serviceWorker.controller);
   const registrations = await navigator.serviceWorker.getRegistrations();
   const localRegistrations = registrations.filter((registration) => (
-    registration.scope.startsWith(`${location.origin}/`)
+    registration.scope === `${location.origin}/`
   ));
 
   await Promise.all(localRegistrations.map((registration) => registration.unregister()));

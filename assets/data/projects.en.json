@@ -1,60 +1,71 @@
 [
   {
     "slug": "clubal",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 1,
     "code": "01",
     "name": "ClubAL",
-    "kicker": "Windows software for institutional routines",
-    "status": "In development · assisted deployment",
+    "kicker": "Local-first platform for institutional operations",
+    "status": "Evolving · Operador Web",
     "statusTone": "live",
-    "summary": "ClubAL organizes institutional routines on Windows, publishes what displays need and provides read-only access.",
-    "promise": "A local flow for recording, publishing and reading without mixing responsibilities.",
+    "summary": "Operação, Rotinas and Consulta remain in the Windows base. The Operador module is moving to a web platform under validation, with the Flet weather feature integrated.",
+    "promise": "The Operador module is moving to the web without abandoning ClubAL’s local-first foundation.",
+    "showcaseSubtitle": "Turns scattered routines into an organized, visible and reliable operation across different institutional environments.",
     "cardCta": "Explore the product",
     "route": "/en/projects/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
     "imageWidth": 1920,
     "imageHeight": 1080,
     "imageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
-    "cardImage": "/assets/img/clubal/rotinas-home.webp",
-    "cardImageWidth": 960,
-    "cardImageHeight": 540,
-    "cardImageAlt": "Current ClubAL Rotinas interface with fictional data, schedule, operating hours and weather",
-    "imageKind": "screenshot",
-    "visualLabel": "Product interface",
+    "cardImage": "/assets/img/clubal/operador-web-conceitual.webp",
+    "cardImageWidth": 1672,
+    "cardImageHeight": 941,
+    "cardImageAlt": "Generic conceptual interface for ClubAL Operador Web",
+    "cardImageKind": "concept",
+    "imageKind": "concept",
+    "visualLabel": "Conceptual reference · Operador Web",
     "gallery": [
       {
+        "src": "/assets/img/clubal/operador-web-conceitual.webp",
+        "alt": "Generic conceptual interface for ClubAL Operador Web",
+        "label": "Conceptual reference · Operador Web",
+        "width": 1672,
+        "height": 941
+      },
+      {
         "src": "/assets/img/clubal/rotinas-atual.png",
-        "alt": "ClubAL Routines module interface with schedules, times and demonstration data",
-        "label": "Routines module",
+        "alt": "Legacy Windows interface of the ClubAL Rotinas module with schedules, times and demonstration data",
+        "label": "Windows legacy · Rotinas",
         "width": 1920,
         "height": 1080
       },
       {
         "src": "/assets/img/clubal/rotinas-visitas-demo.png",
-        "alt": "ClubAL Routines module interface in the visits view with demonstration data",
-        "label": "Routines · visits",
+        "alt": "Legacy Windows interface of the ClubAL Rotinas module in the visits view with demonstration data",
+        "label": "Windows legacy · visits",
         "width": 1920,
         "height": 1080
       },
       {
         "src": "/assets/img/clubal/clima-flet-demo.png",
-        "alt": "ClubAL interface in the light theme with demonstration weather and operational context",
-        "label": "Weather and context · light",
+        "alt": "Integrated ClubAL weather feature in Flet, in the light theme with demonstration data",
+        "label": "Integrated feature · weather/Flet light",
         "width": 1936,
         "height": 1066
       },
       {
         "src": "/assets/img/clubal/clima-flet-noturno-demo.png",
-        "alt": "ClubAL interface in the dark theme with demonstration weather and operational context",
-        "label": "Weather and context · dark",
+        "alt": "Integrated ClubAL weather feature in Flet, in the dark theme with demonstration data",
+        "label": "Integrated feature · weather/Flet dark",
         "width": 1936,
         "height": 1066
       }
     ],
-    "galleryNote": "Real interface captures with demonstration data.",
+    "galleryNote": "A conceptual reference for the Operador web platform, followed by the Windows base and the integrated Flet weather feature.",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
-    "facts": ["Windows", "Local-first", "3 modules"],
+    "facts": ["Local-first Windows application", "Operação · Rotinas · Consulta", "Web platform under validation", "Weather/Flet integrated"],
     "tabs": [
       {
         "id": "problem",
@@ -77,19 +88,20 @@
       {
         "id": "status",
         "label": "Status",
-        "title": "The product can be demonstrated and deployment remains assisted.",
-        "body": "Automated checks cover Windows flows, offline mode and publishing rules. Installations, displays and physical networks remain subject to review in their real environment.",
-        "points": ["Public data is fictional", "No public download for now", "Windows packages are not code-signed yet"]
+        "title": "The Operador module is moving to the web platform.",
+        "body": "Operação, Rotinas and Consulta remain in the Windows base. The web platform is being validated with synthetic data and integrates the Flet weather feature.",
+        "points": ["Windows · current base", "Web platform · under validation", "Weather/Flet · integrated"]
       }
     ],
     "links": [
       {"label": "View the commercial website case", "href": "/en/sites/clubal/", "kind": "secondary"},
-      {"label": "Visit the commercial website", "href": "https://clubal.pages.dev/en/", "kind": "secondary"},
-      {"label": "Discuss a pilot", "href": "/en/contact/?subject=clubal", "kind": "primary"}
+      {"label": "Visit the commercial website", "href": "https://clubal.pages.dev/en/", "kind": "secondary"}
     ]
   },
   {
     "slug": "maeve",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 2,
     "code": "02",
     "name": "Maeve Roscaern",
@@ -98,6 +110,7 @@
     "statusTone": "progress",
     "summary": "Maeve Roscaern is a single-player RPG in Unreal Engine 5.8, with compact areas, modular pieces and a scale suited to solo production.",
     "promise": "Dun Caerwyn turns blood, memory and choices into persistent marks.",
+    "showcaseSubtitle": "Turns an original universe into a playable experience by combining narrative, systems and a viable scope for independent production.",
     "cardCta": "Enter the world",
     "route": "/en/projects/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
@@ -190,12 +203,12 @@
         "points": ["Visuals are evolving", "Clear C++ and Unreal responsibilities", "Licenses revalidated before use"]
       }
     ],
-    "links": [
-      {"label": "Discuss Maeve", "href": "/en/contact/?subject=maeve", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "demonyza",
+    "kind": "siteCase",
+    "catalogGroup": "sites",
     "order": 3,
     "code": "03",
     "name": "Demonyza",
@@ -239,12 +252,13 @@
       }
     ],
     "links": [
-      {"label": "Visit official website", "href": "https://demonyza.pages.dev/en/", "kind": "primary"},
-      {"label": "Discuss a similar website", "href": "/en/contact/?subject=digital-presence", "kind": "secondary"}
+      {"label": "Visit official website", "href": "https://demonyza.pages.dev/en/", "kind": "primary"}
     ]
   },
   {
     "slug": "codex-checkpoint",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 4,
     "code": "04",
     "name": "Codex Checkpoint",
@@ -253,6 +267,7 @@
     "statusTone": "ready",
     "summary": "Codex Checkpoint preserves pending validations, decisions and feedback across work sessions.",
     "promise": "Pending work resumes at the right time with context and decisions intact.",
+    "showcaseSubtitle": "Keeps decisions, validations and pending work from being lost between work sessions, preserving context for the next step.",
     "cardCta": "See how it works",
     "route": "/en/projects/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
@@ -287,12 +302,12 @@
         "points": ["Local data", "Backup and recovery", "Unsigned builds"]
       }
     ],
-    "links": [
-      {"label": "Discuss Checkpoint", "href": "/en/contact/?subject=codex-checkpoint", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "nexus",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 5,
     "code": "05",
     "name": "NEXUS",
@@ -301,6 +316,7 @@
     "statusTone": "ready",
     "summary": "NEXUS brings projects, paths and checks into one local hub that shows what is ready and what needs attention.",
     "promise": "The right path appears before execution — without hunting through shortcuts.",
+    "showcaseSubtitle": "Centralizes projects, paths and validations to show what is ready and what still needs attention.",
     "cardCta": "Explore the hub",
     "route": "/en/projects/nexus/",
     "image": "/assets/img/nexus/app.png",
@@ -335,12 +351,12 @@
         "points": ["Offline startup", "Development context", "No automatic publishing"]
       }
     ],
-    "links": [
-      {"label": "Discuss NEXUS", "href": "/en/contact/?subject=nexus", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "local-first-checklist",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 6,
     "code": "06",
     "name": "Local First Checklist",
@@ -349,6 +365,7 @@
     "statusTone": "lab",
     "summary": "An open-source Python application demonstrates a local JSON checklist, command line, tests and CI.",
     "promise": "Local-first architecture demonstrated in a compact, verifiable example.",
+    "showcaseSubtitle": "Turns local-first principles into practical criteria for software with greater autonomy, privacy and control.",
     "cardCta": "View the public project",
     "route": "/en/projects/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
@@ -389,14 +406,17 @@
   },
   {
     "slug": "c7-engineering-system",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 7,
     "code": "07",
     "name": "C7 Engineering System",
-    "kicker": "A local engineering system for Codex",
-    "status": "Active system · v1.0.0",
+    "kicker": "The engineering method behind my products",
+    "status": "In use · v1.0.0",
     "statusTone": "ready",
-    "summary": "C7 coordinates context, risk, execution and validation so Codex can move autonomously without losing human control.",
-    "promise": "More autonomy where it is safe. More control where it matters.",
+    "summary": "C7 supports the principles I follow when building products: clear context, rigor proportional to risk, and evidence before completion.",
+    "promise": "A consistent method for different problems, risks and deliveries.",
+    "showcaseSubtitle": "Brings together the principles I use to decide, build, verify and evolve each product.",
     "route": "/en/projects/c7-engineering-system/",
     "image": "/assets/img/c7-engineering-system-hero-v2.webp",
     "imageWidth": 1600,
@@ -410,86 +430,45 @@
     "visualLabel": "System identity",
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
-    "facts": ["Proportional rigor", "Governed autonomy", "Validated rollback"],
-    "cardCta": "Understand C7",
+    "facts": ["Context before execution", "Rigor proportional to risk", "Evidence before completion"],
+    "cardCta": "Explore the method",
     "tabs": [
       {
-        "id": "problem",
-        "label": "Problem",
-        "title": "More capability cannot compensate for the wrong context.",
-        "body": "Development assistants fail not only from limited capability, but from unclear scope, disproportionate depth or closure without proof. C7 establishes the contract before execution.",
-        "points": ["Protected scope", "Less rework", "Verifiable completion"]
+        "id": "context",
+        "label": "Context",
+        "title": "Context comes before execution.",
+        "body": "Before building, I define the problem, audience, scope and completion criteria. This reduces rework and protects product coherence.",
+        "points": ["Clear problem and audience", "Protected scope", "Verifiable completion"]
       },
       {
-        "id": "system",
-        "label": "How it works",
-        "title": "A compact core activates depth only when it adds value.",
-        "body": "C7 reads project rules, classifies risk from R0 to R4 and invokes proportional skills, knowledge and review—a coherent answer, not a queue of voices.",
-        "points": ["Context before code", "Silent quorum", "Knowledge on demand"]
+        "id": "risk",
+        "label": "Risk",
+        "title": "Rigor follows impact.",
+        "body": "Simple tasks remain simple. As reach, cost of error or difficulty of reversal increases, I deepen analysis, validation and recovery.",
+        "points": ["Proportional rigor", "Material alternatives", "Planned recovery"]
       },
       {
         "id": "evidence",
         "label": "Evidence",
-        "title": "Architecture becomes a product only when it survives testing and return.",
+        "title": "Completion requires evidence proportional to the change.",
         "body": "Version 1.0.0 passed 42 Pester tests, 24 checks in the installed environment, comparative evaluations and byte-for-byte restoration in a disposable profile.",
-        "points": ["42 Pester tests", "24 installed checks", "Byte-for-byte rollback"]
+        "points": ["42 Pester tests", "24 installed checks", "Byte-for-byte restoration"]
       },
       {
-        "id": "capacity",
+        "id": "environment",
         "label": "Environment",
-        "title": "Execution adapts to the available machine.",
-        "body": "Before heavy work, C7 checks CPU, memory, paging and storage. In a constrained environment, it serializes stages, reduces pressure and reuses completed validation.",
-        "points": ["No power-plan changes", "Proportional load", "Resume without repetition"]
+        "title": "The plan respects available capacity.",
+        "body": "I organize stages and validation around CPU, memory, paging and storage, avoiding repetition of work already proven.",
+        "points": ["Proportional load", "Serialized stages when needed", "Reused validation"]
       },
       {
-        "id": "status",
-        "label": "Control",
-        "title": "Technical autonomy without outsourcing authority.",
-        "body": "Routine decisions proceed autonomously within scope. Publication, credentials, costs and hard-to-reverse operations remain behind explicit human approval.",
-        "points": ["Routine work proceeds autonomously", "External impact requires approval", "Rollback available"]
+        "id": "continuity",
+        "label": "Continuity",
+        "title": "Valid work should not need to be repeated.",
+        "body": "I record decisions, tests and resumption points so each stage begins from the project’s actual state.",
+        "points": ["Preserved context", "Objective resumption", "Less repetition"]
       }
     ],
-    "faq": {
-      "eyebrow": "C7 in seven answers",
-      "title": "From request to delivery, without losing context or control.",
-      "intro": "C7 turns a request into engineering work: it understands the environment, sizes the risk, executes at the right depth and closes with evidence.",
-      "jumpLabel": "Understand C7 in seven answers",
-      "items": [
-        {
-          "question": "What problem does C7 solve?",
-          "answer": "It prevents development assistants from moving forward with the wrong context, excessive rigor for simple work or insufficient verification for critical changes. The system calibrates the work before execution."
-        },
-        {
-          "question": "What changes in practice?",
-          "answer": "Every task gains an observable outcome, protected scope, proportional execution and completion evidence. Decisions and checkpoints remain available so valid work can resume without being repeated."
-        },
-        {
-          "question": "How does it adjust rigor for each task?",
-          "answer": "C7 classifies risk from R0 to R4 using reach, reversibility, data, privilege, external effect and cost of error. Depth increases only when the impact justifies it."
-        },
-        {
-          "question": "Why does the system use seven lenses?",
-          "answer": "Architecture, human experience, second-order effects, operations, alternatives, security and closure are checked together. They are not seven bots: the result remains one coherent decision."
-        },
-        {
-          "question": "How far does autonomy go?",
-          "answer": "C7 handles routine technical decisions within the authorized scope. External, destructive, financial or hard-to-reverse actions remain behind objective human approval."
-        },
-        {
-          "question": "How does it adapt to different projects, teams and machines?",
-          "answer": "Project rules continue to prevail, and computer capacity is checked on demand. C7 installs no daemon and does not force the same load or ceremony on every environment."
-        },
-        {
-          "question": "What has already been proven?",
-          "answer": "Version 1.0.0 is active and healthy. The release passed 42 Pester tests, 24 installed checks, comparative evaluations and a byte-for-byte rollback in a disposable environment."
-        }
-      ],
-      "closing": "C7 already works as an independent layer and is not officially affiliated with OpenAI. Its architecture can be discussed for adoption, integration or product evolution.",
-      "closingLabel": "Discuss C7",
-      "closingHref": "/en/contact/?subject=c7-engineering-system"
-    },
-    "links": [
-      {"label": "Discuss C7", "href": "/en/contact/?subject=c7-engineering-system", "kind": "primary"}
-    ]
+    "links": []
   }
 ]

@@ -7,7 +7,7 @@ if (!output.startsWith(`${root}${sep}`) || output === root) throw new Error("Des
 
 const entries = [
   "404.html", "_headers", "_redirects", "assets/css", "assets/img", "assets/js", "contato", "en", "es", "favicon.svg", "index.html",
-  "manifest.webmanifest", "privacidade", "projetos", "robots.txt", "service-worker.js", "sitemap.xml", "sites", "sobre",
+  "privacidade", "projetos", "robots.txt", "service-worker.js", "sitemap.xml", "sites",
 ];
 
 await rm(output, { recursive: true, force: true });
@@ -30,7 +30,7 @@ const walk = async (directory) => {
   return paths;
 };
 
-const textExtensions = new Set([".css", ".html", ".js", ".json", ".svg", ".txt", ".webmanifest", ".xml"]);
+const textExtensions = new Set([".css", ".html", ".js", ".json", ".svg", ".txt", ".xml"]);
 const imageExtensions = new Set([".ico", ".jpeg", ".jpg", ".png", ".svg", ".webp"]);
 const assetReferences = new Set();
 const initialFiles = await walk(output);

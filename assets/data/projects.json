@@ -1,60 +1,71 @@
 [
   {
     "slug": "clubal",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 1,
     "code": "01",
     "name": "ClubAL",
-    "kicker": "Software Windows para rotinas institucionais",
-    "status": "Em evolução · implantação assistida",
+    "kicker": "Plataforma local-first para operações institucionais",
+    "status": "Em evolução · Operador Web",
     "statusTone": "live",
-    "summary": "O ClubAL organiza rotinas institucionais no Windows, publica o necessário em telas e libera consulta sem edição.",
-    "promise": "Um fluxo local para registrar, publicar e consultar sem misturar responsabilidades.",
+    "summary": "Operação, Rotinas e Consulta permanecem na base Windows. O módulo Operador está migrando para uma plataforma web em validação, com o clima em Flet integrado.",
+    "promise": "O módulo Operador evolui para a web sem abandonar a base local-first do ClubAL.",
+    "showcaseSubtitle": "Transforma rotinas dispersas em uma operação organizada, visível e confiável para diferentes ambientes institucionais.",
     "cardCta": "Explorar o produto",
     "route": "/projetos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
     "imageWidth": 1920,
     "imageHeight": 1080,
     "imageAlt": "Interface atual do módulo Rotinas do ClubAL com dados fictícios, agenda, horários operacionais e clima",
-    "cardImage": "/assets/img/clubal/rotinas-home.webp",
-    "cardImageWidth": 960,
-    "cardImageHeight": 540,
-    "cardImageAlt": "Interface atual do módulo Rotinas do ClubAL com dados fictícios, agenda, horários operacionais e clima",
-    "imageKind": "screenshot",
-    "visualLabel": "Interface do produto",
+    "cardImage": "/assets/img/clubal/operador-web-conceitual.webp",
+    "cardImageWidth": 1672,
+    "cardImageHeight": 941,
+    "cardImageAlt": "Interface conceitual genérica do Operador Web do ClubAL",
+    "cardImageKind": "concept",
+    "imageKind": "concept",
+    "visualLabel": "Referência conceitual · Operador Web",
     "gallery": [
       {
+        "src": "/assets/img/clubal/operador-web-conceitual.webp",
+        "alt": "Interface conceitual genérica do Operador Web do ClubAL",
+        "label": "Referência conceitual · Operador Web",
+        "width": 1672,
+        "height": 941
+      },
+      {
         "src": "/assets/img/clubal/rotinas-atual.png",
-        "alt": "Interface do módulo Rotinas do ClubAL com agenda, horários e dados demonstrativos",
-        "label": "Módulo Rotinas",
+        "alt": "Interface legada Windows do módulo Rotinas do ClubAL com agenda, horários e dados demonstrativos",
+        "label": "Legado Windows · Rotinas",
         "width": 1920,
         "height": 1080
       },
       {
         "src": "/assets/img/clubal/rotinas-visitas-demo.png",
-        "alt": "Interface do módulo Rotinas do ClubAL na visão de visitas com dados demonstrativos",
-        "label": "Rotinas · visitas",
+        "alt": "Interface legada Windows do módulo Rotinas do ClubAL na visão de visitas com dados demonstrativos",
+        "label": "Legado Windows · visitas",
         "width": 1920,
         "height": 1080
       },
       {
         "src": "/assets/img/clubal/clima-flet-demo.png",
-        "alt": "Interface do ClubAL em tema claro com clima e contexto operacional demonstrativos",
-        "label": "Clima e contexto · claro",
+        "alt": "Recurso integrado de clima em Flet do ClubAL, em tema claro e com dados demonstrativos",
+        "label": "Recurso integrado · clima/Flet claro",
         "width": 1936,
         "height": 1066
       },
       {
         "src": "/assets/img/clubal/clima-flet-noturno-demo.png",
-        "alt": "Interface do ClubAL em tema escuro com clima e contexto operacional demonstrativos",
-        "label": "Clima e contexto · escuro",
+        "alt": "Recurso integrado de clima em Flet do ClubAL, em tema escuro e com dados demonstrativos",
+        "label": "Recurso integrado · clima/Flet escuro",
         "width": 1936,
         "height": 1066
       }
     ],
-    "galleryNote": "Capturas reais da interface com dados demonstrativos.",
+    "galleryNote": "Referência conceitual da plataforma web do Operador, seguida pela base Windows e pelo clima/Flet integrado.",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
-    "facts": ["Windows", "Local-first", "3 módulos"],
+    "facts": ["Aplicativo Windows local-first", "Operação · Rotinas · Consulta", "Plataforma web em validação", "Clima/Flet integrado"],
     "tabs": [
       {
         "id": "problema",
@@ -77,19 +88,20 @@
       {
         "id": "estado",
         "label": "Estado",
-        "title": "O produto é demonstrável e a implantação continua assistida.",
-        "body": "Verificações automatizadas cobrem os fluxos Windows, o modo offline e as regras de publicação. Instalações, telas e redes físicas continuam sendo conferidas no ambiente de uso.",
-        "points": ["Dados públicos fictícios", "Sem download público por enquanto", "Pacotes Windows ainda não assinados"]
+        "title": "O módulo Operador está migrando para a plataforma web.",
+        "body": "Operação, Rotinas e Consulta seguem na base Windows. A plataforma web está em validação com dados sintéticos e integra o clima em Flet.",
+        "points": ["Windows · base atual", "Plataforma web · em validação", "Clima/Flet · integrado"]
       }
     ],
     "links": [
       {"label": "Ver case do site comercial", "href": "/sites/clubal/", "kind": "secondary"},
-      {"label": "Visitar o site comercial", "href": "https://clubal.pages.dev/", "kind": "secondary"},
-      {"label": "Conversar sobre um piloto", "href": "/contato/?assunto=clubal", "kind": "primary"}
+      {"label": "Visitar o site comercial", "href": "https://clubal.pages.dev/", "kind": "secondary"}
     ]
   },
   {
     "slug": "maeve",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 2,
     "code": "02",
     "name": "Maeve Roscaern",
@@ -98,6 +110,7 @@
     "statusTone": "progress",
     "summary": "Maeve Roscaern é um RPG single-player em Unreal Engine 5.8, com áreas compactas, peças modulares e escala viável para produção solo.",
     "promise": "Dun Caerwyn transforma sangue, memória e escolhas em marcas persistentes.",
+    "showcaseSubtitle": "Transforma um universo autoral em uma experiência jogável, combinando narrativa, sistemas e uma escala viável para produção independente.",
     "cardCta": "Conhecer o universo",
     "route": "/projetos/maeve/",
     "image": "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
@@ -190,12 +203,12 @@
         "points": ["Visual em evolução", "C++ e Unreal com responsabilidades claras", "Licenças revalidadas antes do uso"]
       }
     ],
-    "links": [
-      {"label": "Conversar sobre Maeve", "href": "/contato/?assunto=maeve", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "demonyza",
+    "kind": "siteCase",
+    "catalogGroup": "sites",
     "order": 3,
     "code": "03",
     "name": "Demonyza",
@@ -239,12 +252,13 @@
       }
     ],
     "links": [
-      {"label": "Visitar site oficial", "href": "https://demonyza.pages.dev/", "kind": "primary"},
-      {"label": "Discutir um site semelhante", "href": "/contato/?assunto=presenca-digital", "kind": "secondary"}
+      {"label": "Visitar site oficial", "href": "https://demonyza.pages.dev/", "kind": "primary"}
     ]
   },
   {
     "slug": "codex-checkpoint",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 4,
     "code": "04",
     "name": "Codex Checkpoint",
@@ -253,6 +267,7 @@
     "statusTone": "ready",
     "summary": "O Codex Checkpoint preserva validações pendentes, decisões e feedback entre sessões de trabalho.",
     "promise": "Pendências retomadas no momento certo, com contexto e decisão preservados.",
+    "showcaseSubtitle": "Evita que decisões, validações e pendências se percam entre sessões de trabalho, preservando contexto para a próxima etapa.",
     "cardCta": "Ver como funciona",
     "route": "/projetos/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
@@ -287,12 +302,12 @@
         "points": ["Dados locais", "Backup e recuperação", "Builds não assinados"]
       }
     ],
-    "links": [
-      {"label": "Conversar sobre o Checkpoint", "href": "/contato/?assunto=codex-checkpoint", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "nexus",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 5,
     "code": "05",
     "name": "NEXUS",
@@ -301,6 +316,7 @@
     "statusTone": "ready",
     "summary": "O NEXUS reúne projetos, caminhos e validações em uma central local que mostra o que está pronto e o que precisa de atenção.",
     "promise": "O caminho certo aparece antes da execução — sem caçar atalhos.",
+    "showcaseSubtitle": "Centraliza projetos, caminhos e validações para mostrar o que está pronto e o que ainda exige atenção.",
     "cardCta": "Explorar a central",
     "route": "/projetos/nexus/",
     "image": "/assets/img/nexus/app.png",
@@ -335,12 +351,12 @@
         "points": ["Inicialização offline", "Contexto de desenvolvimento", "Sem publicação automática"]
       }
     ],
-    "links": [
-      {"label": "Conversar sobre o NEXUS", "href": "/contato/?assunto=nexus", "kind": "primary"}
-    ]
+    "links": []
   },
   {
     "slug": "local-first-checklist",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 6,
     "code": "06",
     "name": "Local First Checklist",
@@ -349,6 +365,7 @@
     "statusTone": "lab",
     "summary": "Uma aplicação Python de código aberto demonstra checklist em JSON local, linha de comando, testes e CI.",
     "promise": "Arquitetura local-first demonstrada em um exemplo compacto e verificável.",
+    "showcaseSubtitle": "Converte princípios local-first em critérios práticos para criar software com mais autonomia, privacidade e controle.",
     "cardCta": "Ver o projeto público",
     "route": "/projetos/local-first-checklist/",
     "image": "/assets/img/local-first-checklist.svg",
@@ -389,14 +406,17 @@
   },
   {
     "slug": "c7-engineering-system",
+    "kind": "project",
+    "catalogGroup": "main",
     "order": 7,
     "code": "07",
     "name": "C7 Engineering System",
-    "kicker": "Sistema local de engenharia para Codex",
-    "status": "Sistema ativo · v1.0.0",
+    "kicker": "O método de engenharia por trás dos meus produtos",
+    "status": "Sistema em uso · v1.0.0",
     "statusTone": "ready",
-    "summary": "O C7 coordena contexto, risco, execução e validação para que o Codex avance com autonomia sem perder controle humano.",
-    "promise": "Mais autonomia onde é seguro. Mais controle onde importa.",
+    "summary": "O C7 sustenta os fundamentos que sigo ao desenvolver meus produtos: contexto claro, rigor proporcional ao risco e evidência antes da conclusão.",
+    "promise": "Um método consistente para problemas, riscos e entregas diferentes.",
+    "showcaseSubtitle": "Reúne os fundamentos que sigo para decidir, construir, verificar e evoluir cada produto.",
     "route": "/projetos/c7-engineering-system/",
     "image": "/assets/img/c7-engineering-system-hero-v2.webp",
     "imageWidth": 1600,
@@ -410,86 +430,45 @@
     "visualLabel": "Identidade do sistema",
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
-    "facts": ["Rigor proporcional", "Autonomia governada", "Rollback validado"],
-    "cardCta": "Entender o C7",
+    "facts": ["Contexto antes da execução", "Rigor proporcional ao risco", "Evidência antes da conclusão"],
+    "cardCta": "Conhecer o método",
     "tabs": [
       {
-        "id": "problema",
-        "label": "Problema",
-        "title": "Mais capacidade não compensa contexto errado.",
-        "body": "Assistentes de desenvolvimento falham não apenas por falta de capacidade, mas por escopo confuso, profundidade desproporcional ou encerramento sem prova. O C7 estabelece o contrato antes da execução.",
-        "points": ["Escopo protegido", "Menos retrabalho", "Conclusão verificável"]
+        "id": "contexto",
+        "label": "Contexto",
+        "title": "Contexto vem antes da execução.",
+        "body": "Antes de construir, defino o problema, o público, o escopo e o critério de conclusão. Isso reduz retrabalho e protege a coerência do produto.",
+        "points": ["Problema e público claros", "Escopo protegido", "Conclusão verificável"]
       },
       {
-        "id": "sistema",
-        "label": "Como funciona",
-        "title": "Um núcleo compacto aciona profundidade só quando ela agrega valor.",
-        "body": "O C7 lê as regras do projeto, classifica o risco de R0 a R4 e chama skills, conhecimento e revisão proporcionais — uma resposta coerente, não uma fila de vozes.",
-        "points": ["Contexto antes do código", "Quórum silencioso", "Conhecimento sob demanda"]
+        "id": "risco",
+        "label": "Risco",
+        "title": "O rigor acompanha o impacto.",
+        "body": "Tarefas simples continuam simples. Quando aumentam o alcance, o custo do erro ou a dificuldade de reversão, aprofundo análise, validação e recuperação.",
+        "points": ["Rigor proporcional", "Alternativas materiais", "Recuperação prevista"]
       },
       {
         "id": "evidencia",
         "label": "Evidência",
-        "title": "Arquitetura só vira produto quando resiste ao teste e ao retorno.",
+        "title": "Conclusão exige prova compatível com a mudança.",
         "body": "A versão 1.0.0 passou 42 testes Pester, 24 verificações no ambiente instalado, avaliações comparativas e restauração byte a byte em perfil descartável.",
-        "points": ["42 testes Pester", "24 checks instalados", "Rollback byte a byte"]
+        "points": ["42 testes Pester", "24 verificações instaladas", "Restauração byte a byte"]
       },
       {
-        "id": "capacidade",
+        "id": "ambiente",
         "label": "Ambiente",
-        "title": "A execução se adapta à máquina disponível.",
-        "body": "Antes de trabalho pesado, o C7 observa CPU, memória, paginação e armazenamento. Em ambiente limitado, serializa etapas, reduz pressão e reaproveita validações já concluídas.",
-        "points": ["Sem alterar plano de energia", "Carga proporcional", "Retomada sem repetição"]
+        "title": "O plano respeita a capacidade disponível.",
+        "body": "Organizo etapas e validações de acordo com CPU, memória, paginação e armazenamento, evitando repetir trabalho já comprovado.",
+        "points": ["Carga proporcional", "Etapas serializadas quando necessário", "Validações reaproveitadas"]
       },
       {
-        "id": "estado",
-        "label": "Controle",
-        "title": "Autonomia técnica sem terceirizar autoridade.",
-        "body": "Decisões rotineiras seguem autonomamente dentro do escopo. Publicação, credenciais, custos e operações difíceis de reverter continuam sob aprovação humana explícita.",
-        "points": ["Rotina segue autonomamente", "Impacto externo pede aprovação", "Rollback disponível"]
+        "id": "continuidade",
+        "label": "Continuidade",
+        "title": "Trabalho válido não precisa ser refeito.",
+        "body": "Registro decisões, testes e pontos de retomada para que cada etapa comece a partir do estado real do projeto.",
+        "points": ["Contexto preservado", "Retomada objetiva", "Menos repetição"]
       }
     ],
-    "faq": {
-      "eyebrow": "C7 em sete respostas",
-      "title": "Do pedido à entrega, sem perder contexto nem controle.",
-      "intro": "O C7 transforma uma solicitação em trabalho de engenharia: entende o ambiente, dimensiona o risco, executa na medida certa e encerra com evidência.",
-      "jumpLabel": "Entenda o C7 em sete respostas",
-      "items": [
-        {
-          "question": "Que problema o C7 resolve?",
-          "answer": "Evita que assistentes de desenvolvimento avancem com contexto errado, rigor excessivo em tarefas simples ou verificação insuficiente em mudanças críticas. O sistema calibra o trabalho antes de executar."
-        },
-        {
-          "question": "O que muda na prática?",
-          "answer": "Cada tarefa ganha objetivo observável, escopo protegido, execução proporcional e evidência de conclusão. Decisões e checkpoints permanecem disponíveis para retomar sem refazer trabalho válido."
-        },
-        {
-          "question": "Como ele ajusta o rigor de cada tarefa?",
-          "answer": "O C7 classifica o risco de R0 a R4 considerando alcance, reversibilidade, dados, privilégio, efeito externo e custo do erro. A profundidade cresce apenas quando o impacto justifica."
-        },
-        {
-          "question": "Por que o sistema usa sete lentes?",
-          "answer": "Arquitetura, experiência humana, efeitos de segunda ordem, operação, alternativas, segurança e encerramento são verificados em conjunto. Não são sete bots: o resultado continua sendo uma decisão coerente."
-        },
-        {
-          "question": "Até onde vai a autonomia?",
-          "answer": "O C7 assume decisões técnicas rotineiras dentro do escopo autorizado. Ações externas, destrutivas, financeiras ou difíceis de reverter permanecem atrás de aprovação humana objetiva."
-        },
-        {
-          "question": "Como ele se adapta a projetos, equipes e máquinas diferentes?",
-          "answer": "As regras do projeto continuam prevalecendo, e a capacidade do computador é verificada sob demanda. O C7 não instala daemon nem força a mesma carga ou cerimônia em todos os ambientes."
-        },
-        {
-          "question": "O que já foi comprovado?",
-          "answer": "A versão 1.0.0 está ativa e saudável. O release passou 42 testes Pester, 24 verificações instaladas, avaliações comparativas e um rollback byte a byte em ambiente descartável."
-        }
-      ],
-      "closing": "O C7 já funciona como uma camada independente, sem vínculo oficial com a OpenAI. Sua arquitetura pode ser discutida para adoção, integração ou evolução de produto.",
-      "closingLabel": "Conversar sobre o C7",
-      "closingHref": "/contato/?assunto=c7-engineering-system"
-    },
-    "links": [
-      {"label": "Conversar sobre o C7", "href": "/contato/?assunto=c7-engineering-system", "kind": "primary"}
-    ]
+    "links": []
   }
 ]

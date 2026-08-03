@@ -1,6 +1,8 @@
 {
   "collection": {
     "slug": "sitios",
+    "kind": "collection",
+    "catalogGroup": "main",
     "order": 3,
     "code": "03",
     "name": "Sitios y experiencias digitales",
@@ -8,6 +10,7 @@
     "kicker": "Sitios responsivos y presencia digital a medida",
     "summary": "Arquitectura de contenido, identidad visual, responsividad y publicación se unen en experiencias adaptadas al público y al objetivo de cada entrega.",
     "promise": "Presencia digital construida para el objetivo de cada proyecto.",
+    "showcaseSubtitle": "Transforma identidad, contenido y objetivos en experiencias digitales propias, claras y preparadas para cada público.",
     "route": "/es/sitios/",
     "image": "/assets/img/sites/sites-collection-concept.svg",
     "imageWidth": 1600,
@@ -19,11 +22,11 @@
     "accentRgb": "79 140 255",
     "facts": ["Escritorio + móvil", "Publicación en Cloudflare"],
     "cardCta": "Explorar sitios entregados",
-    "title": "Sitios entregados — Gui Rocha",
+    "title": "Presencias digitales publicadas — Gui Rocha",
     "description": "Sitios publicados por Gui Rocha, con contexto, decisiones de diseño, capturas locales y acceso a las experiencias oficiales.",
     "eyebrow": "Sitios y experiencias digitales",
-    "heading": "Sitios entregados",
-    "lead": "Una selección de experiencias publicadas con contexto, decisiones de diseño, vistas previas locales y acceso a cada sitio oficial.",
+    "heading": "Presencias digitales publicadas",
+    "lead": "Una selección de sitios publicados, presentada con el contexto de cada entrega, sus decisiones principales y acceso a la experiencia real.",
     "catalogLabel": "Catálogo de sitios",
     "selectedLabel": "Sitio seleccionado",
     "countSingular": "sitio publicado",
@@ -43,6 +46,8 @@
     {
       "id": "demonyza",
       "slug": "demonyza",
+      "kind": "siteCase",
+      "catalogGroup": "sites",
       "order": 1,
       "visible": true,
       "name": "Demonyza",
@@ -80,6 +85,8 @@
     {
       "id": "clubal-site",
       "slug": "clubal",
+      "kind": "siteCase",
+      "catalogGroup": "sites",
       "order": 2,
       "visible": true,
       "name": "Sitio de ClubAL",
@@ -88,8 +95,8 @@
       "accentRgb": "37 201 151",
       "status": "Sitio publicado",
       "statusTone": "live",
-      "summary": "El sitio comercial transforma un producto Windows de tres módulos en una narrativa clara, responsiva y coherente con su estado real.",
-      "objective": "Explicar problema, flujo, módulos e implementación sin confundir el sitio de comunicación con el software presentado.",
+      "summary": "El sitio presenta la base Windows de ClubAL, la migración del módulo Operador a una plataforma web en validación y el clima en Flet integrado.",
+      "objective": "Presentar la base actual de ClubAL y la validación de la plataforma web del Operador.",
       "icon": "/assets/img/clubal/icon-web.webp",
       "iconWidth": 128,
       "iconHeight": 128,
@@ -132,44 +139,43 @@
         "route": "/es/proyectos/clubal/"
       },
       "tags": ["3 idiomas", "Temas claro y oscuro", "Responsivo"],
-      "evidence": ["Narrativa de los tres módulos", "Privacidad sin analítica", "Cloudflare Pages"],
+      "evidence": ["Operação · Rotinas · Consulta", "Plataforma web en validación", "Clima/Flet integrado", "Privacidad sin analítica", "Cloudflare Pages"],
       "case": {
         "code": "SITIO 02",
         "kicker": "Caso del sitio comercial de ClubAL",
         "status": "Publicado · tres idiomas",
         "statusTone": "live",
-        "promise": "Complejidad de producto presentada en un recorrido directo, con privacidad y estado reales.",
-        "summary": "Este caso trata el sitio como entrega de comunicación. La página del producto ClubAL continúa dedicada al software Windows, sus módulos y su implementación.",
+        "promise": "Una presentación directa de ClubAL y de la migración del módulo Operador a la web.",
+        "summary": "El sitio organiza la base Windows, la plataforma web del Operador en validación y el clima en Flet integrado.",
         "facts": ["PT · EN · ES", "Temas claro + oscuro", "Sin analítica"],
         "tabs": [
           {
             "id": "desafio",
             "label": "Desafío",
-            "title": "Explicar un producto de tres módulos sin sobrecargar la primera visita.",
-            "body": "El contenido debía presentar valor, flujo y límites antes de los detalles técnicos, manteniendo el producto comprensible para quien aún no conoce su arquitectura.",
-            "points": ["Problema antes que tecnología", "Estado actual visible", "Producto y sitio sin confusión"]
+            "title": "Presentar con claridad un producto en evolución.",
+            "body": "El contenido presenta la propuesta, los tres módulos y la migración del módulo Operador a la plataforma web.",
+            "points": ["Problema antes que tecnología", "Producto actual", "Evolución visible"]
           },
           {
             "id": "arquitectura",
             "label": "Arquitectura",
-            "title": "La narrativa acompaña la decisión del visitante.",
-            "body": "La página parte del resultado operativo, muestra cómo se conectan los tres módulos y conduce a implementación, preguntas frecuentes y contacto directo.",
-            "points": ["Jerarquía de información", "Navegación por anclas", "Llamadas a la acción específicas"]
+            "title": "La narrativa acompaña la arquitectura del producto.",
+            "body": "Operação, Rotinas y Consulta forman la base actual. La plataforma web del Operador está en validación e incorpora el clima en Flet.",
+            "points": ["Operação · Rotinas · Consulta", "Plataforma web en validación", "Clima/Flet integrado"]
           },
           {
             "id": "entrega",
             "label": "Entrega",
-            "title": "Una experiencia publicada, localizada y sin seguimiento.",
-            "body": "El sitio ofrece portugués, inglés y español, temas claro y oscuro, diseño responsivo, recursos locales y publicación estática en Cloudflare Pages.",
-            "points": ["Tres idiomas", "Temas persistentes", "Privacidad explícita"]
+            "title": "Una presencia digital preparada para evolucionar con el producto.",
+            "body": "El sitio reúne portugués, inglés y español, temas claro y oscuro, diseño responsivo, recursos locales y publicación estática.",
+            "points": ["PT · EN · ES", "Claro + oscuro", "Responsivo · sin analítica"]
           }
         ],
         "links": [
           {"label": "Visitar sitio oficial", "href": "https://clubal.pages.dev/es/", "kind": "primary"},
-          {"label": "Explorar el producto ClubAL", "href": "/es/proyectos/clubal/", "kind": "secondary"},
-          {"label": "Hablar sobre un proyecto similar", "href": "/es/contacto/?asunto=sitio-clubal", "kind": "secondary"}
+          {"label": "Explorar el producto ClubAL", "href": "/es/proyectos/clubal/", "kind": "secondary"}
         ],
-        "galleryNote": "Capturas del sitio público tomadas el 28 de julio de 2026; las pantallas internas del producto usan datos demostrativos."
+        "galleryNote": "Capturas del sitio público del 28 de julio de 2026, con datos demostrativos."
       }
     }
   ]
