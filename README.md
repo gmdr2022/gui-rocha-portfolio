@@ -13,6 +13,8 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - coleção de sites orientada por `assets/data/sites.json`, com paridade em `sites.en.json` e `sites.es.json`;
 - páginas curtas com navegação direta, teclado, toque e redução de movimento;
 - tema, acessibilidade e consentimento funcionais no navegador;
+- identidade oceânica própria nos temas claro e escuro, com preferência aplicada antes do CSS e movimento progressivamente aprimorado;
+- profundidade ambiental orientada por estado, sem telemetria nem animação contínua;
 - conceitos de Maeve sempre identificados como conceito, nunca como captura do jogo;
 - build estático compatível com Cloudflare Pages no plano gratuito.
 

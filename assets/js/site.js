@@ -222,8 +222,24 @@ let preferences = {
   readableFont: false,
   ...storedPreferences,
 };
+if (!THEME_SEQUENCE.includes(preferences.theme)) preferences.theme = "system";
 
 const savePreferences = () => writeStorage(preferenceStorageName(), PREFERENCE_KEY, JSON.stringify(preferences));
+
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+const systemReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const usesFirefoxThemeFallback = /firefox\//i.test(navigator.userAgent);
+const resolvedTheme = () => (
+  preferences.theme === "system" ? (systemTheme.matches ? "dark" : "light") : preferences.theme
+);
+
+const syncThemeDocument = () => {
+  const resolved = resolvedTheme();
+  root.dataset.resolvedTheme = resolved;
+  root.style.colorScheme = resolved;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = resolved === "dark" ? "#071725" : "#f4f9fc";
+};
 
 const applyPreferences = () => {
   root.dataset.theme = preferences.theme;
@@ -231,6 +247,7 @@ const applyPreferences = () => {
   root.dataset.contrast = preferences.contrast ? "high" : "normal";
   root.dataset.motion = preferences.reduceMotion ? "reduced" : "standard";
   root.dataset.font = preferences.readableFont ? "readable" : "default";
+  syncThemeDocument();
   document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
     button.dataset.activeTheme = preferences.theme;
     button.setAttribute("aria-label", `${ui.theme[preferences.theme]}. ${ui.theme.action}.`);
@@ -240,12 +257,127 @@ const applyPreferences = () => {
   });
 };
 
-const cycleTheme = () => {
+let themeTransitionActive = false;
+
+const cycleTheme = async (button) => {
+  if (themeTransitionActive) return;
   const index = THEME_SEQUENCE.indexOf(preferences.theme);
-  preferences.theme = THEME_SEQUENCE[(index + 1) % THEME_SEQUENCE.length];
-  savePreferences();
-  applyPreferences();
+  const nextTheme = THEME_SEQUENCE[(index + 1) % THEME_SEQUENCE.length];
+  const applyNextTheme = () => {
+    preferences.theme = nextTheme;
+    savePreferences();
+    applyPreferences();
+  };
+  const reduceMotion = preferences.reduceMotion || systemReducedMotion.matches;
+  if (!document.startViewTransition || usesFirefoxThemeFallback || reduceMotion || !button) {
+    applyNextTheme();
+    return;
+  }
+
+  const bounds = button.getBoundingClientRect();
+  const originX = bounds.left + bounds.width / 2;
+  const originY = bounds.top + bounds.height / 2;
+  const radius = Math.hypot(
+    Math.max(originX, window.innerWidth - originX),
+    Math.max(originY, window.innerHeight - originY),
+  );
+  root.style.setProperty("--theme-origin-x", `${originX}px`);
+  root.style.setProperty("--theme-origin-y", `${originY}px`);
+  root.style.setProperty("--theme-radius", `${radius}px`);
+  themeTransitionActive = true;
+  button.setAttribute("aria-busy", "true");
+  try {
+    const transition = document.startViewTransition(applyNextTheme);
+    await transition.ready;
+    const animation = root.animate(
+      {
+        clipPath: [
+          `circle(0 at ${originX}px ${originY}px)`,
+          `circle(${radius}px at ${originX}px ${originY}px)`,
+        ],
+      },
+      {
+        duration: 420,
+        easing: "cubic-bezier(.2,.8,.2,1)",
+        pseudoElement: "::view-transition-new(root)",
+      },
+    );
+    await Promise.allSettled([animation.finished, transition.finished]);
+  } catch {
+    if (preferences.theme !== nextTheme) applyNextTheme();
+  } finally {
+    themeTransitionActive = false;
+    button.removeAttribute("aria-busy");
+  }
 };
+
+const handleSystemThemeChange = () => {
+  if (preferences.theme === "system") syncThemeDocument();
+};
+if (systemTheme.addEventListener) systemTheme.addEventListener("change", handleSystemThemeChange);
+else systemTheme.addListener?.(handleSystemThemeChange);
+
+const ambientOceanBase = [76, 164, 214];
+const ambientDepths = {
+  surface: { y: "16%", strength: 0.1 },
+  mid: { y: "46%", strength: 0.13 },
+  deep: { y: "68%", strength: 0.18 },
+  footer: { y: "92%", strength: 0.12 },
+};
+let ambientColor = [...ambientOceanBase];
+let ambientIndex = 0;
+let ambientDepth = "surface";
+
+const parseAmbientRgb = (value) => {
+  const parts = Array.isArray(value) ? value : String(value ?? "").trim().split(/[\s,]+/);
+  if (parts.length !== 3) return null;
+  const channels = parts.map((part) => Number(part));
+  if (channels.some((channel) => !Number.isFinite(channel) || channel < 0 || channel > 255)) return null;
+  return channels;
+};
+
+const applyAmbientState = () => {
+  const depth = ambientDepths[ambientDepth] || ambientDepths.surface;
+  const position = 22 + ((ambientIndex % 7) / 6) * 56;
+  root.style.setProperty("--ambient-r", String(ambientColor[0]));
+  root.style.setProperty("--ambient-g", String(ambientColor[1]));
+  root.style.setProperty("--ambient-b", String(ambientColor[2]));
+  root.style.setProperty("--ambient-x", `${position.toFixed(2)}%`);
+  root.style.setProperty("--ambient-y", depth.y);
+  root.style.setProperty("--ambient-strength", String(Math.min(0.18, Math.max(0.1, depth.strength))));
+  root.dataset.depth = ambientDepth;
+};
+
+window.addEventListener("portal:ambientchange", (event) => {
+  const detail = event instanceof CustomEvent ? event.detail : null;
+  const rgb = parseAmbientRgb(detail?.accentRgb);
+  const index = Number(detail?.index);
+  if (!rgb || !Number.isInteger(index) || index < 0 || index > 999) return;
+  if (typeof detail?.id !== "string" || !detail.id.trim() || !["project", "context", "decision"].includes(detail?.source)) return;
+  ambientColor = rgb.map((channel, channelIndex) => Math.round(
+    ambientOceanBase[channelIndex] * 0.55 + channel * 0.45,
+  ));
+  ambientIndex = index;
+  root.dataset.ambientId = detail.id.slice(0, 64);
+  root.dataset.ambientSource = detail.source;
+  applyAmbientState();
+});
+
+const depthElements = [...document.querySelectorAll("[data-depth]")];
+if ("IntersectionObserver" in window && depthElements.length) {
+  const visibility = new Map(depthElements.map((element) => [element, 0]));
+  const depthObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => visibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
+    const dominant = [...visibility.entries()].sort((left, right) => right[1] - left[1])[0];
+    const nextDepth = dominant?.[1] > 0 ? dominant[0].dataset.depth : ambientDepth;
+    if (ambientDepths[nextDepth] && nextDepth !== ambientDepth) {
+      ambientDepth = nextDepth;
+      applyAmbientState();
+    }
+  }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
+  depthElements.forEach((element) => depthObserver.observe(element));
+  applyAmbientState();
+}
 
 const globalUi = document.createElement("div");
 globalUi.className = "global-utilities";
@@ -335,7 +467,8 @@ const setConsent = (level) => {
 };
 
 document.addEventListener("click", (event) => {
-  if (event.target.closest("[data-theme-toggle]")) cycleTheme();
+  const clickedThemeButton = event.target.closest("[data-theme-toggle]");
+  if (clickedThemeButton) void cycleTheme(clickedThemeButton);
 
   if (event.target.closest("[data-open-accessibility]")) {
     syncPreferenceControls();

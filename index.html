@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Direção de produto e construção digital de Guilherme Rocha, com projetos institucionais, ferramentas locais, sites e experiências autorais.">
-  <meta name="theme-color" content="#071412">
+  <meta name="theme-color" content="#f4f9fc">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -27,10 +27,11 @@
   <link rel="alternate" hreflang="es" href="https://gui-rocha.pages.dev/es/">
   <link rel="alternate" hreflang="x-default" href="https://gui-rocha.pages.dev/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/styles.css?v=b94258eae734">
-  <script src="/assets/js/site.js?v=b94258eae734" defer></script>
-  <script src="/assets/js/about.js?v=b94258eae734" defer></script>
-  <script src="/assets/js/legacy-project-link.js?v=b94258eae734" defer></script>
+  <script src="/assets/js/theme-boot.js?v=615ac732fae3"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=615ac732fae3">
+  <script src="/assets/js/site.js?v=615ac732fae3" defer></script>
+  <script src="/assets/js/about.js?v=615ac732fae3" defer></script>
+  <script src="/assets/js/legacy-project-link.js?v=615ac732fae3" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://gui-rocha.pages.dev/#guilherme-rocha","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/","image":"https://gui-rocha.pages.dev/assets/img/gui-rocha-home.webp","sameAs":["https://github.com/gmdr2022"],"knowsAbout":["Product direction","Local-first software","Digital experiences"]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://gui-rocha.pages.dev/#website","name":"Gui Rocha","url":"https://gui-rocha.pages.dev/","author":{"@id":"https://gui-rocha.pages.dev/#guilherme-rocha"},"inLanguage":"pt-BR"}</script>
   <title>Gui Rocha — direção de produto e soluções digitais</title>
@@ -70,14 +71,14 @@
   </header>
 
   <main class="content-main about-main" id="content">
-    <section class="content-hero about-hero">
+    <section class="content-hero about-hero" data-depth="surface">
       <div class="content-hero-heading">
         <div class="portrait-line about-identity">
           <img src="/assets/img/gui-rocha-home.webp" alt="Retrato de Guilherme Rocha" width="104" height="104" fetchpriority="high">
           <p><strong>Guilherme Rocha</strong><span>Alfenas, Brasil</span></p>
         </div>
-        <p class="eyebrow">Guilherme Rocha · produto e criação digital</p>
-        <h1>Direção de produto e construção digital, do problema à entrega.</h1>
+        <p class="eyebrow">Produto · software · criação digital</p>
+        <h1>Direção de produto e construção digital — do problema à entrega.</h1>
       </div>
       <div class="content-hero-copy">
         <p>Estruturo problemas, defino o essencial e conduzo ideias até soluções utilizáveis — de sistemas institucionais e ferramentas locais a sites e projetos autorais.</p>
@@ -87,73 +88,75 @@
         </div>
       </div>
     </section>
-    <figure class="landscape-map">
+    <figure class="landscape-map" data-depth="deep">
       <img src="/assets/img/gui/panorama-visao-produto.webp" alt="Guilherme Rocha observando uma paisagem de cânions e água" width="1672" height="941">
       <div class="landscape-copy"><p class="eyebrow">Mapa do meu trabalho</p><h2>Escalas diferentes, o mesmo cuidado com o que precisa funcionar.</h2><p>Sistemas institucionais, ferramentas locais, sites e experiências autorais partem do mesmo princípio: entender o problema, limitar o escopo e tornar o resultado verificável.</p></div>
       <section class="context-catalog" aria-labelledby="context-catalog-title">
         <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">Explorar por contexto</p><p id="context-catalog-hint">Escolha um contexto para conhecer os projetos relacionados.</p></header>
         <div class="context-catalog-grid" data-context-catalogs aria-describedby="context-catalog-hint">
-        <article class="context-catalog-card" data-context-card data-category="institutional" style="--context-accent:#25c997;--context-order:0">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-pt-br-institutional">
+        <article class="context-catalog-card" data-context-card data-category="institutional" data-index="0" style="--context-accent:#25c997;--context-accent-rgb:37 201 151;--context-order:0">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-pt-br-institutional">
             <span class="context-catalog-index">01</span>
             <span class="context-catalog-title"><strong>Operações institucionais</strong><small>1 projeto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-pt-br-institutional" data-context-panel>
+          <div class="context-catalog-panel" id="context-pt-br-institutional" data-context-panel hidden>
             <ul><li><a href="/projetos/clubal/" style="--item-accent:#25c997"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/clubal/icon-web.webp" alt="" width="128" height="128" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>ClubAL</strong><small>Operação, Rotinas e Consulta permanecem na base Windows. O módulo Operador está migrando para uma plataforma web em validação, com o clima em Flet integrado.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
-        <article class="context-catalog-card" data-context-card data-category="websites" style="--context-accent:#4f8cff;--context-order:1">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-pt-br-websites">
+        <article class="context-catalog-card" data-context-card data-category="websites" data-index="1" style="--context-accent:#4f8cff;--context-accent-rgb:79 140 255;--context-order:1">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-pt-br-websites">
             <span class="context-catalog-index">02</span>
             <span class="context-catalog-title"><strong>Presença digital</strong><small>1 projeto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-pt-br-websites" data-context-panel>
+          <div class="context-catalog-panel" id="context-pt-br-websites" data-context-panel hidden>
             <ul><li><a href="/sites/" style="--item-accent:#4f8cff"><span class="project-icon" data-icon-kind="collection-illustration"><img src="/assets/img/sites/sites-category-icon.svg" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Sites e experiências digitais</strong><small>Arquitetura de conteúdo, identidade visual, responsividade e publicação reunidas em experiências ajustadas ao público e ao objetivo de cada entrega.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
-        <article class="context-catalog-card" data-context-card data-category="local-tools" style="--context-accent:#8e7dff;--context-order:2">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-pt-br-local-tools">
+        <article class="context-catalog-card" data-context-card data-category="local-tools" data-index="2" style="--context-accent:#8e7dff;--context-accent-rgb:142 125 255;--context-order:2">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-pt-br-local-tools">
             <span class="context-catalog-index">03</span>
             <span class="context-catalog-title"><strong>Ferramentas para trabalho local</strong><small>2 projetos</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-pt-br-local-tools" data-context-panel>
+          <div class="context-catalog-panel" id="context-pt-br-local-tools" data-context-panel hidden>
             <ul><li><a href="/projetos/nexus/" style="--item-accent:#8e7dff"><span class="project-icon" data-icon-kind="application-icon"><img src="/assets/img/nexus/icon-256.webp" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>NEXUS</strong><small>O NEXUS reúne projetos, caminhos e validações em uma central local que mostra o que está pronto e o que precisa de atenção.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li><li><a href="/projetos/codex-checkpoint/" style="--item-accent:#36d6c0"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/codex-checkpoint/icon-256.webp" alt="" width="256" height="256" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Codex Checkpoint</strong><small>O Codex Checkpoint preserva validações pendentes, decisões e feedback entre sessões de trabalho.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
-        <article class="context-catalog-card" data-context-card data-category="engineering" style="--context-accent:#f2bb62;--context-order:3">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-pt-br-engineering">
+        <article class="context-catalog-card" data-context-card data-category="engineering" data-index="3" style="--context-accent:#f2bb62;--context-accent-rgb:242 187 98;--context-order:3">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-pt-br-engineering">
             <span class="context-catalog-index">04</span>
             <span class="context-catalog-title"><strong>Engenharia e práticas de desenvolvimento</strong><small>2 projetos</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-pt-br-engineering" data-context-panel>
+          <div class="context-catalog-panel" id="context-pt-br-engineering" data-context-panel hidden>
             <ul><li><a href="/projetos/local-first-checklist/" style="--item-accent:#f2bb62"><span class="project-icon" data-icon-kind="project-illustration"><img src="/assets/img/local-first-checklist.svg" alt="" width="1600" height="1000" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Local First Checklist</strong><small>Uma aplicação Python de código aberto demonstra checklist em JSON local, linha de comando, testes e CI.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li><li><a href="/projetos/c7-engineering-system/" style="--item-accent:#a9ed34"><span class="project-icon" data-icon-kind="official-icon"><img src="/assets/img/c7-engineering-system-icon-v2.svg" alt="" width="1024" height="1024" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>C7 Engineering System</strong><small>O C7 sustenta os fundamentos que sigo ao desenvolver meus produtos: contexto claro, rigor proporcional ao risco e evidência antes da conclusão.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article>
-        <article class="context-catalog-card" data-context-card data-category="original" style="--context-accent:#ef6d78;--context-order:4">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="context-pt-br-original">
+        <article class="context-catalog-card" data-context-card data-category="original" data-index="4" style="--context-accent:#ef6d78;--context-accent-rgb:239 109 120;--context-order:4">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="context-pt-br-original">
             <span class="context-catalog-index">05</span>
             <span class="context-catalog-title"><strong>Experiências autorais</strong><small>1 projeto</small></span>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>
           </button>
-          <div class="context-catalog-panel" id="context-pt-br-original" data-context-panel>
+          <div class="context-catalog-panel" id="context-pt-br-original" data-context-panel hidden>
             <ul><li><a href="/projetos/maeve/" style="--item-accent:#ef6d78"><span class="project-icon" data-icon-kind="catalog-art"><img src="/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp" alt="" width="1672" height="941" decoding="async" loading="lazy" aria-hidden="true"></span><span><strong>Maeve Roscaern</strong><small>Maeve Roscaern é um RPG single-player em Unreal Engine 5.8, com áreas compactas, peças modulares e escala viável para produção solo.</small></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a></li></ul>
           </div>
         </article></div>
       </section>
       <figcaption>Arquivo pessoal · Serra da Canastra</figcaption>
     </figure>
-    <section class="method-section" aria-labelledby="method-title">
-      <p class="eyebrow">Meu processo</p>
-      <h2 id="method-title">Meu processo</h2>
-      <div class="method-grid"><article><span>01</span><h3>Produto</h3><p>Problema, público e decisão orientam o primeiro recorte do produto.</p></article><article><span>02</span><h3>Construção</h3><p>Etapas pequenas mantêm escopo, experiência e manutenção sob controle.</p></article><article><span>03</span><h3>Evidência</h3><p>Testes sustentam o que pode ser afirmado; o que ainda evolui permanece explícito.</p></article></div>
+    <section class="method-section" data-depth="mid" aria-labelledby="method-title">
+      <p class="eyebrow">Como trabalho</p>
+      <h2 id="method-title">Do problema à evidência, sem esconder o que ainda está em evolução.</h2>
+      <nav class="method-flow" aria-label="Como trabalho" data-decision-flow>
+        <ol><li id="method-step-01" data-decision-step data-index="0" data-accent-rgb="130 215 255"><a href="#method-step-01" aria-current="step"><span class="method-number" aria-hidden="true">01</span><h3>Problema</h3><p>Compreendo contexto, público e a decisão que precisa ser tomada.</p></a></li><li id="method-step-02" data-decision-step data-index="1" data-accent-rgb="93 190 235"><a href="#method-step-02"><span class="method-number" aria-hidden="true">02</span><h3>Direção</h3><p>Defino recorte, prioridade, critérios e trade-offs antes de ampliar o escopo.</p></a></li><li id="method-step-03" data-decision-step data-index="2" data-accent-rgb="102 157 220"><a href="#method-step-03"><span class="method-number" aria-hidden="true">03</span><h3>Construção</h3><p>Avanço em etapas controláveis, preservando experiência e manutenção.</p></a></li><li id="method-step-04" data-decision-step data-index="3" data-accent-rgb="151 207 239"><a href="#method-step-04"><span class="method-number" aria-hidden="true">04</span><h3>Evidência</h3><p>Testo, registro o estado e declaro com clareza os limites da entrega.</p></a></li></ol>
+      </nav>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-depth="footer">
     <p>© <span data-current-year>2026</span> Guilherme Rocha.</p>
     <nav class="footer-links" aria-label="Rodapé">
       <a href="https://github.com/gmdr2022" target="_blank" rel="noopener noreferrer">GitHub</a>

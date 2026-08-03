@@ -64,19 +64,31 @@ const expectedMainOrder = [
 ];
 const approvedCopy = {
   "pt-BR": {
-    aboutHeading: "Direção de produto e construção digital, do problema à entrega.",
+    aboutHeading: "Direção de produto e construção digital — do problema à entrega.",
+    aboutEyebrow: "Produto · software · criação digital",
+    methodEyebrow: "Como trabalho",
+    methodTitle: "Do problema à evidência, sem esconder o que ainda está em evolução.",
+    methodSteps: ["Problema", "Direção", "Construção", "Evidência"],
     projectsHeading: "Transformando ideias em soluções digitais para problemas reais.",
     sitesHeading: "Presenças digitais publicadas",
     brandTagline: "Produto · estratégia · criação digital",
   },
   en: {
-    aboutHeading: "Product direction and digital execution, from problem to delivery.",
+    aboutHeading: "Product direction and digital creation — from problem to delivery.",
+    aboutEyebrow: "Product · software · digital creation",
+    methodEyebrow: "How I work",
+    methodTitle: "From problem to evidence, without hiding what is still evolving.",
+    methodSteps: ["Problem", "Direction", "Build", "Evidence"],
     projectsHeading: "Turning ideas into digital solutions for real problems.",
     sitesHeading: "Published digital presences",
     brandTagline: "Product · strategy · digital creation",
   },
   es: {
-    aboutHeading: "Dirección de producto y construcción digital, del problema a la entrega.",
+    aboutHeading: "Dirección de producto y creación digital — del problema a la entrega.",
+    aboutEyebrow: "Producto · software · creación digital",
+    methodEyebrow: "Cómo trabajo",
+    methodTitle: "Del problema a la evidencia, sin ocultar lo que todavía está en evolución.",
+    methodSteps: ["Problema", "Dirección", "Construcción", "Evidencia"],
     projectsHeading: "Transformando ideas en soluciones digitales para problemas reales.",
     sitesHeading: "Presencias digitales publicadas",
     brandTagline: "Producto · estrategia · creación digital",
@@ -369,12 +381,28 @@ for (const locale of localeOrder) {
   }
   if (config.home !== config.routes.about) fail(`content/pages.mjs: ${locale} deve usar Sobre como raiz`);
   validateRequiredStrings(config.common, ["brandTagline", "products", "about", "contact", "email"], `content/pages.mjs:${locale}.common`);
-  validateRequiredStrings(config.aboutPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.aboutPage`);
+  validateRequiredStrings(config.aboutPage, ["title", "description", "eyebrow", "heading", "methodEyebrow", "methodTitle"], `content/pages.mjs:${locale}.aboutPage`);
   validateRequiredStrings(config.projectsPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.projectsPage`);
   validateRequiredStrings(config.contactPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.contactPage`);
   validateRequiredStrings(config.privacyPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.privacyPage`);
   validateRequiredStrings(config.notFoundPage, ["title", "heading", "lead"], `content/pages.mjs:${locale}.notFoundPage`);
   if (config.aboutPage.heading !== approvedCopy[locale].aboutHeading) fail(`content/pages.mjs:${locale}: H1 aprovado de Sobre divergiu`);
+  if (config.aboutPage.eyebrow !== approvedCopy[locale].aboutEyebrow) fail(`content/pages.mjs:${locale}: eyebrow aprovado de Sobre divergiu`);
+  if (config.aboutPage.methodEyebrow !== approvedCopy[locale].methodEyebrow) fail(`content/pages.mjs:${locale}: eyebrow de Como trabalho divergiu`);
+  if (config.aboutPage.methodTitle !== approvedCopy[locale].methodTitle) fail(`content/pages.mjs:${locale}: título de Como trabalho divergiu`);
+  if (!Array.isArray(config.aboutPage.method) || config.aboutPage.method.length !== 4) {
+    fail(`content/pages.mjs:${locale}: Como trabalho deve conter quatro etapas`);
+  } else {
+    config.aboutPage.method.forEach((step, index) => {
+      if (!Array.isArray(step) || step.length !== 3 || step.some((value) => !isNonEmptyString(value))) {
+        fail(`content/pages.mjs:${locale}: etapa ${index + 1} de Como trabalho é inválida`);
+      } else if (step[0] !== String(index + 1).padStart(2, "0")) {
+        fail(`content/pages.mjs:${locale}: numeração de Como trabalho é inválida`);
+      } else if (step[1] !== approvedCopy[locale].methodSteps[index]) {
+        fail(`content/pages.mjs:${locale}: título da etapa ${index + 1} de Como trabalho divergiu`);
+      }
+    });
+  }
   if (config.projectsPage.heading !== approvedCopy[locale].projectsHeading) fail(`content/pages.mjs:${locale}: H1 aprovado de Projetos divergiu`);
   if (config.common.brandTagline !== approvedCopy[locale].brandTagline) fail(`content/pages.mjs:${locale}: assinatura aprovada da marca divergiu`);
 }
@@ -1221,7 +1249,19 @@ for (const page of expectedPages) {
   if (!html.includes("brand-logo") || !html.includes("brand-copy")) fail(`${label}: marca do cabeçalho incompleta`);
   if (!html.includes(config.common.brandTagline)) fail(`${label}: assinatura localizada da marca ausente`);
   if (!/href="\/assets\/css\/styles\.css\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: CSS sem versão de conteúdo`);
+  if (!/src="\/assets\/js\/theme-boot\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: theme-boot.js sem versão de conteúdo`);
   if (!/src="\/assets\/js\/site\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: site.js sem versão de conteúdo`);
+  const headTags = startTags(head, "script");
+  const themeBootTag = headTags.find((tag) => /src="\/assets\/js\/theme-boot\.js\?v=[a-f0-9]{12}"/.test(tag));
+  const themeBootAttributes = attributesOf(themeBootTag ?? "");
+  const stylesheetTag = startTags(head, "link").find((tag) => (attributesOf(tag).rel || "").split(/\s+/).includes("stylesheet"));
+  if (!themeBootTag || "defer" in themeBootAttributes || "async" in themeBootAttributes || themeBootAttributes.type === "module") {
+    fail(`${label}: theme-boot.js deve ser síncrono`);
+  } else if (!stylesheetTag || head.indexOf(themeBootTag) > head.indexOf(stylesheetTag)) {
+    fail(`${label}: theme-boot.js deve vir antes do CSS`);
+  }
+  const themeColors = metaValues(head, "name", "theme-color");
+  if (themeColors.length !== 1 || themeColors[0] !== "#f4f9fc") fail(`${label}: theme-color inicial oceânico incorreto`);
   if (linkEntries(head, "manifest").length) fail(`${label}: link PWA manifest não deve existir`);
 
   const h1Values = elementContents(html, "h1").map(stripTags);
@@ -1285,9 +1325,56 @@ for (const page of expectedPages) {
     if (!html.includes('src="/assets/img/gui-rocha-home.webp"')) fail(`${label}: retrato da página Sobre ausente`);
     if (!/src="\/assets\/js\/about\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: about.js ausente`);
     if (!/src="\/assets\/js\/legacy-project-link\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: compatibilidade de deep link antigo ausente`);
+    const aboutHeadingMarkup = elementContents(html, "h1")[0] ?? "";
+    if (/<(?:br|wbr)\b/i.test(aboutHeadingMarkup)) fail(`${label}: H1 de Sobre não deve forçar quebra`);
+    if (!html.includes(config.aboutPage.eyebrow) || !html.includes(config.aboutPage.methodEyebrow)) {
+      fail(`${label}: eyebrows de Sobre divergem da fonte`);
+    }
     const contextCards = startTags(html, "article").map(attributesOf).filter((attributes) => "data-context-card" in attributes);
     if (contextCards.length !== config.aboutPage.catalogs.length) fail(`${label}: mapa de contextos diverge da fonte`);
-    if (contextCards.some((attributes) => attributes["aria-expanded"] === "true")) fail(`${label}: contexto não deve iniciar expandido no article`);
+    if (contextCards.some((attributes, index) => attributes["data-index"] !== String(index) || !attributes.style?.includes("--context-accent-rgb:"))) {
+      fail(`${label}: contextos devem expor índice e accent RGB`);
+    }
+    const contextTriggers = startTags(html, "button").map(attributesOf).filter((attributes) => "data-context-trigger" in attributes);
+    const contextPanels = startTags(html, "div").map(attributesOf).filter((attributes) => "data-context-panel" in attributes);
+    if (contextTriggers.length !== contextCards.length || contextTriggers.some((attributes) => attributes["aria-expanded"] !== "false")) {
+      fail(`${label}: gatilhos de contexto devem iniciar recolhidos`);
+    }
+    if (contextPanels.length !== contextCards.length || contextPanels.some((attributes) => !("hidden" in attributes))) {
+      fail(`${label}: painéis de contexto devem iniciar ocultos`);
+    }
+    const methodMatch = html.match(/<nav\b[^>]*class="[^"]*\bmethod-flow\b[^"]*"[^>]*>([\s\S]*?)<\/nav>/i);
+    if (!methodMatch || startTags(methodMatch[1], "ol").length !== 1) {
+      fail(`${label}: corrente de decisão deve usar nav e ol`);
+    } else {
+      const methodSteps = startTags(methodMatch[1], "li").map(attributesOf).filter((attributes) => "data-decision-step" in attributes);
+      const methodLinks = anchorEntries(methodMatch[1]).map(({ attributes }) => attributes);
+      if (methodSteps.length !== 4 || methodLinks.length !== 4) fail(`${label}: corrente de decisão deve conter quatro itens completos`);
+      if (methodLinks.filter((attributes) => attributes["aria-current"] === "step").length !== 1) {
+        fail(`${label}: corrente de decisão deve iniciar com um único aria-current=step`);
+      }
+      methodSteps.forEach((attributes, index) => {
+        if (
+          attributes["data-index"] !== String(index)
+          || !/^\d{1,3} \d{1,3} \d{1,3}$/.test(attributes["data-accent-rgb"] ?? "")
+          || !methodLinks.some((link) => link.href === `#${attributes.id}`)
+        ) {
+          fail(`${label}: item ${index + 1} da corrente não é ancorável ou não possui estado ambiental`);
+        }
+      });
+    }
+    const semanticOrder = [
+      html.indexOf("about-hero"),
+      html.indexOf("landscape-map"),
+      html.indexOf("method-section"),
+      html.indexOf("site-footer"),
+    ];
+    if (semanticOrder.some((position) => position < 0) || semanticOrder.some((position, index) => index > 0 && position <= semanticOrder[index - 1])) {
+      fail(`${label}: ordem semântica de Sobre divergiu`);
+    }
+    for (const depth of ["surface", "mid", "deep", "footer"]) {
+      if (!html.includes(`data-depth="${depth}"`)) fail(`${label}: estado de profundidade ${depth} ausente`);
+    }
     for (const item of mainCatalogFor(page.locale)) {
       if (!html.includes(`href="${item.route}"`)) fail(`${label}: item ${item.slug} ausente do mapa de trabalho`);
     }
@@ -1570,6 +1657,7 @@ if (!robots.includes(`Sitemap: ${siteConfig.origin}/sitemap.xml`)) fail("robots.
 
 const sourceTexts = {};
 for (const source of [
+  "assets/js/theme-boot.js",
   "assets/js/site.js",
   "assets/js/home.js",
   "assets/js/about.js",
@@ -1651,6 +1739,12 @@ const stripJavaScriptComments = (source) => {
 const siteExecutable = stripJavaScriptComments(sourceTexts["assets/js/site.js"]);
 const serviceWorkerExecutable = stripJavaScriptComments(sourceTexts["service-worker.js"]);
 
+requireMarkers("assets/js/theme-boot.js", [
+  'preferenceKey = "gui_preferences_v2"',
+  'matchMedia("(prefers-color-scheme: dark)")',
+  "dataset.resolvedTheme",
+  'meta[name="theme-color"]',
+]);
 requireMarkers("assets/js/site.js", [
   'CONSENT_COOKIE = "gui_consent"',
   "readStorage",
@@ -1661,6 +1755,13 @@ requireMarkers("assets/js/site.js", [
   'sessionStorage.getItem("gui-sw-retired")',
   "[data-scroll-progress]",
   "ResizeObserver",
+  "document.startViewTransition",
+  "usesFirefoxThemeFallback",
+  'duration: 420',
+  'portal:ambientchange',
+  "IntersectionObserver",
+  "ambientOceanBase",
+  "Math.min(0.18, Math.max(0.1",
 ]);
 for (const [label, pattern] of [
   ["consulta de registros", /navigator\s*\.\s*serviceWorker\s*\.\s*getRegistrations\s*\(/],
@@ -1689,8 +1790,19 @@ requireMarkers("assets/js/home.js", [
   "ArrowRight",
   "card.inert",
   "updateLanguageLinks",
+  'portal:ambientchange',
 ]);
-requireMarkers("assets/js/about.js", ["data-context-card", "Escape", "aria-expanded"]);
+requireMarkers("assets/js/about.js", [
+  "data-context-card",
+  "data-decision-step",
+  "data-context-trigger",
+  "data-context-panel",
+  "dataset.selected",
+  'portal:ambientchange',
+  '"Escape"',
+  '"aria-expanded"',
+  '"aria-current"',
+]);
 requireMarkers("assets/js/project.js", ["galleryImage.width", "galleryImage.height", "galleryRoot.tabIndex = 0", "ArrowLeft", "ArrowRight", "preload"]);
 requireMarkers("assets/js/contact.js", [
   'parameters.get("assunto")',
@@ -1724,10 +1836,137 @@ requireMarkers("assets/css/styles.css", [
   ".no-js-gallery-links",
   ".no-js .context-catalog-panel",
   ".context-catalog-grid",
+  ".method-flow",
+  "@property --ambient-r",
+  "::view-transition-new(root)",
   "@media (forced-colors: active)",
   "prefers-reduced-motion",
   "scroll-margin-top",
 ]);
+
+const cssRuleBody = (source, selector) => {
+  const marker = `${selector} {`;
+  const markerIndex = source.indexOf(marker);
+  if (markerIndex < 0) return "";
+  const openingBrace = source.indexOf("{", markerIndex);
+  let depth = 0;
+  for (let index = openingBrace; index < source.length; index += 1) {
+    if (source[index] === "{") depth += 1;
+    else if (source[index] === "}") {
+      depth -= 1;
+      if (depth === 0) return source.slice(openingBrace + 1, index);
+    }
+  }
+  return "";
+};
+
+const cssHexTokens = (body) => Object.fromEntries(
+  [...body.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})\s*;/gi)].map((match) => [match[1], match[2].toLowerCase()]),
+);
+const hexRgb = (value) => {
+  const match = /^#([0-9a-f]{6})$/i.exec(value ?? "");
+  return match ? [0, 2, 4].map((offset) => Number.parseInt(match[1].slice(offset, offset + 2), 16)) : null;
+};
+const relativeLuminance = (rgb) => {
+  const channels = rgb.map((channel) => {
+    const normalized = channel / 255;
+    return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+  });
+  return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+};
+const contrastRatio = (left, right) => {
+  const luminances = [relativeLuminance(left), relativeLuminance(right)].sort((a, b) => b - a);
+  return (luminances[0] + 0.05) / (luminances[1] + 0.05);
+};
+const blendRgb = (foreground, background, alpha) => foreground.map((channel, index) => (
+  channel * alpha + background[index] * (1 - alpha)
+));
+
+const styleSource = sourceTexts["assets/css/styles.css"];
+const themeTokens = {
+  light: cssHexTokens(cssRuleBody(styleSource, ":root")),
+  dark: cssHexTokens(cssRuleBody(styleSource, ':root[data-theme="dark"]')),
+  systemDark: cssHexTokens(cssRuleBody(styleSource, ':root[data-theme="system"]')),
+};
+const expectedThemeTokens = {
+  light: {
+    canvas: "#f4f9fc",
+    "canvas-deep": "#e7f1f7",
+    surface: "#fbfdff",
+    raised: "#ffffff",
+    text: "#061927",
+    "text-soft": "#314d60",
+    "text-muted": "#5a7383",
+    "semantic-line": "#c4d6e0",
+    "semantic-line-strong": "#7592a2",
+    accent: "#006f9c",
+    "accent-fill": "#82d7ff",
+    "accent-ink": "#041823",
+    focus: "#005ea8",
+  },
+  dark: {
+    canvas: "#071725",
+    "canvas-deep": "#04101b",
+    surface: "#0d2b40",
+    raised: "#12364e",
+    text: "#f2f7fa",
+    "text-soft": "#c4d3dc",
+    "text-muted": "#90a9b8",
+    "semantic-line": "#264c65",
+    "semantic-line-strong": "#3f708e",
+    accent: "#82d7ff",
+    "accent-fill": "#a6e8ff",
+    "accent-ink": "#051521",
+    focus: "#ffd277",
+  },
+};
+
+for (const [theme, expectedTokens] of Object.entries(expectedThemeTokens)) {
+  const tokens = themeTokens[theme];
+  for (const [name, expected] of Object.entries(expectedTokens)) {
+    if (tokens[name] !== expected) fail(`styles.css: token oceânico ${theme}.${name} divergiu (${tokens[name] ?? "ausente"})`);
+    if (theme === "dark" && themeTokens.systemDark[name] !== expected) {
+      fail(`styles.css: tema de sistema escuro diverge em ${name}`);
+    }
+  }
+
+  const rgb = Object.fromEntries(Object.entries(expectedTokens).map(([name, value]) => [name, hexRgb(value)]));
+  for (const surface of ["canvas", "surface", "raised"]) {
+    if (contrastRatio(rgb.text, rgb[surface]) < 4.5) fail(`styles.css: contraste ${theme} text/${surface} abaixo de 4.5:1`);
+    if (contrastRatio(rgb["text-soft"], rgb[surface]) < 4.5) fail(`styles.css: contraste ${theme} text-soft/${surface} abaixo de 4.5:1`);
+  }
+  if (contrastRatio(rgb["text-muted"], rgb.canvas) < 4.5) fail(`styles.css: contraste ${theme} text-muted/canvas abaixo de 4.5:1`);
+  if (contrastRatio(rgb["semantic-line-strong"], rgb.canvas) < 3) fail(`styles.css: contraste ${theme} de linha forte abaixo de 3:1`);
+  if (contrastRatio(rgb.accent, rgb.surface) < 4.5) fail(`styles.css: contraste ${theme} accent/surface abaixo de 4.5:1`);
+  if (contrastRatio(rgb["accent-ink"], rgb["accent-fill"]) < 4.5) fail(`styles.css: contraste ${theme} do CTA abaixo de 4.5:1`);
+  if (contrastRatio(rgb.focus, rgb.canvas) < 3) fail(`styles.css: contraste ${theme} do foco abaixo de 3:1`);
+}
+
+const accentValues = new Set();
+for (const locale of localeOrder) {
+  for (const project of projectsByLocale[locale]) accentValues.add(project.accentRgb);
+  accentValues.add(sitesByLocale[locale].collection.accentRgb);
+  for (const site of sitesByLocale[locale].sites) accentValues.add(site.accentRgb);
+}
+const oceanBase = [76, 164, 214];
+for (const value of accentValues) {
+  const source = String(value ?? "").split(/\s+/).map(Number);
+  if (source.length !== 3 || source.some((channel) => !Number.isFinite(channel) || channel < 0 || channel > 255)) {
+    fail(`accent RGB inválido na matriz de contraste: ${value}`);
+    continue;
+  }
+  const controlled = source.map((channel, index) => oceanBase[index] * 0.55 + channel * 0.45);
+  for (const theme of ["light", "dark"]) {
+    const tokens = expectedThemeTokens[theme];
+    const worstBackground = blendRgb(controlled, hexRgb(tokens.canvas), 0.18);
+    for (const textToken of ["text", "text-soft"]) {
+      if (contrastRatio(hexRgb(tokens[textToken]), worstBackground) < 4.5) {
+        fail(`styles.css: blend máximo de ${value} reduz contraste ${theme}.${textToken} abaixo de 4.5:1`);
+      }
+    }
+  }
+}
+
 requireMarkers("scripts/build.mjs", [
   '"404.html"',
   '"projetos"',
@@ -1847,6 +2086,7 @@ for (const script of ["generate", "validate", "build", "check"]) {
 }
 if (!packageJson.scripts?.check?.includes("node scripts/validate.mjs")) fail("package.json: check deve executar o validador");
 if (!packageJson.scripts?.check?.includes("node scripts/build.mjs")) fail("package.json: check deve executar o build");
+if (!packageJson.scripts?.check?.includes("node --check assets/js/theme-boot.js")) fail("package.json: check deve validar theme-boot.js");
 if (
   !packageJson.scripts?.validate?.includes("node scripts/generate-site.mjs")
   || !packageJson.scripts?.validate?.includes("node scripts/validate.mjs")

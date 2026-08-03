@@ -18,6 +18,7 @@ const siteFiles = {
 const projectAssets = JSON.parse(await readFile(join(root, "assets", "data", "project-assets.json"), "utf8"));
 const mutableAssetPaths = [
   "assets/css/styles.css",
+  "assets/js/theme-boot.js",
   "assets/js/site.js",
   "assets/js/home.js",
   "assets/js/about.js",
@@ -172,7 +173,7 @@ const footer = (locale) => {
   const config = locales[locale];
   const common = config.common;
   return `
-  <footer class="site-footer">
+  <footer class="site-footer" data-depth="footer">
     <p>© <span data-current-year>2026</span> ${escapeHtml(common.copyright)}</p>
     <nav class="footer-links" aria-label="${escapeHtml(common.footerLabel)}">
       <a href="${githubUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -214,7 +215,7 @@ const layout = ({
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(description)}">
-  <meta name="theme-color" content="#071412">
+  <meta name="theme-color" content="#f4f9fc">
   ${robots ? `<meta name="robots" content="${robots}">` : ""}
   <meta property="og:type" content="website">
   <meta property="og:locale" content="${config.ogLocale}">
@@ -235,6 +236,7 @@ const layout = ({
   ${canonical ? alternateLinks(page) : ""}
   ${canonical ? `<link rel="alternate" hreflang="x-default" href="${origin}${routeFor("pt-BR", page)}">` : ""}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="${versionedAsset("/assets/js/theme-boot.js")}"></script>
   <link rel="stylesheet" href="${versionedAsset("/assets/css/styles.css")}">
   <script src="${versionedAsset("/assets/js/site.js")}" defer></script>
   ${scripts.map((script) => `<script src="${versionedAsset(script)}" defer></script>`).join("\n  ")}
@@ -317,7 +319,7 @@ const siteCollectionMarkup = (locale) => {
   const closeControl = `<a class="sites-window-back" href="${config.routes.projects}?project=sites" aria-label="${escapeHtml(collection.backLabel)}">${icon("arrowLeft")}<span>${escapeHtml(collection.backLabel)}</span></a>`;
 
   return `
-    <section class="sites-window" data-site-collection aria-labelledby="${prefix}-title" aria-describedby="${prefix}-description">
+    <section class="sites-window" data-site-collection data-depth="mid" aria-labelledby="${prefix}-title" aria-describedby="${prefix}-description">
       <header class="sites-window-header">
         <div class="sites-window-identity">
           <span class="sites-window-mark" aria-hidden="true">${icon("collection")}</span>
@@ -385,7 +387,7 @@ const projectsPage = (locale) => {
   const page = { type: "projects" };
   const main = `
   <main class="home-main projects-main" id="content">
-    <section class="projects-intro" aria-labelledby="projects-title">
+    <section class="projects-intro" data-depth="surface" aria-labelledby="projects-title">
       <div class="projects-intro-heading">
         <p class="eyebrow">${escapeHtml(copy.eyebrow)}</p>
         <h1 id="projects-title">${escapeHtml(copy.heading)}</h1>
@@ -394,7 +396,7 @@ const projectsPage = (locale) => {
         <p class="projects-subtitle" data-deck-subtitle>${escapeHtml(projects[0].showcaseSubtitle)}</p>
       </div>
     </section>
-    <section class="project-catalog" id="projects" aria-labelledby="projects-title" data-project-catalog style="--active-accent:${projects[0].accent};--active-accent-rgb:${projects[0].accentRgb}">
+    <section class="project-catalog" id="projects" data-depth="deep" aria-labelledby="projects-title" data-project-catalog style="--active-accent:${projects[0].accent};--active-accent-rgb:${projects[0].accentRgb}">
       <header class="catalog-header">
         <div><p class="eyebrow">${escapeHtml(copy.eyebrow)}</p><p class="catalog-active-name" data-deck-current-heading>${escapeHtml(projects[0].shortName ?? projects[0].name)}</p></div>
         <p>${escapeHtml(copy.catalogHint)}</p>
@@ -429,22 +431,24 @@ const aboutPage = (locale) => {
     const items = slugs.map((slug) => projects.get(slug)).filter(Boolean);
     const panelId = `context-${locale.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${key}`;
     const count = `${items.length} ${items.length === 1 ? copy.catalogSingle : copy.catalogMultiple}`;
-    const accent = items[0]?.accent || "#a9ed34";
+    const accent = items[0]?.accent || "#82d7ff";
+    const accentRgb = items[0]?.accentRgb || "130 215 255";
     return `
-        <article class="context-catalog-card" data-context-card data-category="${key}" style="--context-accent:${accent};--context-order:${categoryIndex}">
-          <button type="button" data-context-trigger aria-expanded="true" aria-controls="${panelId}">
+        <article class="context-catalog-card" data-context-card data-category="${key}" data-index="${categoryIndex}" style="--context-accent:${accent};--context-accent-rgb:${accentRgb};--context-order:${categoryIndex}">
+          <button type="button" data-context-trigger aria-expanded="false" aria-controls="${panelId}">
             <span class="context-catalog-index">${String(categoryIndex + 1).padStart(2, "0")}</span>
             <span class="context-catalog-title"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>
             ${icon("chevron")}
           </button>
-          <div class="context-catalog-panel" id="${panelId}" data-context-panel>
+          <div class="context-catalog-panel" id="${panelId}" data-context-panel hidden>
             <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}">${projectIcon(project)}<span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
           </div>
         </article>`;
   }).join("");
+  const decisionAccents = ["130 215 255", "93 190 235", "102 157 220", "151 207 239"];
   const main = `
   <main class="content-main about-main" id="content">
-    <section class="content-hero about-hero">
+    <section class="content-hero about-hero" data-depth="surface">
       <div class="content-hero-heading">
         <div class="portrait-line about-identity">
           <img src="/assets/img/gui-rocha-home.webp" alt="${escapeHtml(copy.portraitAlt)}" width="104" height="104" fetchpriority="high">
@@ -461,7 +465,7 @@ const aboutPage = (locale) => {
         </div>
       </div>
     </section>
-    <figure class="landscape-map">
+    <figure class="landscape-map" data-depth="deep">
       <img src="/assets/img/gui/panorama-visao-produto.webp" alt="${escapeHtml(copy.landscapeAlt)}" width="1672" height="941">
       <div class="landscape-copy"><p class="eyebrow">${escapeHtml(copy.landscapeKicker)}</p><h2>${escapeHtml(copy.landscapeTitle)}</h2><p>${escapeHtml(copy.landscapeBody)}</p></div>
       <section class="context-catalog" aria-labelledby="context-catalog-title">
@@ -470,10 +474,12 @@ const aboutPage = (locale) => {
       </section>
       <figcaption>${escapeHtml(copy.landscapeCaption)}</figcaption>
     </figure>
-    <section class="method-section" aria-labelledby="method-title">
-      <p class="eyebrow">${escapeHtml(copy.methodTitle)}</p>
+    <section class="method-section" data-depth="mid" aria-labelledby="method-title">
+      <p class="eyebrow">${escapeHtml(copy.methodEyebrow)}</p>
       <h2 id="method-title">${escapeHtml(copy.methodTitle)}</h2>
-      <div class="method-grid">${copy.method.map(([number, title, body]) => `<article><span>${number}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("")}</div>
+      <nav class="method-flow" aria-label="${escapeHtml(copy.methodEyebrow)}" data-decision-flow>
+        <ol>${copy.method.map(([number, title, body], index) => `<li id="method-step-${number}" data-decision-step data-index="${index}" data-accent-rgb="${decisionAccents[index]}"><a href="#method-step-${number}"${index === 0 ? ' aria-current="step"' : ""}><span class="method-number" aria-hidden="true">${number}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></a></li>`).join("")}</ol>
+      </nav>
     </section>
   </main>`;
   const personId = `${origin}${config.home}#guilherme-rocha`;

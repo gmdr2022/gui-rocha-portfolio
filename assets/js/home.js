@@ -108,6 +108,14 @@ const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false 
   if (counter) counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
   catalog.style.setProperty("--active-accent", activeCard.style.getPropertyValue("--project-accent"));
   catalog.style.setProperty("--active-accent-rgb", activeCard.style.getPropertyValue("--project-accent-rgb"));
+  window.dispatchEvent(new CustomEvent("portal:ambientchange", {
+    detail: {
+      id: activeCard.dataset.project,
+      accentRgb: activeCard.style.getPropertyValue("--project-accent-rgb").trim(),
+      index: activeIndex,
+      source: "project",
+    },
+  }));
   if (previewButton) {
     previewButton.setAttribute("aria-controls", nextCard.id);
     previewButton.setAttribute("aria-label", `${previewButton.dataset.previewLabel}: ${nextName}`);
