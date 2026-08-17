@@ -281,6 +281,17 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
   await expect(page.locator('[data-context-trigger][aria-expanded="true"]')).toHaveCount(1);
 
   const secondBox = await secondTrigger.boundingBox();
+  await secondTrigger.evaluate((activeTrigger) => {
+    const card = activeTrigger.closest("[data-context-card]");
+    const nativeMatches = card.matches.bind(card);
+    Object.defineProperty(card, "matches", {
+      configurable: true,
+      value(selector) {
+        if (selector === ":hover") return true;
+        return nativeMatches(selector);
+      },
+    });
+  });
   await page.mouse.move((secondBox?.x ?? 0) + (secondBox?.width ?? 0) / 2, (secondBox?.y ?? 0) + (secondBox?.height ?? 0) + 30);
   if (testInfo.project.name !== "webkit") {
     await page.waitForTimeout(200);
@@ -289,6 +300,9 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
   await page.waitForTimeout(600);
   await expect(secondTrigger).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("[data-context-panel]").nth(1)).toBeHidden();
+  await secondTrigger.evaluate((activeTrigger) => {
+    delete activeTrigger.closest("[data-context-card]").matches;
+  });
 
   const keyboardTrigger = page.locator("[data-context-trigger]").nth(2);
   await keyboardTrigger.focus();

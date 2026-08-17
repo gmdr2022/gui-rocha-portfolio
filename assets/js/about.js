@@ -10,6 +10,17 @@ let contextCloseTimer = 0;
 let lastInputWasPointer = false;
 let lastPointerType = "";
 let suppressHoverUntil = 0;
+let lastPointerPosition = null;
+
+const rememberPointerPosition = (event) => {
+  lastPointerPosition = { x: event.clientX, y: event.clientY };
+};
+
+const pointerIsWithinCard = (card) => {
+  if (!card || !lastPointerPosition) return false;
+  const hoveredElement = document.elementFromPoint(lastPointerPosition.x, lastPointerPosition.y);
+  return Boolean(hoveredElement && card.contains(hoveredElement));
+};
 
 const pointerCanHover = (event) => (
   event.pointerType !== "touch"
@@ -98,7 +109,7 @@ const scheduleContextClose = (index) => {
     contextCloseTimer = 0;
     const card = contextCards[index];
     const keyboardFocusWithin = !lastInputWasPointer && card?.contains(document.activeElement);
-    if (activeContextIndex !== index || keyboardFocusWithin || card?.matches(":hover")) return;
+    if (activeContextIndex !== index || keyboardFocusWithin || pointerIsWithinCard(card)) return;
     setContextState(-1);
   }, contextCloseDelayMs);
 };
@@ -107,12 +118,14 @@ contextCards.forEach((card, index) => {
   const trigger = card.querySelector("[data-context-trigger]");
 
   card.addEventListener("pointerenter", (event) => {
+    rememberPointerPosition(event);
     if (!pointerCanHover(event)) return;
     clearContextCloseTimer();
     setContextState(index);
   });
 
   card.addEventListener("pointerleave", (event) => {
+    rememberPointerPosition(event);
     if (pointerCanHover(event) && activeContextIndex === index) scheduleContextClose(index);
   });
 
@@ -138,7 +151,9 @@ contextCards.forEach((card, index) => {
   });
 });
 
+document.addEventListener("pointermove", rememberPointerPosition, { passive: true });
 document.addEventListener("pointerdown", (event) => {
+  rememberPointerPosition(event);
   lastInputWasPointer = true;
   lastPointerType = event.pointerType;
   if (event.pointerType === "touch") suppressHoverUntil = window.performance.now() + syntheticHoverSuppressionMs;
