@@ -1,6 +1,6 @@
 # Gui Rocha — portal de produto e criação digital
 
-Site estático multilíngue de Guilherme Rocha. As raízes localizadas apresentam sua atuação; as rotas de Projetos reúnem ClubAL, Maeve Roscaern, Sites, Codex Checkpoint, NEXUS, Local First Checklist e C7 Engineering System.
+Site estático multilíngue de Guilherme Rocha. As raízes localizadas apresentam sua atuação; as rotas de Projetos reúnem ClubAL, Sites, Codex Checkpoint, NEXUS, C7 Engineering System, Local First Checklist e Maeve Roscaern.
 
 Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 
@@ -28,14 +28,19 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 
 ## Desenvolvimento
 
-Requer Node.js 20 ou superior.
+Requer Node.js 20 ou superior; a automação fixa a linha LTS 24 por meio de `.nvmrc`.
 
 ```powershell
+npm ci
 npm run check
+npx playwright install chromium firefox webkit
+npm run test:browser
 npm run serve -- --port 4173
 ```
 
-`npm run build` cria `dist/` com apenas os arquivos públicos. Na Cloudflare Pages, use:
+`npm run quality` executa a validação determinística e a suíte de navegador. Os testes percorrem as 39 URLs do sitemap, fluxos de teclado/toque, a matriz responsiva de 320 a 1536 px, temas, idiomas, alto contraste, redução de movimento, fallback sem JavaScript, galerias, 404, headers e axe em Chromium, Firefox e WebKit. O mesmo contrato roda em `.github/workflows/quality.yml`.
+
+`npm run build` cria `dist/` com apenas os arquivos públicos. Na Cloudflare Pages:
 
 `npm run serve` recompila esse artefato e serve somente `dist/` em `127.0.0.1`; fontes, configuração e metadados Git não ficam expostos pelo preview.
 
@@ -43,7 +48,7 @@ npm run serve -- --port 4173
 - diretório de saída: `dist`
 - branch de produção: `main`
 
-O domínio canônico e o e-mail público ficam centralizados em `content/pages.mjs`, no objeto `siteConfig`.
+O domínio canônico, o e-mail pessoal e o canal dedicado do ClubAL ficam centralizados em `content/pages.mjs`, no objeto `siteConfig`.
 
 ## Adicionar um site à coleção
 

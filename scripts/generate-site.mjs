@@ -4,7 +4,7 @@ import { dirname, join, resolve, sep } from "node:path";
 import { localeOrder, locales, siteConfig } from "../content/pages.mjs";
 
 const root = resolve(process.cwd());
-const { origin, contactEmail, githubUrl, whatsappUrl } = siteConfig;
+const { origin, personalEmail, clubalEmail, githubUrl, whatsappUrl } = siteConfig;
 const projectFiles = {
   "pt-BR": "projects.json",
   en: "projects.en.json",
@@ -67,6 +67,10 @@ const projectIcon = (project, { eager = false, deferred = false, className = "" 
   const loading = eager ? "" : ' loading="lazy"';
   return `<span class="project-icon${className ? ` ${className}` : ""}" data-icon-kind="${escapeHtml(asset.kind)}"><img ${imageSource(asset.src, deferred)} alt="" width="${safeDimension(asset.width, 96)}" height="${safeDimension(asset.height, 96)}" decoding="async"${loading} aria-hidden="true"></span>`;
 };
+
+const projectNameMarkup = (project) => project.slug === "clubal"
+  ? '<span class="clubal-wordmark" role="img" aria-label="ClubAL"><span class="clubal-wordmark-club" aria-hidden="true">Club</span><span class="clubal-wordmark-al" aria-hidden="true">AL</span></span>'
+  : escapeHtml(project.name);
 
 const routeFor = (locale, page) => {
   const config = locales[locale];
@@ -177,7 +181,7 @@ const footer = (locale) => {
     <p>© <span data-current-year>2026</span> ${escapeHtml(common.copyright)}</p>
     <nav class="footer-links" aria-label="${escapeHtml(common.footerLabel)}">
       <a href="${githubUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="mailto:${contactEmail}">${escapeHtml(common.email)}</a>
+      <a href="mailto:${personalEmail}">${escapeHtml(common.email)}</a>
       <a href="${config.routes.privacy}">${escapeHtml(common.privacy)}</a>
       <button type="button" data-open-cookie>${escapeHtml(common.cookies)}</button>
     </nav>
@@ -203,6 +207,11 @@ const layout = ({
   const config = locales[locale];
   const canonicalUrl = canonical ? `${origin}${routeFor(locale, page)}` : "";
   const imageUrl = ogImage.startsWith("http") ? ogImage : `${origin}${ogImage}`;
+  const socialImageType = ogImage.toLowerCase().endsWith(".png")
+    ? "image/png"
+    : ogImage.toLowerCase().endsWith(".webp") ? "image/webp"
+      : ogImage.toLowerCase().endsWith(".jpg") || ogImage.toLowerCase().endsWith(".jpeg") ? "image/jpeg"
+        : "image/svg+xml";
   const socialImageAlt = ogImageAlt || {
     "pt-BR": "Gui Rocha — produto, estratégia e criação digital",
     en: "Gui Rocha — product, strategy and digital creation",
@@ -224,6 +233,7 @@ const layout = ({
   <meta property="og:description" content="${escapeHtml(description)}">
   ${canonical ? `<meta property="og:url" content="${canonicalUrl}">` : ""}
   <meta property="og:image" content="${imageUrl}">
+  <meta property="og:image:type" content="${socialImageType}">
   <meta property="og:image:alt" content="${escapeHtml(socialImageAlt)}">
   <meta property="og:image:width" content="${safeDimension(ogImageWidth, 1200)}">
   <meta property="og:image:height" content="${safeDimension(ogImageHeight, 630)}">
@@ -236,6 +246,8 @@ const layout = ({
   ${canonical ? alternateLinks(page) : ""}
   ${canonical ? `<link rel="alternate" hreflang="x-default" href="${origin}${routeFor("pt-BR", page)}">` : ""}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
   <script src="${versionedAsset("/assets/js/theme-boot.js")}"></script>
   <link rel="stylesheet" href="${versionedAsset("/assets/css/styles.css")}">
   <script src="${versionedAsset("/assets/js/site.js")}" defer></script>
@@ -291,7 +303,7 @@ const projectCard = (locale, project, index) => {
   const media = `
             <img ${imageSource(cardImage, deferred)} alt="${escapeHtml(cardImageAlt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" draggable="false"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
   return `
-        <article class="project-card" id="project-card-${project.slug}" data-project-card data-project="${project.slug}" data-index="${index}" data-kind="${project.cardImageKind ?? project.imageKind}" data-deck-name="${escapeHtml(project.shortName ?? project.name)}" data-showcase-subtitle="${escapeHtml(project.showcaseSubtitle)}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}" style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
+        <article class="project-card" id="project-card-${project.slug}" data-project-card data-project="${project.slug}" data-index="${index}" data-kind="${project.cardImageKind ?? project.imageKind}" data-deck-name="${escapeHtml(project.shortName ?? project.name)}" data-showcase-subtitle="${escapeHtml(project.showcaseSubtitle)}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}"${index === 0 ? "" : " inert"} style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
           <div class="project-card-media">
             ${media}
             <span class="visual-label">${escapeHtml(project.visualLabel)}</span>
@@ -299,7 +311,7 @@ const projectCard = (locale, project, index) => {
           <div class="project-card-content">
             <div class="project-card-meta"><span>${project.code}</span><p>${escapeHtml(project.kicker)}</p></div>
             <span class="status-pill" data-tone="${project.statusTone}">${escapeHtml(project.status)}</span>
-            <div class="project-title-row">${projectIcon(project, { eager: index === 0, deferred })}<h2>${escapeHtml(project.name)}</h2></div>
+            <div class="project-title-row">${projectIcon(project, { eager: index === 0, deferred })}<h2>${projectNameMarkup(project)}</h2></div>
             <p>${escapeHtml(project.summary)}</p>
             <div class="project-card-footer">
               <ul aria-label="${escapeHtml(project.name)}">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
@@ -417,7 +429,24 @@ const projectsPage = (locale) => {
       <noscript><p class="noscript-links">${escapeHtml(copy.noscript)} ${projects.map((project) => `<a href="${project.route}">${escapeHtml(project.name)}</a>`).join(" · ")}</p></noscript>
     </section>
   </main>`;
-  return layout({ locale, page, title: copy.title, description: copy.description, main, scripts: ["/assets/js/home.js"], bodyClass: "home-page projects-page" });
+  const socialImageAlt = {
+    "pt-BR": "Projetos digitais de Guilherme Rocha organizados por contexto, papel, decisões, evidência e estado",
+    en: "Guilherme Rocha’s digital projects organized by context, role, decisions, evidence and status",
+    es: "Proyectos digitales de Guilherme Rocha organizados por contexto, rol, decisiones, evidencia y estado",
+  }[locale];
+  return layout({
+    locale,
+    page,
+    title: copy.title,
+    description: copy.description,
+    main,
+    scripts: ["/assets/js/home.js"],
+    bodyClass: "home-page projects-page",
+    ogImage: "/assets/img/social-projects.png",
+    ogImageAlt: socialImageAlt,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  });
 };
 
 const aboutPage = (locale) => {
@@ -430,17 +459,18 @@ const aboutPage = (locale) => {
   const catalogCards = copy.catalogs.map(([key, title, slugs], categoryIndex) => {
     const items = slugs.map((slug) => projects.get(slug)).filter(Boolean);
     const panelId = `context-${locale.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${key}`;
+    const triggerId = `${panelId}-trigger`;
     const count = `${items.length} ${items.length === 1 ? copy.catalogSingle : copy.catalogMultiple}`;
     const accent = items[0]?.accent || "#82d7ff";
     const accentRgb = items[0]?.accentRgb || "130 215 255";
     return `
         <article class="context-catalog-card" data-context-card data-category="${key}" data-index="${categoryIndex}" style="--context-accent:${accent};--context-accent-rgb:${accentRgb};--context-order:${categoryIndex}">
-          <button type="button" data-context-trigger aria-expanded="false" aria-controls="${panelId}">
+          <button type="button" id="${triggerId}" data-context-trigger aria-expanded="false" aria-controls="${panelId}">
             <span class="context-catalog-index">${String(categoryIndex + 1).padStart(2, "0")}</span>
             <span class="context-catalog-title"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>
-            ${icon("chevron")}
+            <span class="context-catalog-chevron" aria-hidden="true">${icon("chevron")}</span>
           </button>
-          <div class="context-catalog-panel" id="${panelId}" data-context-panel hidden>
+          <div class="context-catalog-panel" id="${panelId}" data-context-panel role="region" aria-labelledby="${triggerId}" hidden>
             <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}">${projectIcon(project)}<span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
           </div>
         </article>`;
@@ -450,9 +480,9 @@ const aboutPage = (locale) => {
   <main class="content-main about-main" id="content">
     <section class="content-hero about-hero" data-depth="surface">
       <div class="content-hero-heading">
-        <div class="portrait-line about-identity">
-          <img src="/assets/img/gui-rocha-home.webp" alt="${escapeHtml(copy.portraitAlt)}" width="104" height="104" fetchpriority="high">
-          <p><strong>Guilherme Rocha</strong><span>${escapeHtml(copy.portraitCaption)}</span></p>
+          <div class="portrait-line about-identity">
+          <img src="/assets/img/gui/identidade-aeroporto.webp" srcset="/assets/img/gui/identidade-aeroporto-256.webp 256w, /assets/img/gui/identidade-aeroporto-384.webp 384w, /assets/img/gui/identidade-aeroporto-768.webp 768w" sizes="(max-width: 720px) 116px, 168px" alt="${escapeHtml(copy.portraitAlt)}" width="1456" height="1090" decoding="async" fetchpriority="high">
+          <p><strong>${escapeHtml(copy.role)}</strong><span>${escapeHtml(copy.portraitCaption)}</span></p>
         </div>
         <p class="eyebrow">${escapeHtml(copy.eyebrow)}</p>
         <h1>${escapeHtml(copy.heading)}</h1>
@@ -466,7 +496,7 @@ const aboutPage = (locale) => {
       </div>
     </section>
     <figure class="landscape-map" data-depth="deep">
-      <img src="/assets/img/gui/panorama-visao-produto.webp" alt="${escapeHtml(copy.landscapeAlt)}" width="1672" height="941">
+      <img src="/assets/img/gui/retrato-editorial.webp" srcset="/assets/img/gui/retrato-editorial-560.webp 560w, /assets/img/gui/retrato-editorial-960.webp 960w, /assets/img/gui/retrato-editorial.webp 1456w" sizes="(max-width: 720px) calc(100vw - 18px), calc(100vw - 80px)" alt="${escapeHtml(copy.landscapeAlt)}" width="1456" height="1090" loading="lazy" decoding="async">
       <div class="landscape-copy"><p class="eyebrow">${escapeHtml(copy.landscapeKicker)}</p><h2>${escapeHtml(copy.landscapeTitle)}</h2><p>${escapeHtml(copy.landscapeBody)}</p></div>
       <section class="context-catalog" aria-labelledby="context-catalog-title">
         <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">${escapeHtml(copy.catalogKicker)}</p><p id="context-catalog-hint">${escapeHtml(copy.catalogHint)}</p></header>
@@ -498,7 +528,13 @@ const aboutPage = (locale) => {
         "@id": personId,
         name: "Guilherme Rocha",
         url: `${origin}${config.home}`,
-        image: `${origin}/assets/img/gui-rocha-home.webp`,
+        image: `${origin}/assets/img/gui/identidade-aeroporto.webp`,
+        jobTitle: copy.role,
+        address: {
+          "@type": "PostalAddress",
+          addressRegion: "Minas Gerais",
+          addressCountry: "BR",
+        },
         sameAs: [githubUrl],
         knowsAbout: ["Product direction", "Local-first software", "Digital experiences"],
       },
@@ -532,15 +568,18 @@ const contactPage = (locale) => {
     slug: project.slug,
     name: project.name,
     aliases: aliases[project.slug] ?? [project.slug],
+    emailScope: project.slug === "clubal" ? "clubal" : "personal",
   })).concat(siteContentByLocale[locale].sites.map((site) => ({
     slug: `site-${site.slug}`,
     name: site.name,
     aliases: site.slug === "clubal"
       ? ["site-clubal", "clubal-website", "sitio-clubal"]
       : [`site-${site.slug}`],
+    emailScope: site.slug === "clubal" ? "clubal" : "personal",
   })));
+  const clubalMailto = `mailto:${clubalEmail}?subject=${encodeURIComponent(copy.clubalSubject)}`;
   const main = `
-  <main class="content-main contact-main" id="content" data-contact-contexts="${escapeHtml(JSON.stringify(contexts))}" data-context-lead="${escapeHtml(copy.contextLead)}" data-context-subject="${escapeHtml(copy.contextSubject)}">
+  <main class="content-main contact-main" id="content" data-contact-contexts="${escapeHtml(JSON.stringify(contexts))}" data-context-lead="${escapeHtml(copy.contextLead)}" data-context-subject="${escapeHtml(copy.contextSubject)}" data-personal-email="${personalEmail}" data-clubal-email="${clubalEmail}">
     <section class="content-hero contact-hero">
       <div class="content-hero-heading">
         <p class="eyebrow">${escapeHtml(copy.eyebrow)}</p>
@@ -555,8 +594,8 @@ const contactPage = (locale) => {
       <section class="contact-group" aria-labelledby="contact-direct-title">
         <h2 id="contact-direct-title">${escapeHtml(copy.talkHeading)}</h2>
         <div class="contact-grid contact-grid-direct">
+          <a class="contact-card email" data-email-link href="mailto:${personalEmail}">${icon("mail")}<span><strong>${escapeHtml(copy.personalEmailLabel)}</strong><small data-email-address>${personalEmail}</small></span>${icon("arrowRight")}</a>
           <a class="contact-card whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}<span><strong>${escapeHtml(copy.whatsapp)}</strong><small>${escapeHtml(copy.whatsappDetail)}</small><span class="sr-only"> (${escapeHtml(config.common.external)})</span></span>${icon("external")}</a>
-          <a class="contact-card email" data-email-link href="mailto:${contactEmail}">${icon("mail")}<span><strong>${escapeHtml(config.common.email)}</strong><small>${contactEmail}</small></span>${icon("arrowRight")}</a>
         </div>
       </section>
       <section class="contact-group public-work-group" aria-labelledby="public-work-title">
@@ -564,6 +603,13 @@ const contactPage = (locale) => {
         <div class="contact-grid">
           <a class="contact-card github" href="${githubUrl}" target="_blank" rel="noopener noreferrer">${icon("github")}<span><strong>GitHub</strong><small>${escapeHtml(copy.githubDetail)}</small><span class="sr-only"> (${escapeHtml(config.common.external)})</span></span>${icon("external")}</a>
         </div>
+      </section>
+      <section class="contact-group clubal-contact-group" data-clubal-contact aria-labelledby="clubal-contact-title">
+        <div class="clubal-contact-copy">
+          <h2 id="clubal-contact-title">${escapeHtml(copy.clubalHeading)}</h2>
+          <p>${escapeHtml(copy.clubalBody)}</p>
+        </div>
+        <a class="contact-card email clubal-email" data-clubal-email-link href="${clubalMailto}">${icon("mail")}<span><strong>${escapeHtml(copy.clubalAction)}</strong><small data-clubal-email-address>${clubalEmail}</small></span>${icon("arrowRight")}</a>
       </section>
     </div>
   </main>`;
@@ -595,6 +641,11 @@ const sitesPage = (locale) => {
   const { collection } = siteContentByLocale[locale];
   const next = nextCatalogItemFor(locale, siteCollectionCard(locale));
   const page = { type: "sites" };
+  const socialImageAlt = {
+    "pt-BR": "Sites e experiências digitais publicados por Guilherme Rocha, com referências a Demonyza e ClubAL",
+    en: "Websites and digital experiences published by Guilherme Rocha, featuring Demonyza and ClubAL",
+    es: "Sitios y experiencias digitales publicados por Guilherme Rocha, con referencias a Demonyza y ClubAL",
+  }[locale];
   const main = `
   <main class="sites-page-main" id="content">
     ${siteCollectionMarkup(locale)}
@@ -608,10 +659,10 @@ const sitesPage = (locale) => {
     main,
     scripts: ["/assets/js/sites.js"],
     bodyClass: "sites-page",
-    ogImage: collection.image,
-    ogImageAlt: collection.imageAlt,
-    ogImageWidth: safeDimension(collection.imageWidth, 1600),
-    ogImageHeight: safeDimension(collection.imageHeight, 1000),
+    ogImage: "/assets/img/social-sites.png",
+    ogImageAlt: socialImageAlt,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
   });
 };
 
@@ -640,6 +691,20 @@ const noJsGalleryLinks = (gallery, common) => gallery.length > 1 ? `
             </nav>
           </noscript>` : "";
 
+const caseSummaryFor = (item, common) => item.caseSummary.map((source) => {
+  if (source === "summary") return [common.caseLabels.context, item.summary];
+  if (source === "role") return [common.caseLabels.role, item.role];
+  if (source === "evidence") return [common.caseLabels.evidence, item.evidence];
+  if (source === "statusLimit") return [common.caseLabels.status, item.statusLimit];
+  if (source.startsWith("tab:")) {
+    const tabId = source.slice(4);
+    const tab = item.tabs.find((candidate) => candidate.id === tabId);
+    if (!tab) throw new Error(`Resumo de case aponta para aba inexistente: ${tabId}`);
+    return [tab.label, tab.body];
+  }
+  throw new Error(`Fonte desconhecida no resumo de case: ${source}`);
+});
+
 const projectPage = (locale, project) => {
   const config = locales[locale];
   const common = config.common;
@@ -661,6 +726,11 @@ const projectPage = (locale, project) => {
   const imageHeight = safeDimension(gallery[0].height ?? project.imageHeight, 900);
   const frameWidth = safeDimension(gallery[0].frameWidth ?? imageWidth, imageWidth);
   const frameHeight = safeDimension(gallery[0].frameHeight ?? imageHeight, imageHeight);
+  const interactiveGallery = gallery.length > 1;
+  const projectActionLinks = project.slug === "clubal"
+    ? [...project.links, { label: common.clubalSupport, href: `mailto:${clubalEmail}`, kind: "secondary" }]
+    : project.links;
+  const caseSummary = caseSummaryFor(project, common);
   const faq = project.faq?.items?.length ? `
     <section class="project-faq" aria-labelledby="faq-title-${project.slug}">
       <header class="project-faq-heading">
@@ -683,7 +753,7 @@ const projectPage = (locale, project) => {
         <header class="project-heading">
           <p class="project-number">${project.code} · ${escapeHtml(project.kicker)}</p>
           <span class="status-pill" data-tone="${project.statusTone}">${escapeHtml(project.status)}</span>
-          <div class="project-heading-title">${projectIcon(project, { eager: true })}<h1>${escapeHtml(project.name)}</h1></div>
+          <div class="project-heading-title">${projectIcon(project, { eager: true })}<h1>${projectNameMarkup(project)}</h1></div>
           <p class="project-promise">${escapeHtml(project.promise)}</p>
           <p class="project-summary">${escapeHtml(project.summary)}</p>
           <ul class="project-facts" aria-label="${escapeHtml(project.name)}">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
@@ -691,31 +761,34 @@ const projectPage = (locale, project) => {
         </header>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="${project.imageKind}" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${gallery.length > 1 ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
+        <figure class="project-visual" data-kind="${project.imageKind}" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
-            <img data-project-image src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
-            <span class="visual-label" data-visual-label>${escapeHtml(gallery[0].label)}</span>
+            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
+            <span class="visual-label"${interactiveGallery ? " data-visual-label" : ""}>${escapeHtml(gallery[0].label)}</span>
           </div>
-          <div class="gallery-controls"${gallery.length < 2 ? " hidden" : ""} aria-label="${escapeHtml(common.galleryLabel)}">
+          ${interactiveGallery ? `<div class="gallery-controls" aria-label="${escapeHtml(common.galleryLabel)}">
             <button type="button" data-gallery-previous aria-label="${escapeHtml(common.galleryPrevious)}">${icon("arrowLeft")}<span>${escapeHtml(common.galleryPrevious)}</span></button>
             <p><strong data-gallery-current>1</strong><span>/ ${gallery.length}</span></p>
             <button type="button" data-gallery-next aria-label="${escapeHtml(common.galleryNext)}"><span>${escapeHtml(common.galleryNext)}</span>${icon("arrowRight")}</button>
           </div>
           <template data-gallery-data>${JSON.stringify(gallery).replaceAll("<", "\\u003c")}</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
-          ${noJsGalleryLinks(gallery, common)}
+          ${noJsGalleryLinks(gallery, common)}` : ""}
           ${project.galleryNote ? `<figcaption class="gallery-note">${escapeHtml(project.galleryNote)}</figcaption>` : ""}
         </figure>
         ${project.slug === "demonyza" ? siteCaseNavigation(locale, project.slug) : ""}
       </div>
-      <section class="project-explorer${project.links.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
+      <section class="project-explorer${projectActionLinks.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
+        <dl class="project-case-summary" data-case-count="${caseSummary.length}">
+          ${caseSummary.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
+        </dl>
         <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
           ${project.tabs.map((tab, tabIndex) => `<button type="button" role="tab" id="tab-${tab.id}" data-project-tab="${tab.id}" aria-controls="panel-${tab.id}" aria-selected="${tabIndex === 0 ? "true" : "false"}" tabindex="${tabIndex === 0 ? "0" : "-1"}">${escapeHtml(tab.label)}</button>`).join("")}
         </div>
         <div class="project-panels">
           ${project.tabs.map((tab, tabIndex) => `<section class="project-tab-panel" id="panel-${tab.id}" role="tabpanel" aria-labelledby="tab-${tab.id}"${tabIndex === 0 ? "" : " hidden"}><h2>${escapeHtml(tab.title)}</h2><p>${escapeHtml(tab.body)}</p><ul>${tab.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`).join("")}
         </div>
-        ${project.links.length ? `<div class="project-actions">${project.links.map((link) => {
+        ${projectActionLinks.length ? `<div class="project-actions">${projectActionLinks.map((link) => {
           const external = link.href.startsWith("http");
           return `<a class="button ${link.kind === "primary" ? "primary" : "secondary"}" href="${link.href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}${external ? `${icon("external")}<span class="sr-only"> (${escapeHtml(common.external)})</span>` : ""}</a>`;
         }).join("")}</div>` : ""}
@@ -725,6 +798,28 @@ const projectPage = (locale, project) => {
     ${faq}
   </main>`;
   const canonicalUrl = `${origin}${routeFor(locale, page)}`;
+  const demonyzaSocialAlt = {
+    "pt-BR": "Site publicado da Demonyza no portfólio de sites de Guilherme Rocha",
+    en: "Demonyza’s live website in Guilherme Rocha’s website portfolio",
+    es: "Sitio publicado de Demonyza en el portafolio de sitios de Guilherme Rocha",
+  }[locale];
+  const localFirstSocialAlt = {
+    "pt-BR": "Ilustração do Local First Checklist com lista verificada e arquivo JSON local",
+    en: "Local First Checklist illustration with a verified list and a local JSON file",
+    es: "Ilustración de Local First Checklist con una lista verificada y un archivo JSON local",
+  }[locale];
+  const socialImage = project.slug === "demonyza"
+    ? { src: "/assets/img/social-sites.png", alt: demonyzaSocialAlt, width: 1200, height: 630 }
+    : project.slug === "local-first-checklist"
+      ? { src: "/assets/img/social-local-first.png", alt: localFirstSocialAlt, width: 1200, height: 750 }
+    : project.slug === "clubal"
+      ? { src: project.image, alt: project.imageAlt, width: project.imageWidth, height: project.imageHeight }
+      : {
+        src: project.cardImage ?? project.image,
+        alt: project.cardImageAlt ?? project.imageAlt,
+        width: project.cardImageWidth ?? project.imageWidth,
+        height: project.cardImageHeight ?? project.imageHeight,
+      };
   return layout({
     locale,
     page,
@@ -733,10 +828,10 @@ const projectPage = (locale, project) => {
     main,
     scripts: ["/assets/js/project.js"],
     bodyClass: `project-page project-${project.slug}`,
-    ogImage: project.cardImage ?? project.image,
-    ogImageAlt: project.cardImageAlt ?? project.imageAlt,
-    ogImageWidth: safeDimension(project.cardImageWidth ?? project.imageWidth, 1600),
-    ogImageHeight: safeDimension(project.cardImageHeight ?? project.imageHeight, 900),
+    ogImage: socialImage.src,
+    ogImageAlt: socialImage.alt,
+    ogImageWidth: safeDimension(socialImage.width, 1600),
+    ogImageHeight: safeDimension(socialImage.height, 900),
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -772,9 +867,14 @@ const siteCasePage = (locale, site) => {
   const imageHeight = safeDimension(gallery[0].height, 1000);
   const frameWidth = safeDimension(gallery[0].frameWidth ?? imageWidth, imageWidth);
   const frameHeight = safeDimension(gallery[0].frameHeight ?? imageHeight, imageHeight);
+  const interactiveGallery = gallery.length > 1;
   const accent = site.accent || "#25c997";
   const accentRgb = site.accentRgb || "37 201 151";
   const siteIconMarkup = `<span class="project-icon"><img src="${site.icon}" alt="" width="${safeDimension(site.iconWidth, 96)}" height="${safeDimension(site.iconHeight, 96)}" decoding="async" aria-hidden="true"></span>`;
+  const siteActionLinks = site.slug === "clubal"
+    ? [...details.links, { label: common.clubalSupport, href: `mailto:${clubalEmail}`, kind: "secondary" }]
+    : details.links;
+  const caseSummary = caseSummaryFor(details, common);
   const main = `
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:${accent};--project-accent-rgb:${accentRgb}">
@@ -790,31 +890,34 @@ const siteCasePage = (locale, site) => {
         </header>
       </div>
       <div class="project-visual-column">
-        <figure class="project-visual" data-kind="website" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${gallery.length > 1 ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
+        <figure class="project-visual" data-kind="website" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
-            <img data-project-image src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
-            <span class="visual-label" data-visual-label>${escapeHtml(gallery[0].label)}</span>
+            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
+            <span class="visual-label"${interactiveGallery ? " data-visual-label" : ""}>${escapeHtml(gallery[0].label)}</span>
           </div>
-          <div class="gallery-controls"${gallery.length < 2 ? " hidden" : ""} aria-label="${escapeHtml(common.galleryLabel)}">
+          ${interactiveGallery ? `<div class="gallery-controls" aria-label="${escapeHtml(common.galleryLabel)}">
             <button type="button" data-gallery-previous aria-label="${escapeHtml(common.galleryPrevious)}">${icon("arrowLeft")}<span>${escapeHtml(common.galleryPrevious)}</span></button>
             <p><strong data-gallery-current>1</strong><span>/ ${gallery.length}</span></p>
             <button type="button" data-gallery-next aria-label="${escapeHtml(common.galleryNext)}"><span>${escapeHtml(common.galleryNext)}</span>${icon("arrowRight")}</button>
           </div>
           <template data-gallery-data>${JSON.stringify(gallery).replaceAll("<", "\\u003c")}</template>
           <p class="sr-only" aria-live="polite" data-gallery-live></p>
-          ${noJsGalleryLinks(gallery, common)}
+          ${noJsGalleryLinks(gallery, common)}` : ""}
           ${details.galleryNote ? `<figcaption class="gallery-note">${escapeHtml(details.galleryNote)}</figcaption>` : ""}
         </figure>
         ${siteCaseNavigation(locale, site.slug)}
       </div>
-      <section class="project-explorer${details.links.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
+      <section class="project-explorer${siteActionLinks.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
+        <dl class="project-case-summary" data-case-count="${caseSummary.length}">
+          ${caseSummary.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
+        </dl>
         <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
           ${details.tabs.map((tab, tabIndex) => `<button type="button" role="tab" id="tab-${tab.id}" data-project-tab="${tab.id}" aria-controls="panel-${tab.id}" aria-selected="${tabIndex === 0 ? "true" : "false"}" tabindex="${tabIndex === 0 ? "0" : "-1"}">${escapeHtml(tab.label)}</button>`).join("")}
         </div>
         <div class="project-panels">
           ${details.tabs.map((tab, tabIndex) => `<section class="project-tab-panel" id="panel-${tab.id}" role="tabpanel" aria-labelledby="tab-${tab.id}"${tabIndex === 0 ? "" : " hidden"}><h2>${escapeHtml(tab.title)}</h2><p>${escapeHtml(tab.body)}</p><ul>${tab.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`).join("")}
         </div>
-        ${details.links.length ? `<div class="project-actions">${details.links.map((link) => {
+        ${siteActionLinks.length ? `<div class="project-actions">${siteActionLinks.map((link) => {
           const external = link.href.startsWith("http");
           return `<a class="button ${link.kind === "primary" ? "primary" : "secondary"}" href="${link.href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}${external ? `${icon("external")}<span class="sr-only"> (${escapeHtml(common.external)})</span>` : ""}</a>`;
         }).join("")}</div>` : ""}

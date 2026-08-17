@@ -6,12 +6,14 @@
     "order": 1,
     "code": "01",
     "name": "ClubAL",
-    "kicker": "Plataforma local-first para operaciones institucionales",
-    "status": "En evolución · Operador Web",
+    "kicker": "Plataforma para organizar operaciones institucionales",
+    "status": "En evolución · Nueva versión web",
     "statusTone": "live",
-    "summary": "Operação, Rotinas y Consulta permanecen en la base Windows. El módulo Operador está migrando a una plataforma web en validación, con el clima en Flet integrado.",
-    "promise": "El módulo Operador evoluciona hacia la web sin abandonar la base local-first de ClubAL.",
-    "showcaseSubtitle": "Transforma rutinas dispersas en una operación organizada, visible y confiable para distintos entornos institucionales.",
+    "summary": "ClubAL reúne rutinas, consultas e información operativa en un solo lugar. Los módulos actuales siguen disponibles mientras se desarrolla y valida una nueva versión web de Operador.",
+    "role": "Dirección de producto y desarrollo de la base local-first, incluida la separación de responsabilidades y la evolución de Operador hacia la web.",
+    "evidence": "Capturas con datos demostrativos documentan Operação, Rotinas, Consulta y el pronóstico del tiempo integrado en los módulos actuales para Windows.",
+    "promise": "La información operativa permanece organizada y disponible para cada entorno sin dar acceso de edición a todos.",
+    "showcaseSubtitle": "Organiza el registro, la publicación y la consulta de rutinas en distintos entornos institucionales.",
     "cardCta": "Explorar el producto",
     "route": "/es/proyectos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
@@ -65,7 +67,8 @@
     "galleryNote": "Referencia conceptual de la plataforma web del Operador, seguida por la base Windows y el clima/Flet integrado.",
     "accent": "#25c997",
     "accentRgb": "37 201 151",
-    "facts": ["Aplicación Windows local-first", "Operação · Rotinas · Consulta", "Plataforma web en validación", "Clima/Flet integrado"],
+    "facts": ["Aplicación para Windows", "Operación, rutinas y consulta", "Nueva versión web en validación", "Pronóstico del tiempo integrado"],
+    "caseSummary": ["role", "tab:problema", "tab:flujo", "evidence", "tab:estado"],
     "tabs": [
       {
         "id": "problema",
@@ -76,9 +79,16 @@
       },
       {
         "id": "flujo",
-        "label": "Tres módulos",
-        "title": "Cada módulo realiza una parte del trabajo.",
-        "body": "El producto separa responsabilidades en tres módulos: Operação registra y publica; Rotinas muestra solo lo aprobado; Consulta permite lectura autorizada sin abrir la edición.",
+        "label": "Contribución",
+        "title": "La operación se dividió por responsabilidad, no por conveniencia técnica.",
+        "body": "Estructuré el producto para separar a quienes registran y publican de quienes solo consultan. Esta decisión reduce ediciones indebidas y mantiene una fuente local de información aprobada.",
+        "points": ["Dirección de producto", "Arquitectura local-first", "Evolución web con alcance controlado"]
+      },
+      {
+        "id": "funcionamiento",
+        "label": "Cómo funciona",
+        "title": "Cada parte atiende un momento de la rutina.",
+        "body": "Operação registra y publica; Rotinas muestra el contenido aprobado en cada entorno; Consulta permite lectura autorizada sin abrir la edición.",
         "points": [
           "Operação · editar y publicar",
           "Rotinas · mostrar lo aprobado",
@@ -88,9 +98,9 @@
       {
         "id": "estado",
         "label": "Estado",
-        "title": "El módulo Operador está migrando a la plataforma web.",
-        "body": "Operação, Rotinas y Consulta permanecen en la base Windows. La plataforma web se valida con datos sintéticos e integra el clima en Flet.",
-        "points": ["Windows · base actual", "Plataforma web · en validación", "Clima/Flet · integrado"]
+        "title": "Una nueva versión web de Operador está en desarrollo.",
+        "body": "Operação, Rotinas y Consulta siguen disponibles en los módulos para Windows. La nueva versión web de Operador está en validación con datos sintéticos.",
+        "points": ["Windows · módulos actuales", "Nueva versión web · en validación", "Pronóstico del tiempo · integrado"]
       }
     ],
     "links": [
@@ -102,13 +112,15 @@
     "slug": "maeve",
     "kind": "project",
     "catalogGroup": "main",
-    "order": 2,
-    "code": "02",
+    "order": 7,
+    "code": "07",
     "name": "Maeve Roscaern",
     "kicker": "RPG dark fantasy diseñado para producción individual",
     "status": "En desarrollo · Fase 8",
     "statusTone": "progress",
-    "summary": "Maeve Roscaern es un RPG para un jugador en Unreal Engine 5.8, con áreas compactas, piezas modulares y una escala viable para producción individual.",
+    "summary": "Maeve Roscaern es un RPG original para un jugador, desarrollado a una escala compacta para una producción individual.",
+    "role": "Dirección creativa, diseño de sistemas e implementación del prototipo en una producción individual.",
+    "evidence": "El combo ligero, la esquiva y Blood First ya forman el primer recorte de combate de la Fase 8.",
     "promise": "Dun Caerwyn convierte sangre, memoria y decisiones en marcas persistentes.",
     "showcaseSubtitle": "Transforma un universo original en una experiencia jugable, combinando narrativa, sistemas y una escala viable para la producción independiente.",
     "cardCta": "Conocer el universo",
@@ -172,7 +184,8 @@
     ],
     "accent": "#ef6d78",
     "accentRgb": "239 109 120",
-    "facts": ["Unreal Engine 5.8", "Un jugador", "Offline-first"],
+    "facts": ["Experiencia para un jugador", "Decisiones persistentes", "Sin cuenta ni servidor obligatorios"],
+    "caseSummary": ["role", "tab:juego", "tab:produccion", "tab:estado"],
     "tabs": [
       {
         "id": "juego",
@@ -198,9 +211,9 @@
       {
         "id": "estado",
         "label": "Estado",
-        "title": "El primer combate ya tiene una base técnica.",
-        "body": "Combo ligero, esquiva y Blood First ya forman parte de la Fase 8. Las verificaciones técnicas pasaron; la sensación, el ritmo y la legibilidad del combate siguen en evaluación.",
-        "points": ["Visual en evolución", "Responsabilidades claras entre C++ y Unreal", "Licencias revisadas antes del uso"]
+        "title": "El primer recorte de combate ya está implementado.",
+        "body": "Combo ligero, esquiva y Blood First ya forman parte de la Fase 8. La siguiente etapa se centra en pruebas de jugabilidad y ajustes de sensación, ritmo y legibilidad del combate.",
+        "points": ["Visual en evolución", "Pruebas de jugabilidad", "Licencias revisadas antes del uso"]
       }
     ],
     "links": []
@@ -209,13 +222,15 @@
     "slug": "demonyza",
     "kind": "siteCase",
     "catalogGroup": "sites",
-    "order": 3,
-    "code": "03",
+    "order": 2,
+    "code": "02",
     "name": "Demonyza",
     "kicker": "Caso de presencia digital para creadora de contenido",
     "status": "Proyecto para cliente · sitio publicado",
     "statusTone": "live",
     "summary": "El sitio reúne presentación, agenda, transmisiones y comunidad en una experiencia responsiva para móvil y ordenador.",
+    "role": "Dirección de producto, arquitectura de contenido, diseño responsivo y publicación del sitio para la cliente.",
+    "evidence": "Sitio publicado y disponible en móvil y ordenador, con presentación, agenda y caminos públicos hacia la comunidad.",
     "promise": "Contenido y comunidad en una presencia digital propia, reconocible y fácil de navegar.",
     "cardCta": "Ver el caso",
     "route": "/es/proyectos/demonyza/",
@@ -227,7 +242,8 @@
     "visualLabel": "Sitio público",
     "accent": "#c769ff",
     "accentRgb": "199 105 255",
-    "facts": ["Proyecto para cliente", "Sitio responsivo", "Cloudflare Pages"],
+    "facts": ["Proyecto para cliente", "Móvil y ordenador", "Agenda y comunidad"],
+    "caseSummary": ["role", "tab:desafio", "tab:solucion", "evidence"],
     "tabs": [
       {
         "id": "desafio",
@@ -259,13 +275,15 @@
     "slug": "codex-checkpoint",
     "kind": "project",
     "catalogGroup": "main",
-    "order": 4,
-    "code": "04",
+    "order": 3,
+    "code": "03",
     "name": "Codex Checkpoint",
     "kicker": "Cola local para validaciones y decisiones",
     "status": "Producto local · Windows",
     "statusTone": "ready",
     "summary": "Codex Checkpoint conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.",
+    "role": "Dirección de producto y desarrollo de la aplicación nativa, desde la interfaz hasta los mecanismos que conservan los pendientes entre sesiones.",
+    "evidence": "La importación de tarjetas con claves sin duplicados se validó en el flujo local; la aplicación también ofrece copia de seguridad y recuperación.",
     "promise": "Pendientes retomados en el momento adecuado, con contexto y decisiones preservados.",
     "showcaseSubtitle": "Evita que decisiones, validaciones y pendientes se pierdan entre sesiones de trabajo, preservando el contexto para la siguiente etapa.",
     "cardCta": "Ver cómo funciona",
@@ -278,13 +296,14 @@
     "visualLabel": "Producto · datos demostrativos",
     "accent": "#36d6c0",
     "accentRgb": "54 214 192",
-    "facts": ["WPF / .NET", "Sin cuenta", "Cola duradera"],
+    "facts": ["Sin cuenta", "Cola duradera", "Copia de seguridad y recuperación"],
+    "caseSummary": ["role", "tab:problema", "tab:solucion", "evidence", "tab:estado"],
     "tabs": [
       {
         "id": "problema",
         "label": "Problema",
         "title": "No todas las pruebas pueden resolverse durante la sesión.",
-        "body": "Gameplay, revisión visual, dispositivos, autenticación y decisiones prácticas pueden exigir otro momento o entorno. Sin una cola, ese contexto desaparece.",
+        "body": "Pruebas de jugabilidad, revisión visual, dispositivos, autenticación y decisiones prácticas pueden exigir otro momento o entorno. Sin una cola, ese contexto desaparece.",
         "points": ["Pendientes entre sesiones", "Varios proyectos", "Historial de comentarios"]
       },
       {
@@ -298,8 +317,8 @@
         "id": "estado",
         "label": "Estado",
         "title": "Aplicación nativa e instalable.",
-        "body": "Interfaz, línea de comandos e integración por archivos componen el producto. Las versiones actuales todavía no tienen firma de código, y ese límite permanece declarado.",
-        "points": ["Datos locales", "Copia de seguridad y recuperación", "Builds sin firma"]
+        "body": "La interfaz, la línea de comandos y la integración por archivos componen el producto. Las versiones actuales todavía no tienen firma de código, y ese límite permanece declarado.",
+        "points": ["Datos locales", "WPF / .NET", "Versiones sin firma de código"]
       }
     ],
     "links": []
@@ -308,13 +327,15 @@
     "slug": "nexus",
     "kind": "project",
     "catalogGroup": "main",
-    "order": 5,
-    "code": "05",
+    "order": 4,
+    "code": "04",
     "name": "NEXUS",
     "kicker": "Central para Windows de proyectos locales",
     "status": "Herramienta local validada · Windows",
     "statusTone": "ready",
     "summary": "NEXUS reúne proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.",
+    "role": "Dirección de producto y desarrollo de la central local, incluidos registro, descubrimiento seguro de rutas y validaciones.",
+    "evidence": "El inicio sin conexión, el registro desde la interfaz y el descubrimiento seguro de rutas se validaron en la base local.",
     "promise": "La ruta correcta aparece antes de ejecutar, sin buscar accesos directos.",
     "showcaseSubtitle": "Centraliza proyectos, rutas y validaciones para mostrar qué está listo y qué todavía requiere atención.",
     "cardCta": "Explorar la central",
@@ -327,13 +348,14 @@
     "visualLabel": "Catálogo demostrativo",
     "accent": "#8e7dff",
     "accentRgb": "142 125 255",
-    "facts": ["C# WPF", "Seguimiento de rutas", "Sin conexión por defecto"],
+    "facts": ["Configuración desde la interfaz", "Seguimiento de rutas", "Funciona sin conexión"],
+    "caseSummary": ["role", "tab:problema", "tab:solucion", "evidence", "tab:estado"],
     "tabs": [
       {
         "id": "problema",
         "label": "Problema",
         "title": "Varios proyectos ya no cabían en una pila de accesos directos.",
-        "body": "Cada producto tiene sus propios builds, herramientas y verificaciones; la ruta correcta debe aparecer antes de ejecutar.",
+        "body": "Cada producto tiene sus propias versiones, herramientas y verificaciones; la ruta correcta debe aparecer antes de ejecutar.",
         "points": ["Varios proyectos", "Rutas diferentes", "Estado visible"]
       },
       {
@@ -346,9 +368,9 @@
       {
         "id": "estado",
         "label": "Estado",
-        "title": "La base local está validada y en uso.",
-        "body": "Proyectos y verificaciones se abren en contexto de desarrollo, sin inicio de sesión obligatorio y sin mezclar los runtimes de los productos.",
-        "points": ["Inicio sin conexión", "Contexto de desarrollo", "Sin publicación automática"]
+        "title": "La central local está en uso.",
+        "body": "Los proyectos y las verificaciones se abren en su contexto de desarrollo, sin inicio de sesión obligatorio y sin mezclar los entornos de los productos.",
+        "points": ["Aplicación C# / WPF para Windows", "Proyectos en el contexto correcto", "Sin publicación automática"]
       }
     ],
     "links": []
@@ -363,8 +385,10 @@
     "kicker": "Proyecto público pequeño y verificable",
     "status": "Código abierto · v1.0.0",
     "statusTone": "lab",
-    "summary": "Una aplicación Python de código abierto demuestra checklist en JSON local, línea de comandos, pruebas y CI.",
-    "promise": "Arquitectura local-first demostrada en un ejemplo compacto y verificable.",
+    "summary": "Un checklist de código abierto mantiene las tareas en un archivo local y ofrece operaciones sencillas sin depender de un servicio remoto.",
+    "role": "Definición del ejemplo, implementación de la línea de comandos, pruebas, documentación y publicación de la versión 1.0.0.",
+    "evidence": "El repositorio público y la release v1.0.0 permiten consultar el código, la documentación y la versión publicada.",
+    "promise": "Un ejemplo compacto para organizar tareas en el propio ordenador y revisar cómo funciona cada parte.",
     "showcaseSubtitle": "Convierte principios local-first en criterios prácticos para crear software con mayor autonomía, privacidad y control.",
     "cardCta": "Ver el proyecto público",
     "route": "/es/proyectos/local-first-checklist/",
@@ -376,7 +400,8 @@
     "visualLabel": "Ilustración del proyecto",
     "accent": "#f2bb62",
     "accentRgb": "242 187 98",
-    "facts": ["Python CLI", "JSON local", "Pruebas + CI"],
+    "facts": ["Código abierto", "Tareas en un archivo local", "Sin servicio remoto"],
+    "caseSummary": ["role", "tab:alcance", "tab:calidad", "evidence"],
     "tabs": [
       {
         "id": "alcance",
@@ -408,13 +433,15 @@
     "slug": "c7-engineering-system",
     "kind": "project",
     "catalogGroup": "main",
-    "order": 7,
-    "code": "07",
+    "order": 5,
+    "code": "05",
     "name": "C7 Engineering System",
     "kicker": "El método de ingeniería detrás de mis productos",
     "status": "Sistema en uso · v1.0.0",
     "statusTone": "ready",
     "summary": "C7 sostiene los principios que sigo al desarrollar mis productos: contexto claro, rigor proporcional al riesgo y evidencia antes de concluir.",
+    "role": "Concepción del método, arquitectura del sistema y validación de la versión instalada.",
+    "evidence": "La versión 1.0.0 reúne pruebas del núcleo, verificaciones del entorno instalado, evaluaciones comparativas y restauración en un perfil desechable.",
     "promise": "Un método coherente para problemas, riesgos y entregas diferentes.",
     "showcaseSubtitle": "Reúne los principios que sigo para decidir, construir, verificar y evolucionar cada producto.",
     "route": "/es/proyectos/c7-engineering-system/",
@@ -431,6 +458,7 @@
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
     "facts": ["Contexto antes de ejecutar", "Rigor proporcional al riesgo", "Evidencia antes de concluir"],
+    "caseSummary": ["role", "tab:riesgo", "tab:evidencia", "tab:continuidad"],
     "cardCta": "Conocer el método",
     "tabs": [
       {
@@ -451,8 +479,8 @@
         "id": "evidencia",
         "label": "Evidencia",
         "title": "La conclusión exige una prueba compatible con el cambio.",
-        "body": "La versión 1.0.0 superó 42 pruebas Pester, 24 verificaciones en el entorno instalado, evaluaciones comparativas y restauración byte a byte en un perfil desechable.",
-        "points": ["42 pruebas Pester", "24 verificaciones instaladas", "Restauración byte a byte"]
+        "body": "La versión 1.0.0 superó la suite Pester del núcleo, verificaciones del entorno instalado, evaluaciones comparativas y una prueba de restauración en un perfil desechable.",
+        "points": ["Pruebas del núcleo", "Verificaciones instaladas", "Restauración en un perfil desechable"]
       },
       {
         "id": "entorno",

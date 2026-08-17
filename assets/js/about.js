@@ -1,8 +1,21 @@
 const contextCards = [...document.querySelectorAll("[data-context-card]")];
 const hoverAvailable = window.matchMedia("(hover: hover) and (pointer: fine)");
-let pinnedContextIndex = contextCards.length ? 0 : -1;
-let previewContextIndex = -1;
-let contextSuspended = false;
+const anyHoverAvailable = window.matchMedia("(any-hover: hover) and (any-pointer: fine)");
+const contextPanelTransitionMs = 220;
+const contextCloseDelayMs = 330;
+const syntheticHoverSuppressionMs = 1200;
+const panelHideTimers = new WeakMap();
+let activeContextIndex = -1;
+let contextCloseTimer = 0;
+let lastInputWasPointer = false;
+let lastPointerType = "";
+let suppressHoverUntil = 0;
+
+const pointerCanHover = (event) => (
+  event.pointerType !== "touch"
+  && window.performance.now() >= suppressHoverUntil
+  && (hoverAvailable.matches || anyHoverAvailable.matches)
+);
 
 const publishAmbient = (element, source) => {
   if (!element) return;
@@ -19,70 +32,132 @@ const publishAmbient = (element, source) => {
   }));
 };
 
-const setContextState = (activeIndex) => {
+const clearContextCloseTimer = () => {
+  if (!contextCloseTimer) return;
+  window.clearTimeout(contextCloseTimer);
+  contextCloseTimer = 0;
+};
+
+const clearPanelHideTimer = (panel) => {
+  const timer = panelHideTimers.get(panel);
+  if (!timer) return;
+  window.clearTimeout(timer);
+  panelHideTimers.delete(panel);
+};
+
+const setContextState = (activeIndex, { animate = true } = {}) => {
+  clearContextCloseTimer();
+  activeContextIndex = activeIndex;
   contextCards.forEach((card, index) => {
     const open = index === activeIndex;
     const trigger = card.querySelector("[data-context-trigger]");
     const panel = card.querySelector("[data-context-panel]");
     trigger?.setAttribute("aria-expanded", String(open));
-    if (panel) panel.hidden = !open;
-    card.dataset.open = String(open);
-    card.dataset.selected = String(index === pinnedContextIndex);
+    card.dataset.selected = String(open);
+
+    if (!panel) {
+      card.dataset.open = String(open);
+      return;
+    }
+
+    clearPanelHideTimer(panel);
+    if (open) {
+      panel.inert = false;
+      const wasHidden = panel.hidden;
+      panel.hidden = false;
+      if (animate && wasHidden) {
+        card.dataset.open = "false";
+        window.requestAnimationFrame(() => {
+          if (activeContextIndex === index) card.dataset.open = "true";
+        });
+      } else {
+        card.dataset.open = "true";
+      }
+      return;
+    }
+
+    card.dataset.open = "false";
+    panel.inert = true;
+    if (panel.hidden) return;
+    if (!animate) {
+      panel.hidden = true;
+      return;
+    }
+    const hideTimer = window.setTimeout(() => {
+      if (card.dataset.open === "false") panel.hidden = true;
+      panelHideTimers.delete(panel);
+    }, contextPanelTransitionMs);
+    panelHideTimers.set(panel, hideTimer);
   });
   if (activeIndex >= 0) publishAmbient(contextCards[activeIndex], "context");
 };
 
-const previewContext = (index) => {
-  contextSuspended = false;
-  previewContextIndex = index;
-  setContextState(index);
-};
-
-const restorePinnedContext = () => {
-  previewContextIndex = -1;
-  setContextState(contextSuspended ? -1 : pinnedContextIndex);
+const scheduleContextClose = (index) => {
+  clearContextCloseTimer();
+  contextCloseTimer = window.setTimeout(() => {
+    contextCloseTimer = 0;
+    const card = contextCards[index];
+    const keyboardFocusWithin = !lastInputWasPointer && card?.contains(document.activeElement);
+    if (activeContextIndex !== index || keyboardFocusWithin || card?.matches(":hover")) return;
+    setContextState(-1);
+  }, contextCloseDelayMs);
 };
 
 contextCards.forEach((card, index) => {
   const trigger = card.querySelector("[data-context-trigger]");
 
-  card.addEventListener("pointerenter", () => {
-    if (hoverAvailable.matches) previewContext(index);
+  card.addEventListener("pointerenter", (event) => {
+    if (!pointerCanHover(event)) return;
+    clearContextCloseTimer();
+    setContextState(index);
   });
 
-  card.addEventListener("pointerleave", () => {
-    if (hoverAvailable.matches && previewContextIndex === index) restorePinnedContext();
+  card.addEventListener("pointerleave", (event) => {
+    if (pointerCanHover(event) && activeContextIndex === index) scheduleContextClose(index);
   });
 
-  card.addEventListener("focusin", () => previewContext(index));
+  card.addEventListener("focusin", () => {
+    if (lastInputWasPointer && lastPointerType === "touch") return;
+    clearContextCloseTimer();
+    setContextState(index);
+  });
 
   card.addEventListener("focusout", () => {
     requestAnimationFrame(() => {
-      if (!card.contains(document.activeElement) && previewContextIndex === index) restorePinnedContext();
+      if (!card.contains(document.activeElement) && activeContextIndex === index) scheduleContextClose(index);
     });
   });
 
-  trigger?.addEventListener("click", () => {
-    const closesCurrent = !hoverAvailable.matches
-      && pinnedContextIndex === index
-      && card.dataset.open === "true";
-    pinnedContextIndex = index;
-    previewContextIndex = -1;
-    contextSuspended = closesCurrent;
+  trigger?.addEventListener("click", (event) => {
+    if (event.detail > 0 && lastPointerType !== "touch" && (hoverAvailable.matches || lastPointerType === "mouse" || lastPointerType === "pen")) {
+      setContextState(index);
+      return;
+    }
+    const closesCurrent = activeContextIndex === index && card.dataset.open === "true";
     setContextState(closesCurrent ? -1 : index);
-  });
-
-  card.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    event.preventDefault();
-    previewContextIndex = -1;
-    contextSuspended = true;
-    setContextState(-1);
-    trigger?.focus();
   });
 });
 
-if (pinnedContextIndex >= 0) setContextState(pinnedContextIndex);
+document.addEventListener("pointerdown", (event) => {
+  lastInputWasPointer = true;
+  lastPointerType = event.pointerType;
+  if (event.pointerType === "touch") suppressHoverUntil = window.performance.now() + syntheticHoverSuppressionMs;
+  if (activeContextIndex >= 0 && !event.target.closest("[data-context-card]")) setContextState(-1);
+}, true);
+
+document.addEventListener("keydown", (event) => {
+  lastInputWasPointer = false;
+  lastPointerType = "";
+  if (event.key !== "Escape" || activeContextIndex < 0) return;
+  event.preventDefault();
+  const trigger = contextCards[activeContextIndex]?.querySelector("[data-context-trigger]");
+  trigger?.focus();
+  setContextState(-1);
+});
+
+hoverAvailable.addEventListener?.("change", () => setContextState(-1));
+anyHoverAvailable.addEventListener?.("change", () => setContextState(-1));
+setContextState(-1, { animate: false });
 
 const decisionSteps = [...document.querySelectorAll("[data-decision-step]")];
 let activeDecisionIndex = 0;

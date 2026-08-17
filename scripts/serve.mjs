@@ -45,6 +45,17 @@ const responseHeadersFor = (pathname) => {
   for (const rule of headerRules) {
     if (rule.source === "/*" || rule.source === pathname) Object.assign(headers, rule.headers);
   }
+  const contentSecurityPolicy = headers["Content-Security-Policy"];
+  if (contentSecurityPolicy) {
+    // WebKit applies upgrade-insecure-requests to loopback subresources. The
+    // production header keeps the directive; the HTTP-only local harness omits
+    // it so every browser can load the same CSS and JavaScript under test.
+    headers["Content-Security-Policy"] = contentSecurityPolicy
+      .split(";")
+      .map((directive) => directive.trim())
+      .filter((directive) => directive && directive !== "upgrade-insecure-requests")
+      .join("; ");
+  }
   return headers;
 };
 

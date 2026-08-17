@@ -436,6 +436,13 @@ themeButton?.before(accessibilityButton);
 const accessibilityDialog = document.querySelector("#accessibility-panel");
 const cookieDialog = document.querySelector("#cookie-panel");
 const cookieBanner = document.querySelector("[data-cookie-banner]");
+const dialogOpeners = new WeakMap();
+
+const openDialog = (dialog, opener) => {
+  if (!dialog || dialog.open) return;
+  if (opener) dialogOpeners.set(dialog, opener);
+  dialog.showModal();
+};
 
 const closeDialog = (dialog) => {
   if (dialog?.open) dialog.close();
@@ -466,17 +473,43 @@ const setConsent = (level) => {
   syncPreferenceControls();
 };
 
+const languageSwitchers = [...document.querySelectorAll(".language-switcher")];
+
+const closeLanguageSwitchers = (except = null) => {
+  languageSwitchers.forEach((switcher) => {
+    if (switcher !== except) switcher.removeAttribute("open");
+  });
+};
+
+languageSwitchers.forEach((switcher) => {
+  switcher.addEventListener("toggle", () => {
+    if (switcher.open) closeLanguageSwitchers(switcher);
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const openSwitcher = languageSwitchers.find((switcher) => switcher.open);
+  if (!openSwitcher) return;
+  event.preventDefault();
+  openSwitcher.removeAttribute("open");
+  openSwitcher.querySelector("summary")?.focus();
+});
+
 document.addEventListener("click", (event) => {
+  if (!event.target.closest(".language-switcher")) closeLanguageSwitchers();
   const clickedThemeButton = event.target.closest("[data-theme-toggle]");
   if (clickedThemeButton) void cycleTheme(clickedThemeButton);
 
-  if (event.target.closest("[data-open-accessibility]")) {
+  const accessibilityOpener = event.target.closest("[data-open-accessibility]");
+  if (accessibilityOpener) {
     syncPreferenceControls();
-    accessibilityDialog.showModal();
+    openDialog(accessibilityDialog, accessibilityOpener);
   }
-  if (event.target.closest("[data-open-cookie]")) {
+  const cookieOpener = event.target.closest("[data-open-cookie]");
+  if (cookieOpener) {
     syncPreferenceControls();
-    cookieDialog.showModal();
+    openDialog(cookieDialog, cookieOpener);
   }
 
   const consentButton = event.target.closest("[data-consent]");
@@ -514,6 +547,11 @@ document.querySelector("[data-save-cookie]")?.addEventListener("click", () => {
 document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) closeDialog(dialog);
+  });
+  dialog.addEventListener("close", () => {
+    const opener = dialogOpeners.get(dialog);
+    dialogOpeners.delete(dialog);
+    if (opener?.isConnected) opener.focus({ preventScroll: true });
   });
 });
 

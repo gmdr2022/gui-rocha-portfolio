@@ -55,43 +55,66 @@ const expectedCoreRoutes = {
 };
 const expectedMainOrder = [
   "clubal",
-  "maeve",
   "sites",
   "codex-checkpoint",
   "nexus",
-  "local-first-checklist",
   "c7-engineering-system",
+  "local-first-checklist",
+  "maeve",
 ];
+const expectedContextCatalogs = {
+  "pt-BR": [
+    ["institutional", "Operações institucionais"],
+    ["websites", "Presença digital"],
+    ["local-tools", "Ferramentas de trabalho"],
+    ["engineering", "Métodos de desenvolvimento"],
+    ["original", "Projetos autorais"],
+  ],
+  en: [
+    ["institutional", "Institutional operations"],
+    ["websites", "Digital presence"],
+    ["local-tools", "Work tools"],
+    ["engineering", "Development methods"],
+    ["original", "Original projects"],
+  ],
+  es: [
+    ["institutional", "Operaciones institucionales"],
+    ["websites", "Presencia digital"],
+    ["local-tools", "Herramientas de trabajo"],
+    ["engineering", "Métodos de desarrollo"],
+    ["original", "Proyectos propios"],
+  ],
+};
 const approvedCopy = {
   "pt-BR": {
-    aboutHeading: "Direção de produto e construção digital — do problema à entrega.",
-    aboutEyebrow: "Produto · software · criação digital",
+    aboutHeading: "Começo pelo problema e acompanho cada etapa até a entrega.",
+    aboutEyebrow: "PORTFÓLIO",
     methodEyebrow: "Como trabalho",
     methodTitle: "Do problema à evidência, sem esconder o que ainda está em evolução.",
     methodSteps: ["Problema", "Direção", "Construção", "Evidência"],
-    projectsHeading: "Transformando ideias em soluções digitais para problemas reais.",
+    projectsHeading: "Produtos digitais construídos para problemas reais.",
     sitesHeading: "Presenças digitais publicadas",
-    brandTagline: "Produto · estratégia · criação digital",
+    brandTagline: "Projetos digitais com aplicação prática",
   },
   en: {
-    aboutHeading: "Product direction and digital creation — from problem to delivery.",
-    aboutEyebrow: "Product · software · digital creation",
+    aboutHeading: "I start with the problem and follow every stage through delivery.",
+    aboutEyebrow: "PORTFOLIO",
     methodEyebrow: "How I work",
     methodTitle: "From problem to evidence, without hiding what is still evolving.",
     methodSteps: ["Problem", "Direction", "Build", "Evidence"],
-    projectsHeading: "Turning ideas into digital solutions for real problems.",
+    projectsHeading: "Digital products built around real problems.",
     sitesHeading: "Published digital presences",
-    brandTagline: "Product · strategy · digital creation",
+    brandTagline: "Digital projects with practical applications",
   },
   es: {
-    aboutHeading: "Dirección de producto y creación digital — del problema a la entrega.",
-    aboutEyebrow: "Producto · software · creación digital",
+    aboutHeading: "Comienzo por el problema y acompaño cada etapa hasta la entrega.",
+    aboutEyebrow: "PORTAFOLIO",
     methodEyebrow: "Cómo trabajo",
     methodTitle: "Del problema a la evidencia, sin ocultar lo que todavía está en evolución.",
     methodSteps: ["Problema", "Dirección", "Construcción", "Evidencia"],
-    projectsHeading: "Transformando ideas en soluciones digitales para problemas reales.",
+    projectsHeading: "Productos digitales construidos para problemas reales.",
     sitesHeading: "Presencias digitales publicadas",
-    brandTagline: "Producto · estrategia · creación digital",
+    brandTagline: "Proyectos digitales con aplicación práctica",
   },
 };
 const allowedStatusTones = new Set(["lab", "live", "progress", "ready"]);
@@ -325,6 +348,48 @@ const validateTabs = (tabs, label) => {
   }
 };
 
+const normalizeEditorialText = (value) => String(value ?? "")
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, " ")
+  .trim();
+
+const caseSummaryValueFor = (item, source) => {
+  if (["summary", "role", "evidence", "statusLimit"].includes(source)) return item?.[source];
+  if (source.startsWith("tab:")) {
+    const tabId = source.slice(4);
+    return item?.tabs?.find((tab) => tab.id === tabId)?.body;
+  }
+  return undefined;
+};
+
+const validateCaseSummary = (item, label) => {
+  const sources = item?.caseSummary;
+  if (!Array.isArray(sources) || sources.length < 4 || sources.length > 5) {
+    fail(`${label}: caseSummary deve selecionar de quatro a cinco blocos substanciais`);
+    return;
+  }
+  if (sources.some((source) => !isNonEmptyString(source))) {
+    fail(`${label}: caseSummary contém fonte vazia ou inválida`);
+    return;
+  }
+  if (new Set(sources).size !== sources.length) fail(`${label}: caseSummary contém fonte duplicada`);
+
+  const values = [];
+  for (const source of sources) {
+    const value = caseSummaryValueFor(item, source);
+    if (!value && source.startsWith("tab:")) {
+      fail(`${label}: caseSummary aponta para aba inexistente: ${source.slice(4)}`);
+    } else if (!value && !["summary", "role", "evidence", "statusLimit"].includes(source)) {
+      fail(`${label}: caseSummary usa fonte desconhecida: ${source}`);
+    }
+    if (!isNonEmptyString(value)) fail(`${label}: caseSummary usa conteúdo ausente: ${source}`);
+    else values.push(normalizeEditorialText(value));
+  }
+  if (new Set(values).size !== values.length) fail(`${label}: caseSummary repete o mesmo conteúdo em mais de um bloco`);
+};
+
 const validateGallery = async (gallery, label) => {
   if (!Array.isArray(gallery) || gallery.length < 1) {
     fail(`${label}: galeria ausente`);
@@ -363,9 +428,17 @@ if (localeOrder.join(",") !== "pt-BR,en,es") {
 if (siteConfig.origin !== "https://gui-rocha.pages.dev") {
   fail("content/pages.mjs: origin canônico incorreto");
 }
-if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(siteConfig.contactEmail ?? "")) {
-  fail("content/pages.mjs: contactEmail inválido");
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(siteConfig.personalEmail ?? "")) {
+  fail("content/pages.mjs: personalEmail inválido");
 }
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(siteConfig.clubalEmail ?? "")) {
+  fail("content/pages.mjs: clubalEmail inválido");
+}
+if (siteConfig.personalEmail.toLowerCase() === siteConfig.clubalEmail.toLowerCase()) {
+  fail("content/pages.mjs: e-mails pessoal e ClubAL devem ser distintos");
+}
+if (siteConfig.personalEmail !== "gmdr2014@gmail.com") fail("content/pages.mjs: e-mail pessoal aprovado divergiu");
+if (siteConfig.clubalEmail !== "suporte.clubal@gmail.com") fail("content/pages.mjs: e-mail de suporte do ClubAL divergiu");
 
 for (const locale of localeOrder) {
   const config = locales[locale];
@@ -380,10 +453,24 @@ for (const locale of localeOrder) {
     if (actual !== value) fail(`content/pages.mjs: rota ${locale}.${field} incorreta (${actual ?? "ausente"})`);
   }
   if (config.home !== config.routes.about) fail(`content/pages.mjs: ${locale} deve usar Sobre como raiz`);
-  validateRequiredStrings(config.common, ["brandTagline", "products", "about", "contact", "email"], `content/pages.mjs:${locale}.common`);
-  validateRequiredStrings(config.aboutPage, ["title", "description", "eyebrow", "heading", "methodEyebrow", "methodTitle"], `content/pages.mjs:${locale}.aboutPage`);
+  validateRequiredStrings(config.common, ["brandTagline", "products", "about", "contact", "email", "clubalSupport"], `content/pages.mjs:${locale}.common`);
+  validateRequiredStrings(config.common.caseLabels, ["context", "role", "problem", "contribution", "evidence", "status"], `content/pages.mjs:${locale}.common.caseLabels`);
+  validateRequiredStrings(config.aboutPage, ["title", "description", "eyebrow", "heading", "role", "portraitCaption", "methodEyebrow", "methodTitle"], `content/pages.mjs:${locale}.aboutPage`);
   validateRequiredStrings(config.projectsPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.projectsPage`);
-  validateRequiredStrings(config.contactPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.contactPage`);
+  validateRequiredStrings(config.contactPage, [
+    "title",
+    "description",
+    "heading",
+    "lead",
+    "guidance",
+    "talkHeading",
+    "publicWorkHeading",
+    "personalEmailLabel",
+    "clubalHeading",
+    "clubalBody",
+    "clubalAction",
+    "clubalSubject",
+  ], `content/pages.mjs:${locale}.contactPage`);
   validateRequiredStrings(config.privacyPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.privacyPage`);
   validateRequiredStrings(config.notFoundPage, ["title", "heading", "lead"], `content/pages.mjs:${locale}.notFoundPage`);
   if (config.aboutPage.heading !== approvedCopy[locale].aboutHeading) fail(`content/pages.mjs:${locale}: H1 aprovado de Sobre divergiu`);
@@ -528,6 +615,8 @@ for (const locale of localeOrder) {
       "status",
       "statusTone",
       "summary",
+      "role",
+      "evidence",
       "promise",
       "route",
       "image",
@@ -558,6 +647,7 @@ for (const locale of localeOrder) {
       fail(`${projectLabel}: facts ausentes ou inválidos`);
     }
     validateTabs(project.tabs, projectLabel);
+    validateCaseSummary(project, projectLabel);
     await validateLinks(project.links, `${projectLabel}.links`);
     if (project.gallery !== undefined) await validateGallery(project.gallery, `${projectLabel}.gallery`);
     if (project.faq !== undefined) {
@@ -721,10 +811,14 @@ for (const locale of localeOrder) {
         "statusTone",
         "promise",
         "summary",
+        "role",
+        "evidence",
+        "statusLimit",
         "galleryNote",
       ], `${siteLabel}.case`);
       if (!allowedStatusTones.has(site.case.statusTone)) fail(`${siteLabel}.case: statusTone desconhecido`);
       validateTabs(site.case.tabs, `${siteLabel}.case`);
+      validateCaseSummary(site.case, `${siteLabel}.case`);
       await validateLinks(site.case.links, `${siteLabel}.case.links`);
       if (!Array.isArray(site.case.facts) || site.case.facts.length < 1) fail(`${siteLabel}.case: facts ausentes`);
       if (!site.case.links?.some((link) => link.href === site.officialUrl)) {
@@ -806,6 +900,10 @@ for (const locale of localeOrder) {
   if (!Array.isArray(catalogs) || catalogs.length !== 5) {
     fail(`content/pages.mjs:${locale}.aboutPage.catalogs: esperado mapa com 5 contextos`);
   } else {
+    const identity = catalogs.map(([key, title]) => [key, title]);
+    if (JSON.stringify(identity) !== JSON.stringify(expectedContextCatalogs[locale])) {
+      fail(`content/pages.mjs:${locale}.aboutPage.catalogs: IDs ou rótulos editoriais divergem da especificação`);
+    }
     const mappedSlugs = catalogs.flatMap((entry) => Array.isArray(entry?.[2]) ? entry[2] : []);
     if (new Set(mappedSlugs).size !== mappedSlugs.length) fail(`content/pages.mjs:${locale}.aboutPage.catalogs: item duplicado`);
     if (
@@ -832,6 +930,11 @@ for (const slug of expectedAssetSlugs) {
 for (const slug of Object.keys(projectAssets)) {
   if (!expectedAssetSlugs.includes(slug)) fail(`assets/data/project-assets.json: entrada órfã ${slug}`);
 }
+await validateAssetReference("/assets/img/brand/favicon-512.png", 512, 512, "favicon PNG");
+await validateAssetReference("/assets/img/social-card.png", 1200, 630, "imagem social Sobre");
+await validateAssetReference("/assets/img/social-projects.png", 1200, 630, "imagem social Projetos");
+await validateAssetReference("/assets/img/social-sites.png", 1200, 630, "imagem social Sites");
+await validateAssetReference("/assets/img/social-local-first.png", 1200, 750, "imagem social Local First Checklist");
 
 const routeForDescriptor = (locale, type, slug = "") => {
   const config = locales[locale];
@@ -996,6 +1099,7 @@ const validateSocialMetadata = async (head, page, label) => {
     "og:title",
     "og:description",
     "og:image",
+    "og:image:type",
     "og:image:alt",
     "og:image:width",
     "og:image:height",
@@ -1033,6 +1137,29 @@ const validateSocialMetadata = async (head, page, label) => {
   const ogImage = metaValues(head, "property", "og:image")[0];
   const twitterImage = metaValues(head, "name", "twitter:image")[0];
   if (ogImage !== twitterImage) fail(`${label}: imagens OG e Twitter divergem`);
+  const expectedImagePath = page.type === "projects"
+    ? "/assets/img/social-projects.png"
+    : page.type === "sites" || (page.type === "project" && page.slug === "demonyza")
+      ? "/assets/img/social-sites.png"
+      : page.type === "project" && page.slug === "local-first-checklist"
+        ? "/assets/img/social-local-first.png"
+      : page.type === "project"
+        ? page.slug === "clubal" ? page.project.image : page.project.cardImage ?? page.project.image
+        : page.type === "site"
+          ? page.site.cover.src
+          : "/assets/img/social-card.png";
+  if (ogImage !== `${siteConfig.origin}${expectedImagePath}`) {
+    fail(`${label}: imagem social não corresponde ao contexto da página`);
+  }
+  const expectedImageType = expectedImagePath.toLowerCase().endsWith(".png")
+    ? "image/png"
+    : expectedImagePath.toLowerCase().endsWith(".webp") ? "image/webp"
+      : expectedImagePath.toLowerCase().endsWith(".jpg") || expectedImagePath.toLowerCase().endsWith(".jpeg")
+        ? "image/jpeg"
+        : "image/svg+xml";
+  if (metaValues(head, "property", "og:image:type")[0] !== expectedImageType) {
+    fail(`${label}: MIME da imagem social incorreto`);
+  }
   if (
     metaValues(head, "property", "og:image:alt")[0] !== metaValues(head, "name", "twitter:image:alt")[0]
   ) {
@@ -1098,6 +1225,11 @@ const validateStructuredData = async (html, page, canonicalUrl, label) => {
     if (!person || !website) fail(`${label}: página Sobre deve conter Person e WebSite em JSON-LD`);
     if (person && (person.name !== "Guilherme Rocha" || person.url !== canonicalUrl)) fail(`${label}: Person JSON-LD divergente`);
     if (person && !person.sameAs?.includes(siteConfig.githubUrl)) fail(`${label}: Person JSON-LD sem GitHub público`);
+    if (person && person.image !== `${siteConfig.origin}/assets/img/gui/identidade-aeroporto.webp`) fail(`${label}: imagem do Person JSON-LD divergente`);
+    if (person && person.jobTitle !== locales[page.locale].aboutPage.role) fail(`${label}: cargo localizado ausente no Person JSON-LD`);
+    if (person && (person.address?.["@type"] !== "PostalAddress" || person.address?.addressRegion !== "Minas Gerais" || person.address?.addressCountry !== "BR")) {
+      fail(`${label}: localização pública do Person JSON-LD está incompleta`);
+    }
     if (website && website.url !== canonicalUrl) fail(`${label}: WebSite JSON-LD com URL incorreta`);
     if (person && website && website.author?.["@id"] !== person["@id"]) fail(`${label}: relação autor/WebSite ausente no JSON-LD`);
   }
@@ -1184,7 +1316,7 @@ const validateSiteCaseNavigation = (html, locale, activeSlug, label) => {
 const validateDetailVisual = (html, item, visual, status, label) => {
   const image = startTags(html, "img")
     .map(attributesOf)
-    .find((attributes) => "data-project-image" in attributes);
+    .find((attributes) => attributes.src === visual?.src);
   if (
     image?.src !== visual?.src
     || Number(image?.width) !== visual?.width
@@ -1211,7 +1343,21 @@ const validateDetailVisual = (html, item, visual, status, label) => {
 };
 
 const validateNoJsGallery = (html, gallery, label) => {
-  if (!Array.isArray(gallery) || gallery.length < 2) return;
+  if (!Array.isArray(gallery) || gallery.length < 1) return;
+  if (gallery.length === 1) {
+    for (const marker of [
+      "data-project-gallery",
+      "gallery-controls",
+      "data-gallery-data",
+      "data-gallery-live",
+      "data-gallery-previous",
+      "data-gallery-next",
+      "data-gallery-current",
+    ]) {
+      if (html.includes(marker)) fail(`${label}: imagem única não deve renderizar estrutura de carrossel (${marker})`);
+    }
+    return;
+  }
   const fallback = elementContents(html, "noscript").join("\n");
   for (const item of gallery) {
     if (!fallback.includes(`href="${item.src}"`) || !fallback.includes(item.label)) {
@@ -1223,6 +1369,9 @@ const validateNoJsGallery = (html, gallery, label) => {
     .find((attributes) => "data-project-gallery" in attributes);
   if (!galleryAttributes) fail(`${label}: raiz da galeria ausente`);
   else if ("tabindex" in galleryAttributes) fail(`${label}: galeria sem JS não deve manter foco inoperante`);
+  for (const marker of ["gallery-controls", "data-gallery-data", "data-gallery-live", "data-gallery-previous", "data-gallery-next"]) {
+    if (!html.includes(marker)) fail(`${label}: galeria com múltiplas imagens sem ${marker}`);
+  }
 };
 
 const canonicalTitles = Object.fromEntries(localeOrder.map((locale) => [locale, new Map()]));
@@ -1263,6 +1412,18 @@ for (const page of expectedPages) {
   const themeColors = metaValues(head, "name", "theme-color");
   if (themeColors.length !== 1 || themeColors[0] !== "#f4f9fc") fail(`${label}: theme-color inicial oceânico incorreto`);
   if (linkEntries(head, "manifest").length) fail(`${label}: link PWA manifest não deve existir`);
+  const iconLinks = linkEntries(head, "icon");
+  if (
+    iconLinks.length !== 2
+    || !iconLinks.some((entry) => entry.href === "/favicon.svg" && entry.type === "image/svg+xml")
+    || !iconLinks.some((entry) => entry.href === "/assets/img/brand/favicon-512.png" && entry.type === "image/png" && entry.sizes === "512x512")
+  ) {
+    fail(`${label}: conjunto de favicons SVG/PNG está incompleto`);
+  }
+  const touchIcons = linkEntries(head, "apple-touch-icon");
+  if (touchIcons.length !== 1 || touchIcons[0].href !== "/assets/img/brand/favicon-512.png" || touchIcons[0].sizes !== "512x512") {
+    fail(`${label}: apple-touch-icon está ausente ou incorreto`);
+  }
 
   const h1Values = elementContents(html, "h1").map(stripTags);
   if (h1Values.length !== 1) fail(`${label}: deve conter exatamente um H1`);
@@ -1322,7 +1483,8 @@ for (const page of expectedPages) {
   await validateStructuredData(html, page, canonicalUrl, label);
 
   if (page.type === "about") {
-    if (!html.includes('src="/assets/img/gui-rocha-home.webp"')) fail(`${label}: retrato da página Sobre ausente`);
+    if (!html.includes('src="/assets/img/gui/identidade-aeroporto.webp"')) fail(`${label}: retrato de identidade da página Sobre ausente`);
+    if (!html.includes('src="/assets/img/gui/retrato-editorial.webp"')) fail(`${label}: retrato editorial da página Sobre ausente`);
     if (!/src="\/assets\/js\/about\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: about.js ausente`);
     if (!/src="\/assets\/js\/legacy-project-link\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: compatibilidade de deep link antigo ausente`);
     const aboutHeadingMarkup = elementContents(html, "h1")[0] ?? "";
@@ -1330,6 +1492,12 @@ for (const page of expectedPages) {
     if (!html.includes(config.aboutPage.eyebrow) || !html.includes(config.aboutPage.methodEyebrow)) {
       fail(`${label}: eyebrows de Sobre divergem da fonte`);
     }
+    const identityMatch = html.match(/<div\b[^>]*class="[^"]*\babout-identity\b[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    const identityText = stripTags(identityMatch?.[1] ?? "");
+    if (!identityText.includes(config.aboutPage.role) || !identityText.includes(config.aboutPage.portraitCaption)) {
+      fail(`${label}: identidade profissional localizada incompleta`);
+    }
+    if (identityText.includes("Guilherme Rocha")) fail(`${label}: nome não deve ser repetido no bloco de identidade`);
     const contextCards = startTags(html, "article").map(attributesOf).filter((attributes) => "data-context-card" in attributes);
     if (contextCards.length !== config.aboutPage.catalogs.length) fail(`${label}: mapa de contextos diverge da fonte`);
     if (contextCards.some((attributes, index) => attributes["data-index"] !== String(index) || !attributes.style?.includes("--context-accent-rgb:"))) {
@@ -1343,6 +1511,18 @@ for (const page of expectedPages) {
     if (contextPanels.length !== contextCards.length || contextPanels.some((attributes) => !("hidden" in attributes))) {
       fail(`${label}: painéis de contexto devem iniciar ocultos`);
     }
+    contextTriggers.forEach((trigger, index) => {
+      const panel = contextPanels[index];
+      if (
+        !trigger.id
+        || !panel?.id
+        || trigger["aria-controls"] !== panel.id
+        || panel["aria-labelledby"] !== trigger.id
+        || panel.role !== "region"
+      ) {
+        fail(`${label}: contexto ${index + 1} não possui relação button/region completa`);
+      }
+    });
     const methodMatch = html.match(/<nav\b[^>]*class="[^"]*\bmethod-flow\b[^"]*"[^>]*>([\s\S]*?)<\/nav>/i);
     if (!methodMatch || startTags(methodMatch[1], "ol").length !== 1) {
       fail(`${label}: corrente de decisão deve usar nav e ol`);
@@ -1391,6 +1571,11 @@ for (const page of expectedPages) {
     const cardSlugs = cardMatches.map(({ attributes }) => attributes["data-project"]);
     if (cardSlugs.join(",") !== expectedMainOrder.join(",")) fail(`${label}: cards não seguem a ordem principal`);
     if (cardMatches.length !== catalog.length) fail(`${label}: quantidade de cards diverge do catálogo`);
+    if (cardMatches.some(({ attributes }, index) => (
+      index === 0 ? "inert" in attributes : !("inert" in attributes)
+    ))) {
+      fail(`${label}: cards ocultos devem iniciar inertes e o card ativo deve permanecer interativo`);
+    }
     for (const item of catalog) {
       const card = cardMatches.find(({ attributes }) => attributes["data-project"] === item.slug);
       if (!card) continue;
@@ -1405,6 +1590,7 @@ for (const page of expectedPages) {
         fail(`${label}: accent divergente no card ${item.slug}`);
       }
       if (!stripTags(card.body).includes(item.status)) fail(`${label}: status divergente no card ${item.slug}`);
+      if (item.slug === "clubal" && !card.body.includes("clubal-wordmark")) fail(`${label}: card do ClubAL sem wordmark semântico`);
       const image = startTags(card.body, "img").map(attributesOf)[0];
       const expectedImage = item.cardImage || item.image;
       const actualImage = image?.["data-deferred-src"] || image?.src;
@@ -1415,7 +1601,9 @@ for (const page of expectedPages) {
     }
     if (!html.includes(`data-deck-subtitle>${catalog[0].showcaseSubtitle}<`)) fail(`${label}: subtítulo inicial não corresponde ao primeiro item`);
     if (!/src="\/assets\/js\/home\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: home.js ausente`);
-    if (html.includes("/assets/img/gui-rocha-home.webp")) fail(`${label}: retrato não deve ser repetido em Projetos`);
+    if (html.includes("/assets/img/gui/identidade-aeroporto.webp") || html.includes("/assets/img/gui-rocha-home.webp")) {
+      fail(`${label}: retrato não deve ser repetido em Projetos`);
+    }
     for (const marker of ["data-site-collection", "data-site-panel", "data-site-select", "data-sites-dialog", "sites-window"]) {
       if (html.includes(marker)) fail(`${label}: hub de Sites duplicado na landing (${marker})`);
     }
@@ -1427,8 +1615,16 @@ for (const page of expectedPages) {
   }
 
   if (page.type === "contact") {
-    if (!html.includes(`href="mailto:${siteConfig.contactEmail}"`) || !html.includes(siteConfig.contactEmail)) {
-      fail(`${label}: e-mail não corresponde a content/pages.mjs`);
+    const personalLink = anchorEntries(html).find(({ attributes }) => "data-email-link" in attributes)?.attributes;
+    const clubalLink = anchorEntries(html).find(({ attributes }) => "data-clubal-email-link" in attributes)?.attributes;
+    if (personalLink?.href !== `mailto:${siteConfig.personalEmail}` || !html.includes(siteConfig.personalEmail)) {
+      fail(`${label}: e-mail pessoal não corresponde a content/pages.mjs`);
+    }
+    if (!clubalLink?.href?.startsWith(`mailto:${siteConfig.clubalEmail}?subject=`) || !html.includes(`data-clubal-email-address>${siteConfig.clubalEmail}<`)) {
+      fail(`${label}: e-mail dedicado do ClubAL não está visível no bloco secundário`);
+    }
+    if (!html.includes(`data-clubal-email="${siteConfig.clubalEmail}"`) || !html.includes("data-clubal-contact")) {
+      fail(`${label}: contexto de suporte do ClubAL ausente`);
     }
     if (!/src="\/assets\/js\/contact\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: contact.js ausente`);
   }
@@ -1493,6 +1689,20 @@ for (const page of expectedPages) {
     };
     validateDetailVisual(html, project, projectVisual, project.status, label);
     validateNoJsGallery(html, project.gallery ?? [projectVisual], label);
+    const caseSummaryMatch = html.match(/<dl\b[^>]*class="[^"]*\bproject-case-summary\b[^"]*"[^>]*>([\s\S]*?)<\/dl>/i);
+    const caseSummaryText = stripTags(caseSummaryMatch?.[1] ?? "");
+    if (!caseSummaryMatch || startTags(caseSummaryMatch[1], "dt").length !== project.caseSummary.length) {
+      fail(`${label}: resumo do case diverge da seleção editorial`);
+    }
+    if (project.caseSummary.some((source) => !caseSummaryText.includes(caseSummaryValueFor(project, source)))) {
+      fail(`${label}: conteúdo selecionado ausente do resumo do case`);
+    }
+    if (project.slug === "clubal") {
+      if (!html.includes("clubal-wordmark")) fail(`${label}: página do ClubAL sem wordmark semântico`);
+      if (!html.includes(`href="mailto:${siteConfig.clubalEmail}"`)) fail(`${label}: ação de suporte do ClubAL ausente`);
+    } else if (html.includes(siteConfig.clubalEmail)) {
+      fail(`${label}: e-mail do ClubAL apareceu fora do case do ClubAL`);
+    }
     validateNextProject(html, page.locale, project, label);
     if (project.kind === "siteCase") validateSiteCaseNavigation(html, page.locale, project.slug, label);
   }
@@ -1504,6 +1714,17 @@ for (const page of expectedPages) {
     const siteVisual = page.site.gallery?.[0] ?? page.site.cover;
     validateDetailVisual(html, page.site, siteVisual, page.site.case.status, label);
     validateNoJsGallery(html, page.site.gallery ?? [siteVisual], label);
+    const caseSummaryMatch = html.match(/<dl\b[^>]*class="[^"]*\bproject-case-summary\b[^"]*"[^>]*>([\s\S]*?)<\/dl>/i);
+    const caseSummaryText = stripTags(caseSummaryMatch?.[1] ?? "");
+    if (!caseSummaryMatch || startTags(caseSummaryMatch[1], "dt").length !== page.site.case.caseSummary.length) {
+      fail(`${label}: resumo do case diverge da seleção editorial`);
+    }
+    if (page.site.case.caseSummary.some((source) => !caseSummaryText.includes(caseSummaryValueFor(page.site.case, source)))) {
+      fail(`${label}: conteúdo selecionado ausente do resumo do case`);
+    }
+    if (page.site.slug === "clubal" && !html.includes(`href="mailto:${siteConfig.clubalEmail}"`)) {
+      fail(`${label}: ação de suporte do ClubAL ausente`);
+    }
     validateSiteCaseNavigation(html, page.locale, page.slug, label);
   }
 
@@ -1802,6 +2023,13 @@ requireMarkers("assets/js/about.js", [
   '"Escape"',
   '"aria-expanded"',
   '"aria-current"',
+  "contextCloseDelayMs = 330",
+  "contextPanelTransitionMs = 220",
+  "panel.inert = false",
+  "panel.inert = true",
+  'matchMedia("(hover: hover) and (pointer: fine)")',
+  'matchMedia("(any-hover: hover) and (any-pointer: fine)")',
+  "syntheticHoverSuppressionMs = 1200",
 ]);
 requireMarkers("assets/js/project.js", ["galleryImage.width", "galleryImage.height", "galleryRoot.tabIndex = 0", "ArrowLeft", "ArrowRight", "preload"]);
 requireMarkers("assets/js/contact.js", [
@@ -1813,6 +2041,10 @@ requireMarkers("assets/js/contact.js", [
   'parameters.get("proyecto")',
   '"[data-language-link]"',
   '"pt-BR": "assunto"',
+  'context.emailScope === "clubal"',
+  "root.dataset.clubalEmail",
+  '"[data-clubal-email-link]"',
+  "contextParameters",
 ]);
 requireMarkers("assets/js/sites.js", [
   "data-site-collection",
@@ -1836,6 +2068,12 @@ requireMarkers("assets/css/styles.css", [
   ".no-js-gallery-links",
   ".no-js .context-catalog-panel",
   ".context-catalog-grid",
+  "--context-surface:",
+  "--context-ease:",
+  ".context-catalog-chevron",
+  ":root[data-contrast=\"high\"] .context-catalog-grid",
+  ".project-case-summary",
+  ".clubal-wordmark",
   ".method-flow",
   "@property --ambient-r",
   "::view-transition-new(root)",
@@ -2117,10 +2355,15 @@ for (const path of emailTextPaths) {
     publicEmails.add(match[0].toLowerCase());
   }
 }
+const approvedPublicEmails = new Set([
+  siteConfig.personalEmail.toLowerCase(),
+  siteConfig.clubalEmail.toLowerCase(),
+]);
 for (const email of publicEmails) {
-  if (email !== siteConfig.contactEmail.toLowerCase()) fail(`e-mail público diverge de content/pages.mjs: ${email}`);
+  if (!approvedPublicEmails.has(email)) fail(`e-mail público não aprovado: ${email}`);
 }
-if (!publicEmails.has(siteConfig.contactEmail.toLowerCase())) fail("e-mail central não aparece nos outputs públicos");
+if (!publicEmails.has(siteConfig.personalEmail.toLowerCase())) fail("e-mail pessoal não aparece nos outputs públicos");
+if (!publicEmails.has(siteConfig.clubalEmail.toLowerCase())) fail("e-mail do ClubAL não aparece nos outputs públicos");
 
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".txt", ".xml"]);
 for (const path of files.filter((file) => textExtensions.has(extname(file).toLowerCase()) && publicPath(file) !== "scripts/validate.mjs")) {

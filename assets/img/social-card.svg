@@ -1,8 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <defs><radialGradient id="g" cx="80%" cy="15%" r="85%"><stop stop-color="#274737"/><stop offset=".52" stop-color="#0b1716"/><stop offset="1" stop-color="#07100f"/></radialGradient><pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0v42" fill="none" stroke="#fff" stroke-opacity=".035"/></pattern></defs>
-  <rect width="1200" height="630" fill="url(#g)"/><rect width="1200" height="630" fill="url(#grid)"/>
-  <g transform="translate(78 72)"><rect width="68" height="68" rx="22" fill="#c5ff58"/><text x="34" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="900" fill="#10190b">GR</text><text x="90" y="29" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#f3f6f2">Gui Rocha</text><text x="90" y="55" font-family="Arial,sans-serif" font-size="14" letter-spacing="3" fill="#91a59d">PRODUTO · SOFTWARE · CRIAÇÃO</text></g>
-  <text x="78" y="270" font-family="Arial,sans-serif" font-size="80" font-weight="700" letter-spacing="-5" fill="#f3f6f2">Tecnologia com</text><text x="78" y="360" font-family="Georgia,serif" font-size="88" font-style="italic" letter-spacing="-4" fill="#c5ff58">intenção humana.</text>
-  <text x="82" y="444" font-family="Arial,sans-serif" font-size="23" fill="#a8b7b2">ClubAL · Maeve Roscaern · Codex Checkpoint · NEXUS</text>
-  <g transform="translate(82 515)"><circle cx="7" cy="7" r="7" fill="#45e6b4"/><text x="28" y="13" font-family="Arial,sans-serif" font-size="17" fill="#dce6e1">Produtos locais, experiências interativas e evidência honesta.</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Guilherme Rocha — Product Owner e criador de produtos digitais</title>
+  <desc id="desc">Cartão social do portfólio, com identidade em azul oceânico e verde sálvia.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#04101b"/><stop offset=".58" stop-color="#0a2235"/><stop offset="1" stop-color="#12364e"/></linearGradient>
+    <radialGradient id="glow" cx="82%" cy="18%" r="70%"><stop stop-color="#38b7d9" stop-opacity=".35"/><stop offset="1" stop-color="#38b7d9" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0v48" fill="none" stroke="#d9edf7" stroke-opacity=".045"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/><rect width="1200" height="630" fill="url(#glow)"/><rect width="1200" height="630" fill="url(#grid)"/>
+  <g transform="translate(72 64)"><rect width="72" height="72" rx="22" fill="#b7f269"/><text x="36" y="48" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="27" font-weight="900" fill="#061927">GR</text><text x="96" y="31" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="750" fill="#f2f7fa">Guilherme Rocha</text><text x="96" y="59" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2.6" fill="#82d7ff">PRODUCT OWNER · PRODUTOS DIGITAIS</text></g>
+  <text x="72" y="258" font-family="Segoe UI,Arial,sans-serif" font-size="70" font-weight="720" letter-spacing="-3.8" fill="#f2f7fa">Começo pelo problema</text>
+  <text x="72" y="344" font-family="Segoe UI,Arial,sans-serif" font-size="70" font-weight="720" letter-spacing="-3.8" fill="#f2f7fa">e acompanho cada etapa</text>
+  <text x="72" y="430" font-family="Segoe UI,Arial,sans-serif" font-size="70" font-weight="720" letter-spacing="-3.8" fill="#82d7ff">até a entrega.</text>
+  <line x1="72" y1="492" x2="1128" y2="492" stroke="#82d7ff" stroke-opacity=".32"/>
+  <circle cx="80" cy="548" r="8" fill="#b7f269"/><text x="104" y="556" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="600" fill="#c4d3dc">Direção de produto · construção digital · aplicação prática</text>
 </svg>
