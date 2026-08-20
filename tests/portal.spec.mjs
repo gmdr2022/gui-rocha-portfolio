@@ -575,6 +575,33 @@ test("work map supports hover tolerance, keyboard dismissal and focus return", a
   await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-maeve-tablet)");
 });
 
+test("work map preserves keyboard intent across synthetic hover after reflow", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await openRoute(page, "/");
+  const institutionalBranch = page.locator('[data-work-map-depth="0"]').first();
+  const institutionalTrigger = institutionalBranch.locator(":scope > [data-work-map-trigger]");
+  const toolingTrigger = page.locator("[data-work-map-trigger]").nth(2);
+
+  await toolingTrigger.evaluate((trigger) => {
+    trigger.focus();
+    trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true, cancelable: true }));
+    const sibling = document.querySelector('[data-work-map-depth="0"]');
+    const bounds = sibling?.getBoundingClientRect();
+    sibling?.dispatchEvent(new PointerEvent("pointerenter", {
+      pointerType: "mouse",
+      clientX: (bounds?.x ?? 0) + 1,
+      clientY: (bounds?.y ?? 0) + 1,
+    }));
+  });
+  await expect(toolingTrigger).toHaveAttribute("aria-expanded", "true");
+  await expect(institutionalTrigger).toHaveAttribute("aria-expanded", "false");
+
+  await page.waitForTimeout(500);
+  await institutionalTrigger.hover();
+  await expect(institutionalTrigger).toHaveAttribute("aria-expanded", "true");
+  await expect(toolingTrigger).toHaveAttribute("aria-expanded", "false");
+});
+
 test("work map bounds screen awakening and circular ink motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -1010,6 +1037,7 @@ test("work map labels, media and preferences remain coherent", async ({ page }, 
   await expect(page.locator("html")).toHaveCSS("transition-property", "none");
   await expect(page.locator("[data-work-map-hotspots]")).toHaveCSS("display", "none");
   await page.setViewportSize({ width: 1024, height: 768 });
+  await page.mouse.move(0, 0);
   const scaledMap = page.locator("[data-work-map]");
   const scaledPanel = page.locator("[data-work-map-panel]").nth(2);
   await reducedMotionTooling.focus();

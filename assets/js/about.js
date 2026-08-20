@@ -4,6 +4,7 @@ const anyHoverAvailable = window.matchMedia("(any-hover: hover) and (any-pointer
 const workMapPanelTransitionMs = 260;
 const workMapCloseDelayMs = 300;
 const syntheticHoverSuppressionMs = 1200;
+const keyboardHoverSuppressionMs = 450;
 const workMapEffectDurationMs = 1050;
 const panelHideTimers = new WeakMap();
 let lastInputWasPointer = false;
@@ -506,6 +507,7 @@ document.addEventListener("pointerdown", (event) => {
 document.addEventListener("keydown", (event) => {
   lastInputWasPointer = false;
   lastPointerType = "";
+  suppressHoverUntil = Math.max(suppressHoverUntil, window.performance.now() + keyboardHoverSuppressionMs);
   if (event.key !== "Escape") return;
   const openBranches = [...document.querySelectorAll('.work-map-trigger[aria-expanded="true"]')]
     .map((trigger) => trigger.closest(".work-map-branch"))
