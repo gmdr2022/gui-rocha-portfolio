@@ -403,7 +403,7 @@ test("security headers, permanent redirects and localized 404 work locally", asy
 });
 
 test("mobile layouts keep the header visible and actionable throughout scrolling", async ({ page }) => {
-  test.setTimeout(90_000);
+  test.setTimeout(120_000);
   const scenarios = [
     { viewport: { width: 320, height: 568 }, routes: mobileRoutes },
     { viewport: { width: 390, height: 844 }, routes: mobileRoutes },
@@ -437,8 +437,10 @@ test("mobile layouts keep the header visible and actionable throughout scrolling
       ])];
 
       for (const y of positions) {
-        await page.evaluate((scrollY) => window.scrollTo(0, scrollY), y);
-        await page.waitForTimeout(60);
+        await page.evaluate((scrollY) => new Promise((resolve) => {
+          window.scrollTo(0, scrollY);
+          requestAnimationFrame(() => requestAnimationFrame(resolve));
+        }), y);
         const header = await page.locator(".site-header").evaluate((element) => {
           const rectangle = element.getBoundingClientRect();
           const controls = [
@@ -456,10 +458,8 @@ test("mobile layouts keep the header visible and actionable throughout scrolling
               const controlRectangle = control.getBoundingClientRect();
               const x = controlRectangle.left + controlRectangle.width / 2;
               const y = controlRectangle.top + controlRectangle.height / 2;
-              const hit = document.elementFromPoint(x, y);
               return {
                 insideViewport: x >= 0 && x <= innerWidth && y >= 0 && y <= innerHeight,
-                unobscured: hit === control || control.contains(hit),
               };
             }),
           };
@@ -469,11 +469,19 @@ test("mobile layouts keep the header visible and actionable throughout scrolling
         expect(header.top, `${route} at scroll ${y}`).toBeLessThanOrEqual(24);
         expect(header.bottom, `${route} header within viewport`).toBeLessThan(header.viewportHeight);
         expect(header.controls, `${route} controls at scroll ${y}`).toEqual([
-          { insideViewport: true, unobscured: true },
-          { insideViewport: true, unobscured: true },
-          { insideViewport: true, unobscured: true },
-          { insideViewport: true, unobscured: true },
+          { insideViewport: true },
+          { insideViewport: true },
+          { insideViewport: true },
+          { insideViewport: true },
         ]);
+        for (const selector of [
+          '[data-site-nav="projects"]',
+          ".language-switcher summary",
+          "[data-open-accessibility]",
+          "[data-theme-toggle]",
+        ]) {
+          await page.locator(`.site-header ${selector}`).click({ trial: true });
+        }
       }
 
       if (route === "/") {
