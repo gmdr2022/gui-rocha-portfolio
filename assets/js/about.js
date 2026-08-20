@@ -79,6 +79,8 @@ const initializeWorkMap = (map) => {
   const hotspots = [...map.querySelectorAll("[data-work-map-hotspot]")];
   const branches = [...map.querySelectorAll(".work-map-branch")];
   const closeTimers = new WeakMap();
+  const branchStateVersions = new WeakMap();
+  const activationPointerTypes = new WeakMap();
   let layoutFrame = 0;
   let effectTimer = 0;
   let orbitTimer = 0;
@@ -89,6 +91,8 @@ const initializeWorkMap = (map) => {
   const depthOf = (branch) => Number(branch.dataset.workMapDepth || 0);
   const isOpen = (branch) => branch.dataset.open === "true";
   const isExpanded = (branch) => triggerFor(branch)?.getAttribute("aria-expanded") === "true";
+  const branchStateVersion = (branch) => branchStateVersions.get(branch) || 0;
+  const advanceBranchState = (branch) => branchStateVersions.set(branch, branchStateVersion(branch) + 1);
 
   const rootNodeFor = (node) => node?.matches?.('[data-work-map-depth="0"]')
     ? node
@@ -340,6 +344,7 @@ const initializeWorkMap = (map) => {
 
   const closeBranch = (branch, { animate = true, focus = false } = {}) => {
     clearCloseTimer(branch);
+    advanceBranchState(branch);
     const panel = panelFor(branch);
     const trigger = triggerFor(branch);
     branches
@@ -372,6 +377,7 @@ const initializeWorkMap = (map) => {
 
   const openBranch = (branch, { animate = true, focusPanel = false, burst = false } = {}) => {
     clearCloseTimer(branch);
+    advanceBranchState(branch);
     const siblings = directBranches(branch.parentElement);
     siblings.filter((sibling) => sibling !== branch && isExpanded(sibling)).forEach((sibling) => closeBranch(sibling));
     const panel = panelFor(branch);
@@ -444,13 +450,22 @@ const initializeWorkMap = (map) => {
     });
 
     branch.addEventListener("focusout", () => {
+      const stateVersion = branchStateVersion(branch);
       window.requestAnimationFrame(() => {
+        if (branchStateVersion(branch) !== stateVersion) return;
         if (!branch.contains(document.activeElement) && isExpanded(branch)) scheduleClose(branch);
       });
     });
 
+    trigger?.addEventListener("pointerdown", (event) => {
+      activationPointerTypes.set(trigger, event.pointerType);
+    });
+    trigger?.addEventListener("pointercancel", () => activationPointerTypes.delete(trigger));
+
     trigger?.addEventListener("click", (event) => {
-      const pointerHoverClick = event.detail > 0 && lastPointerType === "mouse"
+      const activationPointerType = activationPointerTypes.get(trigger) || event.pointerType || lastPointerType;
+      activationPointerTypes.delete(trigger);
+      const pointerHoverClick = event.detail > 0 && activationPointerType === "mouse"
         && (hoverAvailable.matches || anyHoverAvailable.matches);
       if (pointerHoverClick) openBranch(branch, { burst: true });
       else if (isExpanded(branch)) closeBranch(branch);

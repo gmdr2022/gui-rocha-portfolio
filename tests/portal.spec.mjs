@@ -686,6 +686,27 @@ test("work map supports first tap, second tap and outside dismissal", async ({ b
     await trigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 24, clientY: 24 });
     await trigger.dispatchEvent("click", { detail: 1 });
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    await page.evaluate(() => {
+      const [firstTrigger, secondMapTrigger] = document.querySelectorAll("[data-work-map-trigger]");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Shift", bubbles: true }));
+      firstTrigger.focus();
+      secondMapTrigger.focus();
+      secondMapTrigger.click();
+      firstTrigger.dispatchEvent(new PointerEvent("pointerdown", {
+        pointerType: "pen",
+        clientX: 24,
+        clientY: 24,
+        bubbles: true,
+      }));
+      firstTrigger.dispatchEvent(new MouseEvent("click", { detail: 1, bubbles: true }));
+    });
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await page.waitForTimeout(400);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await trigger.tap();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
     await trigger.tap();
     await page.locator("h1").tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
@@ -711,6 +732,11 @@ test("work map supports first tap, second tap and outside dismissal", async ({ b
     await penTrigger.dispatchEvent("click", { detail: 1 });
     await expect(penTrigger).toHaveAttribute("aria-expanded", "true");
     await penTrigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 48, clientY: 48 });
+    await hybridPage.locator("body").dispatchEvent("pointermove", {
+      pointerType: "mouse",
+      clientX: 96,
+      clientY: 96,
+    });
     await penTrigger.dispatchEvent("click", { detail: 1 });
     await expect(penTrigger).toHaveAttribute("aria-expanded", "false");
   } finally {
