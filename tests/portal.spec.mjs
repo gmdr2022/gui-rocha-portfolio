@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { errors, expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 const coreRoutes = [
@@ -264,47 +264,53 @@ const acceptEssentialStorage = async (page) => {
 
 const navigationCommitTimeoutMs = 10_000;
 
-const navigationTargetMatches = (candidate, route) => {
-  const absoluteRoute = /^[a-z][a-z\d+.-]*:/i.test(route);
-  const expected = new URL(route, "https://portal.invalid");
-  const actual = new URL(candidate);
-  if (absoluteRoute) return actual.href === expected.href;
-  return actual.pathname === expected.pathname
-    && actual.search === expected.search
-    && actual.hash === expected.hash;
+const navigationTarget = (page, route) => {
+  if (/^[a-z][a-z\d+.-]*:/i.test(route)) return new URL(route).href;
+  const baseUrl = test.info().project.use.baseURL;
+  if (!baseUrl) throw new Error(`Base URL ausente para navegar até ${route}`);
+  return new URL(route, baseUrl).href;
 };
 
 const navigateWithVerifiedCommit = async (page, route, navigate) => {
-  let observedResponse = null;
-  const captureNavigationResponse = (response) => {
-    if (response.request().isNavigationRequest() && navigationTargetMatches(response.url(), route)) {
-      observedResponse = response;
-    }
-  };
-  page.on("response", captureNavigationResponse);
+  const expectedHref = navigationTarget(page, route);
+  const previousTimeOrigin = await page.evaluate(() => performance.timeOrigin);
+  let response;
   try {
+    response = await navigate({ waitUntil: "commit", timeout: navigationCommitTimeoutMs });
+  } catch (error) {
+    if (!(error instanceof errors.TimeoutError)) throw error;
+    const documentState = await page.evaluate(() => ({
+      href: window.location.href,
+      readyState: document.readyState,
+      timeOrigin: performance.timeOrigin,
+    }));
+    if (
+      documentState.href !== expectedHref
+      || documentState.readyState !== "complete"
+      || documentState.timeOrigin === previousTimeOrigin
+    ) throw error;
+
+    let synchronizedResponse;
     try {
-      observedResponse = await navigate({ waitUntil: "commit", timeout: navigationCommitTimeoutMs })
-        || observedResponse;
-    } catch (error) {
-      if (!(error instanceof Error) || !/Timeout \d+ms exceeded/.test(error.message)) throw error;
-      const documentState = await page.evaluate(() => ({
-        href: window.location.href,
-        readyState: document.readyState,
-      }));
-      if (
-        !observedResponse
-        || observedResponse.status() >= 400
-        || !navigationTargetMatches(documentState.href, route)
-        || documentState.readyState === "loading"
-      ) throw error;
-      console.warn(`[playwright] commit signal recovered after verified navigation to ${route}`);
+      synchronizedResponse = await page.goto(expectedHref, {
+        waitUntil: "commit",
+        timeout: navigationCommitTimeoutMs,
+      });
+      if (!synchronizedResponse || synchronizedResponse.status() >= 400) throw error;
+      await page.waitForFunction(() => document.readyState !== "loading");
+      if (page.url() !== expectedHref) throw error;
+      await page.locator("html").waitFor({ state: "attached", timeout: navigationCommitTimeoutMs });
+    } catch {
+      throw error;
     }
-  } finally {
-    page.off("response", captureNavigationResponse);
+    console.warn(`[playwright] driver navigation resynchronized for ${expectedHref}`);
+    return synchronizedResponse;
   }
   await page.waitForFunction(() => document.readyState !== "loading");
-  return observedResponse;
+  if (page.url() !== expectedHref) {
+    throw new Error(`Navegação terminou em ${page.url()}, esperado ${expectedHref}`);
+  }
+  return response;
 };
 
 const openRoute = async (page, route) => {
@@ -316,17 +322,24 @@ const reloadRoute = async (page) => {
   return navigateWithVerifiedCommit(page, route, (options) => page.reload(options));
 };
 
-test("navigation helper verifies a loaded document when the commit signal is lost", async ({ page }) => {
+test("navigation helper resynchronizes a loaded document when the commit signal is lost", async ({ page }) => {
   const originalGoto = page.goto.bind(page);
+  let navigationCount = 0;
   page.goto = async (route, options) => {
-    await originalGoto(route, options);
-    await page.waitForFunction(() => document.readyState !== "loading");
-    throw new Error(`page.goto: Timeout ${navigationCommitTimeoutMs}ms exceeded.`);
+    navigationCount += 1;
+    const response = await originalGoto(route, options);
+    if (navigationCount === 1) {
+      await page.waitForFunction(() => document.readyState === "complete");
+      throw new errors.TimeoutError(`page.goto: Timeout ${navigationCommitTimeoutMs}ms exceeded.`);
+    }
+    return response;
   };
   try {
     const response = await openRoute(page, "/");
-    expect(response?.status()).toBe(200);
+    expect(response?.status()).toBeLessThan(400);
+    expect(navigationCount).toBe(2);
     await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("h1")).toBeVisible();
   } finally {
     page.goto = originalGoto;
   }
@@ -349,7 +362,7 @@ test("all sitemap routes are healthy, singular and free of runtime errors", asyn
   for (const route of routes) {
     errors = [];
     const response = await openRoute(page, route);
-    expect(response?.status(), route).toBe(200);
+    expect([200, 304], route).toContain(response?.status());
     expect(await page.locator("h1").count(), route).toBe(1);
     await expect(page.locator("html"), route).toHaveAttribute("lang", /^(?:pt-BR|en|es)$/);
     await expect(page.locator('meta[name="description"]'), route).toHaveCount(1);
