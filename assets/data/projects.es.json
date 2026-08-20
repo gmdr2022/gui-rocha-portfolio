@@ -9,11 +9,11 @@
     "kicker": "Plataforma para organizar operaciones institucionales",
     "status": "En evolución · Nueva versión web",
     "statusTone": "live",
-    "summary": "ClubAL reúne rutinas, consultas e información operativa en un solo lugar. Los módulos actuales siguen disponibles mientras se desarrolla y valida una nueva versión web de Operador.",
+    "summary": "ClubAL reúne rutinas, consultas e información operativa en módulos conectados. La base actual para Windows sigue disponible mientras el nuevo Operador Web avanza en desarrollo y validación.",
     "role": "Dirección de producto y desarrollo de la base local-first, incluida la separación de responsabilidades y la evolución de Operador hacia la web.",
     "evidence": "Capturas con datos demostrativos documentan Operação, Rotinas, Consulta y el pronóstico del tiempo integrado en los módulos actuales para Windows.",
-    "promise": "La información operativa permanece organizada y disponible para cada entorno sin dar acceso de edición a todos.",
-    "showcaseSubtitle": "Organiza el registro, la publicación y la consulta de rutinas en distintos entornos institucionales.",
+    "promise": "Rutinas e información operativa organizadas para quienes registran, publican y consultan.",
+    "showcaseSubtitle": "Organiza el registro, la publicación y la consulta de rutinas en distintos entornos institucionales, con responsabilidades separadas y una evolución controlada.",
     "cardCta": "Explorar el producto",
     "route": "/es/proyectos/clubal/",
     "image": "/assets/img/clubal/rotinas-atual.png",
@@ -72,16 +72,16 @@
     "tabs": [
       {
         "id": "problema",
-        "label": "Problema",
-        "title": "La información operativa se pierde cuando cada entorno improvisa.",
-        "body": "Hojas de cálculo, papel y mensajes dispersos crean distintas versiones de la misma rutina. ClubAL concentra el registro en el PC responsable y separa edición de lectura.",
-        "points": ["Una fuente de registro", "Visibilidad por entorno", "Funcionamiento local"]
+        "label": "Situación operativa",
+        "title": "Las rutinas se descoordinan cuando cada entorno registra de forma distinta.",
+        "body": "Hojas de cálculo, papeles y mensajes independientes producen versiones contradictorias. ClubAL centraliza el registro en el ordenador responsable y separa edición, publicación y consulta.",
+        "points": ["Registro centralizado", "Visibilidad por entorno", "Funcionamiento local"]
       },
       {
         "id": "flujo",
         "label": "Contribución",
-        "title": "La operación se dividió por responsabilidad, no por conveniencia técnica.",
-        "body": "Estructuré el producto para separar a quienes registran y publican de quienes solo consultan. Esta decisión reduce ediciones indebidas y mantiene una fuente local de información aprobada.",
+        "title": "Las responsabilidades definen el flujo, no la conveniencia técnica.",
+        "body": "Estructuré el producto para separar a quienes registran y publican de quienes solo consultan. Esta división reduce ediciones indebidas y mantiene una fuente local de información aprobada.",
         "points": ["Dirección de producto", "Arquitectura local-first", "Evolución web con alcance controlado"]
       },
       {
@@ -98,8 +98,8 @@
       {
         "id": "estado",
         "label": "Estado",
-        "title": "Una nueva versión web de Operador está en desarrollo.",
-        "body": "Operação, Rotinas y Consulta siguen disponibles en los módulos para Windows. La nueva versión web de Operador está en validación con datos sintéticos.",
+        "title": "Operador Web avanza mientras los módulos para Windows siguen disponibles.",
+        "body": "Operação, Rotinas y Consulta continúan en los módulos para Windows. Operador Web sigue en desarrollo y validación con datos sintéticos.",
         "points": ["Windows · módulos actuales", "Nueva versión web · en validación", "Pronóstico del tiempo · integrado"]
       }
     ],
@@ -119,7 +119,7 @@
     "status": "En desarrollo · Fase 8",
     "statusTone": "progress",
     "summary": "Maeve Roscaern es un RPG original para un jugador, desarrollado a una escala compacta para una producción individual.",
-    "role": "Dirección creativa, diseño de sistemas e implementación del prototipo en una producción individual.",
+    "role": "Dirección creativa, diseño de sistemas e implementación individual del prototipo.",
     "evidence": "El combo ligero, la esquiva y Blood First ya forman el primer recorte de combate de la Fase 8.",
     "promise": "Dun Caerwyn convierte sangre, memoria y decisiones en marcas persistentes.",
     "showcaseSubtitle": "Transforma un universo original en una experiencia jugable, combinando narrativa, sistemas y una escala viable para la producción independiente.",
@@ -231,7 +231,7 @@
     "summary": "El sitio reúne presentación, agenda, transmisiones y comunidad en una experiencia responsiva para móvil y ordenador.",
     "role": "Dirección de producto, arquitectura de contenido, diseño responsivo y publicación del sitio para la cliente.",
     "evidence": "Sitio publicado y disponible en móvil y ordenador, con presentación, agenda y caminos públicos hacia la comunidad.",
-    "promise": "Contenido y comunidad en una presencia digital propia, reconocible y fácil de navegar.",
+    "promise": "Presentación, agenda y comunidad reunidas bajo la identidad de la cliente.",
     "cardCta": "Ver el caso",
     "route": "/es/proyectos/demonyza/",
     "image": "/assets/img/demonyza/home.webp",
@@ -281,11 +281,11 @@
     "kicker": "Cola local para validaciones y decisiones",
     "status": "Producto local · Windows",
     "statusTone": "ready",
-    "summary": "Codex Checkpoint conserva validaciones pendientes, decisiones y comentarios entre sesiones de trabajo.",
+    "summary": "Codex Checkpoint mantiene disponibles las validaciones, decisiones y observaciones entre sesiones de trabajo.",
     "role": "Dirección de producto y desarrollo de la aplicación nativa, desde la interfaz hasta los mecanismos que conservan los pendientes entre sesiones.",
     "evidence": "La importación de tarjetas con claves sin duplicados se validó en el flujo local; la aplicación también ofrece copia de seguridad y recuperación.",
-    "promise": "Pendientes retomados en el momento adecuado, con contexto y decisiones preservados.",
-    "showcaseSubtitle": "Evita que decisiones, validaciones y pendientes se pierdan entre sesiones de trabajo, preservando el contexto para la siguiente etapa.",
+    "promise": "Pendientes retomados en el momento adecuado, con las decisiones y la información esencial preservadas.",
+    "showcaseSubtitle": "Evita que las validaciones y decisiones se pierdan entre sesiones y conserva lo necesario para la siguiente etapa.",
     "cardCta": "Ver cómo funciona",
     "route": "/es/proyectos/codex-checkpoint/",
     "image": "/assets/img/codex-checkpoint/app.png",
@@ -301,16 +301,16 @@
     "tabs": [
       {
         "id": "problema",
-        "label": "Problema",
-        "title": "No todas las pruebas pueden resolverse durante la sesión.",
-        "body": "Pruebas de jugabilidad, revisión visual, dispositivos, autenticación y decisiones prácticas pueden exigir otro momento o entorno. Sin una cola, ese contexto desaparece.",
+        "label": "Punto de partida",
+        "title": "Algunas verificaciones deben realizarse fuera de la sesión actual.",
+        "body": "Las pruebas de jugabilidad, la evaluación visual, los dispositivos y la autenticación pueden depender de otro momento o entorno. La cola registra lo necesario para retomar sin reconstruir el historial.",
         "points": ["Pendientes entre sesiones", "Varios proyectos", "Historial de comentarios"]
       },
       {
         "id": "solucion",
         "label": "Solución",
         "title": "Una cola de checkpoints, no otro chat.",
-        "body": "Cada checkpoint registra contexto suficiente para retomar la tarea pendiente y dejar una decisión o comentario accionable.",
+        "body": "Cada checkpoint reúne información suficiente para retomar la tarea pendiente y registrar una decisión o una observación accionable.",
         "points": ["Claves sin duplicados", "Estados y notas", "Importación validada de tarjetas"]
       },
       {
@@ -333,11 +333,11 @@
     "kicker": "Central para Windows de proyectos locales",
     "status": "Herramienta local validada · Windows",
     "statusTone": "ready",
-    "summary": "NEXUS reúne proyectos, rutas y verificaciones en una central local que muestra qué está listo y qué necesita atención.",
+    "summary": "NEXUS organiza proyectos, rutas y verificaciones en una central local que indica qué está listo y qué requiere atención.",
     "role": "Dirección de producto y desarrollo de la central local, incluidos registro, descubrimiento seguro de rutas y validaciones.",
     "evidence": "El inicio sin conexión, el registro desde la interfaz y el descubrimiento seguro de rutas se validaron en la base local.",
-    "promise": "La ruta correcta aparece antes de ejecutar, sin buscar accesos directos.",
-    "showcaseSubtitle": "Centraliza proyectos, rutas y validaciones para mostrar qué está listo y qué todavía requiere atención.",
+    "promise": "La ruta correcta aparece antes de ejecutar, sin depender de una pila de accesos directos.",
+    "showcaseSubtitle": "Centraliza proyectos, rutas y verificaciones para indicar qué está listo y qué todavía requiere atención.",
     "cardCta": "Explorar la central",
     "route": "/es/proyectos/nexus/",
     "image": "/assets/img/nexus/app.png",
@@ -353,9 +353,9 @@
     "tabs": [
       {
         "id": "problema",
-        "label": "Problema",
-        "title": "Varios proyectos ya no cabían en una pila de accesos directos.",
-        "body": "Cada producto tiene sus propias versiones, herramientas y verificaciones; la ruta correcta debe aparecer antes de ejecutar.",
+        "label": "Situación",
+        "title": "Una pila de accesos directos dejó de ser suficiente para organizar varios proyectos.",
+        "body": "Cada producto usa versiones, herramientas y verificaciones propias. NEXUS reúne esas referencias y muestra la ruta correcta antes de ejecutar.",
         "points": ["Varios proyectos", "Rutas diferentes", "Estado visible"]
       },
       {
@@ -369,8 +369,8 @@
         "id": "estado",
         "label": "Estado",
         "title": "La central local está en uso.",
-        "body": "Los proyectos y las verificaciones se abren en su contexto de desarrollo, sin inicio de sesión obligatorio y sin mezclar los entornos de los productos.",
-        "points": ["Aplicación C# / WPF para Windows", "Proyectos en el contexto correcto", "Sin publicación automática"]
+        "body": "Los proyectos y las verificaciones se abren en el entorno de desarrollo correcto, sin inicio de sesión obligatorio y sin mezclar productos.",
+        "points": ["Aplicación C# / WPF para Windows", "Apertura en el entorno correcto", "Sin publicación automática"]
       }
     ],
     "links": []
@@ -387,7 +387,7 @@
     "statusTone": "lab",
     "summary": "Un checklist de código abierto mantiene las tareas en un archivo local y ofrece operaciones sencillas sin depender de un servicio remoto.",
     "role": "Definición del ejemplo, implementación de la línea de comandos, pruebas, documentación y publicación de la versión 1.0.0.",
-    "evidence": "El repositorio público y la release v1.0.0 permiten consultar el código, la documentación y la versión publicada.",
+    "evidence": "El repositorio público permite consultar el código y la documentación, mientras que la release v1.0.0 identifica la versión publicada.",
     "promise": "Un ejemplo compacto para organizar tareas en el propio ordenador y revisar cómo funciona cada parte.",
     "showcaseSubtitle": "Convierte principios local-first en criterios prácticos para crear software con mayor autonomía, privacidad y control.",
     "cardCta": "Ver el proyecto público",
@@ -439,11 +439,11 @@
     "kicker": "El método de ingeniería detrás de mis productos",
     "status": "Sistema en uso · v1.0.0",
     "statusTone": "ready",
-    "summary": "C7 sostiene los principios que sigo al desarrollar mis productos: contexto claro, rigor proporcional al riesgo y evidencia antes de concluir.",
+    "summary": "C7 reúne los principios que aplico al desarrollar mis productos: preparación objetiva, rigor proporcional al riesgo y validación antes de concluir.",
     "role": "Concepción del método, arquitectura del sistema y validación de la versión instalada.",
     "evidence": "La versión 1.0.0 reúne pruebas del núcleo, verificaciones del entorno instalado, evaluaciones comparativas y restauración en un perfil desechable.",
-    "promise": "Un método coherente para problemas, riesgos y entregas diferentes.",
-    "showcaseSubtitle": "Reúne los principios que sigo para decidir, construir, verificar y evolucionar cada producto.",
+    "promise": "Un método coherente para trabajos, riesgos y entregas diferentes.",
+    "showcaseSubtitle": "Reúne los fundamentos empleados para decidir, construir, verificar y evolucionar cada producto.",
     "route": "/es/proyectos/c7-engineering-system/",
     "image": "/assets/img/c7-engineering-system-hero-v2.webp",
     "imageWidth": 1600,
@@ -457,16 +457,16 @@
     "visualLabel": "Identidad del sistema",
     "accent": "#a9ed34",
     "accentRgb": "169 237 52",
-    "facts": ["Contexto antes de ejecutar", "Rigor proporcional al riesgo", "Evidencia antes de concluir"],
+    "facts": ["Preparación antes de ejecutar", "Rigor proporcional al riesgo", "Validación antes de concluir"],
     "caseSummary": ["role", "tab:riesgo", "tab:evidencia", "tab:continuidad"],
     "cardCta": "Conocer el método",
     "tabs": [
       {
         "id": "contexto",
-        "label": "Contexto",
-        "title": "El contexto viene antes de la ejecución.",
-        "body": "Antes de construir, defino el problema, el público, el alcance y el criterio de conclusión. Esto reduce retrabajo y protege la coherencia del producto.",
-        "points": ["Problema y público claros", "Alcance protegido", "Conclusión verificable"]
+        "label": "Preparación",
+        "title": "Preparar antes de ejecutar.",
+        "body": "Antes de construir, defino la necesidad, el público, el alcance y el criterio de conclusión. Esto reduce el retrabajo y protege la coherencia del producto.",
+        "points": ["Necesidad y público definidos", "Alcance protegido", "Conclusión verificable"]
       },
       {
         "id": "riesgo",
@@ -494,7 +494,7 @@
         "label": "Continuidad",
         "title": "El trabajo válido no necesita repetirse.",
         "body": "Registro decisiones, pruebas y puntos de reanudación para que cada etapa empiece desde el estado real del proyecto.",
-        "points": ["Contexto preservado", "Reanudación objetiva", "Menos repetición"]
+        "points": ["Decisiones preservadas", "Reanudación objetiva", "Menos repetición"]
       }
     ],
     "links": []

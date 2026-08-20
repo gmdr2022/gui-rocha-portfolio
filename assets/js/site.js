@@ -353,7 +353,7 @@ window.addEventListener("portal:ambientchange", (event) => {
   const rgb = parseAmbientRgb(detail?.accentRgb);
   const index = Number(detail?.index);
   if (!rgb || !Number.isInteger(index) || index < 0 || index > 999) return;
-  if (typeof detail?.id !== "string" || !detail.id.trim() || !["project", "context", "decision"].includes(detail?.source)) return;
+  if (typeof detail?.id !== "string" || !detail.id.trim() || !["project", "context", "decision", "work-map"].includes(detail?.source)) return;
   ambientColor = rgb.map((channel, channelIndex) => Math.round(
     ambientOceanBase[channelIndex] * 0.55 + channel * 0.45,
   ));
@@ -589,8 +589,8 @@ if (scrollProgress) {
   window.addEventListener("scroll", requestScrollProgress, { passive: true });
   window.addEventListener("resize", requestScrollProgress);
   window.addEventListener("load", requestScrollProgress);
-  if ("ResizeObserver" in window) {
-    new ResizeObserver(requestScrollProgress).observe(document.body);
+  if (typeof window.ResizeObserver === "function") {
+    new window.ResizeObserver(requestScrollProgress).observe(document.body);
   }
 }
 

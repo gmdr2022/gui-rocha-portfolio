@@ -2,6 +2,13 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { localeOrder, locales, siteConfig } from "../content/pages.mjs";
+import {
+  resolveWorkMapNodeTitle,
+  validateWorkMapStructure,
+  validateWorkMapVisualTargets,
+  workMapStructure,
+  workMapVisualTargets,
+} from "../content/work-map.mjs";
 
 const root = resolve(process.cwd());
 const { origin, personalEmail, clubalEmail, githubUrl, whatsappUrl } = siteConfig;
@@ -430,9 +437,9 @@ const projectsPage = (locale) => {
     </section>
   </main>`;
   const socialImageAlt = {
-    "pt-BR": "Projetos digitais de Guilherme Rocha organizados por contexto, papel, decisões, evidência e estado",
-    en: "Guilherme Rocha’s digital projects organized by context, role, decisions, evidence and status",
-    es: "Proyectos digitales de Guilherme Rocha organizados por contexto, rol, decisiones, evidencia y estado",
+    "pt-BR": "Projetos digitais de Guilherme Rocha organizados por objetivo, papel, decisões, validação e estado atual.",
+    en: "Guilherme Rocha’s digital projects organized by goal, role, decisions, validation and current status.",
+    es: "Proyectos digitales de Guilherme Rocha organizados por objetivo, rol, decisiones, validación y estado actual.",
   }[locale];
   return layout({
     locale,
@@ -456,25 +463,85 @@ const aboutPage = (locale) => {
   const projects = new Map(projectsByLocale[locale].map((project) => [project.slug, project]));
   const collectionCard = siteCollectionCard(locale);
   projects.set("sites", collectionCard);
-  const catalogCards = copy.catalogs.map(([key, title, slugs], categoryIndex) => {
-    const items = slugs.map((slug) => projects.get(slug)).filter(Boolean);
-    const panelId = `context-${locale.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${key}`;
-    const triggerId = `${panelId}-trigger`;
-    const count = `${items.length} ${items.length === 1 ? copy.catalogSingle : copy.catalogMultiple}`;
-    const accent = items[0]?.accent || "#82d7ff";
-    const accentRgb = items[0]?.accentRgb || "130 215 255";
+  const visualTargets = validateWorkMapVisualTargets(workMapVisualTargets);
+  validateWorkMapStructure(workMapStructure, {
+    allowedReferences: new Set(projects.keys()),
+    allowedVisualTargets: new Set(visualTargets.ids),
+  });
+  const localeId = locale.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const renderWorkMapNodes = (nodes, depth = 0) => nodes.map((node, nodeIndex) => {
+    const reference = node.type === "project" ? node.slug : node.type === "collection" ? node.key : null;
+    const item = reference ? projects.get(reference) : null;
+    const title = resolveWorkMapNodeTitle(node, { groupLabels: copy.workMap.groups, item });
+    if (!title) throw new Error(`Rótulo ausente no mapa ${locale}:${node.id}`);
+    const accent = node.accent || item?.accent || "#82d7ff";
+    const accentRgb = node.accentRgb || item?.accentRgb || "130 215 255";
+    const hasChildren = node.children.length > 0;
+    const nodeId = `work-map-${localeId}-${node.id}`;
+    const triggerId = `${nodeId}-trigger`;
+    const panelId = `${nodeId}-panel`;
+    const childCount = node.children.length;
+    const count = `${childCount} ${childCount === 1 ? copy.workMap.single : copy.workMap.multiple}`;
+    const panelDensity = childCount >= 10 ? "dense" : childCount >= 6 ? "many" : "standard";
+    const index = depth === 0 ? `<span class="work-map-index">${String(nodeIndex + 1).padStart(2, "0")}</span>` : "";
+    const label = depth === 0
+      ? `<span class="work-map-label"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>`
+      : `<span class="work-map-label"><strong>${escapeHtml(title)}</strong>${item?.kicker ? `<small>${escapeHtml(item.kicker)}</small>` : ""}</span>`;
+    const nodeStyle = `--work-map-accent:${accent};--work-map-accent-rgb:${accentRgb}`;
+
+    if (!hasChildren) {
+      if (!item) throw new Error(`Destino ausente no mapa ${locale}:${node.id}`);
+      return `
+              <li class="work-map-node work-map-leaf" data-work-map-node data-work-map-depth="${depth}" data-work-map-id="${node.id}" data-work-map-target="${node.visualTarget}" style="${nodeStyle}">
+                <a class="work-map-link" href="${item.route}" data-work-map-link>${projectIcon(item)}${label}${icon("arrowRight")}</a>
+              </li>`;
+    }
+
     return `
-        <article class="context-catalog-card" data-context-card data-category="${key}" data-index="${categoryIndex}" style="--context-accent:${accent};--context-accent-rgb:${accentRgb};--context-order:${categoryIndex}">
-          <button type="button" id="${triggerId}" data-context-trigger aria-expanded="false" aria-controls="${panelId}">
-            <span class="context-catalog-index">${String(categoryIndex + 1).padStart(2, "0")}</span>
-            <span class="context-catalog-title"><strong>${escapeHtml(title)}</strong><small>${escapeHtml(count)}</small></span>
-            <span class="context-catalog-chevron" aria-hidden="true">${icon("chevron")}</span>
-          </button>
-          <div class="context-catalog-panel" id="${panelId}" data-context-panel role="region" aria-labelledby="${triggerId}" hidden>
-            <ul>${items.map((project) => `<li><a href="${project.route}" style="--item-accent:${project.accent}">${projectIcon(project)}<span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary)}</small></span>${icon("arrowRight")}</a></li>`).join("")}</ul>
-          </div>
-        </article>`;
+            <li class="work-map-node work-map-branch" data-work-map-node data-work-map-depth="${depth}" data-work-map-id="${node.id}" data-work-map-target="${node.visualTarget}" data-category="${node.id}" data-index="${nodeIndex}" data-accent-rgb="${accentRgb}" style="${nodeStyle}">
+              <button class="work-map-trigger" type="button" id="${triggerId}" data-work-map-trigger aria-expanded="false" aria-controls="${panelId}">
+                ${index}${label}<span class="work-map-chevron" aria-hidden="true">${icon("chevron")}</span>
+              </button>
+              <div class="work-map-panel" id="${panelId}" data-work-map-panel data-work-map-level="${depth + 1}" data-work-map-child-count="${childCount}" data-work-map-density="${panelDensity}" role="region" aria-labelledby="${triggerId}" hidden>
+                <div class="work-map-panel-heading">
+                  <button type="button" class="work-map-back" data-work-map-back aria-label="${escapeHtml(copy.workMap.back)}">${icon("arrowLeft")}<span>${escapeHtml(copy.workMap.back)}</span></button>
+                  <strong>${escapeHtml(title)}</strong>
+                </div>
+                <ul tabindex="-1">${renderWorkMapNodes(node.children, depth + 1)}</ul>
+              </div>
+            </li>`;
   }).join("");
+  const workMapNodes = renderWorkMapNodes(workMapStructure);
+  const renderHotspotShape = (shape, className = "") => {
+    const classAttribute = className ? ` class="${className}"` : "";
+    if (shape.kind === "rect") return `<rect${classAttribute} x="${shape.x}" y="${shape.y}" width="${shape.width}" height="${shape.height}" rx="${shape.rx}"></rect>`;
+    if (shape.kind === "ellipse") return `<ellipse${classAttribute} cx="${shape.cx}" cy="${shape.cy}" rx="${shape.rx}" ry="${shape.ry}"></ellipse>`;
+    return `<polygon${classAttribute} points="${shape.points}"></polygon>`;
+  };
+  const hotspotFilterId = `work-map-hotspot-glow-${localeId}`;
+  const workMapClipPaths = Object.entries(workMapVisualTargets).map(([targetId, target]) => {
+    const clipPathId = `work-map-clip-${localeId}-${targetId}`;
+    const shapes = target.shapes.map((shape) => renderHotspotShape(shape)).join("");
+    return `<clipPath id="${clipPathId}" clipPathUnits="userSpaceOnUse">${shapes}</clipPath>`;
+  }).join("");
+  const workMapHotspots = Object.entries(workMapVisualTargets).map(([targetId, target]) => {
+    const clipPathId = `work-map-clip-${localeId}-${targetId}`;
+    const aura = target.shapes.map((shape) => renderHotspotShape(shape, "work-map-hotspot-aura-shape")).join("");
+    const orbitShapes = target.orbitShapes ?? target.shapes;
+    const orbits = target.effect === "ink"
+      ? `<g class="work-map-hotspot-orbit work-map-hotspot-orbit-primary">${orbitShapes.map((shape) => renderHotspotShape(shape, "work-map-hotspot-orbit-shape")).join("")}</g><g class="work-map-hotspot-orbit work-map-hotspot-orbit-secondary">${orbitShapes.map((shape) => renderHotspotShape(shape, "work-map-hotspot-orbit-shape")).join("")}</g>`
+      : "";
+    return `<g class="work-map-hotspot" data-work-map-hotspot="${targetId}" data-work-map-effect="${target.effect}" data-work-map-clip="url(#${clipPathId})" data-focus-x="${target.focus[0]}" data-focus-y="${target.focus[1]}" style="--work-map-hotspot-rgb:${target.accentRgb}"><g class="work-map-hotspot-aura" filter="url(#${hotspotFilterId})">${aura}</g>${orbits}</g>`;
+  }).join("");
+  const workMapParticles = [
+    ["-42px", "-24px", "0ms"],
+    ["-18px", "-46px", "35ms"],
+    ["18px", "-38px", "70ms"],
+    ["44px", "-14px", "105ms"],
+    ["38px", "24px", "140ms"],
+    ["8px", "42px", "175ms"],
+    ["-30px", "34px", "210ms"],
+  ].map(([x, y, delay]) => `<span class="work-map-particle" style="--particle-x:${x};--particle-y:${y};--particle-delay:${delay}"></span>`).join("");
   const decisionAccents = ["130 215 255", "93 190 235", "102 157 220", "151 207 239"];
   const main = `
   <main class="content-main about-main" id="content">
@@ -495,15 +562,24 @@ const aboutPage = (locale) => {
         </div>
       </div>
     </section>
-    <figure class="landscape-map" data-depth="deep">
-      <img src="/assets/img/gui/retrato-editorial.webp" srcset="/assets/img/gui/retrato-editorial-560.webp 560w, /assets/img/gui/retrato-editorial-960.webp 960w, /assets/img/gui/retrato-editorial.webp 1456w" sizes="(max-width: 720px) calc(100vw - 18px), calc(100vw - 80px)" alt="${escapeHtml(copy.landscapeAlt)}" width="1456" height="1090" loading="lazy" decoding="async">
-      <div class="landscape-copy"><p class="eyebrow">${escapeHtml(copy.landscapeKicker)}</p><h2>${escapeHtml(copy.landscapeTitle)}</h2><p>${escapeHtml(copy.landscapeBody)}</p></div>
-      <section class="context-catalog" aria-labelledby="context-catalog-title">
-        <header class="context-catalog-heading"><p class="eyebrow" id="context-catalog-title">${escapeHtml(copy.catalogKicker)}</p><p id="context-catalog-hint">${escapeHtml(copy.catalogHint)}</p></header>
-        <div class="context-catalog-grid" data-context-catalogs aria-describedby="context-catalog-hint">${catalogCards}</div>
-      </section>
-      <figcaption>${escapeHtml(copy.landscapeCaption)}</figcaption>
-    </figure>
+    <section class="landscape-map work-map" data-work-map data-depth="deep" aria-labelledby="work-map-title-${localeId}">
+      <h2 class="sr-only" id="work-map-title-${localeId}">${escapeHtml(copy.workMap.label)}</h2>
+      <div class="work-map-visual" data-work-map-visual>
+        <picture class="work-map-media">
+          <img src="/assets/img/gui/mapa-do-trabalho-1280.webp" srcset="/assets/img/gui/mapa-do-trabalho-640.webp 640w, /assets/img/gui/mapa-do-trabalho-960.webp 960w, /assets/img/gui/mapa-do-trabalho-1280.webp 1280w, /assets/img/gui/mapa-do-trabalho-1672.webp 1672w" sizes="(max-width: 720px) calc(100vw - 18px), (max-width: 1400px) calc(100vw - 80px), 1320px" alt="${escapeHtml(copy.workMap.alt)}" width="1672" height="941" loading="lazy" decoding="async">
+        </picture>
+        <svg class="work-map-hotspots" data-work-map-hotspots viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+          <defs><filter id="${hotspotFilterId}" x="-24%" y="-24%" width="148%" height="148%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="8"></feGaussianBlur></filter>${workMapClipPaths}</defs>
+          <image class="work-map-focus-image" data-work-map-focus-image data-active="false" href="/assets/img/gui/mapa-do-trabalho-1280.webp" x="0" y="0" width="1672" height="941" preserveAspectRatio="xMidYMid slice"></image>
+          ${workMapHotspots}
+        </svg>
+        <div class="work-map-effects" data-work-map-effects aria-hidden="true">${workMapParticles}</div>
+      </div>
+      <nav class="work-map-nav" aria-labelledby="work-map-title-${localeId}" data-work-map-nav>
+        <ol class="work-map-root" data-work-map-root>${workMapNodes}</ol>
+        <p class="sr-only" aria-live="polite" data-work-map-live></p>
+      </nav>
+    </section>
     <section class="method-section" data-depth="mid" aria-labelledby="method-title">
       <p class="eyebrow">${escapeHtml(copy.methodEyebrow)}</p>
       <h2 id="method-title">${escapeHtml(copy.methodTitle)}</h2>

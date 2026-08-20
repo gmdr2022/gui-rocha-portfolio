@@ -9,7 +9,8 @@
     "generate": "node scripts/generate-site.mjs",
     "build": "node scripts/generate-site.mjs && node scripts/build.mjs",
     "validate": "node scripts/generate-site.mjs && node scripts/validate.mjs",
-    "check": "npm run generate && node --check assets/js/theme-boot.js && node --check assets/js/site.js && node --check assets/js/home.js && node --check assets/js/about.js && node --check assets/js/project.js && node --check assets/js/contact.js && node --check assets/js/sites.js && node --check assets/js/legacy-project-link.js && node --check service-worker.js && node --check scripts/serve.mjs && node --check scripts/generate-site.mjs && node --check scripts/build.mjs && node --check scripts/validate.mjs && node scripts/validate.mjs && node scripts/build.mjs",
+    "check": "npm run generate && node --check assets/js/theme-boot.js && node --check assets/js/site.js && node --check assets/js/home.js && node --check assets/js/about.js && node --check assets/js/project.js && node --check assets/js/contact.js && node --check assets/js/sites.js && node --check assets/js/legacy-project-link.js && node --check service-worker.js && node --check scripts/serve.mjs && node --check scripts/generate-site.mjs && node --check scripts/build.mjs && node --check scripts/validate.mjs && node --check scripts/audit-visible-copy.mjs && node scripts/validate.mjs && node scripts/build.mjs",
+    "audit:editorial": "node scripts/audit-visible-copy.mjs",
     "test:browser": "playwright test",
     "quality": "npm run check && npm run test:browser"
   },

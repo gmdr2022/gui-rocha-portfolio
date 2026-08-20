@@ -2,6 +2,14 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { localeOrder, locales, siteConfig } from "../content/pages.mjs";
+import {
+  flattenWorkMap,
+  resolveWorkMapNodeTitle,
+  validateWorkMapStructure,
+  validateWorkMapVisualTargets,
+  workMapStructure,
+  workMapVisualTargets,
+} from "../content/work-map.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
@@ -62,7 +70,7 @@ const expectedMainOrder = [
   "local-first-checklist",
   "maeve",
 ];
-const expectedContextCatalogs = {
+const expectedWorkMapLabels = {
   "pt-BR": [
     ["institutional", "Operações institucionais"],
     ["websites", "Presença digital"],
@@ -87,32 +95,32 @@ const expectedContextCatalogs = {
 };
 const approvedCopy = {
   "pt-BR": {
-    aboutHeading: "Começo pelo problema e acompanho cada etapa até a entrega.",
+    aboutHeading: "Conduzo produtos digitais da necessidade inicial à validação em uso.",
     aboutEyebrow: "PORTFÓLIO",
     methodEyebrow: "Como trabalho",
-    methodTitle: "Do problema à evidência, sem esconder o que ainda está em evolução.",
-    methodSteps: ["Problema", "Direção", "Construção", "Evidência"],
-    projectsHeading: "Produtos digitais construídos para problemas reais.",
+    methodTitle: "Da leitura inicial à validação, com decisões registradas em cada etapa.",
+    methodSteps: ["Diagnóstico", "Direção", "Construção", "Validação"],
+    projectsHeading: "Produtos digitais com propósito, funcionamento e evolução visíveis.",
     sitesHeading: "Presenças digitais publicadas",
     brandTagline: "Projetos digitais com aplicação prática",
   },
   en: {
-    aboutHeading: "I start with the problem and follow every stage through delivery.",
+    aboutHeading: "I lead digital products from the initial need through validation in use.",
     aboutEyebrow: "PORTFOLIO",
     methodEyebrow: "How I work",
-    methodTitle: "From problem to evidence, without hiding what is still evolving.",
-    methodSteps: ["Problem", "Direction", "Build", "Evidence"],
-    projectsHeading: "Digital products built around real problems.",
+    methodTitle: "From the initial assessment to validation, with decisions recorded at every stage.",
+    methodSteps: ["Assessment", "Direction", "Build", "Validation"],
+    projectsHeading: "Digital products with visible purpose, operation and evolution.",
     sitesHeading: "Published digital presences",
     brandTagline: "Digital projects with practical applications",
   },
   es: {
-    aboutHeading: "Comienzo por el problema y acompaño cada etapa hasta la entrega.",
+    aboutHeading: "Dirijo productos digitales desde la necesidad inicial hasta la validación en uso.",
     aboutEyebrow: "PORTAFOLIO",
     methodEyebrow: "Cómo trabajo",
-    methodTitle: "Del problema a la evidencia, sin ocultar lo que todavía está en evolución.",
-    methodSteps: ["Problema", "Dirección", "Construcción", "Evidencia"],
-    projectsHeading: "Productos digitales construidos para problemas reales.",
+    methodTitle: "De la evaluación inicial a la validación, con decisiones registradas en cada etapa.",
+    methodSteps: ["Evaluación", "Dirección", "Construcción", "Validación"],
+    projectsHeading: "Productos digitales con propósito, funcionamiento y evolución visibles.",
     sitesHeading: "Presencias digitales publicadas",
     brandTagline: "Proyectos digitales con aplicación práctica",
   },
@@ -456,6 +464,8 @@ for (const locale of localeOrder) {
   validateRequiredStrings(config.common, ["brandTagline", "products", "about", "contact", "email", "clubalSupport"], `content/pages.mjs:${locale}.common`);
   validateRequiredStrings(config.common.caseLabels, ["context", "role", "problem", "contribution", "evidence", "status"], `content/pages.mjs:${locale}.common.caseLabels`);
   validateRequiredStrings(config.aboutPage, ["title", "description", "eyebrow", "heading", "role", "portraitCaption", "methodEyebrow", "methodTitle"], `content/pages.mjs:${locale}.aboutPage`);
+  validateRequiredStrings(config.aboutPage.workMap, ["alt", "label", "single", "multiple", "back"], `content/pages.mjs:${locale}.aboutPage.workMap`);
+  validateRequiredStrings(config.aboutPage.workMap?.groups, workMapStructure.map((group) => group.id), `content/pages.mjs:${locale}.aboutPage.workMap.groups`);
   validateRequiredStrings(config.projectsPage, ["title", "description", "heading"], `content/pages.mjs:${locale}.projectsPage`);
   validateRequiredStrings(config.contactPage, [
     "title",
@@ -896,23 +906,103 @@ for (const locale of localeOrder) {
     fail(`${label}: Demonyza deve permanecer subordinada ao hub de Sites`);
   }
 
-  const catalogs = locales[locale].aboutPage.catalogs;
-  if (!Array.isArray(catalogs) || catalogs.length !== 5) {
-    fail(`content/pages.mjs:${locale}.aboutPage.catalogs: esperado mapa com 5 contextos`);
-  } else {
-    const identity = catalogs.map(([key, title]) => [key, title]);
-    if (JSON.stringify(identity) !== JSON.stringify(expectedContextCatalogs[locale])) {
-      fail(`content/pages.mjs:${locale}.aboutPage.catalogs: IDs ou rótulos editoriais divergem da especificação`);
-    }
-    const mappedSlugs = catalogs.flatMap((entry) => Array.isArray(entry?.[2]) ? entry[2] : []);
-    if (new Set(mappedSlugs).size !== mappedSlugs.length) fail(`content/pages.mjs:${locale}.aboutPage.catalogs: item duplicado`);
-    if (
-      mappedSlugs.length !== expectedMainOrder.length
-      || expectedMainOrder.some((slug) => !mappedSlugs.includes(slug))
-    ) {
-      fail(`content/pages.mjs:${locale}.aboutPage.catalogs: deve mapear exatamente os 7 itens principais`);
-    }
+  const groupLabels = workMapStructure.map((group) => [group.id, locales[locale].aboutPage.workMap.groups[group.id]]);
+  if (JSON.stringify(groupLabels) !== JSON.stringify(expectedWorkMapLabels[locale])) {
+    fail(`content/pages.mjs:${locale}.aboutPage.workMap.groups: IDs ou rótulos editoriais divergem da especificação`);
   }
+  try {
+    const visualTargets = validateWorkMapVisualTargets(workMapVisualTargets);
+    const workMap = validateWorkMapStructure(workMapStructure, {
+      allowedReferences: new Set(slugs),
+      allowedVisualTargets: new Set(visualTargets.ids),
+    });
+    if (workMapStructure.length !== 5 || workMap.nodeCount !== 12 || workMap.maxDepth !== 1) {
+      fail(`content/work-map.mjs: esperado 5 grupos, 12 nós e profundidade atual 1`);
+    }
+    if (new Set(workMap.references).size !== workMap.references.length) fail("content/work-map.mjs: destino duplicado");
+    if (visualTargets.count !== 9 || workMapStructure.some((group) => !group.visualTarget || group.children.some((child) => !child.visualTarget))) {
+      fail("content/work-map.mjs: alvos visuais específicos incompletos");
+    }
+    const effectCounts = Object.values(workMapVisualTargets).reduce((counts, target) => {
+      counts[target.effect] = (counts[target.effect] || 0) + 1;
+      return counts;
+    }, {});
+    if (effectCounts.screen !== 2 || effectCounts.ink !== 5 || effectCounts.paper !== 2) {
+      fail("content/work-map.mjs: efeitos devem separar exatamente 2 telas, 5 anotações em tinta e 2 superfícies de papel");
+    }
+    if (
+      workMap.references.length !== expectedMainOrder.length
+      || expectedMainOrder.some((slug) => !workMap.references.includes(slug))
+    ) {
+      fail("content/work-map.mjs: deve mapear exatamente os 7 itens principais");
+    }
+  } catch (error) {
+    fail(`content/work-map.mjs: ${error.message}`);
+  }
+}
+
+const workMapStressCases = [1, 2, 6, 12].map((count) => ({
+  label: `${count} filhos`,
+  structure: [{
+    id: `fixture-${count}`,
+    type: "group",
+    children: Array.from({ length: count }, (_, index) => ({
+      id: `fixture-${count}-item-${index + 1}`,
+      type: "project",
+      slug: `fixture-${count}-item-${index + 1}`,
+      children: [],
+    })),
+  }],
+}));
+workMapStressCases.push({
+  label: "três níveis",
+  structure: [{
+    id: "fixture-deep",
+    type: "group",
+    children: [{
+      id: "fixture-deep-branch",
+      type: "group",
+      children: [{
+        id: "fixture-deep-leaf",
+        type: "project",
+        slug: "fixture-deep-leaf",
+        children: [],
+      }],
+    }],
+  }],
+});
+for (const fixture of workMapStressCases) {
+  try {
+    const flattened = flattenWorkMap(fixture.structure);
+    const references = new Set(flattened.map((node) => node.slug || node.key).filter(Boolean));
+    const result = validateWorkMapStructure(fixture.structure, { allowedReferences: references });
+    if (result.nodeCount !== flattened.length) fail(`work-map fixture ${fixture.label}: contagem inconsistente`);
+    if (fixture.label === "três níveis") {
+      if (result.maxDepth !== 2) fail("work-map fixture três níveis: profundidade recursiva ausente");
+      const nestedTitle = resolveWorkMapNodeTitle(fixture.structure[0].children[0], {
+        groupLabels: { "fixture-deep-branch": "Subgrupo localizado" },
+      });
+      if (nestedTitle !== "Subgrupo localizado") fail("work-map fixture três níveis: renderer não resolve grupo localizado aninhado");
+    }
+  } catch (error) {
+    fail(`work-map fixture ${fixture.label}: ${error.message}`);
+  }
+}
+
+const cyclicNode = { id: "fixture-cycle", type: "group", children: [] };
+cyclicNode.children.push(cyclicNode);
+for (const [label, fixture] of [
+  ["ciclo", [cyclicNode]],
+  ["ID duplicado", [{ id: "fixture-duplicate", type: "group", children: [{ id: "fixture-duplicate", type: "project", slug: "fixture-duplicate", children: [] }] }]],
+  ["referência inválida", [{ id: "fixture-reference", type: "group", children: [{ id: "fixture-missing", type: "project", slug: "fixture-missing", children: [] }] }]],
+]) {
+  let rejected = false;
+  try {
+    validateWorkMapStructure(fixture, { allowedReferences: new Set() });
+  } catch {
+    rejected = true;
+  }
+  if (!rejected) fail(`work-map fixture negativa não rejeitada: ${label}`);
 }
 
 const expectedAssetSlugs = [...new Set([...referenceProjectSlugs, "sites"])];
@@ -935,6 +1025,10 @@ await validateAssetReference("/assets/img/social-card.png", 1200, 630, "imagem s
 await validateAssetReference("/assets/img/social-projects.png", 1200, 630, "imagem social Projetos");
 await validateAssetReference("/assets/img/social-sites.png", 1200, 630, "imagem social Sites");
 await validateAssetReference("/assets/img/social-local-first.png", 1200, 750, "imagem social Local First Checklist");
+await validateAssetReference("/assets/img/gui/mapa-do-trabalho-640.webp", 640, 360, "mapa de trabalho 640");
+await validateAssetReference("/assets/img/gui/mapa-do-trabalho-960.webp", 960, 540, "mapa de trabalho 960");
+await validateAssetReference("/assets/img/gui/mapa-do-trabalho-1280.webp", 1280, 720, "mapa de trabalho 1280");
+await validateAssetReference("/assets/img/gui/mapa-do-trabalho-1672.webp", 1672, 941, "mapa de trabalho 1672");
 
 const routeForDescriptor = (locale, type, slug = "") => {
   const config = locales[locale];
@@ -1484,7 +1578,13 @@ for (const page of expectedPages) {
 
   if (page.type === "about") {
     if (!html.includes('src="/assets/img/gui/identidade-aeroporto.webp"')) fail(`${label}: retrato de identidade da página Sobre ausente`);
-    if (!html.includes('src="/assets/img/gui/retrato-editorial.webp"')) fail(`${label}: retrato editorial da página Sobre ausente`);
+    if (!html.includes('src="/assets/img/gui/mapa-do-trabalho-1280.webp"')) fail(`${label}: imagem definitiva do mapa de trabalho ausente`);
+    for (const width of [640, 960, 1280, 1672]) {
+      if (!html.includes(`/assets/img/gui/mapa-do-trabalho-${width}.webp ${width}w`)) fail(`${label}: variante ${width} do mapa ausente`);
+    }
+    if (html.includes("retrato-editorial") || html.includes("landscape-copy") || /<figcaption\b/i.test(html)) {
+      fail(`${label}: estrutura editorial antiga do mural ainda está presente`);
+    }
     if (!/src="\/assets\/js\/about\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: about.js ausente`);
     if (!/src="\/assets\/js\/legacy-project-link\.js\?v=[a-f0-9]{12}"/.test(html)) fail(`${label}: compatibilidade de deep link antigo ausente`);
     const aboutHeadingMarkup = elementContents(html, "h1")[0] ?? "";
@@ -1498,21 +1598,113 @@ for (const page of expectedPages) {
       fail(`${label}: identidade profissional localizada incompleta`);
     }
     if (identityText.includes("Guilherme Rocha")) fail(`${label}: nome não deve ser repetido no bloco de identidade`);
-    const contextCards = startTags(html, "article").map(attributesOf).filter((attributes) => "data-context-card" in attributes);
-    if (contextCards.length !== config.aboutPage.catalogs.length) fail(`${label}: mapa de contextos diverge da fonte`);
-    if (contextCards.some((attributes, index) => attributes["data-index"] !== String(index) || !attributes.style?.includes("--context-accent-rgb:"))) {
-      fail(`${label}: contextos devem expor índice e accent RGB`);
+    const workMapSections = startTags(html, "section").map(attributesOf).filter((attributes) => "data-work-map" in attributes);
+    if (workMapSections.length !== 1 || !workMapSections[0]["aria-labelledby"]) fail(`${label}: seção acessível do mapa ausente ou duplicada`);
+    const workMapNavs = startTags(html, "nav").map(attributesOf).filter((attributes) => "data-work-map-nav" in attributes);
+    if (workMapNavs.length !== 1 || workMapNavs[0]["aria-labelledby"] !== workMapSections[0]?.["aria-labelledby"]) {
+      fail(`${label}: navegação do mapa não compartilha o título acessível`);
     }
-    const contextTriggers = startTags(html, "button").map(attributesOf).filter((attributes) => "data-context-trigger" in attributes);
-    const contextPanels = startTags(html, "div").map(attributesOf).filter((attributes) => "data-context-panel" in attributes);
-    if (contextTriggers.length !== contextCards.length || contextTriggers.some((attributes) => attributes["aria-expanded"] !== "false")) {
-      fail(`${label}: gatilhos de contexto devem iniciar recolhidos`);
+    const workMapVisuals = startTags(html, "div").map(attributesOf).filter((attributes) => "data-work-map-visual" in attributes);
+    if (workMapVisuals.length !== 1) fail(`${label}: composição visual do mapa ausente ou duplicada`);
+    const hotspotSvgs = startTags(html, "svg").map(attributesOf).filter((attributes) => "data-work-map-hotspots" in attributes);
+    if (
+      hotspotSvgs.length !== 1
+      || hotspotSvgs[0].viewbox !== "0 0 1672 941"
+      || hotspotSvgs[0].preserveaspectratio !== "xMidYMid meet"
+      || hotspotSvgs[0]["aria-hidden"] !== "true"
+      || hotspotSvgs[0].focusable !== "false"
+    ) {
+      fail(`${label}: SVG de hotspots precisa compartilhar o sistema 1672x941 e permanecer decorativo`);
     }
-    if (contextPanels.length !== contextCards.length || contextPanels.some((attributes) => !("hidden" in attributes))) {
-      fail(`${label}: painéis de contexto devem iniciar ocultos`);
+    const hotspotGroups = startTags(html, "g").map(attributesOf).filter((attributes) => "data-work-map-hotspot" in attributes);
+    const expectedHotspotIds = Object.keys(workMapVisualTargets).sort();
+    const generatedHotspotIds = hotspotGroups.map((attributes) => attributes["data-work-map-hotspot"]).sort();
+    const localeId = page.locale.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    if (
+      hotspotGroups.length !== expectedHotspotIds.length
+      || JSON.stringify(generatedHotspotIds) !== JSON.stringify(expectedHotspotIds)
+      || hotspotGroups.some((attributes) => {
+        const targetId = attributes["data-work-map-hotspot"];
+        const target = workMapVisualTargets[targetId];
+        return !Number.isFinite(Number(attributes["data-focus-x"]))
+          || !Number.isFinite(Number(attributes["data-focus-y"]))
+          || attributes["data-work-map-effect"] !== target?.effect
+          || attributes["data-work-map-clip"] !== `url(#work-map-clip-${localeId}-${targetId})`;
+      })
+    ) {
+      fail(`${label}: hotspots gerados divergem dos nove alvos visuais canônicos`);
     }
-    contextTriggers.forEach((trigger, index) => {
-      const panel = contextPanels[index];
+    const clipPaths = startTags(html, "clippath").map(attributesOf);
+    const expectedClipPathIds = expectedHotspotIds.map((targetId) => `work-map-clip-${localeId}-${targetId}`).sort();
+    if (
+      clipPaths.length !== expectedClipPathIds.length
+      || JSON.stringify(clipPaths.map((attributes) => attributes.id).sort()) !== JSON.stringify(expectedClipPathIds)
+      || clipPaths.some((attributes) => attributes.clippathunits !== "userSpaceOnUse")
+    ) {
+      fail(`${label}: recortes SVG por objeto precisam usar os nove alvos e o sistema de coordenadas da fotografia`);
+    }
+    const focusImages = startTags(html, "image").map(attributesOf).filter((attributes) => "data-work-map-focus-image" in attributes);
+    if (
+      focusImages.length !== 1
+      || focusImages[0]["data-active"] !== "false"
+      || focusImages[0].href !== "/assets/img/gui/mapa-do-trabalho-1280.webp"
+      || focusImages[0].x !== "0"
+      || focusImages[0].y !== "0"
+      || focusImages[0].width !== "1672"
+      || focusImages[0].height !== "941"
+      || focusImages[0].preserveaspectratio !== "xMidYMid slice"
+    ) {
+      fail(`${label}: a iluminação por objeto deve reutilizar uma única imagem responsiva alinhada ao mural`);
+    }
+    const inkOrbitGroups = startTags(html, "g").map(attributesOf).filter((attributes) => hasClass(attributes, "work-map-hotspot-orbit"));
+    if (inkOrbitGroups.length !== 10) fail(`${label}: as cinco anotações em tinta precisam de duas órbitas neon cada`);
+    const hotspotFilters = startTags(html, "fegaussianblur").map(attributesOf);
+    if (hotspotFilters.length !== 1 || hotspotFilters[0].stddeviation !== "8") {
+      fail(`${label}: filtro SVG leve dos hotspots ausente ou divergente`);
+    }
+    const workMapEffects = startTags(html, "div").map(attributesOf).filter((attributes) => "data-work-map-effects" in attributes);
+    const workMapParticles = startTags(html, "span").map(attributesOf).filter((attributes) => attributes.class?.split(/\s+/).includes("work-map-particle"));
+    if (workMapEffects.length !== 1 || workMapEffects[0]["aria-hidden"] !== "true" || workMapParticles.length !== 7) {
+      fail(`${label}: camada decorativa reativa do mapa deve ser única, oculta da árvore acessível e conter sete partículas`);
+    }
+    const workMapNodes = startTags(html, "li").map(attributesOf).filter((attributes) => "data-work-map-node" in attributes);
+    const rootNodes = workMapNodes.filter((attributes) => attributes["data-work-map-depth"] === "0");
+    const leafNodes = workMapNodes.filter((attributes) => attributes.class?.split(/\s+/).includes("work-map-leaf"));
+    if (workMapNodes.length !== 12 || rootNodes.length !== 5 || leafNodes.length !== 7) {
+      fail(`${label}: mapa deve conter 5 grupos, 7 destinos e 12 nós totais`);
+    }
+    if (workMapNodes.some((attributes) => !expectedHotspotIds.includes(attributes["data-work-map-target"]))) {
+      fail(`${label}: todos os nós do mapa devem apontar para um hotspot visual canônico`);
+    }
+    if (rootNodes.some((attributes, index) => attributes["data-index"] !== String(index) || !attributes.style?.includes("--work-map-accent-rgb:"))) {
+      fail(`${label}: grupos do mapa devem expor ordem e accent RGB`);
+    }
+    const workMapTriggers = startTags(html, "button").map(attributesOf).filter((attributes) => "data-work-map-trigger" in attributes);
+    const workMapPanels = startTags(html, "div").map(attributesOf).filter((attributes) => "data-work-map-panel" in attributes);
+    const workMapLinks = anchorEntries(html).map(({ attributes }) => attributes).filter((attributes) => "data-work-map-link" in attributes);
+    const expectedPanelMetadata = flattenWorkMap(workMapStructure)
+      .filter((node) => node.children.length > 0)
+      .map((node) => ({
+        count: String(node.children.length),
+        density: node.children.length >= 10 ? "dense" : node.children.length >= 6 ? "many" : "standard",
+      }));
+    if (workMapTriggers.length !== 5 || workMapTriggers.some((attributes) => attributes["aria-expanded"] !== "false")) {
+      fail(`${label}: cinco gatilhos do mapa devem iniciar recolhidos`);
+    }
+    if (workMapPanels.length !== 5 || workMapPanels.some((attributes) => !("hidden" in attributes) || "inert" in attributes)) {
+      fail(`${label}: cinco painéis devem iniciar ocultos, sem inert estático; o JavaScript aplica isolamento após inicializar`);
+    }
+    if (workMapPanels.some((attributes, index) => (
+      attributes["data-work-map-child-count"] !== expectedPanelMetadata[index]?.count
+      || attributes["data-work-map-density"] !== expectedPanelMetadata[index]?.density
+    ))) {
+      fail(`${label}: metadados de contagem/densidade dos painéis divergem da árvore canônica`);
+    }
+    if (workMapLinks.length !== 7 || new Set(workMapLinks.map((attributes) => attributes.href)).size !== 7) {
+      fail(`${label}: mapa deve expor sete destinos navegáveis únicos`);
+    }
+    workMapTriggers.forEach((trigger, index) => {
+      const panel = workMapPanels[index];
       if (
         !trigger.id
         || !panel?.id
@@ -1520,9 +1712,13 @@ for (const page of expectedPages) {
         || panel["aria-labelledby"] !== trigger.id
         || panel.role !== "region"
       ) {
-        fail(`${label}: contexto ${index + 1} não possui relação button/region completa`);
+        fail(`${label}: grupo ${index + 1} não possui relação button/region completa`);
       }
     });
+    const mainText = stripTags(html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "");
+    if (/\b(?:problema|problemas|contexto|contextos|problem|problems|context|contexts)\b/i.test(mainText)) {
+      fail(`${label}: texto principal da página inicial ainda repete problema/contexto`);
+    }
     const methodMatch = html.match(/<nav\b[^>]*class="[^"]*\bmethod-flow\b[^"]*"[^>]*>([\s\S]*?)<\/nav>/i);
     if (!methodMatch || startTags(methodMatch[1], "ol").length !== 1) {
       fail(`${label}: corrente de decisão deve usar nav e ol`);
@@ -1887,6 +2083,9 @@ for (const source of [
   "assets/js/sites.js",
   "assets/js/legacy-project-link.js",
   "assets/css/styles.css",
+  "content/work-map.mjs",
+  "scripts/generate-site.mjs",
+  "scripts/generate-work-map-images.mjs",
   "scripts/build.mjs",
   "scripts/serve.mjs",
   "service-worker.js",
@@ -2014,17 +2213,38 @@ requireMarkers("assets/js/home.js", [
   'portal:ambientchange',
 ]);
 requireMarkers("assets/js/about.js", [
-  "data-context-card",
+  "data-work-map",
   "data-decision-step",
-  "data-context-trigger",
-  "data-context-panel",
-  "dataset.selected",
+  "data-work-map-trigger",
+  "data-work-map-panel",
+  "ResizeObserver",
+  "document.fonts?.ready",
+  "work-map:close",
+  "data-work-map-presentation",
   'portal:ambientchange',
   '"Escape"',
+  '"ArrowRight"',
+  '"ArrowLeft"',
+  '"Home"',
+  '"End"',
   '"aria-expanded"',
   '"aria-current"',
-  "contextCloseDelayMs = 330",
-  "contextPanelTransitionMs = 220",
+  "workMapCloseDelayMs = 300",
+  "workMapPanelTransitionMs = 260",
+  "workMapEffectDurationMs = 1050",
+  "data-work-map-effects",
+  "data-work-map-hotspot",
+  "data-work-map-focus-image",
+  "currentSrc",
+  "dataset.workMapEffectActive",
+  "animateInkOrbit",
+  "strokeDashoffset",
+  "compactVisual",
+  "dataset.workMapReactive",
+  "dataset.workMapBurst",
+  "dataset.workMapTargetActive",
+  "offsetParent",
+  "clientLeft",
   "panel.inert = false",
   "panel.inert = true",
   'matchMedia("(hover: hover) and (pointer: fine)")',
@@ -2066,12 +2286,24 @@ requireMarkers("assets/css/styles.css", [
   ".no-js .project-tab-panel[hidden]",
   ".no-js .gallery-controls",
   ".no-js-gallery-links",
-  ".no-js .context-catalog-panel",
-  ".context-catalog-grid",
-  "--context-surface:",
-  "--context-ease:",
-  ".context-catalog-chevron",
-  ":root[data-contrast=\"high\"] .context-catalog-grid",
+  ".no-js .work-map-panel",
+  ".work-map-root",
+  ".work-map-visual",
+  ".work-map-hotspots",
+  ".work-map-focus-image",
+  ".work-map-hotspot-aura-shape",
+  ".work-map-hotspot-orbit-primary",
+  "--work-map-surface:",
+  "--work-map-ease:",
+  ".work-map-chevron",
+  ".work-map-effects",
+  ".work-map-particle",
+  "work-map-button-sheen",
+  "work-map-particle-burst",
+  "work-map-screen-awaken",
+  ".no-js .work-map-root",
+  ":root[data-contrast=\"high\"] .work-map-trigger",
+  "@container work-map",
   ".project-case-summary",
   ".clubal-wordmark",
   ".method-flow",
@@ -2080,6 +2312,36 @@ requireMarkers("assets/css/styles.css", [
   "@media (forced-colors: active)",
   "prefers-reduced-motion",
   "scroll-margin-top",
+]);
+requireMarkers("content/work-map.mjs", [
+  "workMapStructure",
+  "workMapVisualTargets",
+  "validateWorkMapStructure",
+  "validateWorkMapVisualTargets",
+  "resolveWorkMapNodeTitle",
+  "flattenWorkMap",
+  "visualTarget",
+  "workMapEffectTypes",
+  'effect: "screen"',
+  'effect: "ink"',
+  'effect: "paper"',
+  "orbitShapes",
+  'id: "institutional"',
+  'id: "original"',
+]);
+requireMarkers("scripts/generate-work-map-images.mjs", [
+  "imageSmoothingQuality = \"high\"",
+  "toDataURL(\"image/webp\"",
+  "quality = 0.92",
+  "mapa-do-trabalho-${width}.webp",
+]);
+requireMarkers("scripts/generate-site.mjs", [
+  "data-work-map-hotspots",
+  'preserveAspectRatio="xMidYMid meet"',
+  "clipPathUnits",
+  "data-work-map-focus-image",
+  "feGaussianBlur",
+  "data-work-map-target",
 ]);
 
 const cssRuleBody = (source, selector) => {

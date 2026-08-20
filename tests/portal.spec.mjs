@@ -21,12 +21,196 @@ const mobileRoutes = [
   "/es/",
 ];
 
-const contextViewports = [320, 360, 375, 390, 430, 768, 1024, 1280, 1366, 1440, 1536];
-const contextLabels = {
+const workMapViewports = [
+  { width: 320, height: 568 },
+  { width: 360, height: 800 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 },
+  { width: 768, height: 1024 },
+  { width: 844, height: 390 },
+  { width: 1024, height: 768 },
+  { width: 1280, height: 900 },
+  { width: 1366, height: 768 },
+  { width: 1440, height: 900 },
+  { width: 1536, height: 864 },
+];
+const workMapLabels = {
   "/": ["Operações institucionais", "Presença digital", "Ferramentas de trabalho", "Métodos de desenvolvimento", "Projetos autorais"],
   "/en/": ["Institutional operations", "Digital presence", "Work tools", "Development methods", "Original projects"],
   "/es/": ["Operaciones institucionales", "Presencia digital", "Herramientas de trabajo", "Métodos de desarrollo", "Proyectos propios"],
 };
+
+const nestedWorkMapFixture = `<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    body { margin: 0; min-height: 100vh; background: #06111b; }
+    .fixture-main { width: min(100% - 16px, 1320px); margin: 8px auto; }
+  </style>
+  <script src="/assets/js/about.js" defer></script>
+  <title>Fixture de mapa recursivo</title>
+</head>
+<body>
+  <main class="fixture-main">
+    <section class="landscape-map work-map" data-work-map aria-labelledby="fixture-work-map-title">
+      <h1 class="sr-only" id="fixture-work-map-title">Mapa recursivo</h1>
+      <div class="work-map-visual" data-work-map-visual>
+        <picture class="work-map-media">
+          <img src="/assets/img/gui/mapa-do-trabalho-1280.webp" alt="" width="1672" height="941">
+        </picture>
+        <svg class="work-map-hotspots" data-work-map-hotspots viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+          <defs><clipPath id="work-map-clip-fixture-clubal-suite" clipPathUnits="userSpaceOnUse"><rect x="700" y="250" width="320" height="360" rx="24"></rect></clipPath></defs>
+          <image class="work-map-focus-image" data-work-map-focus-image data-active="false" href="/assets/img/gui/mapa-do-trabalho-1280.webp" x="0" y="0" width="1672" height="941" preserveAspectRatio="xMidYMid slice"></image>
+          <g class="work-map-hotspot" data-work-map-hotspot="clubal-suite" data-work-map-effect="screen" data-work-map-clip="url(#work-map-clip-fixture-clubal-suite)" data-focus-x="860" data-focus-y="430" style="--work-map-hotspot-rgb:37 201 151">
+            <rect class="work-map-hotspot-aura-shape" x="700" y="250" width="320" height="360" rx="24"></rect>
+          </g>
+        </svg>
+        <div class="work-map-effects" data-work-map-effects aria-hidden="true"></div>
+      </div>
+      <nav class="work-map-nav" aria-labelledby="fixture-work-map-title" data-work-map-nav>
+        <ol class="work-map-root" data-work-map-root>
+          <li class="work-map-node work-map-branch" data-work-map-node data-work-map-depth="0" data-work-map-id="root-group" data-work-map-target="clubal-suite" data-category="root-group" data-index="0" data-accent-rgb="37 201 151" style="--work-map-accent:#25c997;--work-map-accent-rgb:37 201 151">
+            <button class="work-map-trigger" type="button" id="fixture-root-trigger" data-work-map-trigger aria-expanded="false" aria-controls="fixture-root-panel">
+              <span class="work-map-index">01</span><span class="work-map-label"><strong>Grupo raiz</strong><small>1 grupo</small></span><span class="work-map-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="work-map-panel" id="fixture-root-panel" data-work-map-panel data-work-map-level="1" role="region" aria-labelledby="fixture-root-trigger" hidden>
+              <div class="work-map-panel-heading"><button type="button" class="work-map-back" data-work-map-back>Voltar</button><strong>Grupo raiz</strong></div>
+              <ul tabindex="-1">
+                <li class="work-map-node work-map-branch" data-work-map-node data-work-map-depth="1" data-work-map-id="nested-group" data-work-map-target="clubal-suite" data-category="nested-group" data-index="0" data-accent-rgb="37 201 151" style="--work-map-accent:#25c997;--work-map-accent-rgb:37 201 151">
+                  <button class="work-map-trigger" type="button" id="fixture-nested-trigger" data-work-map-trigger aria-expanded="false" aria-controls="fixture-nested-panel">
+                    <span class="work-map-label"><strong>Subgrupo</strong><small>1 destino</small></span><span class="work-map-chevron" aria-hidden="true"></span>
+                  </button>
+                  <div class="work-map-panel" id="fixture-nested-panel" data-work-map-panel data-work-map-level="2" role="region" aria-labelledby="fixture-nested-trigger" hidden>
+                    <div class="work-map-panel-heading"><button type="button" class="work-map-back" data-work-map-back>Voltar</button><strong>Subgrupo</strong></div>
+                    <ul tabindex="-1">
+                      <li class="work-map-node work-map-leaf" data-work-map-node data-work-map-depth="2" data-work-map-id="deep-leaf" data-work-map-target="clubal-suite" style="--work-map-accent:#25c997;--work-map-accent-rgb:37 201 151">
+                        <a class="work-map-link" href="/projetos/clubal/" data-work-map-link><span class="work-map-label"><strong>Destino profundo</strong><small>Terceiro nível</small></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </section>
+  </main>
+</body>
+</html>`;
+
+const growthWorkMapFixture = (count, locale) => {
+  const language = locale === "es" ? "es" : "en";
+  const density = count >= 10 ? "dense" : count >= 6 ? "many" : "standard";
+  const copy = language === "es"
+    ? {
+      title: "Coordinación institucional ampliada",
+      count: `${count} ${count === 1 ? "destino" : "destinos"}`,
+      item: (index) => `Coordinación institucional segura ${index}`,
+      kicker: "Navegador, tableta y móvil",
+      back: "Volver",
+    }
+    : {
+      title: "Expanded institutional coordination",
+      count: `${count} ${count === 1 ? "destination" : "destinations"}`,
+      item: (index) => `Operational evidence workspace ${index}`,
+      kicker: "Browser, tablet and mobile",
+      back: "Back",
+    };
+  const leaves = Array.from({ length: count }, (_, index) => `
+              <li class="work-map-node work-map-leaf" data-work-map-node data-work-map-depth="1" data-work-map-id="growth-leaf-${index + 1}" data-work-map-target="clubal-suite" style="--work-map-accent:#25c997;--work-map-accent-rgb:37 201 151">
+                <a class="work-map-link" href="/projetos/clubal/?growth=${index + 1}" data-work-map-link>
+                  <span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path></svg></span>
+                  <span class="work-map-label"><strong>${copy.item(index + 1)}</strong><small>${copy.kicker}</small></span>
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"></path></svg>
+                </a>
+              </li>`).join("");
+
+  return `<!doctype html>
+<html lang="${language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    body { margin: 0; min-height: 100vh; background: #06111b; }
+    .fixture-main { width: min(100% - 16px, 1320px); margin: 8px auto; }
+  </style>
+  <script src="/assets/js/about.js" defer></script>
+  <title>Work map growth fixture</title>
+</head>
+<body>
+  <main class="fixture-main">
+    <section class="landscape-map work-map" data-work-map aria-labelledby="growth-map-title">
+      <h1 class="sr-only" id="growth-map-title">${copy.title}</h1>
+      <div class="work-map-visual" data-work-map-visual>
+        <picture class="work-map-media"><img src="/assets/img/gui/mapa-do-trabalho-1280.webp" alt="" width="1672" height="941"></picture>
+        <svg class="work-map-hotspots" data-work-map-hotspots viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+          <defs><clipPath id="work-map-clip-growth-clubal-suite" clipPathUnits="userSpaceOnUse"><rect x="700" y="250" width="320" height="360" rx="24"></rect></clipPath></defs>
+          <image class="work-map-focus-image" data-work-map-focus-image data-active="false" href="/assets/img/gui/mapa-do-trabalho-1280.webp" x="0" y="0" width="1672" height="941" preserveAspectRatio="xMidYMid slice"></image>
+          <g class="work-map-hotspot" data-work-map-hotspot="clubal-suite" data-work-map-effect="screen" data-work-map-clip="url(#work-map-clip-growth-clubal-suite)" data-focus-x="860" data-focus-y="430" style="--work-map-hotspot-rgb:37 201 151"><rect class="work-map-hotspot-aura-shape" x="700" y="250" width="320" height="360" rx="24"></rect></g>
+        </svg>
+        <div class="work-map-effects" data-work-map-effects aria-hidden="true"></div>
+      </div>
+      <nav class="work-map-nav" aria-labelledby="growth-map-title" data-work-map-nav>
+        <ol class="work-map-root" data-work-map-root>
+          <li class="work-map-node work-map-branch" data-work-map-node data-work-map-depth="0" data-work-map-id="growth-root" data-work-map-target="clubal-suite" data-category="growth-root" data-index="0" data-accent-rgb="37 201 151" style="--work-map-accent:#25c997;--work-map-accent-rgb:37 201 151">
+            <button class="work-map-trigger" type="button" id="growth-root-trigger" data-work-map-trigger aria-expanded="false" aria-controls="growth-root-panel">
+              <span class="work-map-index">01</span><span class="work-map-label"><strong>${copy.title}</strong><small>${copy.count}</small></span><span class="work-map-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="work-map-panel" id="growth-root-panel" data-work-map-panel data-work-map-level="1" data-work-map-child-count="${count}" data-work-map-density="${density}" role="region" aria-labelledby="growth-root-trigger" hidden>
+              <div class="work-map-panel-heading"><button type="button" class="work-map-back" data-work-map-back>${copy.back}</button><strong>${copy.title}</strong></div>
+              <ul tabindex="-1">${leaves}
+              </ul>
+            </div>
+          </li>
+        </ol>
+        <p class="sr-only" aria-live="polite" data-work-map-live></p>
+      </nav>
+    </section>
+  </main>
+</body>
+</html>`;
+};
+
+const growthPanelMetrics = async (page) => page.evaluate(() => {
+  const map = document.querySelector("[data-work-map]");
+  const panel = document.querySelector("[data-work-map-panel]");
+  const list = panel.querySelector(":scope > ul");
+  const links = [...list.querySelectorAll(":scope > [data-work-map-node] > [data-work-map-link]")];
+  const rectangle = (element) => {
+    const bounds = element.getBoundingClientRect();
+    return { left: bounds.left, top: bounds.top, right: bounds.right, bottom: bounds.bottom, width: bounds.width, height: bounds.height };
+  };
+  const linkMetrics = links.map((link) => {
+    const label = link.querySelector(".work-map-label");
+    const strong = label.querySelector("strong");
+    const small = label.querySelector("small");
+    return {
+      link: rectangle(link),
+      label: rectangle(label),
+      clientHeight: link.clientHeight,
+      scrollHeight: link.scrollHeight,
+      strongClientHeight: strong.clientHeight,
+      strongScrollHeight: strong.scrollHeight,
+      smallClientHeight: small.clientHeight,
+      smallScrollHeight: small.scrollHeight,
+    };
+  });
+  return {
+    map: rectangle(map),
+    panel: rectangle(panel),
+    list: rectangle(list),
+    listClientHeight: list.clientHeight,
+    listScrollHeight: list.scrollHeight,
+    pageOverflow: Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) - innerWidth,
+    columns: new Set(linkMetrics.map(({ link }) => Math.round(link.left * 10) / 10)).size,
+    linkMetrics,
+  };
+});
 
 const localizedProjectRoutes = [
   "/projetos/clubal/",
@@ -72,7 +256,10 @@ const editorialSimilarity = (left, right) => {
 
 const acceptEssentialStorage = async (page) => {
   const button = page.locator('[data-cookie-banner] [data-consent="essential"]');
-  if (await button.isVisible()) await button.click();
+  if (await button.isVisible()) {
+    await button.click();
+    await expect(page.locator("[data-cookie-banner]")).toBeHidden();
+  }
 };
 
 const openRoute = async (page, route) => {
@@ -247,12 +434,39 @@ test("mobile layouts keep the header visible and actionable throughout scrolling
   }
 });
 
-test("context cards support hover tolerance, keyboard dismissal and focus return", async ({ page }, testInfo) => {
+test("work map supports hover tolerance, keyboard dismissal and focus return", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await openRoute(page, "/");
   await acceptEssentialStorage(page);
-  const trigger = page.locator("[data-context-trigger]").first();
-  const panel = page.locator("[data-context-panel]").first();
+  const map = page.locator("[data-work-map]");
+  const trigger = page.locator("[data-work-map-trigger]").first();
+  const panel = page.locator("[data-work-map-panel]").first();
+  const effects = map.locator("[data-work-map-effects]");
+  const hotspotLayer = map.locator("[data-work-map-hotspots]");
+  const focusImage = hotspotLayer.locator("[data-work-map-focus-image]");
+  await expect(effects).toHaveAttribute("aria-hidden", "true");
+  await expect(effects.locator(".work-map-particle")).toHaveCount(7);
+  await expect(hotspotLayer).toHaveAttribute("aria-hidden", "true");
+  await expect(hotspotLayer).toHaveAttribute("focusable", "false");
+  await expect(hotspotLayer).toHaveAttribute("viewBox", "0 0 1672 941");
+  await expect(hotspotLayer).toHaveAttribute("preserveAspectRatio", "xMidYMid meet");
+  await expect(focusImage).toHaveCount(1);
+  await expect(focusImage).toHaveAttribute("data-active", "false");
+  await expect(hotspotLayer.locator("clipPath")).toHaveCount(9);
+  await expect(hotspotLayer.locator(".work-map-hotspot-orbit")).toHaveCount(10);
+  expect((await hotspotLayer.locator("[data-work-map-hotspot]").evaluateAll((nodes) => (
+    nodes.map((node) => node.getAttribute("data-work-map-hotspot")).sort()
+  )))).toEqual([
+    "c7-system-map",
+    "clubal-suite",
+    "codex-note",
+    "engineering-notebooks",
+    "local-first-notebook",
+    "maeve-tablet",
+    "nexus-note",
+    "sites-note",
+    "tooling-cluster",
+  ]);
   await trigger.scrollIntoViewIfNeeded();
   const initialBox = await trigger.boundingBox();
 
@@ -260,6 +474,23 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(panel).toBeVisible();
   await expect(panel).not.toHaveAttribute("inert", "");
+  await expect(map).toHaveAttribute("data-work-map-reactive", "true");
+  await expect(map).toHaveAttribute("data-work-map-burst", "false");
+  await expect(map).toHaveAttribute("data-work-map-target-active", "clubal-suite");
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "screen");
+  await expect(hotspotLayer.locator('[data-work-map-hotspot="clubal-suite"]')).toHaveAttribute("data-active", "true");
+  await expect(focusImage).toHaveAttribute("data-active", "true");
+  await expect(focusImage).toHaveAttribute("data-work-map-effect", "screen");
+  await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-clubal-suite)");
+  expect(await page.evaluate(() => {
+    const base = document.querySelector(".work-map-media img");
+    const focus = document.querySelector("[data-work-map-focus-image]");
+    return Boolean(base?.currentSrc && focus?.getAttribute("href") === base.currentSrc);
+  })).toBe(true);
+  await trigger.click();
+  await expect(map).toHaveAttribute("data-work-map-burst", "true");
+  await expect(map).toHaveCSS("--work-map-effect-rgb", "37 201 151");
+  await expect(page.locator("html")).toHaveAttribute("data-ambient-source", "work-map");
   const activeBox = await trigger.boundingBox();
   expect(activeBox?.x).toBeCloseTo(initialBox?.x ?? 0, 1);
   expect(activeBox?.y).toBeCloseTo(initialBox?.y ?? 0, 1);
@@ -267,46 +498,40 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
   expect(activeBox?.height).toBeCloseTo(initialBox?.height ?? 0, 1);
 
   const panelBox = await panel.boundingBox();
-  expect(panelBox?.x ?? -1).toBeGreaterThanOrEqual(0);
-  expect((panelBox?.x ?? 0) + (panelBox?.width ?? 0)).toBeLessThanOrEqual(1440);
+  const mapBox = await map.boundingBox();
+  expect(panelBox?.x ?? -1).toBeGreaterThanOrEqual((mapBox?.x ?? 0) - 1);
+  expect((panelBox?.x ?? 0) + (panelBox?.width ?? 0)).toBeLessThanOrEqual((mapBox?.x ?? 0) + (mapBox?.width ?? 0) + 1);
 
-  await panel.hover();
+  await page.mouse.move(
+    (panelBox?.x ?? 0) + ((panelBox?.width ?? 0) / 2),
+    (panelBox?.y ?? 0) + ((panelBox?.height ?? 0) / 2),
+  );
   await page.waitForTimeout(400);
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-  const secondTrigger = page.locator("[data-context-trigger]").nth(1);
+  const secondTrigger = page.locator("[data-work-map-trigger]").nth(1);
   await secondTrigger.hover();
   await expect(secondTrigger).toHaveAttribute("aria-expanded", "true");
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
-  await expect(page.locator('[data-context-trigger][aria-expanded="true"]')).toHaveCount(1);
+  await expect(page.locator('[data-work-map-trigger][aria-expanded="true"]')).toHaveCount(1);
+  await page.waitForTimeout(50);
+  await expect(map).toHaveAttribute("data-work-map-reactive", "true");
+  await expect(map).toHaveCSS("--work-map-effect-rgb", "79 140 255");
+  await expect(map).toHaveAttribute("data-work-map-target-active", "sites-note");
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "ink");
+  await expect(hotspotLayer.locator('[data-work-map-hotspot="sites-note"]')).toHaveAttribute("data-active", "true");
+  await expect(focusImage).toHaveAttribute("data-work-map-effect", "ink");
+  await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-sites-note)");
 
   const secondBox = await secondTrigger.boundingBox();
-  await secondTrigger.evaluate((activeTrigger) => {
-    const card = activeTrigger.closest("[data-context-card]");
-    const nativeMatches = card.matches.bind(card);
-    Object.defineProperty(card, "matches", {
-      configurable: true,
-      value(selector) {
-        if (selector === ":hover") return true;
-        return nativeMatches(selector);
-      },
-    });
-  });
   await page.mouse.move((secondBox?.x ?? 0) + (secondBox?.width ?? 0) / 2, (secondBox?.y ?? 0) + (secondBox?.height ?? 0) + 30);
-  if (testInfo.project.name !== "webkit") {
-    await page.waitForTimeout(200);
-    await expect(page.locator("[data-context-panel]").nth(1)).toBeVisible();
-  }
   await page.waitForTimeout(600);
   await expect(secondTrigger).toHaveAttribute("aria-expanded", "false");
-  await expect(page.locator("[data-context-panel]").nth(1)).toBeHidden();
-  await secondTrigger.evaluate((activeTrigger) => {
-    delete activeTrigger.closest("[data-context-card]").matches;
-  });
+  await expect(page.locator("[data-work-map-panel]").nth(1)).toBeHidden();
 
-  const keyboardTrigger = page.locator("[data-context-trigger]").nth(2);
+  const keyboardTrigger = page.locator("[data-work-map-trigger]").nth(2);
   await keyboardTrigger.focus();
-  const keyboardPanel = page.locator("[data-context-panel]").nth(2);
+  const keyboardPanel = page.locator("[data-work-map-panel]").nth(2);
   await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "true");
   await expect(keyboardPanel).toBeVisible();
   const firstPanelLink = keyboardPanel.locator("a").first();
@@ -319,6 +544,11 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
     await page.keyboard.press("Tab");
     await expect(firstPanelLink).toBeFocused();
   }
+  await page.waitForTimeout(120);
+  await expect(map).toHaveAttribute("data-work-map-target-active", "nexus-note");
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "ink");
+  await expect(hotspotLayer.locator('[data-work-map-hotspot="nexus-note"]')).toHaveAttribute("data-active", "true");
+  await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-nexus-note)");
   await page.keyboard.press("Escape");
   await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "false");
   await expect(keyboardPanel).toHaveAttribute("inert", "");
@@ -327,9 +557,75 @@ test("context cards support hover tolerance, keyboard dismissal and focus return
   await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "true");
   await keyboardTrigger.press("Space");
   await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "false");
+  await keyboardTrigger.press("ArrowRight");
+  await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "true");
+  await expect(firstPanelLink).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(keyboardTrigger).toHaveAttribute("aria-expanded", "false");
+  await expect(keyboardTrigger).toBeFocused();
+
+  const maeveTrigger = page.locator("[data-work-map-trigger]").nth(4);
+  await maeveTrigger.hover();
+  await expect(maeveTrigger).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator('[data-work-map-trigger][aria-expanded="true"]')).toHaveCount(1);
+  await expect(map).toHaveAttribute("data-work-map-target-active", "maeve-tablet");
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "screen");
+  await expect(hotspotLayer.locator('[data-work-map-hotspot="maeve-tablet"]')).toHaveAttribute("data-active", "true");
+  await expect(focusImage).toHaveAttribute("data-work-map-effect", "screen");
+  await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-maeve-tablet)");
 });
 
-test("context cards support first tap, second tap and outside dismissal", async ({ browser }) => {
+test("work map bounds screen awakening and circular ink motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await openRoute(page, "/");
+  await acceptEssentialStorage(page);
+  const map = page.locator("[data-work-map]");
+  await map.scrollIntoViewIfNeeded();
+
+  const toolingTrigger = map.locator("[data-work-map-trigger]").nth(2);
+  const orbit = map.locator('[data-work-map-hotspot="tooling-cluster"] .work-map-hotspot-orbit-primary .work-map-hotspot-orbit-shape').first();
+  await orbit.evaluate((shape) => {
+    globalThis.__workMapOrbitOffsets = [];
+    globalThis.__workMapOrbitObserver = new MutationObserver(() => {
+      const offset = shape.style.strokeDashoffset;
+      if (offset) globalThis.__workMapOrbitOffsets.push(offset);
+    });
+    globalThis.__workMapOrbitObserver.observe(shape, { attributes: true, attributeFilter: ["style"] });
+  });
+  await toolingTrigger.click();
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "ink");
+  await expect(orbit).not.toHaveAttribute("transform", /^rotate\(/);
+  await expect.poll(() => page.evaluate(() => new Set(globalThis.__workMapOrbitOffsets).size)).toBeGreaterThan(1);
+  await page.waitForTimeout(900);
+  await expect(map).toHaveAttribute("data-work-map-burst", "false");
+  await expect.poll(() => orbit.evaluate((shape) => shape.style.strokeDashoffset)).toBe("");
+  await page.evaluate(() => {
+    globalThis.__workMapOrbitObserver?.disconnect();
+    delete globalThis.__workMapOrbitObserver;
+    delete globalThis.__workMapOrbitOffsets;
+  });
+
+  const maeveTrigger = map.locator("[data-work-map-trigger]").nth(4);
+  await maeveTrigger.click();
+  const focusImage = map.locator("[data-work-map-focus-image]");
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "screen");
+  await expect(focusImage).toHaveAttribute("clip-path", "url(#work-map-clip-pt-br-maeve-tablet)");
+  await expect(focusImage).toHaveCSS("animation-name", "work-map-screen-awaken");
+  await page.waitForTimeout(1100);
+  await expect(map).toHaveAttribute("data-work-map-burst", "false");
+  await expect(focusImage).toHaveCSS("animation-name", "none");
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const compactToolingTrigger = map.locator("[data-work-map-trigger]").nth(2);
+  await compactToolingTrigger.click();
+  await expect(map).toHaveAttribute("data-work-map-effect-active", "ink");
+  await expect(map.locator("[data-work-map-focus-image]")).toHaveCSS("opacity", "0.18");
+  await expect(map.locator(".work-map-hotspot-orbit-primary").first()).toHaveCSS("display", "none");
+  await expect(map.locator(".work-map-hotspot-orbit-secondary").first()).toHaveCSS("display", "none");
+});
+
+test("work map supports first tap, second tap and outside dismissal", async ({ browser }) => {
   const baseURL = String(test.info().project.use.baseURL);
   const context = await browser.newContext({
     baseURL,
@@ -340,115 +636,403 @@ test("context cards support first tap, second tap and outside dismissal", async 
     const page = await context.newPage();
     await openRoute(page, "/");
     await acceptEssentialStorage(page);
-    const trigger = page.locator("[data-context-trigger]").first();
+    const trigger = page.locator("[data-work-map-trigger]").first();
     await trigger.tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await trigger.tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
     await trigger.tap();
-    const secondTrigger = page.locator("[data-context-trigger]").nth(1);
+    const secondTrigger = page.locator("[data-work-map-trigger]").nth(1);
     await secondTrigger.tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
     await expect(secondTrigger).toHaveAttribute("aria-expanded", "true");
-    await expect(page.locator('[data-context-trigger][aria-expanded="true"]')).toHaveCount(1);
+    await expect(page.locator('[data-work-map-trigger][aria-expanded="true"]')).toHaveCount(1);
     await secondTrigger.tap();
     await expect(secondTrigger).toHaveAttribute("aria-expanded", "false");
+    await trigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 24, clientY: 24 });
+    await trigger.dispatchEvent("click", { detail: 1 });
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await trigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 24, clientY: 24 });
+    await trigger.dispatchEvent("click", { detail: 1 });
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
     await trigger.tap();
     await page.locator("h1").tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
     await trigger.tap();
-    await page.locator("[data-context-panel]").first().locator("a").tap();
+    await page.locator("[data-work-map-panel]").first().locator("a").tap();
     await expect(page).toHaveURL(/\/projetos\/clubal\/$/);
   } finally {
     await context.close();
   }
+
+  const hybridContext = await browser.newContext({
+    baseURL,
+    viewport: { width: 1440, height: 900 },
+  });
+  try {
+    const hybridPage = await hybridContext.newPage();
+    await openRoute(hybridPage, "/");
+    await acceptEssentialStorage(hybridPage);
+    const penTrigger = hybridPage.locator("[data-work-map-trigger]").first();
+    await penTrigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 48, clientY: 48 });
+    await penTrigger.focus();
+    await expect(penTrigger).toHaveAttribute("aria-expanded", "false");
+    await penTrigger.dispatchEvent("click", { detail: 1 });
+    await expect(penTrigger).toHaveAttribute("aria-expanded", "true");
+    await penTrigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 48, clientY: 48 });
+    await penTrigger.dispatchEvent("click", { detail: 1 });
+    await expect(penTrigger).toHaveAttribute("aria-expanded", "false");
+  } finally {
+    await hybridContext.close();
+  }
 });
 
-test("context catalog stays aligned and contained across the required viewport matrix", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "chromium", "A matriz geométrica é coberta no Chromium; os fluxos rodam nos três motores.");
-  test.setTimeout(90_000);
+test("work map keeps its mobile fallback without ResizeObserver or container queries", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "A ausência das APIs é simulada uma vez no Chromium.");
+  const runtimeErrors = [];
+  page.on("pageerror", (error) => runtimeErrors.push(error.message));
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "ResizeObserver", { configurable: true, value: undefined });
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openRoute(page, "/");
+  await page.addStyleTag({ content: ".landscape-map { container-type: normal !important; }" });
+  await acceptEssentialStorage(page);
+  const map = page.locator("[data-work-map]");
+  const nav = map.locator("[data-work-map-nav]");
+  await expect(map).toHaveAttribute("data-work-map-mode", "mobile");
+  const [mapBox, navBox] = await Promise.all([map.boundingBox(), nav.boundingBox()]);
+  expect(navBox?.width ?? Infinity).toBeLessThanOrEqual((mapBox?.width ?? 0) + 1);
+  const trigger = map.locator("[data-work-map-trigger]").first();
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(map.locator("[data-work-map-panel]").first()).toBeVisible();
+  expect(runtimeErrors).toEqual([]);
+});
 
-  for (const width of contextViewports) {
-    await page.setViewportSize({ width, height: width <= 430 ? 844 : 900 });
+test("work map keeps dense desktop destinations reachable without container queries, dvh or ResizeObserver", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "O fallback de CSS legado é simulado uma vez no Chromium.");
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "ResizeObserver", { configurable: true, value: undefined });
+  });
+  await page.route("**/assets/css/styles.css", async (route) => {
+    const response = await route.fetch();
+    const cssWithoutDynamicViewportUnits = (await response.text()).replace(
+      /^\s*max-height:\s*min\([^;\n]*dvh[^;\n]*;\s*$/gim,
+      "",
+    );
+    await route.fulfill({ response, body: cssWithoutDynamicViewportUnits });
+  });
+  await page.route("**/work-map-old-browser.html", (route) => route.fulfill({
+    status: 200,
+    contentType: "text/html; charset=utf-8",
+    body: growthWorkMapFixture(12, "en"),
+  }));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await openRoute(page, "/work-map-old-browser.html");
+  await page.addStyleTag({ content: ".landscape-map { container-type: normal !important; }" });
+  const trigger = page.locator("#growth-root-trigger");
+  const panel = page.locator("#growth-root-panel");
+  const list = panel.locator(":scope > ul");
+  const links = list.locator(":scope > [data-work-map-node] > [data-work-map-link]");
+  await trigger.click();
+  await expect(panel).toBeVisible();
+  await expect(list).toHaveCSS("max-height", "340px");
+  const metrics = await growthPanelMetrics(page);
+  expect(metrics.columns, "legacy desktop keeps the safe single-column fallback").toBe(1);
+  expect(metrics.listScrollHeight, "legacy desktop uses internal scrolling").toBeGreaterThan(metrics.listClientHeight + 1);
+  expect(metrics.panel.bottom, "legacy desktop panel remains inside the mural").toBeLessThanOrEqual(metrics.map.bottom + 1);
+  expect(metrics.pageOverflow, "legacy desktop has no horizontal overflow").toBeLessThanOrEqual(1);
+  const lastLink = links.last();
+  await lastLink.scrollIntoViewIfNeeded();
+  const lastAccess = await lastLink.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    const listBounds = element.closest("ul").getBoundingClientRect();
+    return bounds.top >= listBounds.top - 1 && bounds.bottom <= listBounds.bottom + 1;
+  });
+  expect(lastAccess, "legacy desktop can reach the twelfth destination").toBe(true);
+});
+
+test("work map stays aligned and contained across the required viewport matrix", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "A matriz geométrica é coberta no Chromium; os fluxos rodam nos três motores.");
+  test.setTimeout(120_000);
+
+  for (const viewport of workMapViewports) {
+    const { width, height } = viewport;
+    await page.setViewportSize(viewport);
     await openRoute(page, "/");
     await acceptEssentialStorage(page);
+    const map = page.locator("[data-work-map]");
+    await map.scrollIntoViewIfNeeded();
+    await expect(map).toHaveAttribute("data-work-map-mode", /^(?:wide|compact|mobile)$/);
+    const mode = await map.getAttribute("data-work-map-mode");
     const overflow = await page.evaluate(() => Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) - innerWidth);
-    expect(overflow, `${width}px horizontal overflow`).toBeLessThanOrEqual(1);
+    expect(overflow, `${width}x${height} horizontal overflow`).toBeLessThanOrEqual(1);
+    const image = map.locator(".work-map-media img");
+    await expect(image).toHaveAttribute("width", "1672");
+    await expect(image).toHaveAttribute("height", "941");
+    expect(await image.evaluate((element) => element.currentSrc)).toContain("/assets/img/gui/mapa-do-trabalho-");
 
-    const geometry = await page.locator("[data-context-trigger]").evaluateAll((buttons) => buttons.map((button) => {
+    const geometry = await page.locator("[data-work-map-trigger]").evaluateAll((buttons) => buttons.map((button) => {
       const box = button.getBoundingClientRect();
-      const count = button.querySelector("small")?.getBoundingClientRect();
-      return { x: box.x, y: box.y, width: box.width, height: box.height, countY: count?.y ?? -1 };
+      return { x: box.x, y: box.y, width: box.width, height: box.height };
     }));
     expect(geometry).toHaveLength(5);
-    const rows = Map.groupBy(geometry, (item) => Math.round(item.y));
-    const expectedColumns = width <= 760 ? 1 : width <= 1280 ? 3 : 5;
-    expect(Math.max(...[...rows.values()].map((row) => row.length)), `${width}px column count`).toBe(expectedColumns);
-    for (const row of rows.values()) {
-      expect(Math.max(...row.map((item) => item.height)) - Math.min(...row.map((item) => item.height)), `${width}px card heights`).toBeLessThanOrEqual(1);
-      expect(Math.max(...row.map((item) => item.countY)) - Math.min(...row.map((item) => item.countY)), `${width}px count alignment`).toBeLessThanOrEqual(1);
+    expect(Math.max(...geometry.map((item) => item.x)) - Math.min(...geometry.map((item) => item.x)), `${width}px root column axis`).toBeLessThanOrEqual(1);
+    expect(Math.max(...geometry.map((item) => item.height)) - Math.min(...geometry.map((item) => item.height)), `${width}px root button height harmony`).toBeLessThanOrEqual(1);
+    for (let index = 1; index < geometry.length; index += 1) {
+      expect(geometry[index].y, `${width}px root order`).toBeGreaterThan(geometry[index - 1].y);
     }
 
-    if ([320, 768, 1024, 1440].includes(width)) {
-      const lastTrigger = page.locator("[data-context-trigger]").last();
-      if (width <= 760) await lastTrigger.click(); else await lastTrigger.hover();
-      await expect(lastTrigger).toHaveAttribute("aria-expanded", "true");
-      const panel = page.locator("[data-context-panel]").last();
-      const box = await panel.boundingBox();
-      expect(box?.x ?? -1, `${width}px panel left`).toBeGreaterThanOrEqual(0);
-      expect((box?.x ?? 0) + (box?.width ?? 0), `${width}px panel right`).toBeLessThanOrEqual(width + 1);
-      if (width === 1024) {
-        const firstTrigger = page.locator("[data-context-trigger]").first();
-        await firstTrigger.hover();
-        await expect(firstTrigger).toHaveAttribute("aria-expanded", "true");
-        await expect(lastTrigger).toHaveAttribute("aria-expanded", "false");
-        await expect(page.locator('[data-context-trigger][aria-expanded="true"]')).toHaveCount(1);
+    for (let index = 0; index < 5; index += 1) {
+      const trigger = page.locator("[data-work-map-trigger]").nth(index);
+      const panel = page.locator("[data-work-map-panel]").nth(index);
+      const initialTriggerBox = await trigger.boundingBox();
+      if (mode === "mobile") await trigger.click();
+      else await trigger.hover();
+      await expect(trigger).toHaveAttribute("aria-expanded", "true");
+      await expect(panel).toBeVisible();
+      const openTriggerBox = await trigger.boundingBox();
+      expect(openTriggerBox?.x, `${width}px trigger ${index} x`).toBeCloseTo(initialTriggerBox?.x ?? 0, 1);
+      expect(openTriggerBox?.width, `${width}px trigger ${index} width`).toBeCloseTo(initialTriggerBox?.width ?? 0, 1);
+      expect(openTriggerBox?.height, `${width}px trigger ${index} height`).toBeCloseTo(initialTriggerBox?.height ?? 0, 1);
+
+      const mapBox = await map.boundingBox();
+      const panelBox = await panel.boundingBox();
+      expect(panelBox?.x ?? -1, `${width}px panel ${index} left`).toBeGreaterThanOrEqual((mapBox?.x ?? 0) - 1);
+      expect(panelBox?.y ?? -1, `${width}px panel ${index} top`).toBeGreaterThanOrEqual((mapBox?.y ?? 0) - 1);
+      expect((panelBox?.x ?? 0) + (panelBox?.width ?? 0), `${width}px panel ${index} right`).toBeLessThanOrEqual((mapBox?.x ?? 0) + (mapBox?.width ?? 0) + 1);
+      expect((panelBox?.y ?? 0) + (panelBox?.height ?? 0), `${width}px panel ${index} bottom`).toBeLessThanOrEqual((mapBox?.y ?? 0) + (mapBox?.height ?? 0) + 1);
+
+      const panelButtonHeights = await panel.locator(":scope > ul > [data-work-map-node] > :is([data-work-map-trigger], [data-work-map-link])").evaluateAll((buttons) => buttons.map((button) => button.getBoundingClientRect().height));
+      if (panelButtonHeights.length > 1) {
+        expect(Math.max(...panelButtonHeights) - Math.min(...panelButtonHeights), `${width}px panel ${index} button height harmony`).toBeLessThanOrEqual(1);
       }
+
+      if (mode !== "mobile") {
+        expect(panelBox?.x ?? 0, `${width}px branch ${index} opens right`).toBeGreaterThanOrEqual((openTriggerBox?.x ?? 0) + (openTriggerBox?.width ?? 0) - 1);
+        if (mode === "wide") {
+          expect((panelBox?.x ?? 0) + (panelBox?.width ?? 0), `${width}px Maeve reserve`).toBeLessThanOrEqual((mapBox?.x ?? 0) + ((mapBox?.width ?? 0) * .7));
+        }
+        if (index === 0) await expect(panel).toHaveAttribute("data-work-map-direction", "down");
+        if (index === 4) await expect(panel).toHaveAttribute("data-work-map-direction", "up");
+      } else {
+        expect(panelBox?.y ?? 0, `${width}px mobile accordion`).toBeGreaterThanOrEqual((openTriggerBox?.y ?? 0) + (openTriggerBox?.height ?? 0) - 1);
+      }
+      await page.keyboard.press("Escape");
+      await expect(trigger).toHaveAttribute("aria-expanded", "false");
+      await expect(panel).toBeHidden();
     }
   }
 });
 
-test("context labels, reduced motion, contrast preferences and no-JS fallback remain coherent", async ({ page, browser }, testInfo) => {
-  for (const [route, labels] of Object.entries(contextLabels)) {
+test("recursive work map keeps a three-level drilldown inside its coordinate system", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "A regressão geométrica recursiva é determinística no Chromium.");
+  test.setTimeout(60_000);
+  await page.route("**/work-map-fixture.html", (route) => route.fulfill({
+    status: 200,
+    contentType: "text/html; charset=utf-8",
+    body: nestedWorkMapFixture,
+  }));
+
+  for (const viewport of [{ width: 844, height: 390 }, { width: 1280, height: 900 }]) {
+    await page.setViewportSize(viewport);
+    await openRoute(page, "/work-map-fixture.html");
+    const map = page.locator("[data-work-map]");
+    const rootTrigger = page.locator("#fixture-root-trigger");
+    const rootPanel = page.locator("#fixture-root-panel");
+    const nestedTrigger = page.locator("#fixture-nested-trigger");
+    const nestedPanel = page.locator("#fixture-nested-panel");
+
+    await expect(map).toHaveAttribute("data-work-map-mode", viewport.width >= 1100 ? "wide" : "compact");
+    await rootTrigger.click();
+    await expect(rootTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(rootPanel).toBeVisible();
+    await expect(rootPanel).toHaveAttribute("data-work-map-presentation", "branch");
+
+    await nestedTrigger.click();
+    await expect(nestedTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(nestedPanel).toBeVisible();
+    await expect(nestedPanel).toHaveAttribute("data-work-map-presentation", "drilldown");
+    await expect(nestedPanel.locator('[data-work-map-depth="2"]')).toBeVisible();
+
+    const geometry = await page.evaluate(() => {
+      const rectangle = (selector) => {
+        const bounds = document.querySelector(selector).getBoundingClientRect();
+        return { left: bounds.left, top: bounds.top, right: bounds.right, bottom: bounds.bottom };
+      };
+      return {
+        map: rectangle("[data-work-map]"),
+        rootPanel: rectangle("#fixture-root-panel"),
+        nestedPanel: rectangle("#fixture-nested-panel"),
+      };
+    });
+    for (const [label, panel] of [["root", geometry.rootPanel], ["nested", geometry.nestedPanel]]) {
+      expect(panel.left, `${viewport.width}px ${label} panel left`).toBeGreaterThanOrEqual(geometry.map.left - 1);
+      expect(panel.top, `${viewport.width}px ${label} panel top`).toBeGreaterThanOrEqual(geometry.map.top - 1);
+      expect(panel.right, `${viewport.width}px ${label} panel right`).toBeLessThanOrEqual(geometry.map.right + 1);
+      expect(panel.bottom, `${viewport.width}px ${label} panel bottom`).toBeLessThanOrEqual(geometry.map.bottom + 1);
+    }
+
+    await page.keyboard.press("Escape");
+    await expect(nestedTrigger).toHaveAttribute("aria-expanded", "false");
+    await expect(rootTrigger).toHaveAttribute("aria-expanded", "true");
+    await page.keyboard.press("Escape");
+    await expect(rootTrigger).toHaveAttribute("aria-expanded", "false");
+  }
+});
+
+test("work map growth renders 1, 2, 6 and 12 long localized destinations without clipping", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "A matriz de crescimento geométrico é coberta no Chromium.");
+  test.setTimeout(90_000);
+  await page.route("**/work-map-growth-*.html", (route) => {
+    const match = new URL(route.request().url()).pathname.match(/work-map-growth-(\d+)-(en|es)\.html$/);
+    if (!match) return route.fallback();
+    return route.fulfill({
+      status: 200,
+      contentType: "text/html; charset=utf-8",
+      body: growthWorkMapFixture(Number(match[1]), match[2]),
+    });
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const locale of ["en", "es"]) {
+    for (const count of [1, 2, 6, 12]) {
+      await openRoute(page, `/work-map-growth-${count}-${locale}.html`);
+      const map = page.locator("[data-work-map]");
+      const trigger = page.locator("#growth-root-trigger");
+      const panel = page.locator("#growth-root-panel");
+      const list = panel.locator(":scope > ul");
+      const links = list.locator(":scope > [data-work-map-node] > [data-work-map-link]");
+      const expectedDensity = count >= 10 ? "dense" : count >= 6 ? "many" : "standard";
+
+      await expect(map).toHaveAttribute("data-work-map-mode", "wide");
+      await trigger.click();
+      await expect(panel).toBeVisible();
+      await expect(panel).toHaveAttribute("data-work-map-child-count", String(count));
+      await expect(panel).toHaveAttribute("data-work-map-density", expectedDensity);
+      await expect(links).toHaveCount(count);
+
+      const metrics = await growthPanelMetrics(page);
+      expect(metrics.columns, `${locale}/${count} desktop columns`).toBe(count >= 6 ? 2 : 1);
+      expect(metrics.pageOverflow, `${locale}/${count} desktop horizontal overflow`).toBeLessThanOrEqual(1);
+      expect(metrics.panel.left, `${locale}/${count} panel left`).toBeGreaterThanOrEqual(metrics.map.left - 1);
+      expect(metrics.panel.top, `${locale}/${count} panel top`).toBeGreaterThanOrEqual(metrics.map.top - 1);
+      expect(metrics.panel.right, `${locale}/${count} panel right`).toBeLessThanOrEqual(metrics.map.right + 1);
+      expect(metrics.panel.bottom, `${locale}/${count} panel bottom`).toBeLessThanOrEqual(metrics.map.bottom + 1);
+      const heights = metrics.linkMetrics.map(({ link }) => link.height);
+      expect(Math.max(...heights) - Math.min(...heights), `${locale}/${count} button height harmony`).toBeLessThanOrEqual(1);
+      for (const [index, item] of metrics.linkMetrics.entries()) {
+        expect(item.label.top, `${locale}/${count} label ${index + 1} top`).toBeGreaterThanOrEqual(item.link.top - 1);
+        expect(item.label.bottom, `${locale}/${count} label ${index + 1} bottom`).toBeLessThanOrEqual(item.link.bottom + 1);
+        expect(item.scrollHeight, `${locale}/${count} link ${index + 1} clipping`).toBeLessThanOrEqual(item.clientHeight + 2);
+        expect(item.strongScrollHeight, `${locale}/${count} title ${index + 1} clipping`).toBeLessThanOrEqual(item.strongClientHeight + 1);
+        expect(item.smallScrollHeight, `${locale}/${count} kicker ${index + 1} clipping`).toBeLessThanOrEqual(item.smallClientHeight + 1);
+      }
+      if (count <= 6) expect(metrics.listScrollHeight, `${locale}/${count} avoids premature scrolling`).toBeLessThanOrEqual(metrics.listClientHeight + 1);
+      else expect(metrics.listScrollHeight, `${locale}/${count} uses scrolling as the dense fallback`).toBeGreaterThan(metrics.listClientHeight + 1);
+
+      const lastLink = links.last();
+      await lastLink.scrollIntoViewIfNeeded();
+      const lastAccess = await lastLink.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        const listBounds = element.closest("ul").getBoundingClientRect();
+        return {
+          insideList: bounds.top >= listBounds.top - 1 && bounds.bottom <= listBounds.bottom + 1,
+          insideViewport: bounds.top >= -1 && bounds.bottom <= innerHeight + 1,
+        };
+      });
+      expect(lastAccess.insideList, `${locale}/${count} last destination inside list`).toBe(true);
+      expect(lastAccess.insideViewport, `${locale}/${count} last destination reachable`).toBe(true);
+    }
+  }
+
+  for (const responsiveCase of [
+    { viewport: { width: 844, height: 900 }, locale: "es", mode: "compact" },
+    { viewport: { width: 390, height: 844 }, locale: "en", mode: "mobile" },
+  ]) {
+    await page.setViewportSize(responsiveCase.viewport);
+    await openRoute(page, `/work-map-growth-12-${responsiveCase.locale}.html`);
+    const map = page.locator("[data-work-map]");
+    const panel = page.locator("#growth-root-panel");
+    const links = panel.locator(":scope > ul > [data-work-map-node] > [data-work-map-link]");
+    await expect(map).toHaveAttribute("data-work-map-mode", responsiveCase.mode);
+    await page.locator("#growth-root-trigger").click();
+    await expect(panel).toBeVisible();
+    const metrics = await growthPanelMetrics(page);
+    expect(metrics.columns, `${responsiveCase.mode} keeps one column`).toBe(1);
+    expect(metrics.pageOverflow, `${responsiveCase.mode} horizontal overflow`).toBeLessThanOrEqual(1);
+    const heights = metrics.linkMetrics.map(({ link }) => link.height);
+    expect(Math.max(...heights) - Math.min(...heights), `${responsiveCase.mode} button height harmony`).toBeLessThanOrEqual(1);
+    for (const [index, item] of metrics.linkMetrics.entries()) {
+      expect(item.label.bottom, `${responsiveCase.mode} label ${index + 1} bottom`).toBeLessThanOrEqual(item.link.bottom + 1);
+      expect(item.scrollHeight, `${responsiveCase.mode} link ${index + 1} clipping`).toBeLessThanOrEqual(item.clientHeight + 2);
+    }
+    const lastLink = links.last();
+    await lastLink.scrollIntoViewIfNeeded();
+    await expect(lastLink).toBeInViewport();
+  }
+});
+
+test("work map labels, media and preferences remain coherent", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
+  for (const [route, labels] of Object.entries(workMapLabels)) {
     const response = await page.request.get(route);
     expect(response.status(), route).toBe(200);
     await openRoute(page, route);
-    await expect(page.locator(".context-catalog-title strong")).toHaveText(labels);
+    await expect(page.locator('[data-work-map-depth="0"] > [data-work-map-trigger] .work-map-label strong')).toHaveText(labels);
+    await expect(page.locator(".work-map > h2.sr-only")).toHaveCount(1);
+    await expect(page.locator(".landscape-copy, .work-map figcaption")).toHaveCount(0);
+    await expect(page.locator("[data-work-map-link]")).toHaveCount(7);
+    await expect(page.locator('.work-map-media img[src="/assets/img/gui/mapa-do-trabalho-1280.webp"]')).toHaveCount(1);
   }
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await openRoute(page, "/");
   await expect(page.locator("h1")).toBeVisible();
-  const trigger = page.locator("[data-context-trigger]").first();
+  const trigger = page.locator("[data-work-map-trigger]").first();
   await trigger.focus();
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
-  await expect(page.locator("[data-context-panel]").first()).toHaveCSS("transform", "none");
+  await expect(page.locator("[data-work-map-panel]").first()).toHaveCSS("transform", "none");
+  await expect(page.locator(".work-map-particle").first()).toHaveCSS("display", "none");
+  await expect(page.locator("[data-work-map-focus-image]")).toHaveCSS("animation-name", "none");
+  await expect(page.locator(".work-map-hotspot-orbit-primary .work-map-hotspot-orbit-shape").first()).toHaveCSS("animation-name", "none");
+  const reducedMotionTooling = page.locator("[data-work-map-trigger]").nth(2);
+  await reducedMotionTooling.click();
+  await expect.poll(() => page.locator('[data-work-map-hotspot="tooling-cluster"] .work-map-hotspot-orbit-shape').first().evaluate((shape) => shape.style.strokeDashoffset)).toBe("");
 
   await page.locator("html").evaluate((root) => {
     root.dataset.contrast = "high";
     root.dataset.textScale = "xlarge";
     root.dataset.font = "readable";
+    root.dataset.motion = "reduced";
   });
+  await expect(page.locator("html")).toHaveCSS("transition-property", "none");
+  await expect(page.locator("[data-work-map-hotspots]")).toHaveCSS("display", "none");
+  await page.setViewportSize({ width: 1024, height: 768 });
+  const scaledMap = page.locator("[data-work-map]");
+  const scaledPanel = page.locator("[data-work-map-panel]").nth(2);
+  await reducedMotionTooling.focus();
+  await reducedMotionTooling.press("ArrowRight");
+  await expect(reducedMotionTooling).toHaveAttribute("aria-expanded", "true");
+  await expect(scaledPanel).toBeVisible();
+  const scaledGeometry = await Promise.all([scaledMap.boundingBox(), scaledPanel.boundingBox()]);
+  const [scaledMapBox, scaledPanelBox] = scaledGeometry;
+  expect(scaledPanelBox?.x ?? -1, "xlarge panel left containment").toBeGreaterThanOrEqual((scaledMapBox?.x ?? 0) - 1);
+  expect(scaledPanelBox?.y ?? -1, "xlarge panel top containment").toBeGreaterThanOrEqual((scaledMapBox?.y ?? 0) - 1);
+  expect((scaledPanelBox?.x ?? 0) + (scaledPanelBox?.width ?? 0), "xlarge panel right containment").toBeLessThanOrEqual((scaledMapBox?.x ?? 0) + (scaledMapBox?.width ?? 0) + 1);
+  expect((scaledPanelBox?.y ?? 0) + (scaledPanelBox?.height ?? 0), "xlarge panel bottom containment").toBeLessThanOrEqual((scaledMapBox?.y ?? 0) + (scaledMapBox?.height ?? 0) + 1);
   await page.setViewportSize({ width: 640, height: 900 });
   const overflow = await page.evaluate(() => Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) - innerWidth);
   expect(overflow, "200% browser zoom proxy with xlarge text horizontal overflow").toBeLessThanOrEqual(1);
 
   if (testInfo.project.name === "chromium") {
     await page.emulateMedia({ forcedColors: "active", reducedMotion: "reduce" });
+    await trigger.focus();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await expect(trigger).toHaveCSS("outline-style", "solid");
   }
 
-  const baseURL = String(test.info().project.use.baseURL);
-  const noJsContext = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
-  try {
-    const noJsPage = await noJsContext.newPage();
-    await noJsPage.goto("/", { waitUntil: "commit" });
-    await expect(noJsPage.locator("[data-context-panel]")).toHaveCount(5);
-    for (const panel of await noJsPage.locator("[data-context-panel]").all()) await expect(panel).toBeVisible();
-    await expect(noJsPage.locator("[data-context-panel] a")).toHaveCount(7);
-  } finally {
-    await noJsContext.close();
-  }
 });
 
 test("language, theme and contact state stay coherent", async ({ page }) => {
@@ -626,4 +1210,74 @@ test("core journeys have no automated WCAG A/AA violations in light and dark the
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
   expect(systemDarkResults.violations, "system dark accessibility violations").toEqual([]);
+});
+
+test("work map no-JS fallback remains navigable and unclipped at 320px", async ({ browser }) => {
+  const baseURL = String(test.info().project.use.baseURL);
+  const noJsContext = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 320, height: 568 } });
+  try {
+    const noJsPage = await noJsContext.newPage();
+    await noJsPage.goto("/", { waitUntil: "commit" });
+    const noJsMap = noJsPage.locator("[data-work-map]");
+    const noJsPanels = noJsMap.locator("[data-work-map-panel]");
+    const noJsLinks = noJsMap.locator("[data-work-map-panel] a");
+    await expect(noJsPanels).toHaveCount(5);
+    for (const panel of await noJsPanels.all()) await expect(panel).toBeVisible();
+    await expect(noJsMap.locator("[data-work-map-panel][inert]")).toHaveCount(0);
+    await expect(noJsLinks).toHaveCount(7);
+    await expect(noJsMap.locator(".work-map-media img")).toHaveAttribute("width", "1672");
+
+    const noJsGeometry = await noJsMap.evaluate((element) => {
+      const mapRectangle = element.getBoundingClientRect();
+      const links = [...element.querySelectorAll("[data-work-map-panel] a")].map((link, index) => {
+        const rectangle = link.getBoundingClientRect();
+        const labelRectangle = link.querySelector(".work-map-label")?.getBoundingClientRect();
+        return {
+          index,
+          left: rectangle.left,
+          top: rectangle.top,
+          right: rectangle.right,
+          bottom: rectangle.bottom,
+          clientHeight: link.clientHeight,
+          scrollHeight: link.scrollHeight,
+          labelTop: labelRectangle?.top ?? rectangle.top,
+          labelBottom: labelRectangle?.bottom ?? rectangle.bottom,
+        };
+      });
+      const overlaps = [];
+      for (let left = 0; left < links.length; left += 1) {
+        for (let right = left + 1; right < links.length; right += 1) {
+          const overlapWidth = Math.min(links[left].right, links[right].right) - Math.max(links[left].left, links[right].left);
+          const overlapHeight = Math.min(links[left].bottom, links[right].bottom) - Math.max(links[left].top, links[right].top);
+          if (overlapWidth > 1 && overlapHeight > 1) overlaps.push([left, right]);
+        }
+      }
+      return {
+        map: {
+          left: mapRectangle.left,
+          top: mapRectangle.top,
+          right: mapRectangle.right,
+          bottom: mapRectangle.bottom,
+        },
+        links,
+        overlaps,
+      };
+    });
+    expect(noJsGeometry.overlaps, "no-JS links must not overlap at 320px").toEqual([]);
+    for (const link of noJsGeometry.links) {
+      expect(link.left, `no-JS link ${link.index} left containment`).toBeGreaterThanOrEqual(noJsGeometry.map.left - 1);
+      expect(link.top, `no-JS link ${link.index} top containment`).toBeGreaterThanOrEqual(noJsGeometry.map.top - 1);
+      expect(link.right, `no-JS link ${link.index} right containment`).toBeLessThanOrEqual(noJsGeometry.map.right + 1);
+      expect(link.bottom, `no-JS link ${link.index} bottom containment`).toBeLessThanOrEqual(noJsGeometry.map.bottom + 1);
+      expect(link.labelTop, `no-JS link ${link.index} label top`).toBeGreaterThanOrEqual(link.top - 1);
+      expect(link.labelBottom, `no-JS link ${link.index} label bottom`).toBeLessThanOrEqual(link.bottom + 1);
+      expect(link.scrollHeight, `no-JS link ${link.index} scroll overflow`).toBeLessThanOrEqual(link.clientHeight + 2);
+    }
+
+    await noJsLinks.first().click();
+    await noJsPage.waitForURL(/\/projetos\/clubal\/$/);
+    expect(new URL(noJsPage.url()).pathname).toBe("/projetos/clubal/");
+  } finally {
+    await noJsContext.close();
+  }
 });
