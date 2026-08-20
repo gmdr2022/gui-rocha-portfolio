@@ -262,17 +262,75 @@ const acceptEssentialStorage = async (page) => {
   }
 };
 
-const openRoute = async (page, route) => {
-  const response = await page.goto(route, { waitUntil: "commit" });
+const navigationCommitTimeoutMs = 10_000;
+
+const navigationTargetMatches = (candidate, route) => {
+  const absoluteRoute = /^[a-z][a-z\d+.-]*:/i.test(route);
+  const expected = new URL(route, "https://portal.invalid");
+  const actual = new URL(candidate);
+  if (absoluteRoute) return actual.href === expected.href;
+  return actual.pathname === expected.pathname
+    && actual.search === expected.search
+    && actual.hash === expected.hash;
+};
+
+const navigateWithVerifiedCommit = async (page, route, navigate) => {
+  let observedResponse = null;
+  const captureNavigationResponse = (response) => {
+    if (response.request().isNavigationRequest() && navigationTargetMatches(response.url(), route)) {
+      observedResponse = response;
+    }
+  };
+  page.on("response", captureNavigationResponse);
+  try {
+    try {
+      observedResponse = await navigate({ waitUntil: "commit", timeout: navigationCommitTimeoutMs })
+        || observedResponse;
+    } catch (error) {
+      if (!(error instanceof Error) || !/Timeout \d+ms exceeded/.test(error.message)) throw error;
+      const documentState = await page.evaluate(() => ({
+        href: window.location.href,
+        readyState: document.readyState,
+      }));
+      if (
+        !observedResponse
+        || observedResponse.status() >= 400
+        || !navigationTargetMatches(documentState.href, route)
+        || documentState.readyState === "loading"
+      ) throw error;
+      console.warn(`[playwright] commit signal recovered after verified navigation to ${route}`);
+    }
+  } finally {
+    page.off("response", captureNavigationResponse);
+  }
   await page.waitForFunction(() => document.readyState !== "loading");
-  return response;
+  return observedResponse;
+};
+
+const openRoute = async (page, route) => {
+  return navigateWithVerifiedCommit(page, route, (options) => page.goto(route, options));
 };
 
 const reloadRoute = async (page) => {
-  const response = await page.reload({ waitUntil: "commit" });
-  await page.waitForFunction(() => document.readyState !== "loading");
-  return response;
+  const route = await page.evaluate(() => window.location.href);
+  return navigateWithVerifiedCommit(page, route, (options) => page.reload(options));
 };
+
+test("navigation helper verifies a loaded document when the commit signal is lost", async ({ page }) => {
+  const originalGoto = page.goto.bind(page);
+  page.goto = async (route, options) => {
+    await originalGoto(route, options);
+    await page.waitForFunction(() => document.readyState !== "loading");
+    throw new Error(`page.goto: Timeout ${navigationCommitTimeoutMs}ms exceeded.`);
+  };
+  try {
+    const response = await openRoute(page, "/");
+    expect(response?.status()).toBe(200);
+    await expect(page).toHaveURL(/\/$/);
+  } finally {
+    page.goto = originalGoto;
+  }
+});
 
 test("all sitemap routes are healthy, singular and free of runtime errors", async ({ page }) => {
   const sitemapResponse = await page.request.get("/sitemap.xml");
