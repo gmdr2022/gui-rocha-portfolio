@@ -4,13 +4,13 @@ const anyHoverAvailable = window.matchMedia("(any-hover: hover) and (any-pointer
 const workMapPanelTransitionMs = 260;
 const workMapCloseDelayMs = 300;
 const syntheticHoverSuppressionMs = 1200;
-const keyboardHoverSuppressionMs = 450;
 const workMapEffectDurationMs = 1050;
 const panelHideTimers = new WeakMap();
 let lastInputWasPointer = false;
 let lastPointerType = "";
 let suppressHoverUntil = 0;
 let lastPointerPosition = null;
+let awaitingPhysicalPointerMove = false;
 
 const rememberPointerPosition = (event) => {
   lastPointerPosition = { x: event.clientX, y: event.clientY };
@@ -22,11 +22,23 @@ const pointerIsWithin = (element) => {
   return Boolean(hoveredElement && element.contains(hoveredElement));
 };
 
-const pointerCanHover = (event) => (
-  event.pointerType === "mouse"
-  && window.performance.now() >= suppressHoverUntil
-  && (hoverAvailable.matches || anyHoverAvailable.matches)
-);
+const pointerCanHover = (event) => {
+  if (
+    event.pointerType !== "mouse"
+    || window.performance.now() < suppressHoverUntil
+    || (!hoverAvailable.matches && !anyHoverAvailable.matches)
+    || awaitingPhysicalPointerMove
+  ) return false;
+  return true;
+};
+
+const recordPointerMove = (event) => {
+  rememberPointerPosition(event);
+  if (event.pointerType !== "mouse") return;
+  awaitingPhysicalPointerMove = false;
+  lastInputWasPointer = true;
+  lastPointerType = "mouse";
+};
 
 const publishAmbient = (element, source) => {
   if (!element) return;
@@ -413,6 +425,12 @@ const initializeWorkMap = (map) => {
       openBranch(branch);
     });
 
+    branch.addEventListener("pointermove", (event) => {
+      if (!pointerCanHover(event)) return;
+      clearCloseTimer(branch);
+      if (!isExpanded(branch)) openBranch(branch);
+    });
+
     branch.addEventListener("pointerleave", (event) => {
       rememberPointerPosition(event);
       if (pointerCanHover(event) && isExpanded(branch)) scheduleClose(branch);
@@ -470,6 +488,11 @@ const initializeWorkMap = (map) => {
       rememberPointerPosition(event);
       if (pointerCanHover(event)) reactToNode(node);
     });
+    link.addEventListener("pointermove", (event) => {
+      if (!pointerCanHover(event)) return;
+      const targetId = node.dataset.workMapTarget || rootNodeFor(node)?.dataset.workMapTarget;
+      if (map.dataset.workMapTargetActive !== targetId) reactToNode(node);
+    });
     link.addEventListener("pointerdown", () => reactToNode(node, { burst: true }));
     link.addEventListener("focus", () => reactToNode(node));
     link.addEventListener("pointerleave", () => window.requestAnimationFrame(settleMapEffect));
@@ -495,9 +518,10 @@ const initializeWorkMap = (map) => {
 
 workMaps.forEach(initializeWorkMap);
 
-document.addEventListener("pointermove", rememberPointerPosition, { passive: true });
+document.addEventListener("pointermove", recordPointerMove, { capture: true, passive: true });
 document.addEventListener("pointerdown", (event) => {
   rememberPointerPosition(event);
+  awaitingPhysicalPointerMove = false;
   lastInputWasPointer = true;
   lastPointerType = event.pointerType;
   if (event.pointerType !== "mouse") suppressHoverUntil = window.performance.now() + syntheticHoverSuppressionMs;
@@ -507,7 +531,7 @@ document.addEventListener("pointerdown", (event) => {
 document.addEventListener("keydown", (event) => {
   lastInputWasPointer = false;
   lastPointerType = "";
-  suppressHoverUntil = Math.max(suppressHoverUntil, window.performance.now() + keyboardHoverSuppressionMs);
+  awaitingPhysicalPointerMove = true;
   if (event.key !== "Escape") return;
   const openBranches = [...document.querySelectorAll('.work-map-trigger[aria-expanded="true"]')]
     .map((trigger) => trigger.closest(".work-map-branch"))

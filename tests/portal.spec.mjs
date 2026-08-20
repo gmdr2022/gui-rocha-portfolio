@@ -581,24 +581,28 @@ test("work map preserves keyboard intent across synthetic hover after reflow", a
   const institutionalBranch = page.locator('[data-work-map-depth="0"]').first();
   const institutionalTrigger = institutionalBranch.locator(":scope > [data-work-map-trigger]");
   const toolingTrigger = page.locator("[data-work-map-trigger]").nth(2);
+  const maeveTrigger = page.locator("[data-work-map-trigger]").nth(4);
+  const institutionalBox = await institutionalBranch.boundingBox();
+  const syntheticPointer = {
+    x: (institutionalBox?.x ?? 0) + 1,
+    y: (institutionalBox?.y ?? 0) + 1,
+  };
 
-  await toolingTrigger.evaluate((trigger) => {
+  await toolingTrigger.evaluate((trigger, pointer) => {
     trigger.focus();
     trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true, cancelable: true }));
     const sibling = document.querySelector('[data-work-map-depth="0"]');
-    const bounds = sibling?.getBoundingClientRect();
     sibling?.dispatchEvent(new PointerEvent("pointerenter", {
       pointerType: "mouse",
-      clientX: (bounds?.x ?? 0) + 1,
-      clientY: (bounds?.y ?? 0) + 1,
+      clientX: pointer.x,
+      clientY: pointer.y,
     }));
-  });
+  }, syntheticPointer);
   await expect(toolingTrigger).toHaveAttribute("aria-expanded", "true");
   await expect(institutionalTrigger).toHaveAttribute("aria-expanded", "false");
 
-  await page.waitForTimeout(500);
-  await institutionalTrigger.hover();
-  await expect(institutionalTrigger).toHaveAttribute("aria-expanded", "true");
+  await maeveTrigger.hover();
+  await expect(maeveTrigger).toHaveAttribute("aria-expanded", "true");
   await expect(toolingTrigger).toHaveAttribute("aria-expanded", "false");
 });
 
@@ -1037,7 +1041,6 @@ test("work map labels, media and preferences remain coherent", async ({ page }, 
   await expect(page.locator("html")).toHaveCSS("transition-property", "none");
   await expect(page.locator("[data-work-map-hotspots]")).toHaveCSS("display", "none");
   await page.setViewportSize({ width: 1024, height: 768 });
-  await page.mouse.move(0, 0);
   const scaledMap = page.locator("[data-work-map]");
   const scaledPanel = page.locator("[data-work-map-panel]").nth(2);
   await reducedMotionTooling.focus();
