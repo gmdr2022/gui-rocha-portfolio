@@ -429,6 +429,100 @@ test("protected media blocks contextual extraction gestures without disabling th
   expect(pageContextMenuAllowed).toBe(true);
 });
 
+test("project deck reveals symmetric edge navigation and keeps premium media coherent", async ({ page, browser }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.mouse.move(1, 1);
+  await openRoute(page, "/projetos/?project=clubal");
+  await acceptEssentialStorage(page);
+  await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+  await page.mouse.move(1, 1);
+
+  const deck = page.locator("[data-project-deck]");
+  const previous = page.locator("[data-deck-edge-previous]");
+  const next = page.locator("[data-deck-edge-next]");
+  const nextCopy = next.locator(".deck-edge-copy");
+  await expect(previous).toHaveCount(1);
+  await expect(next).toHaveCount(1);
+  await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
+    "src",
+    "/assets/img/clubal/operador-web-conceitual-v2.webp",
+  );
+
+  const edgeState = async (locator) => locator.evaluate((element) => {
+    const style = getComputedStyle(element);
+    const bounds = element.getBoundingClientRect();
+    return {
+      opacity: Number(style.opacity),
+      pointerEvents: style.pointerEvents,
+      width: bounds.width,
+      height: bounds.height,
+    };
+  });
+
+  await expect.poll(async () => (await edgeState(next)).opacity).toBeLessThanOrEqual(.05);
+  await expect.poll(async () => (await edgeState(next)).pointerEvents).toBe("none");
+  await deck.hover({ position: { x: 420, y: 180 } });
+  await expect.poll(async () => (await edgeState(previous)).opacity).toBeGreaterThanOrEqual(.8);
+  await expect.poll(async () => (await edgeState(next)).opacity).toBeGreaterThanOrEqual(.8);
+  expect((await edgeState(next)).height).toBeGreaterThanOrEqual(150);
+
+  await next.hover();
+  await expect.poll(() => nextCopy.evaluate((element) => Number(getComputedStyle(element).opacity))).toBeGreaterThanOrEqual(.99);
+  expect((await nextCopy.boundingBox())?.width).toBeGreaterThanOrEqual(120);
+  await expect(next.locator("[data-deck-edge-next-name]")).toHaveText("Sites");
+  await nextCopy.click();
+  await expect(page).toHaveURL(/project=sites/);
+  await expect(page.locator('[data-project-card][data-position="active"]')).toHaveAttribute("data-project", "sites");
+  await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
+    "src",
+    "/assets/img/sites/sites-collection-showcase-v2.webp",
+  );
+  await expect(previous.locator("[data-deck-edge-previous-name]")).toHaveText("ClubAL");
+
+  await previous.click();
+  await expect(page).toHaveURL(/project=clubal/);
+  await deck.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).toHaveURL(/project=maeve/);
+  await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
+    "src",
+    "/assets/img/maeve/conceito-gameplay-cemiterio-v2.webp",
+  );
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).toHaveURL(/project=local-first-checklist/);
+  await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
+    "src",
+    "/assets/img/local-first-checklist-v2.webp",
+  );
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+
+  const baseURL = String(test.info().project.use.baseURL);
+  const touchContext = await browser.newContext({
+    baseURL,
+    hasTouch: true,
+    viewport: { width: 390, height: 844 },
+  });
+  try {
+    const touchPage = await touchContext.newPage();
+    await openRoute(touchPage, "/projetos/?project=clubal");
+    await acceptEssentialStorage(touchPage);
+    const touchPrevious = touchPage.locator("[data-deck-edge-previous]");
+    const touchNext = touchPage.locator("[data-deck-edge-next]");
+    const touchPreviousState = await edgeState(touchPrevious);
+    const touchNextState = await edgeState(touchNext);
+    expect(touchPreviousState.opacity).toBeGreaterThanOrEqual(.8);
+    expect(touchNextState.opacity).toBeGreaterThanOrEqual(.8);
+    expect(touchPreviousState.pointerEvents).toBe("auto");
+    expect(touchNextState.pointerEvents).toBe("auto");
+    expect(touchNextState.height).toBeGreaterThanOrEqual(150);
+    await touchNext.tap();
+    await expect(touchPage).toHaveURL(/project=sites/);
+    expect(await touchPage.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+  } finally {
+    await touchContext.close();
+  }
+});
+
 test("mobile layouts keep the header visible and actionable throughout scrolling", async ({ page }) => {
   test.setTimeout(120_000);
   const scenarios = [

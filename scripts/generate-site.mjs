@@ -423,7 +423,14 @@ const projectsPage = (locale) => {
       </header>
       <div class="project-deck" data-project-deck tabindex="0" role="region" aria-roledescription="${escapeHtml(common.carousel)}" aria-label="${escapeHtml(copy.eyebrow)}">
         ${projects.map((project, index) => projectCard(locale, project, index)).join("")}
-        <button class="deck-preview-button" type="button" data-deck-preview data-preview-label="${escapeHtml(common.nextProject)}" aria-controls="project-card-${projects[1].slug}" aria-label="${escapeHtml(`${common.nextProject}: ${projects[1].name}`)}">${icon("arrowRight")}</button>
+        <button class="deck-edge-button deck-edge-button-previous" type="button" data-deck-edge-previous data-edge-label="${escapeHtml(common.previousProject)}" aria-controls="project-card-${projects[projects.length - 1].slug}" aria-label="${escapeHtml(`${common.previousProject}: ${projects[projects.length - 1].name}`)}">
+          <span class="deck-edge-icon" aria-hidden="true">${icon("arrowLeft")}</span>
+          <span class="deck-edge-copy"><small>${escapeHtml(common.previous)}</small><strong data-deck-edge-previous-name>${escapeHtml(projects[projects.length - 1].shortName ?? projects[projects.length - 1].name)}</strong></span>
+        </button>
+        <button class="deck-edge-button deck-edge-button-next" type="button" data-deck-edge-next data-edge-label="${escapeHtml(common.nextProject)}" aria-controls="project-card-${projects[1].slug}" aria-label="${escapeHtml(`${common.nextProject}: ${projects[1].name}`)}">
+          <span class="deck-edge-icon" aria-hidden="true">${icon("arrowRight")}</span>
+          <span class="deck-edge-copy"><small>${escapeHtml(common.next)}</small><strong data-deck-edge-next-name>${escapeHtml(projects[1].shortName ?? projects[1].name)}</strong></span>
+        </button>
       </div>
       <div class="deck-controls">
         <button class="deck-button" type="button" data-deck-previous aria-controls="projects">${icon("arrowLeft")}<span>${escapeHtml(common.previous)}</span></button>

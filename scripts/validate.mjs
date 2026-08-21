@@ -1767,6 +1767,25 @@ for (const page of expectedPages) {
     const cardSlugs = cardMatches.map(({ attributes }) => attributes["data-project"]);
     if (cardSlugs.join(",") !== expectedMainOrder.join(",")) fail(`${label}: cards não seguem a ordem principal`);
     if (cardMatches.length !== catalog.length) fail(`${label}: quantidade de cards diverge do catálogo`);
+    const deckButtons = startTags(html, "button").map(attributesOf);
+    const previousEdge = deckButtons.find((attributes) => "data-deck-edge-previous" in attributes);
+    const nextEdge = deckButtons.find((attributes) => "data-deck-edge-next" in attributes);
+    const expectedPrevious = catalog[catalog.length - 1];
+    const expectedNext = catalog[1];
+    if (!previousEdge || !nextEdge || html.includes("data-deck-preview")) {
+      fail(`${label}: navegação lateral precisa ter controles simétricos sem o preview legado`);
+    }
+    if (
+      previousEdge?.["aria-controls"] !== `project-card-${expectedPrevious.slug}`
+      || previousEdge?.["data-edge-label"] !== locales[page.locale].common.previousProject
+      || nextEdge?.["aria-controls"] !== `project-card-${expectedNext.slug}`
+      || nextEdge?.["data-edge-label"] !== locales[page.locale].common.nextProject
+    ) {
+      fail(`${label}: destinos ou rótulos iniciais da navegação lateral divergiram`);
+    }
+    if (!html.includes("data-deck-edge-previous-name") || !html.includes("data-deck-edge-next-name")) {
+      fail(`${label}: navegação lateral não expõe nomes adjacentes`);
+    }
     if (cardMatches.some(({ attributes }, index) => (
       index === 0 ? "inert" in attributes : !("inert" in attributes)
     ))) {
@@ -2224,6 +2243,9 @@ requireMarkers("assets/js/home.js", [
   "card.inert",
   "updateLanguageLinks",
   'portal:ambientchange',
+  "previousEdgeButton",
+  "nextEdgeButton",
+  "dataset.edgeLabel",
 ]);
 requireMarkers("assets/js/about.js", [
   "data-work-map",

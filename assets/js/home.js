@@ -4,7 +4,10 @@ const cards = [...document.querySelectorAll("[data-project-card]")];
 const dots = [...document.querySelectorAll("[data-deck-dot]")];
 const previousButton = document.querySelector("[data-deck-previous]");
 const nextButton = document.querySelector("[data-deck-next]");
-const previewButton = document.querySelector("[data-deck-preview]");
+const previousEdgeButton = document.querySelector("[data-deck-edge-previous]");
+const nextEdgeButton = document.querySelector("[data-deck-edge-next]");
+const previousEdgeName = document.querySelector("[data-deck-edge-previous-name]");
+const nextEdgeName = document.querySelector("[data-deck-edge-next-name]");
 const currentName = document.querySelector("[data-deck-current]");
 const currentHeading = document.querySelector("[data-deck-current-heading]");
 const subtitle = document.querySelector("[data-deck-subtitle]");
@@ -89,8 +92,12 @@ const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false 
   const projectName = activeCard.querySelector("h2")?.textContent?.trim() || "";
   const deckName = activeCard.dataset.deckName || projectName;
   const projectSubtitle = activeCard.dataset.showcaseSubtitle || "";
+  const previousCard = cards[(activeIndex - 1 + cards.length) % cards.length];
   const nextCard = cards[(activeIndex + 1) % cards.length];
+  const previousName = previousCard.querySelector("h2")?.textContent?.trim() || "";
   const nextName = nextCard.querySelector("h2")?.textContent?.trim() || "";
+  const previousDeckName = previousCard.dataset.deckName || previousName;
+  const nextDeckName = nextCard.dataset.deckName || nextName;
 
   cards.forEach((card, index) => {
     const offset = wrappedOffset(index);
@@ -116,10 +123,16 @@ const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false 
       source: "project",
     },
   }));
-  if (previewButton) {
-    previewButton.setAttribute("aria-controls", nextCard.id);
-    previewButton.setAttribute("aria-label", `${previewButton.dataset.previewLabel}: ${nextName}`);
+  if (previousEdgeButton) {
+    previousEdgeButton.setAttribute("aria-controls", previousCard.id);
+    previousEdgeButton.setAttribute("aria-label", `${previousEdgeButton.dataset.edgeLabel}: ${previousName}`);
   }
+  if (nextEdgeButton) {
+    nextEdgeButton.setAttribute("aria-controls", nextCard.id);
+    nextEdgeButton.setAttribute("aria-label", `${nextEdgeButton.dataset.edgeLabel}: ${nextName}`);
+  }
+  if (previousEdgeName) previousEdgeName.textContent = previousDeckName;
+  if (nextEdgeName) nextEdgeName.textContent = nextDeckName;
   updateLanguageLinks(slug);
 
   if (writeUrl) updateUrl(slug);
@@ -151,7 +164,8 @@ if (!applyActiveProject(initialSlug, { writeUrl: Boolean(requestedSlug) })) {
 
 previousButton?.addEventListener("click", () => selectOffset(-1));
 nextButton?.addEventListener("click", () => selectOffset(1));
-previewButton?.addEventListener("click", () => selectOffset(1));
+previousEdgeButton?.addEventListener("click", () => selectOffset(-1));
+nextEdgeButton?.addEventListener("click", () => selectOffset(1));
 
 dots.forEach((dot, index) => {
   dot.addEventListener("click", () => {
@@ -167,6 +181,7 @@ deck?.addEventListener("click", (event) => {
     event.stopPropagation();
     return;
   }
+  if (isInteractiveTarget(event.target)) return;
   const card = event.target.closest("[data-project-card]")
     ?? document.elementsFromPoint(event.clientX, event.clientY).find((element) => element.matches?.("[data-project-card]"));
   if (!card || card.dataset.position === "active") return;
