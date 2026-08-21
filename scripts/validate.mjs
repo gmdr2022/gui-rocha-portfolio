@@ -1944,11 +1944,20 @@ for (const path of htmlFiles) {
   for (const tag of startTags(html, "img")) {
     const attributes = attributesOf(tag);
     if (!("alt" in attributes)) fail(`${label}: imagem sem alt`);
+    if (attributes.draggable !== "false" || !("data-protected-media" in attributes)) {
+      fail(`${label}: imagem sem proteção uniforme contra menu contextual/arraste`);
+    }
     if (!isPositiveInteger(Number(attributes.width)) || !isPositiveInteger(Number(attributes.height))) {
       fail(`${label}: imagem sem dimensões válidas`);
     }
     for (const source of [attributes.src, attributes["data-deferred-src"]].filter(Boolean)) {
       if (/^(?:https?:)?\/\//i.test(source)) fail(`${label}: imagem remota não permitida (${source})`);
+    }
+  }
+
+  for (const tag of startTags(html, "image")) {
+    if (!("data-protected-media" in attributesOf(tag))) {
+      fail(`${label}: imagem SVG sem proteção uniforme contra menu contextual`);
     }
   }
 
@@ -2182,6 +2191,10 @@ requireMarkers("assets/js/site.js", [
   "IntersectionObserver",
   "ambientOceanBase",
   "Math.min(0.18, Math.max(0.1",
+  "PROTECTED_MEDIA_SELECTOR",
+  "eventTargetsProtectedMedia",
+  'addEventListener("contextmenu"',
+  'addEventListener("dragstart"',
 ]);
 for (const [label, pattern] of [
   ["consulta de registros", /navigator\s*\.\s*serviceWorker\s*\.\s*getRegistrations\s*\(/],
@@ -2312,6 +2325,9 @@ requireMarkers("assets/css/styles.css", [
   "@media (forced-colors: active)",
   "prefers-reduced-motion",
   "scroll-margin-top",
+  "[data-protected-media]",
+  "-webkit-touch-callout: none",
+  "-webkit-user-drag: none",
 ]);
 requireMarkers("content/work-map.mjs", [
   "workMapStructure",
@@ -2508,8 +2524,21 @@ let activeHeaderRule = null;
 for (const rawLine of headers.split(/\r?\n/)) {
   if (!rawLine.trim() || rawLine.trimStart().startsWith("#")) continue;
   if (!/^\s/.test(rawLine)) {
-    activeHeaderRule = { source: rawLine.trim(), headers: new Map() };
+    activeHeaderRule = { source: rawLine.trim(), headers: new Map(), removedHeaders: new Set() };
     parsedHeaderRules.push(activeHeaderRule);
+    continue;
+  }
+  const trimmedLine = rawLine.trim();
+  if (trimmedLine.startsWith("! ")) {
+    const name = trimmedLine.slice(2).trim().toLowerCase();
+    if (!activeHeaderRule || !name || name.includes(":")) {
+      fail(`_headers: remoção inválida ${trimmedLine}`);
+      continue;
+    }
+    if (activeHeaderRule.headers.has(name) || activeHeaderRule.removedHeaders.has(name)) {
+      fail(`_headers: ${name} duplicado em ${activeHeaderRule.source}`);
+    }
+    activeHeaderRule.removedHeaders.add(name);
     continue;
   }
   const separator = rawLine.indexOf(":");
@@ -2529,10 +2558,11 @@ const globalHeaders = globalHeaderRule?.headers ?? new Map();
 const expectedSecurityHeaders = new Map([
   ["cross-origin-opener-policy", "same-origin"],
   ["cross-origin-resource-policy", "same-origin"],
-  ["permissions-policy", "camera=(), geolocation=(), microphone=(), payment=(), usb=()"],
+  ["permissions-policy", "accelerometer=(), camera=(), document-domain=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"],
   ["referrer-policy", "strict-origin-when-cross-origin"],
   ["x-content-type-options", "nosniff"],
   ["x-frame-options", "DENY"],
+  ["x-permitted-cross-domain-policies", "none"],
 ]);
 for (const [name, expected] of expectedSecurityHeaders) {
   const actual = globalHeaders.get(name);
@@ -2553,10 +2583,18 @@ const expectedCsp = new Map([
   ["font-src", ["'self'"]],
   ["form-action", ["'self'"]],
   ["frame-ancestors", ["'none'"]],
+  ["frame-src", ["'none'"]],
   ["img-src", ["'self'", "data:"]],
+  ["manifest-src", ["'none'"]],
+  ["media-src", ["'self'"]],
   ["object-src", ["'none'"]],
   ["script-src", ["'self'"]],
+  ["script-src-attr", ["'none'"]],
+  ["script-src-elem", ["'self'"]],
   ["style-src", ["'self'", "'unsafe-inline'"]],
+  ["style-src-attr", ["'unsafe-inline'"]],
+  ["style-src-elem", ["'self'"]],
+  ["worker-src", ["'self'"]],
   ["upgrade-insecure-requests", []],
 ]);
 for (const [name, expectedSources] of expectedCsp) {
@@ -2571,6 +2609,11 @@ for (const [name, expectedSources] of expectedCsp) {
 }
 for (const name of cspDirectives.keys()) {
   if (!expectedCsp.has(name)) fail(`_headers: diretiva CSP não aprovada ${name}`);
+}
+
+const imageHeaderRule = parsedHeaderRules.find((rule) => rule.source === "/assets/img/*");
+if (!imageHeaderRule?.removedHeaders.has("access-control-allow-origin")) {
+  fail("_headers: imagens devem remover o CORS amplo padrão da Cloudflare Pages");
 }
 
 const serviceWorkerHeaderRule = parsedHeaderRules.find((rule) => rule.source === "/service-worker.js");

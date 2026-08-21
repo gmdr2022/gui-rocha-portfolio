@@ -4,6 +4,8 @@ const anyHoverAvailable = window.matchMedia("(any-hover: hover) and (any-pointer
 const workMapPanelTransitionMs = 260;
 const workMapCloseDelayMs = 300;
 const syntheticHoverSuppressionMs = 1200;
+const physicalPointerMoveThresholdPx = 4;
+const nonMouseActivationRecoveryMs = 900;
 const workMapEffectDurationMs = 1050;
 const panelHideTimers = new WeakMap();
 let lastInputWasPointer = false;
@@ -33,8 +35,15 @@ const pointerCanHover = (event) => {
 };
 
 const recordPointerMove = (event) => {
+  const previousPointerPosition = lastPointerPosition;
   rememberPointerPosition(event);
   if (event.pointerType !== "mouse") return;
+  const movedEnough = !previousPointerPosition
+    || Math.hypot(
+      event.clientX - previousPointerPosition.x,
+      event.clientY - previousPointerPosition.y,
+    ) >= physicalPointerMoveThresholdPx;
+  if (awaitingPhysicalPointerMove && !movedEnough) return;
   awaitingPhysicalPointerMove = false;
   lastInputWasPointer = true;
   lastPointerType = "mouse";
@@ -81,6 +90,7 @@ const initializeWorkMap = (map) => {
   const closeTimers = new WeakMap();
   const branchStateVersions = new WeakMap();
   const activationPointerTypes = new WeakMap();
+  let pendingNonMouseActivation = null;
   let layoutFrame = 0;
   let effectTimer = 0;
   let orbitTimer = 0;
@@ -93,6 +103,43 @@ const initializeWorkMap = (map) => {
   const isExpanded = (branch) => triggerFor(branch)?.getAttribute("aria-expanded") === "true";
   const branchStateVersion = (branch) => branchStateVersions.get(branch) || 0;
   const advanceBranchState = (branch) => branchStateVersions.set(branch, branchStateVersion(branch) + 1);
+
+  map.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse") return;
+    const trigger = event.target.closest?.("[data-work-map-trigger]");
+    pendingNonMouseActivation = trigger
+      ? { trigger, pointerId: event.pointerId, pointerType: event.pointerType, confirmed: false }
+      : null;
+    const activation = pendingNonMouseActivation;
+    if (!activation) return;
+    window.setTimeout(() => {
+      if (pendingNonMouseActivation === activation) pendingNonMouseActivation = null;
+    }, nonMouseActivationRecoveryMs);
+  }, true);
+
+  map.addEventListener("pointerup", (event) => {
+    const activation = pendingNonMouseActivation;
+    if (!activation || activation.pointerId !== event.pointerId) return;
+    activation.confirmed = activation.trigger.contains(event.target);
+  }, true);
+
+  map.addEventListener("pointercancel", (event) => {
+    if (pendingNonMouseActivation?.pointerId === event.pointerId) pendingNonMouseActivation = null;
+  }, true);
+
+  map.addEventListener("click", (event) => {
+    const activation = pendingNonMouseActivation;
+    if (!activation || event.detail <= 0) return;
+    const clickPointerType = event.pointerType
+      || (event.sourceCapabilities?.firesTouchEvents ? activation.pointerType : "");
+    if (clickPointerType !== activation.pointerType) return;
+    pendingNonMouseActivation = null;
+    const clickedTrigger = event.target.closest?.("[data-work-map-trigger]");
+    if (!activation.confirmed || clickedTrigger === activation.trigger) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (activation.trigger.isConnected) activation.trigger.click();
+  }, true);
 
   const rootNodeFor = (node) => node?.matches?.('[data-work-map-depth="0"]')
     ? node
@@ -424,9 +471,11 @@ const initializeWorkMap = (map) => {
     const trigger = triggerFor(branch);
     const back = panelFor(branch)?.querySelector(":scope > .work-map-panel-heading [data-work-map-back]");
 
+    branch.addEventListener("pointerdown", () => clearCloseTimer(branch));
+
     branch.addEventListener("pointerenter", (event) => {
-      rememberPointerPosition(event);
       if (!pointerCanHover(event)) return;
+      rememberPointerPosition(event);
       clearCloseTimer(branch);
       openBranch(branch);
     });
@@ -438,8 +487,9 @@ const initializeWorkMap = (map) => {
     });
 
     branch.addEventListener("pointerleave", (event) => {
+      if (!pointerCanHover(event)) return;
       rememberPointerPosition(event);
-      if (pointerCanHover(event) && isExpanded(branch)) scheduleClose(branch);
+      if (isExpanded(branch)) scheduleClose(branch);
     });
 
     branch.addEventListener("focusin", (event) => {
@@ -500,8 +550,9 @@ const initializeWorkMap = (map) => {
   map.querySelectorAll("[data-work-map-link]").forEach((link) => {
     const node = link.closest("[data-work-map-node]");
     link.addEventListener("pointerenter", (event) => {
+      if (!pointerCanHover(event)) return;
       rememberPointerPosition(event);
-      if (pointerCanHover(event)) reactToNode(node);
+      reactToNode(node);
     });
     link.addEventListener("pointermove", (event) => {
       if (!pointerCanHover(event)) return;
@@ -536,7 +587,7 @@ workMaps.forEach(initializeWorkMap);
 document.addEventListener("pointermove", recordPointerMove, { capture: true, passive: true });
 document.addEventListener("pointerdown", (event) => {
   rememberPointerPosition(event);
-  awaitingPhysicalPointerMove = false;
+  awaitingPhysicalPointerMove = event.pointerType !== "mouse";
   lastInputWasPointer = true;
   lastPointerType = event.pointerType;
   if (event.pointerType !== "mouse") suppressHoverUntil = window.performance.now() + syntheticHoverSuppressionMs;

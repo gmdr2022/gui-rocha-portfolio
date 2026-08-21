@@ -67,12 +67,13 @@ const deferredImagePlaceholder = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAA
 const imageSource = (source, deferred = false) => deferred
   ? `src="${deferredImagePlaceholder}" data-deferred-src="${escapeHtml(source)}"`
   : `src="${escapeHtml(source)}"`;
+const protectedMediaAttributes = 'draggable="false" data-protected-media';
 
 const projectIcon = (project, { eager = false, deferred = false, className = "" } = {}) => {
   const asset = projectAssets[project.slug];
   if (!asset) throw new Error(`Missing shared project asset for ${project.slug}`);
   const loading = eager ? "" : ' loading="lazy"';
-  return `<span class="project-icon${className ? ` ${className}` : ""}" data-icon-kind="${escapeHtml(asset.kind)}"><img ${imageSource(asset.src, deferred)} alt="" width="${safeDimension(asset.width, 96)}" height="${safeDimension(asset.height, 96)}" decoding="async"${loading} aria-hidden="true"></span>`;
+  return `<span class="project-icon${className ? ` ${className}` : ""}" data-icon-kind="${escapeHtml(asset.kind)}"><img ${imageSource(asset.src, deferred)} alt="" width="${safeDimension(asset.width, 96)}" height="${safeDimension(asset.height, 96)}" decoding="async" ${protectedMediaAttributes}${loading} aria-hidden="true"></span>`;
 };
 
 const projectNameMarkup = (project) => project.slug === "clubal"
@@ -308,7 +309,7 @@ const projectCard = (locale, project, index) => {
   const imageHeight = safeDimension(project.cardImageHeight ?? project.imageHeight, 900);
   const deferred = index !== 0;
   const media = `
-            <img ${imageSource(cardImage, deferred)} alt="${escapeHtml(cardImageAlt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" draggable="false"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
+            <img ${imageSource(cardImage, deferred)} alt="${escapeHtml(cardImageAlt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" ${protectedMediaAttributes}${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
   return `
         <article class="project-card" id="project-card-${project.slug}" data-project-card data-project="${project.slug}" data-index="${index}" data-kind="${project.cardImageKind ?? project.imageKind}" data-deck-name="${escapeHtml(project.shortName ?? project.name)}" data-showcase-subtitle="${escapeHtml(project.showcaseSubtitle)}" data-position="${index === 0 ? "active" : "hidden"}" aria-hidden="${index === 0 ? "false" : "true"}"${index === 0 ? "" : " inert"} style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
           <div class="project-card-media">
@@ -355,7 +356,7 @@ const siteCollectionMarkup = (locale) => {
         <nav class="sites-catalog" aria-label="${escapeHtml(collection.catalogLabel)}">
           ${sites.map((site, index) => `
             <a href="#${prefix}-${site.slug}" data-site-select="${site.slug}" aria-controls="${prefix}-${site.slug}" aria-current="${index === 0 ? "true" : "false"}">
-              <img src="${site.icon}" alt="" width="${safeDimension(site.iconWidth, 96)}" height="${safeDimension(site.iconHeight, 96)}" loading="lazy" decoding="async" aria-hidden="true">
+              <img src="${site.icon}" alt="" width="${safeDimension(site.iconWidth, 96)}" height="${safeDimension(site.iconHeight, 96)}" loading="lazy" decoding="async" ${protectedMediaAttributes} aria-hidden="true">
               <span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.category)}</small></span>
               <em><i aria-hidden="true"></i>${escapeHtml(site.status)}</em>
               ${icon("arrowRight")}
@@ -365,7 +366,7 @@ const siteCollectionMarkup = (locale) => {
           ${sites.map((site, index) => `
             <article class="site-feature-panel" id="${prefix}-${site.slug}" data-site-panel="${site.slug}" style="--site-accent:${site.accent};--site-accent-rgb:${site.accentRgb}">
               <figure class="site-feature-cover">
-                <img src="${site.cover.src}" alt="${escapeHtml(site.cover.alt)}" width="${safeDimension(site.cover.width, 1600)}" height="${safeDimension(site.cover.height, 1000)}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">
+                <img src="${site.cover.src}" alt="${escapeHtml(site.cover.alt)}" width="${safeDimension(site.cover.width, 1600)}" height="${safeDimension(site.cover.height, 1000)}"${index === 0 ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async" ${protectedMediaAttributes}>
                 <figcaption>${escapeHtml(site.cover.label)}</figcaption>
               </figure>
               <div class="site-feature-copy">
@@ -548,7 +549,7 @@ const aboutPage = (locale) => {
     <section class="content-hero about-hero" data-depth="surface">
       <div class="content-hero-heading">
           <div class="portrait-line about-identity">
-          <img src="/assets/img/gui/identidade-aeroporto.webp" srcset="/assets/img/gui/identidade-aeroporto-256.webp 256w, /assets/img/gui/identidade-aeroporto-384.webp 384w, /assets/img/gui/identidade-aeroporto-768.webp 768w" sizes="(max-width: 720px) 116px, 168px" alt="${escapeHtml(copy.portraitAlt)}" width="1456" height="1090" decoding="async" fetchpriority="high">
+          <img src="/assets/img/gui/identidade-aeroporto.webp" srcset="/assets/img/gui/identidade-aeroporto-256.webp 256w, /assets/img/gui/identidade-aeroporto-384.webp 384w, /assets/img/gui/identidade-aeroporto-768.webp 768w" sizes="(max-width: 720px) 116px, 168px" alt="${escapeHtml(copy.portraitAlt)}" width="1456" height="1090" decoding="async" ${protectedMediaAttributes} fetchpriority="high">
           <p><strong>${escapeHtml(copy.role)}</strong><span>${escapeHtml(copy.portraitCaption)}</span></p>
         </div>
         <p class="eyebrow">${escapeHtml(copy.eyebrow)}</p>
@@ -566,11 +567,11 @@ const aboutPage = (locale) => {
       <h2 class="sr-only" id="work-map-title-${localeId}">${escapeHtml(copy.workMap.label)}</h2>
       <div class="work-map-visual" data-work-map-visual>
         <picture class="work-map-media">
-          <img src="/assets/img/gui/mapa-do-trabalho-1280.webp" srcset="/assets/img/gui/mapa-do-trabalho-640.webp 640w, /assets/img/gui/mapa-do-trabalho-960.webp 960w, /assets/img/gui/mapa-do-trabalho-1280.webp 1280w, /assets/img/gui/mapa-do-trabalho-1672.webp 1672w" sizes="(max-width: 720px) calc(100vw - 18px), (max-width: 1400px) calc(100vw - 80px), 1320px" alt="${escapeHtml(copy.workMap.alt)}" width="1672" height="941" loading="lazy" decoding="async">
+          <img src="/assets/img/gui/mapa-do-trabalho-1280.webp" srcset="/assets/img/gui/mapa-do-trabalho-640.webp 640w, /assets/img/gui/mapa-do-trabalho-960.webp 960w, /assets/img/gui/mapa-do-trabalho-1280.webp 1280w, /assets/img/gui/mapa-do-trabalho-1672.webp 1672w" sizes="(max-width: 720px) calc(100vw - 18px), (max-width: 1400px) calc(100vw - 80px), 1320px" alt="${escapeHtml(copy.workMap.alt)}" width="1672" height="941" loading="lazy" decoding="async" ${protectedMediaAttributes}>
         </picture>
         <svg class="work-map-hotspots" data-work-map-hotspots viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
           <defs><filter id="${hotspotFilterId}" x="-24%" y="-24%" width="148%" height="148%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="8"></feGaussianBlur></filter>${workMapClipPaths}</defs>
-          <image class="work-map-focus-image" data-work-map-focus-image data-active="false" href="/assets/img/gui/mapa-do-trabalho-1280.webp" x="0" y="0" width="1672" height="941" preserveAspectRatio="xMidYMid slice"></image>
+          <image class="work-map-focus-image" data-work-map-focus-image data-protected-media data-active="false" href="/assets/img/gui/mapa-do-trabalho-1280.webp" x="0" y="0" width="1672" height="941" preserveAspectRatio="xMidYMid slice"></image>
           ${workMapHotspots}
         </svg>
         <div class="work-map-effects" data-work-map-effects aria-hidden="true">${workMapParticles}</div>
@@ -839,7 +840,7 @@ const projectPage = (locale, project) => {
       <div class="project-visual-column">
         <figure class="project-visual" data-kind="${project.imageKind}" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
-            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
+            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" ${protectedMediaAttributes} fetchpriority="high">
             <span class="visual-label"${interactiveGallery ? " data-visual-label" : ""}>${escapeHtml(gallery[0].label)}</span>
           </div>
           ${interactiveGallery ? `<div class="gallery-controls" aria-label="${escapeHtml(common.galleryLabel)}">
@@ -946,7 +947,7 @@ const siteCasePage = (locale, site) => {
   const interactiveGallery = gallery.length > 1;
   const accent = site.accent || "#25c997";
   const accentRgb = site.accentRgb || "37 201 151";
-  const siteIconMarkup = `<span class="project-icon"><img src="${site.icon}" alt="" width="${safeDimension(site.iconWidth, 96)}" height="${safeDimension(site.iconHeight, 96)}" decoding="async" aria-hidden="true"></span>`;
+  const siteIconMarkup = `<span class="project-icon"><img src="${site.icon}" alt="" width="${safeDimension(site.iconWidth, 96)}" height="${safeDimension(site.iconHeight, 96)}" decoding="async" ${protectedMediaAttributes} aria-hidden="true"></span>`;
   const siteActionLinks = site.slug === "clubal"
     ? [...details.links, { label: common.clubalSupport, href: `mailto:${clubalEmail}`, kind: "secondary" }]
     : details.links;
@@ -968,7 +969,7 @@ const siteCasePage = (locale, site) => {
       <div class="project-visual-column">
         <figure class="project-visual" data-kind="website" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
-            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" fetchpriority="high">
+            <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" ${protectedMediaAttributes} fetchpriority="high">
             <span class="visual-label"${interactiveGallery ? " data-visual-label" : ""}>${escapeHtml(gallery[0].label)}</span>
           </div>
           ${interactiveGallery ? `<div class="gallery-controls" aria-label="${escapeHtml(common.galleryLabel)}">

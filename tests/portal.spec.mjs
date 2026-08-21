@@ -402,6 +402,33 @@ test("security headers, permanent redirects and localized 404 work locally", asy
   }
 });
 
+test("protected media blocks contextual extraction gestures without disabling the page context menu", async ({ page }) => {
+  await openRoute(page, "/");
+  const protectedImage = page.locator("img[data-protected-media]").first();
+  await expect(protectedImage).toHaveAttribute("draggable", "false");
+  await expect.poll(() => protectedImage.evaluate((image) => image.complete && image.naturalWidth > 0)).toBe(true);
+
+  const mediaEvents = await protectedImage.evaluate((image) => ({
+    contextMenuAllowed: image.dispatchEvent(new MouseEvent("contextmenu", {
+      bubbles: true,
+      cancelable: true,
+      button: 2,
+    })),
+    dragAllowed: image.dispatchEvent(new Event("dragstart", {
+      bubbles: true,
+      cancelable: true,
+    })),
+  }));
+  expect(mediaEvents).toEqual({ contextMenuAllowed: false, dragAllowed: false });
+
+  const pageContextMenuAllowed = await page.locator("h1").evaluate((heading) => heading.dispatchEvent(new MouseEvent("contextmenu", {
+    bubbles: true,
+    cancelable: true,
+    button: 2,
+  })));
+  expect(pageContextMenuAllowed).toBe(true);
+});
+
 test("mobile layouts keep the header visible and actionable throughout scrolling", async ({ page }) => {
   test.setTimeout(120_000);
   const scenarios = [
@@ -811,12 +838,37 @@ test("work map supports first tap, second tap and outside dismissal", async ({ b
     await penTrigger.dispatchEvent("click", { detail: 1 });
     await expect(penTrigger).toHaveAttribute("aria-expanded", "true");
     await penTrigger.dispatchEvent("pointerdown", { pointerType: "pen", clientX: 48, clientY: 48 });
+    await penTrigger.dispatchEvent("pointermove", { pointerType: "mouse", clientX: 48, clientY: 48 });
+    await penTrigger.dispatchEvent("pointerenter", { pointerType: "mouse", clientX: 48, clientY: 48 });
+    await expect(penTrigger).toHaveAttribute("aria-expanded", "true");
     await hybridPage.locator("body").dispatchEvent("pointermove", {
       pointerType: "mouse",
       clientX: 96,
       clientY: 96,
     });
     await penTrigger.dispatchEvent("click", { detail: 1 });
+    await expect(penTrigger).toHaveAttribute("aria-expanded", "false");
+
+    const retargetedTouchTrigger = hybridPage.locator("[data-work-map-trigger]").nth(1);
+    await retargetedTouchTrigger.dispatchEvent("pointerdown", {
+      pointerType: "touch",
+      pointerId: 17,
+      clientX: 128,
+      clientY: 128,
+    });
+    await retargetedTouchTrigger.dispatchEvent("pointerup", {
+      pointerType: "touch",
+      pointerId: 17,
+      clientX: 128,
+      clientY: 128,
+    });
+    await penTrigger.evaluate((trigger) => trigger.dispatchEvent(new PointerEvent("click", {
+      pointerType: "touch",
+      detail: 1,
+      bubbles: true,
+      cancelable: true,
+    })));
+    await expect(retargetedTouchTrigger).toHaveAttribute("aria-expanded", "true");
     await expect(penTrigger).toHaveAttribute("aria-expanded", "false");
   } finally {
     await hybridContext.close();
@@ -832,7 +884,9 @@ test("work map keeps its mobile fallback without ResizeObserver or container que
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await openRoute(page, "/");
-  await page.addStyleTag({ content: ".landscape-map { container-type: normal !important; }" });
+  await page.locator(".landscape-map").evaluate((element) => {
+    element.style.setProperty("container-type", "normal", "important");
+  });
   await acceptEssentialStorage(page);
   const map = page.locator("[data-work-map]");
   const nav = map.locator("[data-work-map-nav]");
@@ -1353,7 +1407,7 @@ test("work map no-JS fallback remains navigable and unclipped at 320px", async (
   const noJsContext = await browser.newContext({ baseURL, javaScriptEnabled: false, viewport: { width: 320, height: 568 } });
   try {
     const noJsPage = await noJsContext.newPage();
-    await noJsPage.goto("/", { waitUntil: "commit" });
+    await openRoute(noJsPage, "/");
     const noJsMap = noJsPage.locator("[data-work-map]");
     const noJsPanels = noJsMap.locator("[data-work-map-panel]");
     const noJsLinks = noJsMap.locator("[data-work-map-panel] a");

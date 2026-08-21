@@ -23,6 +23,7 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - a marca pessoal canônica fica em `assets/img/brand/`; o cabeçalho alterna assinaturas vetoriais conforme tema e largura;
 - `assets/data/project-assets.json` registra a origem e informa quando um ícone é oficial, motivo visual ou apenas ilustração de catálogo;
 - o ClubAL apresenta o aplicativo Windows como base atual, o Operador Web em validação e o clima como recurso integrado; a referência web é conceitual e genérica, e as telas legadas permanecem identificadas;
+- imagens exibidas recebem dissuasão contra menu contextual, arraste e chamada prolongada; como todo arquivo entregue a um navegador público, isso não constitui DRM nem impede captura por ferramentas técnicas;
 - CSS e JavaScript recebem versão de conteúdo; os demais assets usam a revalidação padrão da Cloudflare. O service worker atual apenas remove registros e caches legados.
 - o portal não anuncia instalação nem mantém manifestos PWA; ele funciona como site de apresentação.
 

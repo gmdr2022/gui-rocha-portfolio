@@ -278,6 +278,12 @@
     cursor: pointer;
   }
 
+  [data-protected-media] {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
   :focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 3px;

@@ -7,6 +7,7 @@ const CONSENT_COOKIE = "gui_consent";
 const CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
 const PREFERENCE_KEY = "gui_preferences_v2";
 const THEME_SEQUENCE = ["system", "dark", "light"];
+const PROTECTED_MEDIA_SELECTOR = "[data-protected-media]";
 
 const ui = {
   "pt-BR": {
@@ -472,6 +473,17 @@ const setConsent = (level) => {
   closeDialog(cookieDialog);
   syncPreferenceControls();
 };
+
+const eventTargetsProtectedMedia = (event) => event.composedPath().some((node) => (
+  node instanceof Element && node.matches(PROTECTED_MEDIA_SELECTOR)
+));
+
+const preventProtectedMediaAction = (event) => {
+  if (eventTargetsProtectedMedia(event)) event.preventDefault();
+};
+
+document.addEventListener("contextmenu", preventProtectedMediaAction, { capture: true });
+document.addEventListener("dragstart", preventProtectedMediaAction, { capture: true });
 
 const languageSwitchers = [...document.querySelectorAll(".language-switcher")];
 
