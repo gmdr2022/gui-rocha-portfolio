@@ -429,7 +429,9 @@ test("protected media blocks contextual extraction gestures without disabling th
   expect(pageContextMenuAllowed).toBe(true);
 });
 
-test("project deck reveals symmetric edge navigation and keeps premium media coherent", async ({ page, browser }) => {
+test("project deck uses fading energy navigation without trapping desktop or touch interaction", async ({ page, browser }) => {
+  test.setTimeout(120_000);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.mouse.move(1, 1);
   await openRoute(page, "/projetos/?project=clubal");
@@ -440,9 +442,13 @@ test("project deck reveals symmetric edge navigation and keeps premium media coh
   const deck = page.locator("[data-project-deck]");
   const previous = page.locator("[data-deck-edge-previous]");
   const next = page.locator("[data-deck-edge-next]");
-  const nextCopy = next.locator(".deck-edge-copy");
+  const energyCanvases = page.locator("[data-deck-energy-canvas]");
   await expect(previous).toHaveCount(1);
   await expect(next).toHaveCount(1);
+  await expect(energyCanvases).toHaveCount(2);
+  await expect(page.locator(".deck-edge-copy")).toHaveCount(0);
+  await expect(page.locator(".catalog-header > p")).toHaveCount(0);
+  await expect(page.locator("#project-deck-swipe-help")).toHaveClass(/sr-only/);
   await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
     "src",
     "/assets/img/clubal/operador-web-conceitual-v2.webp",
@@ -451,37 +457,68 @@ test("project deck reveals symmetric edge navigation and keeps premium media coh
   const edgeState = async (locator) => locator.evaluate((element) => {
     const style = getComputedStyle(element);
     const bounds = element.getBoundingClientRect();
+    const field = element.querySelector(".deck-edge-field");
+    const icon = element.querySelector(".deck-edge-icon");
     return {
       opacity: Number(style.opacity),
       pointerEvents: style.pointerEvents,
       width: bounds.width,
       height: bounds.height,
+      borderWidth: Number.parseFloat(style.borderTopWidth),
+      backgroundColor: style.backgroundColor,
+      backgroundImage: style.backgroundImage,
+      fieldOpacity: Number(getComputedStyle(field).opacity),
+      iconOpacity: Number(getComputedStyle(icon).opacity),
     };
   });
 
   await expect.poll(async () => (await edgeState(next)).opacity).toBeLessThanOrEqual(.05);
   await expect.poll(async () => (await edgeState(next)).pointerEvents).toBe("none");
+  expect((await edgeState(next)).borderWidth).toBe(0);
+  expect((await edgeState(next)).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+  expect((await edgeState(next)).backgroundImage).toBe("none");
+  const mediaHeight = (await page.locator('[data-project-card][data-position="active"] .project-card-media').boundingBox())?.height ?? 0;
+  expect((await edgeState(next)).height).toBeCloseTo(mediaHeight, 0);
   await deck.hover({ position: { x: 420, y: 180 } });
-  await expect.poll(async () => (await edgeState(previous)).opacity).toBeGreaterThanOrEqual(.8);
-  await expect.poll(async () => (await edgeState(next)).opacity).toBeGreaterThanOrEqual(.8);
-  expect((await edgeState(next)).height).toBeGreaterThanOrEqual(150);
+  await expect.poll(async () => (await edgeState(previous)).opacity).toBeGreaterThanOrEqual(.99);
+  await expect.poll(async () => (await edgeState(next)).opacity).toBeGreaterThanOrEqual(.99);
+  await expect.poll(async () => (await edgeState(next)).fieldOpacity).toBeGreaterThanOrEqual(.6);
+  await expect.poll(() => energyCanvases.first().getAttribute("data-energy-running")).toBe("true");
+  await page.evaluate(() => dispatchEvent(new PageTransitionEvent("pagehide", { persisted: true })));
+  await expect.poll(() => energyCanvases.first().getAttribute("data-energy-running")).toBe("false");
+  await page.evaluate(() => dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true })));
+  await expect.poll(() => energyCanvases.first().getAttribute("data-energy-running")).toBe("true");
 
   await next.hover();
-  await expect.poll(() => nextCopy.evaluate((element) => Number(getComputedStyle(element).opacity))).toBeGreaterThanOrEqual(.99);
-  expect((await nextCopy.boundingBox())?.width).toBeGreaterThanOrEqual(120);
-  await expect(next.locator("[data-deck-edge-next-name]")).toHaveText("Sites");
-  await nextCopy.click();
+  await expect.poll(async () => (await edgeState(next)).fieldOpacity).toBeGreaterThanOrEqual(.99);
+  await expect(next).toHaveAccessibleName("Próximo projeto: Sites e experiências digitais");
+  await next.click();
   await expect(page).toHaveURL(/project=sites/);
   await expect(page.locator('[data-project-card][data-position="active"]')).toHaveAttribute("data-project", "sites");
   await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
     "src",
     "/assets/img/sites/sites-collection-showcase-v2.webp",
   );
-  await expect(previous.locator("[data-deck-edge-previous-name]")).toHaveText("ClubAL");
+  await expect(previous).toHaveAccessibleName("Projeto anterior: ClubAL");
+  await expect(next).toHaveAccessibleName("Próximo projeto: Codex Checkpoint");
 
-  await previous.click();
-  await expect(page).toHaveURL(/project=clubal/);
+  await page.mouse.move(1, 1);
+  await expect.poll(async () => (await edgeState(previous)).opacity).toBeLessThanOrEqual(.05);
+  await expect.poll(async () => (await edgeState(next)).opacity).toBeLessThanOrEqual(.05);
+  await expect.poll(async () => (await edgeState(next)).pointerEvents).toBe("none");
+  await expect.poll(() => energyCanvases.first().getAttribute("data-energy-running")).toBe("false");
+
+  await page.keyboard.press("Tab");
+  await next.focus();
+  await expect.poll(() => next.evaluate((element) => element.matches(":focus-visible"))).toBe(true);
+  await expect.poll(async () => (await edgeState(next)).opacity).toBeGreaterThanOrEqual(.99);
+  await next.press("Enter");
+  await expect(page).toHaveURL(/project=codex-checkpoint/);
   await deck.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).toHaveURL(/project=sites/);
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).toHaveURL(/project=clubal/);
   await page.keyboard.press("ArrowLeft");
   await expect(page).toHaveURL(/project=maeve/);
   await expect(page.locator('[data-project-card][data-position="active"] .project-card-media img')).toHaveAttribute(
@@ -495,6 +532,9 @@ test("project deck reveals symmetric edge navigation and keeps premium media coh
     "/assets/img/local-first-checklist-v2.webp",
   );
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+  await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+  await page.mouse.move(1, 1);
+  await expect.poll(() => energyCanvases.first().getAttribute("data-energy-running")).toBe("false");
 
   const baseURL = String(test.info().project.use.baseURL);
   const touchContext = await browser.newContext({
@@ -506,21 +546,65 @@ test("project deck reveals symmetric edge navigation and keeps premium media coh
     const touchPage = await touchContext.newPage();
     await openRoute(touchPage, "/projetos/?project=clubal");
     await acceptEssentialStorage(touchPage);
+    const touchDeck = touchPage.locator("[data-project-deck]");
     const touchPrevious = touchPage.locator("[data-deck-edge-previous]");
     const touchNext = touchPage.locator("[data-deck-edge-next]");
-    const touchPreviousState = await edgeState(touchPrevious);
+    const touchHint = touchPage.locator("[data-deck-swipe-hint]");
+    const touchCanvas = touchPage.locator("[data-deck-energy-canvas]").first();
+    await expect(touchDeck).toHaveAttribute("data-swipe-intro", "visible");
+    await expect.poll(() => touchHint.evaluate((element) => Number(getComputedStyle(element).opacity))).toBeGreaterThanOrEqual(.9);
+    await expect(touchCanvas).toHaveAttribute("data-energy-running", "true");
+    const touchMediaHeight = (await touchPage.locator('[data-project-card][data-position="active"] .project-card-media').boundingBox())?.height ?? 0;
     const touchNextState = await edgeState(touchNext);
-    expect(touchPreviousState.opacity).toBeGreaterThanOrEqual(.8);
-    expect(touchNextState.opacity).toBeGreaterThanOrEqual(.8);
-    expect(touchPreviousState.pointerEvents).toBe("auto");
+    expect(touchNextState.height).toBeCloseTo(touchMediaHeight, 0);
+    expect(touchNextState.width).toBeLessThanOrEqual(72);
     expect(touchNextState.pointerEvents).toBe("auto");
-    expect(touchNextState.height).toBeGreaterThanOrEqual(150);
+    expect(touchNextState.borderWidth).toBe(0);
+    expect(touchNextState.backgroundColor).toBe("rgba(0, 0, 0, 0)");
+
     await touchNext.tap();
     await expect(touchPage).toHaveURL(/project=sites/);
+    await expect(touchDeck).toHaveAttribute("data-swipe-intro", "hidden");
+    await expect.poll(() => touchHint.evaluate((element) => Number(getComputedStyle(element).opacity))).toBeLessThanOrEqual(.05);
+    await expect(touchCanvas).toHaveAttribute("data-energy-running", "false");
+    await expect.poll(async () => (await edgeState(touchNext)).iconOpacity).toBeLessThanOrEqual(.05);
+    await expect.poll(async () => (await edgeState(touchNext)).pointerEvents).toBe("none");
+
+    const dispatchTouchGesture = async (target, start, end, pointerId) => {
+      await target.dispatchEvent("pointerdown", {
+        pointerId,
+        pointerType: "touch",
+        isPrimary: true,
+        button: 0,
+        clientX: start.x,
+        clientY: start.y,
+      });
+      await target.dispatchEvent("pointerup", {
+        pointerId,
+        pointerType: "touch",
+        isPrimary: true,
+        button: 0,
+        clientX: end.x,
+        clientY: end.y,
+      });
+    };
+    await dispatchTouchGesture(touchDeck, { x: 300, y: 130 }, { x: 190, y: 136 }, 41);
+    await expect(touchPage).toHaveURL(/project=codex-checkpoint/);
+    await dispatchTouchGesture(touchDeck, { x: 370, y: 130 }, { x: 260, y: 134 }, 42);
+    await expect(touchPage).toHaveURL(/project=nexus/);
+    await dispatchTouchGesture(touchDeck, { x: 370, y: 100 }, { x: 364, y: 205 }, 43);
+    await expect(touchPage).toHaveURL(/project=nexus/);
     expect(await touchPage.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
   } finally {
     await touchContext.close();
   }
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await openRoute(page, "/projetos/?project=clubal");
+  await page.locator("[data-project-deck]").hover({ position: { x: 420, y: 180 } });
+  await expect(page.locator("[data-deck-energy-canvas]").first()).toHaveCSS("display", "none");
+  await expect(page.locator("[data-deck-energy-canvas]").first()).toHaveAttribute("data-energy-running", "false");
+  await expect.poll(() => page.locator(".deck-edge-field").first().evaluate((element) => Number(getComputedStyle(element).opacity))).toBeLessThanOrEqual(.21);
 });
 
 test("mobile layouts keep the header visible and actionable throughout scrolling", async ({ page }) => {

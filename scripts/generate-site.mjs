@@ -419,18 +419,23 @@ const projectsPage = (locale) => {
     <section class="project-catalog" id="projects" data-depth="deep" aria-labelledby="projects-title" data-project-catalog style="--active-accent:${projects[0].accent};--active-accent-rgb:${projects[0].accentRgb}">
       <header class="catalog-header">
         <div><p class="eyebrow">${escapeHtml(copy.eyebrow)}</p><p class="catalog-active-name" data-deck-current-heading>${escapeHtml(projects[0].shortName ?? projects[0].name)}</p></div>
-        <p>${escapeHtml(copy.catalogHint)}</p>
       </header>
-      <div class="project-deck" data-project-deck tabindex="0" role="region" aria-roledescription="${escapeHtml(common.carousel)}" aria-label="${escapeHtml(copy.eyebrow)}">
+      <div class="project-deck" data-project-deck data-swipe-intro="idle" tabindex="0" role="region" aria-roledescription="${escapeHtml(common.carousel)}" aria-label="${escapeHtml(copy.eyebrow)}" aria-describedby="project-deck-swipe-help">
         ${projects.map((project, index) => projectCard(locale, project, index)).join("")}
-        <button class="deck-edge-button deck-edge-button-previous" type="button" data-deck-edge-previous data-edge-label="${escapeHtml(common.previousProject)}" aria-controls="project-card-${projects[projects.length - 1].slug}" aria-label="${escapeHtml(`${common.previousProject}: ${projects[projects.length - 1].name}`)}">
+        <button class="deck-edge-button deck-edge-button-previous" type="button" data-deck-edge-previous data-energy-direction="previous" data-edge-label="${escapeHtml(common.previousProject)}" aria-controls="project-card-${projects[projects.length - 1].slug}" aria-label="${escapeHtml(`${common.previousProject}: ${projects[projects.length - 1].name}`)}">
+          <span class="deck-edge-field" aria-hidden="true"><canvas class="deck-edge-canvas" data-deck-energy-canvas width="112" height="420" aria-hidden="true"></canvas><span class="deck-edge-mist"></span><span class="deck-edge-flare"></span></span>
           <span class="deck-edge-icon" aria-hidden="true">${icon("arrowLeft")}</span>
-          <span class="deck-edge-copy"><small>${escapeHtml(common.previous)}</small><strong data-deck-edge-previous-name>${escapeHtml(projects[projects.length - 1].shortName ?? projects[projects.length - 1].name)}</strong></span>
         </button>
-        <button class="deck-edge-button deck-edge-button-next" type="button" data-deck-edge-next data-edge-label="${escapeHtml(common.nextProject)}" aria-controls="project-card-${projects[1].slug}" aria-label="${escapeHtml(`${common.nextProject}: ${projects[1].name}`)}">
+        <button class="deck-edge-button deck-edge-button-next" type="button" data-deck-edge-next data-energy-direction="next" data-edge-label="${escapeHtml(common.nextProject)}" aria-controls="project-card-${projects[1].slug}" aria-label="${escapeHtml(`${common.nextProject}: ${projects[1].name}`)}">
+          <span class="deck-edge-field" aria-hidden="true"><canvas class="deck-edge-canvas" data-deck-energy-canvas width="112" height="420" aria-hidden="true"></canvas><span class="deck-edge-mist"></span><span class="deck-edge-flare"></span></span>
           <span class="deck-edge-icon" aria-hidden="true">${icon("arrowRight")}</span>
-          <span class="deck-edge-copy"><small>${escapeHtml(common.next)}</small><strong data-deck-edge-next-name>${escapeHtml(projects[1].shortName ?? projects[1].name)}</strong></span>
         </button>
+        <div class="deck-swipe-hint" data-deck-swipe-hint aria-hidden="true">
+          <span class="deck-swipe-arrow deck-swipe-arrow-previous">${icon("arrowLeft")}</span>
+          <span class="deck-swipe-track"><span class="deck-swipe-orb"></span></span>
+          <span class="deck-swipe-arrow deck-swipe-arrow-next">${icon("arrowRight")}</span>
+        </div>
+        <p class="sr-only" id="project-deck-swipe-help">${escapeHtml(copy.swipeHint)}</p>
       </div>
       <div class="deck-controls">
         <button class="deck-button" type="button" data-deck-previous aria-controls="projects">${icon("arrowLeft")}<span>${escapeHtml(common.previous)}</span></button>

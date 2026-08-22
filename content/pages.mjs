@@ -99,7 +99,7 @@ export const locales = {
       description: "Produtos e experiências digitais de Gui Rocha apresentados com objetivos, decisões de projeto, estado atual, resultados verificáveis e limites conhecidos.",
       eyebrow: "Projetos",
       heading: "Produtos digitais com propósito, funcionamento e evolução visíveis.",
-      catalogHint: "Escolha um projeto ou use os controles Anterior e Próximo.",
+      swipeHint: "Em telas sensíveis ao toque, deslize horizontalmente para navegar entre projetos.",
       noscript: "Todos os projetos:",
     },
     contactPage: {
@@ -257,7 +257,7 @@ export const locales = {
       description: "Gui Rocha’s digital products and experiences, presented through their goals, design decisions, current state, verifiable outcomes and known limitations.",
       eyebrow: "Projects",
       heading: "Digital products with visible purpose, operation and evolution.",
-      catalogHint: "Choose a project or use the Previous and Next controls.",
+      swipeHint: "On touch screens, swipe horizontally to navigate between projects.",
       noscript: "All projects:",
     },
     contactPage: {
@@ -415,7 +415,7 @@ export const locales = {
       description: "Productos y experiencias digitales de Gui Rocha presentados mediante sus objetivos, decisiones de diseño, estado actual, resultados verificables y límites conocidos.",
       eyebrow: "Proyectos",
       heading: "Productos digitales con propósito, funcionamiento y evolución visibles.",
-      catalogHint: "Elija un proyecto o use los controles Anterior y Siguiente.",
+      swipeHint: "En pantallas táctiles, deslice horizontalmente para navegar entre proyectos.",
       noscript: "Todos los proyectos:",
     },
     contactPage: {

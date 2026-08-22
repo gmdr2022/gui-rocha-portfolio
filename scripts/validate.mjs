@@ -1768,8 +1768,12 @@ for (const page of expectedPages) {
     if (cardSlugs.join(",") !== expectedMainOrder.join(",")) fail(`${label}: cards não seguem a ordem principal`);
     if (cardMatches.length !== catalog.length) fail(`${label}: quantidade de cards diverge do catálogo`);
     const deckButtons = startTags(html, "button").map(attributesOf);
+    const deckRegions = startTags(html, "div").map(attributesOf);
+    const deckRegion = deckRegions.find((attributes) => "data-project-deck" in attributes);
     const previousEdge = deckButtons.find((attributes) => "data-deck-edge-previous" in attributes);
     const nextEdge = deckButtons.find((attributes) => "data-deck-edge-next" in attributes);
+    const energyCanvases = startTags(html, "canvas").map(attributesOf).filter((attributes) => "data-deck-energy-canvas" in attributes);
+    const swipeHint = deckRegions.find((attributes) => "data-deck-swipe-hint" in attributes);
     const expectedPrevious = catalog[catalog.length - 1];
     const expectedNext = catalog[1];
     if (!previousEdge || !nextEdge || html.includes("data-deck-preview")) {
@@ -1778,13 +1782,26 @@ for (const page of expectedPages) {
     if (
       previousEdge?.["aria-controls"] !== `project-card-${expectedPrevious.slug}`
       || previousEdge?.["data-edge-label"] !== locales[page.locale].common.previousProject
+      || previousEdge?.["aria-label"] !== `${locales[page.locale].common.previousProject}: ${expectedPrevious.name}`
       || nextEdge?.["aria-controls"] !== `project-card-${expectedNext.slug}`
       || nextEdge?.["data-edge-label"] !== locales[page.locale].common.nextProject
+      || nextEdge?.["aria-label"] !== `${locales[page.locale].common.nextProject}: ${expectedNext.name}`
     ) {
       fail(`${label}: destinos ou rótulos iniciais da navegação lateral divergiram`);
     }
-    if (!html.includes("data-deck-edge-previous-name") || !html.includes("data-deck-edge-next-name")) {
-      fail(`${label}: navegação lateral não expõe nomes adjacentes`);
+    if (html.includes("deck-edge-copy") || html.includes("data-deck-edge-previous-name") || html.includes("data-deck-edge-next-name")) {
+      fail(`${label}: navegação lateral voltou a expor cópia visual sujeita a truncamento`);
+    }
+    if (
+      energyCanvases.length !== 2
+      || energyCanvases.some((attributes) => attributes["aria-hidden"] !== "true")
+      || !swipeHint
+      || swipeHint["aria-hidden"] !== "true"
+      || deckRegion?.["data-swipe-intro"] !== "idle"
+      || deckRegion?.["aria-describedby"] !== "project-deck-swipe-help"
+      || !html.includes(`id="project-deck-swipe-help">${locales[page.locale].projectsPage.swipeHint}</p>`)
+    ) {
+      fail(`${label}: campo de energia ou descoberta acessível de swipe divergiram`);
     }
     if (cardMatches.some(({ attributes }, index) => (
       index === 0 ? "inert" in attributes : !("inert" in attributes)

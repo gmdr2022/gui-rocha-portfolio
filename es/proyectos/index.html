@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1720c699344e"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1720c699344e">
-  <script src="/assets/js/site.js?v=1720c699344e" defer></script>
-  <script src="/assets/js/home.js?v=1720c699344e" defer></script>
+  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
+  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/home.js?v=1d011e62b3ac" defer></script>
 
   <title>Proyectos digitales — Gui Rocha</title>
 </head>
@@ -84,9 +84,8 @@
     <section class="project-catalog" id="projects" data-depth="deep" aria-labelledby="projects-title" data-project-catalog style="--active-accent:#25c997;--active-accent-rgb:37 201 151">
       <header class="catalog-header">
         <div><p class="eyebrow">Proyectos</p><p class="catalog-active-name" data-deck-current-heading>ClubAL</p></div>
-        <p>Elija un proyecto o use los controles Anterior y Siguiente.</p>
       </header>
-      <div class="project-deck" data-project-deck tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Proyectos">
+      <div class="project-deck" data-project-deck data-swipe-intro="idle" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Proyectos" aria-describedby="project-deck-swipe-help">
 
         <article class="project-card" id="project-card-clubal" data-project-card data-project="clubal" data-index="0" data-kind="art" data-deck-name="ClubAL" data-showcase-subtitle="Organiza el registro, la publicación y la consulta de rutinas en distintos entornos institucionales, con responsabilidades separadas y una evolución controlada." data-position="active" aria-hidden="false" style="--project-accent:#25c997;--project-accent-rgb:37 201 151">
           <div class="project-card-media">
@@ -221,14 +220,20 @@
             </div>
           </div>
         </article>
-        <button class="deck-edge-button deck-edge-button-previous" type="button" data-deck-edge-previous data-edge-label="Proyecto anterior" aria-controls="project-card-maeve" aria-label="Proyecto anterior: Maeve Roscaern">
+        <button class="deck-edge-button deck-edge-button-previous" type="button" data-deck-edge-previous data-energy-direction="previous" data-edge-label="Proyecto anterior" aria-controls="project-card-maeve" aria-label="Proyecto anterior: Maeve Roscaern">
+          <span class="deck-edge-field" aria-hidden="true"><canvas class="deck-edge-canvas" data-deck-energy-canvas width="112" height="420" aria-hidden="true"></canvas><span class="deck-edge-mist"></span><span class="deck-edge-flare"></span></span>
           <span class="deck-edge-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg></span>
-          <span class="deck-edge-copy"><small>Anterior</small><strong data-deck-edge-previous-name>Maeve Roscaern</strong></span>
         </button>
-        <button class="deck-edge-button deck-edge-button-next" type="button" data-deck-edge-next data-edge-label="Siguiente proyecto" aria-controls="project-card-sites" aria-label="Siguiente proyecto: Sitios y experiencias digitales">
+        <button class="deck-edge-button deck-edge-button-next" type="button" data-deck-edge-next data-energy-direction="next" data-edge-label="Siguiente proyecto" aria-controls="project-card-sites" aria-label="Siguiente proyecto: Sitios y experiencias digitales">
+          <span class="deck-edge-field" aria-hidden="true"><canvas class="deck-edge-canvas" data-deck-energy-canvas width="112" height="420" aria-hidden="true"></canvas><span class="deck-edge-mist"></span><span class="deck-edge-flare"></span></span>
           <span class="deck-edge-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></span>
-          <span class="deck-edge-copy"><small>Siguiente</small><strong data-deck-edge-next-name>Sitios</strong></span>
         </button>
+        <div class="deck-swipe-hint" data-deck-swipe-hint aria-hidden="true">
+          <span class="deck-swipe-arrow deck-swipe-arrow-previous"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg></span>
+          <span class="deck-swipe-track"><span class="deck-swipe-orb"></span></span>
+          <span class="deck-swipe-arrow deck-swipe-arrow-next"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></span>
+        </div>
+        <p class="sr-only" id="project-deck-swipe-help">En pantallas táctiles, deslice horizontalmente para navegar entre proyectos.</p>
       </div>
       <div class="deck-controls">
         <button class="deck-button" type="button" data-deck-previous aria-controls="projects"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Anterior</span></button>
