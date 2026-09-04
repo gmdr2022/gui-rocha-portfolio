@@ -437,12 +437,12 @@ const projectsPage = (locale) => {
         </div>
         <p class="sr-only" id="project-deck-swipe-help">${escapeHtml(copy.swipeHint)}</p>
       </div>
-      <div class="deck-controls">
+      <div class="deck-controls deck-controls-orbit">
         <button class="deck-button" type="button" data-deck-previous aria-controls="projects">${icon("arrowLeft")}<span>${escapeHtml(common.previous)}</span></button>
-        <div class="deck-progress" role="group" aria-label="${escapeHtml(copy.eyebrow)}">
-          ${projects.map((project, index) => `<button type="button" data-deck-dot="${index}" aria-controls="project-card-${project.slug}" aria-label="${escapeHtml(project.name)}, ${index + 1} / ${projects.length}" aria-pressed="${index === 0 ? "true" : "false"}"><span>${project.code}</span></button>`).join("")}
+        <div class="deck-progress" data-project-orbit style="--orbit-count:${projects.length}" role="group" aria-label="${escapeHtml(copy.eyebrow)}">
+          ${projects.map((project, index) => `<button type="button" data-deck-dot="${index}" style="--orbit-index:${index}" aria-controls="project-card-${project.slug}" aria-label="${escapeHtml(project.name)}, ${index + 1} / ${projects.length}" title="${escapeHtml(project.name)}" aria-pressed="${index === 0 ? "true" : "false"}">${projectIcon(project, { eager: true })}<span class="orbit-code" aria-hidden="true">${project.code}</span></button>`).join("")}
+          <p class="deck-current"><strong data-deck-current>${escapeHtml(projects[0].shortName ?? projects[0].name)}</strong><span data-deck-counter>01 / ${String(projects.length).padStart(2, "0")}</span></p>
         </div>
-        <p class="deck-current"><strong data-deck-current>${escapeHtml(projects[0].shortName ?? projects[0].name)}</strong><span data-deck-counter>01 / ${String(projects.length).padStart(2, "0")}</span></p>
         <button class="deck-button" type="button" data-deck-next aria-controls="projects"><span>${escapeHtml(common.next)}</span>${icon("arrowRight")}</button>
       </div>
       <p class="sr-only" aria-live="polite" data-deck-live></p>
@@ -597,6 +597,7 @@ const aboutPage = (locale) => {
       <p class="eyebrow">${escapeHtml(copy.methodEyebrow)}</p>
       <h2 id="method-title">${escapeHtml(copy.methodTitle)}</h2>
       <nav class="method-flow" aria-label="${escapeHtml(copy.methodEyebrow)}" data-decision-flow>
+        <svg class="method-current" viewBox="0 0 1000 128" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="method-current-track" d="M0 95 H125 C225 95 275 31 375 31 S525 95 625 95 S775 31 875 31 H1000" pathLength="100"/><path class="method-current-progress" d="M0 95 H125 C225 95 275 31 375 31 S525 95 625 95 S775 31 875 31 H1000" pathLength="100"/></svg>
         <ol>${copy.method.map(([number, title, body], index) => `<li id="method-step-${number}" data-decision-step data-index="${index}" data-accent-rgb="${decisionAccents[index]}"><a href="#method-step-${number}"${index === 0 ? ' aria-current="step"' : ""}><span class="method-number" aria-hidden="true">${number}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></a></li>`).join("")}</ol>
       </nav>
     </section>
@@ -658,6 +659,7 @@ const contactPage = (locale) => {
     name: project.name,
     aliases: aliases[project.slug] ?? [project.slug],
     emailScope: project.slug === "clubal" ? "clubal" : "personal",
+    accentRgb: project.accentRgb,
   })).concat(siteContentByLocale[locale].sites.map((site) => ({
     slug: `site-${site.slug}`,
     name: site.name,
@@ -665,11 +667,12 @@ const contactPage = (locale) => {
       ? ["site-clubal", "clubal-website", "sitio-clubal"]
       : [`site-${site.slug}`],
     emailScope: site.slug === "clubal" ? "clubal" : "personal",
+    accentRgb: site.accentRgb || "37 201 151",
   })));
   const clubalMailto = `mailto:${clubalEmail}?subject=${encodeURIComponent(copy.clubalSubject)}`;
   const main = `
   <main class="content-main contact-main" id="content" data-contact-contexts="${escapeHtml(JSON.stringify(contexts))}" data-context-lead="${escapeHtml(copy.contextLead)}" data-context-subject="${escapeHtml(copy.contextSubject)}" data-personal-email="${personalEmail}" data-clubal-email="${clubalEmail}">
-    <section class="content-hero contact-hero">
+    <section class="content-hero contact-hero" data-depth="surface">
       <div class="content-hero-heading">
         <p class="eyebrow">${escapeHtml(copy.eyebrow)}</p>
         <h1>${escapeHtml(copy.heading)}</h1>
@@ -679,7 +682,7 @@ const contactPage = (locale) => {
         <p class="contact-guidance">${escapeHtml(copy.guidance)}</p>
       </div>
     </section>
-    <div class="contact-groups">
+    <div class="contact-groups" data-depth="mid">
       <section class="contact-group" aria-labelledby="contact-direct-title">
         <h2 id="contact-direct-title">${escapeHtml(copy.talkHeading)}</h2>
         <div class="contact-grid contact-grid-direct">
@@ -781,18 +784,31 @@ const noJsGalleryLinks = (gallery, common) => gallery.length > 1 ? `
           </noscript>` : "";
 
 const caseSummaryFor = (item, common) => item.caseSummary.map((source) => {
-  if (source === "summary") return [common.caseLabels.context, item.summary];
-  if (source === "role") return [common.caseLabels.role, item.role];
-  if (source === "evidence") return [common.caseLabels.evidence, item.evidence];
-  if (source === "statusLimit") return [common.caseLabels.status, item.statusLimit];
+  if (source === "summary") return [common.caseLabels.context, item.summary, source];
+  if (source === "role") return [common.caseLabels.role, item.role, source];
+  if (source === "evidence") return [common.caseLabels.evidence, item.evidence, source];
+  if (source === "statusLimit") return [common.caseLabels.status, item.statusLimit, source];
   if (source.startsWith("tab:")) {
     const tabId = source.slice(4);
     const tab = item.tabs.find((candidate) => candidate.id === tabId);
-    if (!tab) throw new Error(`Resumo de case aponta para aba inexistente: ${tabId}`);
-    return [tab.label, tab.body];
+    if (!tab) throw new Error(`Case summary references an unknown tab: ${tabId}`);
+    return [tab.label, tab.body, source];
   }
-  throw new Error(`Fonte desconhecida no resumo de case: ${source}`);
+  throw new Error(`Unknown case summary source: ${source}`);
 });
+
+const caseSummaryMarkup = (entries) => `<dl class="project-case-summary" data-case-count="${entries.length}">
+  ${entries.map(([label, value, source]) => `<div data-case-source="${escapeHtml(source)}"><dt>${source.startsWith("tab:") ? `<a href="#panel-${escapeHtml(source.slice(4))}" data-case-tab="${escapeHtml(source.slice(4))}">${escapeHtml(label)}${icon("arrowDown")}</a>` : escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
+</dl>`;
+
+const caseReadingLens = (tabs, common) => `<div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
+    ${tabs.map((tab, index) => `<button type="button" role="tab" id="tab-${tab.id}" data-project-tab="${tab.id}" aria-controls="panel-${tab.id}" aria-selected="${index === 0 ? "true" : "false"}" tabindex="${index === 0 ? "0" : "-1"}"><span class="project-tab-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(tab.label)}</button>`).join("")}
+  </div>
+  <div class="project-panels">
+    ${tabs.map((tab, index) => `<section class="project-tab-panel" id="panel-${tab.id}" role="tabpanel" aria-labelledby="tab-${tab.id}"${index === 0 ? "" : " hidden"}><h2>${escapeHtml(tab.title)}</h2><p>${escapeHtml(tab.body)}</p><ul>${tab.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`).join("")}
+  </div>
+</div>`;
 
 const projectPage = (locale, project) => {
   const config = locales[locale];
@@ -837,7 +853,7 @@ const projectPage = (locale, project) => {
   const main = `
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:${project.accent};--project-accent-rgb:${project.accentRgb}">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="${breadcrumbRoute}">${icon("arrowLeft")}<span>${escapeHtml(breadcrumbLabel)}</span></a>
         <header class="project-heading">
           <p class="project-number">${project.code} · ${escapeHtml(project.kicker)}</p>
@@ -849,7 +865,7 @@ const projectPage = (locale, project) => {
           ${project.faq?.jumpLabel ? `<a class="project-more-link" href="#faq-title-${project.slug}"><span>${escapeHtml(project.faq.jumpLabel)}</span>${icon("arrowDown")}</a>` : ""}
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="${project.imageKind}" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
             <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" ${protectedMediaAttributes} fetchpriority="high">
@@ -867,16 +883,9 @@ const projectPage = (locale, project) => {
         </figure>
         ${project.slug === "demonyza" ? siteCaseNavigation(locale, project.slug) : ""}
       </div>
-      <section class="project-explorer${projectActionLinks.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
-        <dl class="project-case-summary" data-case-count="${caseSummary.length}">
-          ${caseSummary.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
-          ${project.tabs.map((tab, tabIndex) => `<button type="button" role="tab" id="tab-${tab.id}" data-project-tab="${tab.id}" aria-controls="panel-${tab.id}" aria-selected="${tabIndex === 0 ? "true" : "false"}" tabindex="${tabIndex === 0 ? "0" : "-1"}">${escapeHtml(tab.label)}</button>`).join("")}
-        </div>
-        <div class="project-panels">
-          ${project.tabs.map((tab, tabIndex) => `<section class="project-tab-panel" id="panel-${tab.id}" role="tabpanel" aria-labelledby="tab-${tab.id}"${tabIndex === 0 ? "" : " hidden"}><h2>${escapeHtml(tab.title)}</h2><p>${escapeHtml(tab.body)}</p><ul>${tab.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`).join("")}
-        </div>
+      <section class="project-explorer${projectActionLinks.length ? "" : " project-explorer-no-actions"}" data-depth="deep" aria-label="${escapeHtml(common.detailsLabel)}">
+        ${caseSummaryMarkup(caseSummary)}
+        ${caseReadingLens(project.tabs, common)}
         ${projectActionLinks.length ? `<div class="project-actions">${projectActionLinks.map((link) => {
           const external = link.href.startsWith("http");
           return `<a class="button ${link.kind === "primary" ? "primary" : "secondary"}" href="${link.href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}${external ? `${icon("external")}<span class="sr-only"> (${escapeHtml(common.external)})</span>` : ""}</a>`;
@@ -967,7 +976,7 @@ const siteCasePage = (locale, site) => {
   const main = `
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:${accent};--project-accent-rgb:${accentRgb}">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="${collection.route}">${icon("arrowLeft")}<span>${escapeHtml(collection.all)}</span></a>
         <header class="project-heading">
           <p class="project-number">${escapeHtml(details.code)} · ${escapeHtml(details.kicker)}</p>
@@ -978,7 +987,7 @@ const siteCasePage = (locale, site) => {
           <ul class="project-facts" aria-label="${escapeHtml(site.name)}">${details.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="website" style="--gallery-ratio:${frameWidth} / ${frameHeight}"${interactiveGallery ? ` data-project-gallery aria-label="${escapeHtml(common.galleryLabel)}"` : ""}>
           <div class="project-image-frame">
             <img${interactiveGallery ? " data-project-image" : ""} src="${gallery[0].src}" alt="${escapeHtml(gallery[0].alt)}" width="${imageWidth}" height="${imageHeight}" decoding="async" ${protectedMediaAttributes} fetchpriority="high">
@@ -996,16 +1005,9 @@ const siteCasePage = (locale, site) => {
         </figure>
         ${siteCaseNavigation(locale, site.slug)}
       </div>
-      <section class="project-explorer${siteActionLinks.length ? "" : " project-explorer-no-actions"}" aria-label="${escapeHtml(common.detailsLabel)}">
-        <dl class="project-case-summary" data-case-count="${caseSummary.length}">
-          ${caseSummary.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="${escapeHtml(common.detailsLabel)}">
-          ${details.tabs.map((tab, tabIndex) => `<button type="button" role="tab" id="tab-${tab.id}" data-project-tab="${tab.id}" aria-controls="panel-${tab.id}" aria-selected="${tabIndex === 0 ? "true" : "false"}" tabindex="${tabIndex === 0 ? "0" : "-1"}">${escapeHtml(tab.label)}</button>`).join("")}
-        </div>
-        <div class="project-panels">
-          ${details.tabs.map((tab, tabIndex) => `<section class="project-tab-panel" id="panel-${tab.id}" role="tabpanel" aria-labelledby="tab-${tab.id}"${tabIndex === 0 ? "" : " hidden"}><h2>${escapeHtml(tab.title)}</h2><p>${escapeHtml(tab.body)}</p><ul>${tab.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`).join("")}
-        </div>
+      <section class="project-explorer${siteActionLinks.length ? "" : " project-explorer-no-actions"}" data-depth="deep" aria-label="${escapeHtml(common.detailsLabel)}">
+        ${caseSummaryMarkup(caseSummary)}
+        ${caseReadingLens(details.tabs, common)}
         ${siteActionLinks.length ? `<div class="project-actions">${siteActionLinks.map((link) => {
           const external = link.href.startsWith("http");
           return `<a class="button ${link.kind === "primary" ? "primary" : "secondary"}" href="${link.href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}${external ? `${icon("external")}<span class="sr-only"> (${escapeHtml(common.external)})</span>` : ""}</a>`;

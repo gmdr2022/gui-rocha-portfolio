@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Projects","item":"https://gui-rocha.pages.dev/en/projects/"},{"@type":"ListItem","position":2,"name":"C7 Engineering System","item":"https://gui-rocha.pages.dev/en/projects/c7-engineering-system/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"C7 Engineering System","description":"C7 brings together the principles I apply when building my products: focused preparation, rigor proportional to risk and validation before completion.","url":"https://gui-rocha.pages.dev/en/projects/c7-engineering-system/","image":"https://gui-rocha.pages.dev/assets/img/c7-engineering-system-hero-v2.webp","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/en/"},"inLanguage":"en"}</script>
   <title>C7 Engineering System — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#a9ed34;--project-accent-rgb:169 237 52">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/en/projects/?project=c7-engineering-system"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Back to projects</span></a>
         <header class="project-heading">
           <p class="project-number">05 · The engineering method behind my products</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="art" style="--gallery-ratio:1600 / 1000">
           <div class="project-image-frame">
             <img src="/assets/img/c7-engineering-system-hero-v2.webp" alt="C7 Engineering System organizing complex flows around a core with seven balanced facets" width="1600" height="1000" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -97,16 +97,18 @@
         </figure>
 
       </div>
-      <section class="project-explorer project-explorer-no-actions" aria-label="Project details">
+      <section class="project-explorer project-explorer-no-actions" data-depth="deep" aria-label="Project details">
         <dl class="project-case-summary" data-case-count="4">
-          <div><dt>Role</dt><dd>Method conception, system architecture and validation of the installed version.</dd></div><div><dt>Risk</dt><dd>Simple tasks remain simple. As reach, cost of error or difficulty of reversal increases, I deepen analysis, validation and recovery.</dd></div><div><dt>Evidence</dt><dd>Version 1.0.0 passed the core Pester suite, installed-environment checks, comparative evaluations and a restoration test in a disposable profile.</dd></div><div><dt>Continuity</dt><dd>I record decisions, tests and resumption points so each stage begins from the project’s actual state.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Project details">
-          <button type="button" role="tab" id="tab-context" data-project-tab="context" aria-controls="panel-context" aria-selected="true" tabindex="0">Preparation</button><button type="button" role="tab" id="tab-risk" data-project-tab="risk" aria-controls="panel-risk" aria-selected="false" tabindex="-1">Risk</button><button type="button" role="tab" id="tab-evidence" data-project-tab="evidence" aria-controls="panel-evidence" aria-selected="false" tabindex="-1">Evidence</button><button type="button" role="tab" id="tab-environment" data-project-tab="environment" aria-controls="panel-environment" aria-selected="false" tabindex="-1">Environment</button><button type="button" role="tab" id="tab-continuity" data-project-tab="continuity" aria-controls="panel-continuity" aria-selected="false" tabindex="-1">Continuity</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-context" role="tabpanel" aria-labelledby="tab-context"><h2>Prepare before execution.</h2><p>Before building, I define the need, audience, scope and completion criteria. This reduces rework and protects product coherence.</p><ul><li>Need and audience defined</li><li>Protected scope</li><li>Verifiable completion</li></ul></section><section class="project-tab-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk" hidden><h2>Rigor follows impact.</h2><p>Simple tasks remain simple. As reach, cost of error or difficulty of reversal increases, I deepen analysis, validation and recovery.</p><ul><li>Proportional rigor</li><li>Material alternatives</li><li>Planned recovery</li></ul></section><section class="project-tab-panel" id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden><h2>Completion requires evidence proportional to the change.</h2><p>Version 1.0.0 passed the core Pester suite, installed-environment checks, comparative evaluations and a restoration test in a disposable profile.</p><ul><li>Core tests</li><li>Installed checks</li><li>Restoration in a disposable profile</li></ul></section><section class="project-tab-panel" id="panel-environment" role="tabpanel" aria-labelledby="tab-environment" hidden><h2>The plan respects available capacity.</h2><p>I organize stages and validation around CPU, memory, paging and storage, avoiding repetition of work already proven.</p><ul><li>Proportional load</li><li>Serialized stages when needed</li><li>Reused validation</li></ul></section><section class="project-tab-panel" id="panel-continuity" role="tabpanel" aria-labelledby="tab-continuity" hidden><h2>Valid work should not need to be repeated.</h2><p>I record decisions, tests and resumption points so each stage begins from the project’s actual state.</p><ul><li>Decisions preserved</li><li>Objective resumption</li><li>Less repetition</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Role</dt><dd>Method conception, system architecture and validation of the installed version.</dd></div><div data-case-source="tab:risk"><dt><a href="#panel-risk" data-case-tab="risk">Risk<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Simple tasks remain simple. As reach, cost of error or difficulty of reversal increases, I deepen analysis, validation and recovery.</dd></div><div data-case-source="tab:evidence"><dt><a href="#panel-evidence" data-case-tab="evidence">Evidence<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Version 1.0.0 passed the core Pester suite, installed-environment checks, comparative evaluations and a restoration test in a disposable profile.</dd></div><div data-case-source="tab:continuity"><dt><a href="#panel-continuity" data-case-tab="continuity">Continuity<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>I record decisions, tests and resumption points so each stage begins from the project’s actual state.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Project details">
+    <button type="button" role="tab" id="tab-context" data-project-tab="context" aria-controls="panel-context" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Preparation</button><button type="button" role="tab" id="tab-risk" data-project-tab="risk" aria-controls="panel-risk" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Risk</button><button type="button" role="tab" id="tab-evidence" data-project-tab="evidence" aria-controls="panel-evidence" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Evidence</button><button type="button" role="tab" id="tab-environment" data-project-tab="environment" aria-controls="panel-environment" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">04</span>Environment</button><button type="button" role="tab" id="tab-continuity" data-project-tab="continuity" aria-controls="panel-continuity" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">05</span>Continuity</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-context" role="tabpanel" aria-labelledby="tab-context"><h2>Prepare before execution.</h2><p>Before building, I define the need, audience, scope and completion criteria. This reduces rework and protects product coherence.</p><ul><li>Need and audience defined</li><li>Protected scope</li><li>Verifiable completion</li></ul></section><section class="project-tab-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk" hidden><h2>Rigor follows impact.</h2><p>Simple tasks remain simple. As reach, cost of error or difficulty of reversal increases, I deepen analysis, validation and recovery.</p><ul><li>Proportional rigor</li><li>Material alternatives</li><li>Planned recovery</li></ul></section><section class="project-tab-panel" id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden><h2>Completion requires evidence proportional to the change.</h2><p>Version 1.0.0 passed the core Pester suite, installed-environment checks, comparative evaluations and a restoration test in a disposable profile.</p><ul><li>Core tests</li><li>Installed checks</li><li>Restoration in a disposable profile</li></ul></section><section class="project-tab-panel" id="panel-environment" role="tabpanel" aria-labelledby="tab-environment" hidden><h2>The plan respects available capacity.</h2><p>I organize stages and validation around CPU, memory, paging and storage, avoiding repetition of work already proven.</p><ul><li>Proportional load</li><li>Serialized stages when needed</li><li>Reused validation</li></ul></section><section class="project-tab-panel" id="panel-continuity" role="tabpanel" aria-labelledby="tab-continuity" hidden><h2>Valid work should not need to be repeated.</h2><p>I record decisions, tests and resumption points so each stage begins from the project’s actual state.</p><ul><li>Decisions preserved</li><li>Objective resumption</li><li>Less repetition</li></ul></section>
+  </div>
+</div>
 
       </section>
       <a class="next-project" href="/en/projects/local-first-checklist/" style="--next-accent:#f2bb62"><span>Next project</span><strong>Local First Checklist</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

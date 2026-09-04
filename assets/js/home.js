@@ -2,6 +2,7 @@ const catalog = document.querySelector("[data-project-catalog]");
 const deck = document.querySelector("[data-project-deck]");
 const cards = [...document.querySelectorAll("[data-project-card]")];
 const dots = [...document.querySelectorAll("[data-deck-dot]")];
+const orbit = document.querySelector("[data-project-orbit]");
 const previousButton = document.querySelector("[data-deck-previous]");
 const nextButton = document.querySelector("[data-deck-next]");
 const previousEdgeButton = document.querySelector("[data-deck-edge-previous]");
@@ -31,6 +32,7 @@ const slugAliases = new Map([
 ]);
 
 let activeIndex = 0;
+let orbitRotation = 0;
 let pointerStart = null;
 let suppressNextClick = false;
 let suppressClickTimer = 0;
@@ -418,6 +420,10 @@ const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false 
   const requestedIndex = cards.findIndex((card) => card.dataset.project === slug);
   if (requestedIndex < 0) return false;
 
+  // Accumulate the shortest angular delta, including the last/first boundary.
+  const indexDelta = ((requestedIndex - activeIndex + cards.length * 1.5) % cards.length) - cards.length / 2;
+  orbitRotation -= indexDelta * 360 / cards.length;
+  orbit?.style.setProperty("--orbit-rotation", `${orbitRotation}deg`);
   activeIndex = requestedIndex;
   const activeCard = cards[activeIndex];
   hydrateCard(activeCard);
@@ -455,6 +461,8 @@ const applyActiveProject = (requestedSlug, { announce = false, writeUrl = false 
       accentRgb: activeCard.style.getPropertyValue("--project-accent-rgb").trim(),
       index: activeIndex,
       source: "project",
+      element: catalog,
+      interactive: announce,
     },
   }));
   if (previousEdgeButton) {
@@ -544,6 +552,16 @@ dots.forEach((dot, index) => {
     dismissSwipeIntro();
     const slug = cards[index]?.dataset.project;
     if (slug) applyActiveProject(slug, { announce: true, writeUrl: true });
+  });
+  dot.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? dots.length - 1
+      : (index + (["ArrowLeft", "ArrowUp"].includes(event.key) ? -1 : 1) + dots.length) % dots.length;
+    dismissSwipeIntro();
+    const slug = cards[nextIndex]?.dataset.project;
+    if (slug) applyActiveProject(slug, { announce: true, writeUrl: true });
+    dots[nextIndex]?.focus({ preventScroll: true });
   });
 });
 

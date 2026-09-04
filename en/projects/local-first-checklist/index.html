@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Projects","item":"https://gui-rocha.pages.dev/en/projects/"},{"@type":"ListItem","position":2,"name":"Local First Checklist","item":"https://gui-rocha.pages.dev/en/projects/local-first-checklist/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Local First Checklist","description":"An open-source checklist keeps tasks in a local file and provides simple operations without relying on a remote service.","url":"https://gui-rocha.pages.dev/en/projects/local-first-checklist/","image":"https://gui-rocha.pages.dev/assets/img/local-first-checklist-v2.webp","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/en/"},"inLanguage":"en"}</script>
   <title>Local First Checklist — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#f2bb62;--project-accent-rgb:242 187 98">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/en/projects/?project=local-first-checklist"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Back to projects</span></a>
         <header class="project-heading">
           <p class="project-number">06 · A small, verifiable public project</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="art" style="--gallery-ratio:1586 / 992">
           <div class="project-image-frame">
             <img src="/assets/img/local-first-checklist-v2.webp" alt="Conceptual workspace with a checklist, local files and a storage drive connected to the computer" width="1586" height="992" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -97,16 +97,18 @@
         </figure>
 
       </div>
-      <section class="project-explorer" aria-label="Project details">
+      <section class="project-explorer" data-depth="deep" aria-label="Project details">
         <dl class="project-case-summary" data-case-count="4">
-          <div><dt>Role</dt><dd>Definition of the example, command-line implementation, tests, documentation and publication of version 1.0.0.</dd></div><div><dt>Scope</dt><dd>Tasks remain in a local JSON file, with simple operations available through the command line.</dd></div><div><dt>Quality</dt><dd>Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.</dd></div><div><dt>Evidence and outcome</dt><dd>The public repository provides access to the code and documentation, while the v1.0.0 release identifies the published version.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Project details">
-          <button type="button" role="tab" id="tab-scope" data-project-tab="scope" aria-controls="panel-scope" aria-selected="true" tabindex="0">Scope</button><button type="button" role="tab" id="tab-quality" data-project-tab="quality" aria-controls="panel-quality" aria-selected="false" tabindex="-1">Quality</button><button type="button" role="tab" id="tab-status" data-project-tab="status" aria-controls="panel-status" aria-selected="false" tabindex="-1">Status</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-scope" role="tabpanel" aria-labelledby="tab-scope"><h2>Small enough to understand end to end.</h2><p>Tasks remain in a local JSON file, with simple operations available through the command line.</p><ul><li>No remote service</li><li>Readable persistence</li><li>Direct documentation</li></ul></section><section class="project-tab-panel" id="panel-quality" role="tabpanel" aria-labelledby="tab-quality" hidden><h2>Simplicity still needs evidence.</h2><p>Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.</p><ul><li>Unit tests</li><li>Verifiable CLI</li><li>Validation workflow</li></ul></section><section class="project-tab-panel" id="panel-status" role="tabpanel" aria-labelledby="tab-status" hidden><h2>Version 1.0.0 is published.</h2><p>The published version brings together structure, documentation, tests and a coherent architectural choice within a limited scope.</p><ul><li>Public code</li><li>Versioned release</li><li>No cloud dependency</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Role</dt><dd>Definition of the example, command-line implementation, tests, documentation and publication of version 1.0.0.</dd></div><div data-case-source="tab:scope"><dt><a href="#panel-scope" data-case-tab="scope">Scope<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Tasks remain in a local JSON file, with simple operations available through the command line.</dd></div><div data-case-source="tab:quality"><dt><a href="#panel-quality" data-case-tab="quality">Quality<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.</dd></div><div data-case-source="evidence"><dt>Evidence and outcome</dt><dd>The public repository provides access to the code and documentation, while the v1.0.0 release identifies the published version.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Project details">
+    <button type="button" role="tab" id="tab-scope" data-project-tab="scope" aria-controls="panel-scope" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Scope</button><button type="button" role="tab" id="tab-quality" data-project-tab="quality" aria-controls="panel-quality" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Quality</button><button type="button" role="tab" id="tab-status" data-project-tab="status" aria-controls="panel-status" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Status</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-scope" role="tabpanel" aria-labelledby="tab-scope"><h2>Small enough to understand end to end.</h2><p>Tasks remain in a local JSON file, with simple operations available through the command line.</p><ul><li>No remote service</li><li>Readable persistence</li><li>Direct documentation</li></ul></section><section class="project-tab-panel" id="panel-quality" role="tabpanel" aria-labelledby="tab-quality" hidden><h2>Simplicity still needs evidence.</h2><p>Unit tests, Python compilation and a smoke test protect the main operations without adding infrastructure to the application.</p><ul><li>Unit tests</li><li>Verifiable CLI</li><li>Validation workflow</li></ul></section><section class="project-tab-panel" id="panel-status" role="tabpanel" aria-labelledby="tab-status" hidden><h2>Version 1.0.0 is published.</h2><p>The published version brings together structure, documentation, tests and a coherent architectural choice within a limited scope.</p><ul><li>Public code</li><li>Versioned release</li><li>No cloud dependency</li></ul></section>
+  </div>
+</div>
         <div class="project-actions"><a class="button primary" href="https://github.com/gmdr2022/local-first-checklist" target="_blank" rel="noopener noreferrer">Open on GitHub<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span class="sr-only"> (opens in a new tab)</span></a></div>
       </section>
       <a class="next-project" href="/en/projects/maeve/" style="--next-accent:#ef6d78"><span>Next project</span><strong>Maeve Roscaern</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

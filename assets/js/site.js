@@ -33,8 +33,8 @@ const ui = {
     cookies: {
       label: "Preferências de cookies",
       kicker: "Privacidade",
-      title: "Este site usa somente o necessário.",
-      body: "Não há publicidade nem rastreamento. Um cookie registra sua escolha; preferências visuais só ficam salvas se você permitir.",
+      title: "Somente o necessário.",
+      body: "Sem publicidade ou rastreamento. Salvar preferências permite lembrar tema e acessibilidade.",
       essential: "Somente essenciais",
       preferences: "Salvar preferências",
       details: "Detalhes",
@@ -79,8 +79,8 @@ const ui = {
     cookies: {
       label: "Cookie preferences",
       kicker: "Privacy",
-      title: "This site uses only what is necessary.",
-      body: "There is no advertising or tracking. One cookie records your choice; visual preferences are saved only when you allow them.",
+      title: "Only what is necessary.",
+      body: "No advertising or tracking. Save preferences to remember your theme and accessibility settings.",
       essential: "Essential only",
       preferences: "Save preferences",
       details: "Details",
@@ -125,8 +125,8 @@ const ui = {
     cookies: {
       label: "Preferencias de cookies",
       kicker: "Privacidad",
-      title: "Este sitio usa solo lo necesario.",
-      body: "No hay publicidad ni seguimiento. Una cookie registra su elección; las preferencias visuales solo se guardan con su permiso.",
+      title: "Solo lo necesario.",
+      body: "Sin publicidad ni seguimiento. Guardar preferencias permite recordar el tema y la accesibilidad.",
       essential: "Solo esenciales",
       preferences: "Guardar preferencias",
       details: "Detalles",
@@ -249,6 +249,7 @@ const applyPreferences = () => {
   root.dataset.motion = preferences.reduceMotion ? "reduced" : "standard";
   root.dataset.font = preferences.readableFont ? "readable" : "default";
   syncThemeDocument();
+  window.dispatchEvent(new Event("portal:preferenceschange"));
   document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
     button.dataset.activeTheme = preferences.theme;
     button.setAttribute("aria-label", `${ui.theme[preferences.theme]}. ${ui.theme.action}.`);
@@ -320,14 +321,22 @@ else systemTheme.addListener?.(handleSystemThemeChange);
 
 const ambientOceanBase = [76, 164, 214];
 const ambientDepths = {
-  surface: { y: "16%", strength: 0.1 },
-  mid: { y: "46%", strength: 0.13 },
-  deep: { y: "68%", strength: 0.18 },
-  footer: { y: "92%", strength: 0.12 },
+  surface: { y: "24%", strength: 0.16, color: [76, 164, 214] },
+  mid: { y: "46%", strength: 0.19, color: [48, 170, 184] },
+  deep: { y: "64%", strength: 0.22, color: [88, 132, 209] },
+  footer: { y: "76%", strength: 0.18, color: [63, 157, 180] },
 };
 let ambientColor = [...ambientOceanBase];
 let ambientIndex = 0;
 let ambientDepth = "surface";
+let ambientSection = null;
+const ambientSelections = new WeakMap();
+let ambientFrame = 0;
+let ambientPointer = { x: 0, y: 0 };
+let ambientNeedsDepth = true;
+const ambientPointerMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
+const ambientForcedColors = window.matchMedia("(forced-colors: active)");
+const depthElements = [...document.querySelectorAll("[data-depth]")];
 
 const parseAmbientRgb = (value) => {
   const parts = Array.isArray(value) ? value : String(value ?? "").trim().split(/[\s,]+/);
@@ -345,7 +354,7 @@ const applyAmbientState = () => {
   root.style.setProperty("--ambient-b", String(ambientColor[2]));
   root.style.setProperty("--ambient-x", `${position.toFixed(2)}%`);
   root.style.setProperty("--ambient-y", depth.y);
-  root.style.setProperty("--ambient-strength", String(Math.min(0.18, Math.max(0.1, depth.strength))));
+  root.style.setProperty("--ambient-strength", String(depth.strength));
   root.dataset.depth = ambientDepth;
 };
 
@@ -354,30 +363,112 @@ window.addEventListener("portal:ambientchange", (event) => {
   const rgb = parseAmbientRgb(detail?.accentRgb);
   const index = Number(detail?.index);
   if (!rgb || !Number.isInteger(index) || index < 0 || index > 999) return;
-  if (typeof detail?.id !== "string" || !detail.id.trim() || !["project", "context", "decision", "work-map"].includes(detail?.source)) return;
-  ambientColor = rgb.map((channel, channelIndex) => Math.round(
-    ambientOceanBase[channelIndex] * 0.55 + channel * 0.45,
+  if (typeof detail?.id !== "string" || !detail.id.trim() || !["project", "context", "decision", "work-map", "contact", "evidence"].includes(detail?.source)) return;
+  const color = rgb.map((channel, channelIndex) => Math.round(
+    ambientOceanBase[channelIndex] * 0.22 + channel * 0.78,
   ));
+  const section = detail.element instanceof Element ? detail.element.closest("[data-depth]") : null;
+  if (section && depthElements.includes(section)) {
+    ambientSelections.set(section, { color, index, id: detail.id.slice(0, 64), source: detail.source });
+    if (section !== ambientSection) {
+      const bounds = section.getBoundingClientRect();
+      if (!detail.interactive || bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+      // Explicit input in a visible neighboring section takes precedence until the next scroll.
+      ambientSection = section;
+      ambientDepth = section.dataset.depth;
+    }
+  }
+  ambientColor = color;
   ambientIndex = index;
   root.dataset.ambientId = detail.id.slice(0, 64);
   root.dataset.ambientSource = detail.source;
   applyAmbientState();
 });
 
-const depthElements = [...document.querySelectorAll("[data-depth]")];
-if ("IntersectionObserver" in window && depthElements.length) {
-  const visibility = new Map(depthElements.map((element) => [element, 0]));
-  const depthObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => visibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
-    const dominant = [...visibility.entries()].sort((left, right) => right[1] - left[1])[0];
-    const nextDepth = dominant?.[1] > 0 ? dominant[0].dataset.depth : ambientDepth;
-    if (ambientDepths[nextDepth] && nextDepth !== ambientDepth) {
-      ambientDepth = nextDepth;
-      applyAmbientState();
+const ambientPointerEnabled = () => ambientPointerMedia.matches
+  && !preferences.reduceMotion && !systemReducedMotion.matches
+  && !ambientForcedColors.matches && !document.hidden;
+
+const updateAmbientDepth = () => {
+  // Compare distance to the reading line, not ratios of differently sized sections.
+  const readingLine = window.innerHeight * 0.46;
+  let closest = null;
+  let closestDistance = Infinity;
+  depthElements.forEach((element) => {
+    const bounds = element.getBoundingClientRect();
+    if (bounds.bottom <= 0 || bounds.top >= window.innerHeight || !bounds.height) return;
+    const distance = Math.max(bounds.top - readingLine, readingLine - bounds.bottom, 0);
+    if (distance < closestDistance) {
+      closest = element;
+      closestDistance = distance;
     }
-  }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
-  depthElements.forEach((element) => depthObserver.observe(element));
+  });
+  if (!closest || closest === ambientSection || !ambientDepths[closest.dataset.depth]) return;
+  ambientSection = closest;
+  ambientDepth = closest.dataset.depth;
+  const selection = ambientSelections.get(closest);
+  ambientColor = selection?.color || [...ambientDepths[ambientDepth].color];
+  ambientIndex = selection?.index || 0;
+  if (selection) root.dataset.ambientId = selection.id;
+  else delete root.dataset.ambientId;
+  root.dataset.ambientSource = selection?.source || "scroll";
   applyAmbientState();
+};
+
+const renderAmbientInput = () => {
+  ambientFrame = 0;
+  if (document.hidden) return;
+  if (ambientNeedsDepth) {
+    updateAmbientDepth();
+    ambientNeedsDepth = false;
+  }
+  const pointer = ambientPointerEnabled() ? ambientPointer : { x: 0, y: 0 };
+  root.style.setProperty("--ambient-pointer-x", `${pointer.x.toFixed(2)}%`);
+  root.style.setProperty("--ambient-pointer-y", `${pointer.y.toFixed(2)}%`);
+};
+
+const scheduleAmbientInput = () => {
+  if (!ambientFrame && !document.hidden) ambientFrame = window.requestAnimationFrame(renderAmbientInput);
+};
+const resetAmbientPointer = () => {
+  ambientPointer = { x: 0, y: 0 };
+  scheduleAmbientInput();
+};
+const scheduleAmbientDepth = () => {
+  ambientNeedsDepth = true;
+  scheduleAmbientInput();
+};
+
+// Input schedules one frame; CSS settles the light without an idle animation loop.
+window.addEventListener("pointermove", (event) => {
+  if (event.pointerType !== "mouse" || !ambientPointerEnabled()) return;
+  ambientPointer = {
+    x: (Math.max(0, Math.min(1, event.clientX / window.innerWidth)) - 0.5) * 8,
+    y: (Math.max(0, Math.min(1, event.clientY / window.innerHeight)) - 0.5) * 6,
+  };
+  scheduleAmbientInput();
+}, { passive: true });
+document.documentElement.addEventListener("pointerleave", resetAmbientPointer);
+window.addEventListener("blur", resetAmbientPointer);
+window.addEventListener("scroll", scheduleAmbientDepth, { passive: true });
+window.addEventListener("resize", scheduleAmbientDepth, { passive: true });
+window.addEventListener("pageshow", scheduleAmbientDepth);
+window.addEventListener("portal:preferenceschange", resetAmbientPointer);
+ambientPointerMedia.addEventListener?.("change", resetAmbientPointer);
+ambientForcedColors.addEventListener?.("change", resetAmbientPointer);
+systemReducedMotion.addEventListener?.("change", resetAmbientPointer);
+document.addEventListener("visibilitychange", () => {
+  if (ambientFrame) window.cancelAnimationFrame(ambientFrame);
+  ambientFrame = 0;
+  ambientPointer = { x: 0, y: 0 };
+  scheduleAmbientDepth();
+});
+applyAmbientState();
+updateAmbientDepth();
+
+if (typeof window.ResizeObserver === "function") {
+  const ambientResizeObserver = new ResizeObserver(scheduleAmbientDepth);
+  depthElements.forEach((element) => ambientResizeObserver.observe(element));
 }
 
 const globalUi = document.createElement("div");
@@ -413,7 +504,7 @@ globalUi.innerHTML = `
 
   <section class="cookie-banner" data-cookie-banner hidden aria-label="${ui.cookies.label}">
     <div><span class="dialog-kicker">${ui.cookies.kicker}</span><h2>${ui.cookies.title}</h2><p>${ui.cookies.body}</p></div>
-    <div class="cookie-actions"><button class="button secondary compact" type="button" data-consent="essential">${ui.cookies.essential}</button><button class="button primary compact" type="button" data-consent="preferences">${ui.cookies.preferences}</button><button class="text-button" type="button" data-open-cookie>${ui.cookies.details}</button></div>
+    <div class="cookie-actions"><button class="button secondary compact" type="button" data-consent="essential">${ui.cookies.essential}</button><button class="button secondary compact" type="button" data-consent="preferences">${ui.cookies.preferences}</button><button class="text-button" type="button" data-open-cookie>${ui.cookies.details}</button></div>
   </section>
 
   <dialog class="utility-dialog" id="cookie-panel" aria-labelledby="cookie-title">

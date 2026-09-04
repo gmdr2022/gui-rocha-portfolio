@@ -64,6 +64,8 @@ const publishAmbient = (element, source) => {
       accentRgb,
       index,
       source,
+      element,
+      interactive: true,
     },
   }));
 };
@@ -617,24 +619,27 @@ anyHoverAvailable.addEventListener?.("change", () => workMaps.forEach((map) => m
 const decisionSteps = [...document.querySelectorAll("[data-decision-step]")];
 let activeDecisionIndex = 0;
 
-const selectDecision = (index, { focus = false } = {}) => {
+const selectDecision = (index, { focus = false, ambient = true } = {}) => {
   const step = decisionSteps[index];
   if (!step) return;
   activeDecisionIndex = index;
+  const flow = step.closest("[data-decision-flow]");
+  flow?.style.setProperty("--method-progress", String(((index + 0.5) / decisionSteps.length) * 100));
+  flow?.style.setProperty("--method-accent-rgb", step.dataset.accentRgb);
   decisionSteps.forEach((item, itemIndex) => {
     const link = item.querySelector("a");
     if (itemIndex === activeDecisionIndex) link?.setAttribute("aria-current", "step");
     else link?.removeAttribute("aria-current");
     item.dataset.current = String(itemIndex === activeDecisionIndex);
   });
-  publishAmbient(step, "decision");
+  if (ambient) publishAmbient(step, "decision");
   if (focus) step.querySelector("a")?.focus();
 };
 
 decisionSteps.forEach((step, index) => {
   const link = step.querySelector("a");
-  step.addEventListener("pointerenter", () => {
-    if (hoverAvailable.matches) selectDecision(index);
+  step.addEventListener("pointerenter", (event) => {
+    if (pointerCanHover(event)) selectDecision(index);
   });
   link?.addEventListener("focus", () => selectDecision(index));
   link?.addEventListener("click", () => selectDecision(index));
@@ -650,4 +655,4 @@ decisionSteps.forEach((step, index) => {
   });
 });
 
-if (decisionSteps.length) selectDecision(0);
+if (decisionSteps.length) selectDecision(0, { ambient: false });

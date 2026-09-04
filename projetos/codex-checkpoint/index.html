@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Projetos","item":"https://gui-rocha.pages.dev/projetos/"},{"@type":"ListItem","position":2,"name":"Codex Checkpoint","item":"https://gui-rocha.pages.dev/projetos/codex-checkpoint/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Codex Checkpoint","description":"O Codex Checkpoint mantém validações, decisões e feedback disponíveis entre sessões de trabalho.","url":"https://gui-rocha.pages.dev/projetos/codex-checkpoint/","image":"https://gui-rocha.pages.dev/assets/img/codex-checkpoint/app.png","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/"},"inLanguage":"pt-BR"}</script>
   <title>Codex Checkpoint — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#36d6c0;--project-accent-rgb:54 214 192">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/projetos/?project=codex-checkpoint"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Voltar aos projetos</span></a>
         <header class="project-heading">
           <p class="project-number">03 · Fila local para validações e decisões</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="screenshot" style="--gallery-ratio:1920 / 1080">
           <div class="project-image-frame">
             <img src="/assets/img/codex-checkpoint/app.png" alt="Codex Checkpoint exibindo uma fila fictícia de validações pendentes, decisões e histórico de notas" width="1920" height="1080" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -97,16 +97,18 @@
         </figure>
 
       </div>
-      <section class="project-explorer project-explorer-no-actions" aria-label="Detalhes do projeto">
+      <section class="project-explorer project-explorer-no-actions" data-depth="deep" aria-label="Detalhes do projeto">
         <dl class="project-case-summary" data-case-count="5">
-          <div><dt>Papel</dt><dd>Direção de produto e desenvolvimento da aplicação nativa, da interface aos mecanismos que preservam as pendências entre sessões.</dd></div><div><dt>Ponto de partida</dt><dd>Testes de jogabilidade, avaliação visual, dispositivos e autenticação podem depender de outro momento ou ambiente. A fila registra o necessário para retomar sem reconstruir o histórico.</dd></div><div><dt>Solução</dt><dd>Cada checkpoint reúne informações suficientes para retomar a pendência e registrar uma decisão ou feedback acionável.</dd></div><div><dt>Evidência e resultado</dt><dd>A importação de cartões com chaves sem duplicatas foi validada no fluxo local; a aplicação também oferece backup e recuperação.</dd></div><div><dt>Estado</dt><dd>Interface, linha de comando e integração por arquivos compõem o produto. As versões atuais ainda não têm assinatura de código, e esse limite permanece declarado.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
-          <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0">Ponto de partida</button><button type="button" role="tab" id="tab-solucao" data-project-tab="solucao" aria-controls="panel-solucao" aria-selected="false" tabindex="-1">Solução</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1">Estado</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>Algumas verificações precisam acontecer fora da sessão atual.</h2><p>Testes de jogabilidade, avaliação visual, dispositivos e autenticação podem depender de outro momento ou ambiente. A fila registra o necessário para retomar sem reconstruir o histórico.</p><ul><li>Pendências entre sessões</li><li>Vários projetos</li><li>Histórico de feedback</li></ul></section><section class="project-tab-panel" id="panel-solucao" role="tabpanel" aria-labelledby="tab-solucao" hidden><h2>Uma fila de checkpoints — não outro chat.</h2><p>Cada checkpoint reúne informações suficientes para retomar a pendência e registrar uma decisão ou feedback acionável.</p><ul><li>Chaves sem duplicatas</li><li>Status e notas</li><li>Importação de cartões validada</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>Aplicação nativa e instalável.</h2><p>Interface, linha de comando e integração por arquivos compõem o produto. As versões atuais ainda não têm assinatura de código, e esse limite permanece declarado.</p><ul><li>Dados locais</li><li>WPF / .NET</li><li>Versões sem assinatura de código</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Papel</dt><dd>Direção de produto e desenvolvimento da aplicação nativa, da interface aos mecanismos que preservam as pendências entre sessões.</dd></div><div data-case-source="tab:problema"><dt><a href="#panel-problema" data-case-tab="problema">Ponto de partida<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Testes de jogabilidade, avaliação visual, dispositivos e autenticação podem depender de outro momento ou ambiente. A fila registra o necessário para retomar sem reconstruir o histórico.</dd></div><div data-case-source="tab:solucao"><dt><a href="#panel-solucao" data-case-tab="solucao">Solução<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Cada checkpoint reúne informações suficientes para retomar a pendência e registrar uma decisão ou feedback acionável.</dd></div><div data-case-source="evidence"><dt>Evidência e resultado</dt><dd>A importação de cartões com chaves sem duplicatas foi validada no fluxo local; a aplicação também oferece backup e recuperação.</dd></div><div data-case-source="tab:estado"><dt><a href="#panel-estado" data-case-tab="estado">Estado<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Interface, linha de comando e integração por arquivos compõem o produto. As versões atuais ainda não têm assinatura de código, e esse limite permanece declarado.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
+    <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Ponto de partida</button><button type="button" role="tab" id="tab-solucao" data-project-tab="solucao" aria-controls="panel-solucao" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Solução</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Estado</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>Algumas verificações precisam acontecer fora da sessão atual.</h2><p>Testes de jogabilidade, avaliação visual, dispositivos e autenticação podem depender de outro momento ou ambiente. A fila registra o necessário para retomar sem reconstruir o histórico.</p><ul><li>Pendências entre sessões</li><li>Vários projetos</li><li>Histórico de feedback</li></ul></section><section class="project-tab-panel" id="panel-solucao" role="tabpanel" aria-labelledby="tab-solucao" hidden><h2>Uma fila de checkpoints — não outro chat.</h2><p>Cada checkpoint reúne informações suficientes para retomar a pendência e registrar uma decisão ou feedback acionável.</p><ul><li>Chaves sem duplicatas</li><li>Status e notas</li><li>Importação de cartões validada</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>Aplicação nativa e instalável.</h2><p>Interface, linha de comando e integração por arquivos compõem o produto. As versões atuais ainda não têm assinatura de código, e esse limite permanece declarado.</p><ul><li>Dados locais</li><li>WPF / .NET</li><li>Versões sem assinatura de código</li></ul></section>
+  </div>
+</div>
 
       </section>
       <a class="next-project" href="/projetos/nexus/" style="--next-accent:#8e7dff"><span>Próximo projeto</span><strong>NEXUS</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Projetos","item":"https://gui-rocha.pages.dev/projetos/"},{"@type":"ListItem","position":2,"name":"ClubAL","item":"https://gui-rocha.pages.dev/projetos/clubal/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"ClubAL","description":"O ClubAL reúne rotinas, consultas e informações operacionais em módulos conectados. A base atual para Windows permanece disponível enquanto o novo Operador Web avança em desenvolvimento e validação.","url":"https://gui-rocha.pages.dev/projetos/clubal/","image":"https://gui-rocha.pages.dev/assets/img/clubal/rotinas-atual.png","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/"},"inLanguage":"pt-BR"}</script>
   <title>ClubAL — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#25c997;--project-accent-rgb:37 201 151">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/projetos/?project=clubal"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Voltar aos projetos</span></a>
         <header class="project-heading">
           <p class="project-number">01 · Plataforma para organizar operações institucionais</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="concept" style="--gallery-ratio:1586 / 992" data-project-gallery aria-label="Galeria do projeto">
           <div class="project-image-frame">
             <img data-project-image src="/assets/img/clubal/operador-web-conceitual-v2.webp" alt="Ambiente conceitual do ClubAL com telas de operações institucionais em um espaço contemporâneo ao entardecer" width="1586" height="992" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -110,16 +110,18 @@
         </figure>
 
       </div>
-      <section class="project-explorer" aria-label="Detalhes do projeto">
+      <section class="project-explorer" data-depth="deep" aria-label="Detalhes do projeto">
         <dl class="project-case-summary" data-case-count="5">
-          <div><dt>Papel</dt><dd>Direção do produto e construção da base local-first, incluindo a separação de responsabilidades e a evolução do Operador para a web.</dd></div><div><dt>Cenário operacional</dt><dd>Planilhas, papéis e mensagens independentes produzem versões conflitantes. O ClubAL centraliza o registro no computador responsável e separa edição, publicação e consulta.</dd></div><div><dt>Contribuição</dt><dd>Estruturei o produto para separar quem registra e publica de quem apenas consulta. A divisão reduz edições indevidas e mantém uma fonte local de informação aprovada.</dd></div><div><dt>Evidência e resultado</dt><dd>Capturas com dados demonstrativos registram Operação, Rotinas, Consulta e a previsão do tempo integrada nos módulos atuais para Windows.</dd></div><div><dt>Estado</dt><dd>Operação, Rotinas e Consulta continuam nos módulos para Windows. O Operador Web segue em desenvolvimento e validação com dados sintéticos.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
-          <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0">Cenário operacional</button><button type="button" role="tab" id="tab-fluxo" data-project-tab="fluxo" aria-controls="panel-fluxo" aria-selected="false" tabindex="-1">Contribuição</button><button type="button" role="tab" id="tab-funcionamento" data-project-tab="funcionamento" aria-controls="panel-funcionamento" aria-selected="false" tabindex="-1">Como funciona</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1">Estado</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>Rotinas se desencontram quando cada ambiente registra de um jeito.</h2><p>Planilhas, papéis e mensagens independentes produzem versões conflitantes. O ClubAL centraliza o registro no computador responsável e separa edição, publicação e consulta.</p><ul><li>Registro centralizado</li><li>Visibilidade por ambiente</li><li>Funcionamento local</li></ul></section><section class="project-tab-panel" id="panel-fluxo" role="tabpanel" aria-labelledby="tab-fluxo" hidden><h2>As responsabilidades definem o fluxo, não a conveniência técnica.</h2><p>Estruturei o produto para separar quem registra e publica de quem apenas consulta. A divisão reduz edições indevidas e mantém uma fonte local de informação aprovada.</p><ul><li>Direção de produto</li><li>Arquitetura local-first</li><li>Evolução web com escopo controlado</li></ul></section><section class="project-tab-panel" id="panel-funcionamento" role="tabpanel" aria-labelledby="tab-funcionamento" hidden><h2>Cada parte atende a um momento da rotina.</h2><p>Operação registra e publica; Rotinas mostra o conteúdo aprovado nos ambientes; Consulta oferece leitura autorizada sem abrir a edição.</p><ul><li>Operação · editar e publicar</li><li>Rotinas · exibir o aprovado</li><li>Consulta · ler sem editar</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>O Operador Web avança enquanto os módulos Windows seguem disponíveis.</h2><p>Operação, Rotinas e Consulta continuam nos módulos para Windows. O Operador Web segue em desenvolvimento e validação com dados sintéticos.</p><ul><li>Windows · módulos atuais</li><li>Nova versão web · em validação</li><li>Previsão do tempo · integrada</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Papel</dt><dd>Direção do produto e construção da base local-first, incluindo a separação de responsabilidades e a evolução do Operador para a web.</dd></div><div data-case-source="tab:problema"><dt><a href="#panel-problema" data-case-tab="problema">Cenário operacional<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Planilhas, papéis e mensagens independentes produzem versões conflitantes. O ClubAL centraliza o registro no computador responsável e separa edição, publicação e consulta.</dd></div><div data-case-source="tab:fluxo"><dt><a href="#panel-fluxo" data-case-tab="fluxo">Contribuição<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Estruturei o produto para separar quem registra e publica de quem apenas consulta. A divisão reduz edições indevidas e mantém uma fonte local de informação aprovada.</dd></div><div data-case-source="evidence"><dt>Evidência e resultado</dt><dd>Capturas com dados demonstrativos registram Operação, Rotinas, Consulta e a previsão do tempo integrada nos módulos atuais para Windows.</dd></div><div data-case-source="tab:estado"><dt><a href="#panel-estado" data-case-tab="estado">Estado<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Operação, Rotinas e Consulta continuam nos módulos para Windows. O Operador Web segue em desenvolvimento e validação com dados sintéticos.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
+    <button type="button" role="tab" id="tab-problema" data-project-tab="problema" aria-controls="panel-problema" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Cenário operacional</button><button type="button" role="tab" id="tab-fluxo" data-project-tab="fluxo" aria-controls="panel-fluxo" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Contribuição</button><button type="button" role="tab" id="tab-funcionamento" data-project-tab="funcionamento" aria-controls="panel-funcionamento" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Como funciona</button><button type="button" role="tab" id="tab-estado" data-project-tab="estado" aria-controls="panel-estado" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">04</span>Estado</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema"><h2>Rotinas se desencontram quando cada ambiente registra de um jeito.</h2><p>Planilhas, papéis e mensagens independentes produzem versões conflitantes. O ClubAL centraliza o registro no computador responsável e separa edição, publicação e consulta.</p><ul><li>Registro centralizado</li><li>Visibilidade por ambiente</li><li>Funcionamento local</li></ul></section><section class="project-tab-panel" id="panel-fluxo" role="tabpanel" aria-labelledby="tab-fluxo" hidden><h2>As responsabilidades definem o fluxo, não a conveniência técnica.</h2><p>Estruturei o produto para separar quem registra e publica de quem apenas consulta. A divisão reduz edições indevidas e mantém uma fonte local de informação aprovada.</p><ul><li>Direção de produto</li><li>Arquitetura local-first</li><li>Evolução web com escopo controlado</li></ul></section><section class="project-tab-panel" id="panel-funcionamento" role="tabpanel" aria-labelledby="tab-funcionamento" hidden><h2>Cada parte atende a um momento da rotina.</h2><p>Operação registra e publica; Rotinas mostra o conteúdo aprovado nos ambientes; Consulta oferece leitura autorizada sem abrir a edição.</p><ul><li>Operação · editar e publicar</li><li>Rotinas · exibir o aprovado</li><li>Consulta · ler sem editar</li></ul></section><section class="project-tab-panel" id="panel-estado" role="tabpanel" aria-labelledby="tab-estado" hidden><h2>O Operador Web avança enquanto os módulos Windows seguem disponíveis.</h2><p>Operação, Rotinas e Consulta continuam nos módulos para Windows. O Operador Web segue em desenvolvimento e validação com dados sintéticos.</p><ul><li>Windows · módulos atuais</li><li>Nova versão web · em validação</li><li>Previsão do tempo · integrada</li></ul></section>
+  </div>
+</div>
         <div class="project-actions"><a class="button secondary" href="/sites/clubal/">Ver case do site comercial</a><a class="button secondary" href="https://clubal.pages.dev/" target="_blank" rel="noopener noreferrer">Visitar o site comercial<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span class="sr-only"> (abre em nova aba)</span></a><a class="button secondary" href="mailto:suporte.clubal@gmail.com">Suporte do ClubAL</a></div>
       </section>
       <a class="next-project" href="/sites/" style="--next-accent:#4f8cff"><span>Próximo projeto</span><strong>Sites e experiências digitais</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Projetos","item":"https://gui-rocha.pages.dev/projetos/"},{"@type":"ListItem","position":2,"name":"C7 Engineering System","item":"https://gui-rocha.pages.dev/projetos/c7-engineering-system/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"C7 Engineering System","description":"O C7 reúne os princípios que aplico ao desenvolver meus produtos: preparação objetiva, rigor proporcional ao risco e validação antes da conclusão.","url":"https://gui-rocha.pages.dev/projetos/c7-engineering-system/","image":"https://gui-rocha.pages.dev/assets/img/c7-engineering-system-hero-v2.webp","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/"},"inLanguage":"pt-BR"}</script>
   <title>C7 Engineering System — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#a9ed34;--project-accent-rgb:169 237 52">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/projetos/?project=c7-engineering-system"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Voltar aos projetos</span></a>
         <header class="project-heading">
           <p class="project-number">05 · O método de engenharia por trás dos meus produtos</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="art" style="--gallery-ratio:1600 / 1000">
           <div class="project-image-frame">
             <img src="/assets/img/c7-engineering-system-hero-v2.webp" alt="C7 Engineering System organizando fluxos complexos em torno de um núcleo com sete facetas equilibradas" width="1600" height="1000" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -97,16 +97,18 @@
         </figure>
 
       </div>
-      <section class="project-explorer project-explorer-no-actions" aria-label="Detalhes do projeto">
+      <section class="project-explorer project-explorer-no-actions" data-depth="deep" aria-label="Detalhes do projeto">
         <dl class="project-case-summary" data-case-count="4">
-          <div><dt>Papel</dt><dd>Concepção do método, arquitetura do sistema e validação da versão instalada.</dd></div><div><dt>Risco</dt><dd>Tarefas simples continuam simples. Quando aumentam o alcance, o custo do erro ou a dificuldade de reversão, aprofundo análise, validação e recuperação.</dd></div><div><dt>Evidência</dt><dd>A versão 1.0.0 passou pela suíte Pester do núcleo, por verificações no ambiente instalado, avaliações comparativas e teste de restauração em perfil descartável.</dd></div><div><dt>Continuidade</dt><dd>Registro decisões, testes e pontos de retomada para que cada etapa comece a partir do estado real do projeto.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
-          <button type="button" role="tab" id="tab-contexto" data-project-tab="contexto" aria-controls="panel-contexto" aria-selected="true" tabindex="0">Preparação</button><button type="button" role="tab" id="tab-risco" data-project-tab="risco" aria-controls="panel-risco" aria-selected="false" tabindex="-1">Risco</button><button type="button" role="tab" id="tab-evidencia" data-project-tab="evidencia" aria-controls="panel-evidencia" aria-selected="false" tabindex="-1">Evidência</button><button type="button" role="tab" id="tab-ambiente" data-project-tab="ambiente" aria-controls="panel-ambiente" aria-selected="false" tabindex="-1">Ambiente</button><button type="button" role="tab" id="tab-continuidade" data-project-tab="continuidade" aria-controls="panel-continuidade" aria-selected="false" tabindex="-1">Continuidade</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-contexto" role="tabpanel" aria-labelledby="tab-contexto"><h2>Preparar antes de executar.</h2><p>Antes de construir, defino a necessidade, o público, o escopo e o critério de conclusão. Isso reduz retrabalho e protege a coerência do produto.</p><ul><li>Necessidade e público definidos</li><li>Escopo protegido</li><li>Conclusão verificável</li></ul></section><section class="project-tab-panel" id="panel-risco" role="tabpanel" aria-labelledby="tab-risco" hidden><h2>O rigor acompanha o impacto.</h2><p>Tarefas simples continuam simples. Quando aumentam o alcance, o custo do erro ou a dificuldade de reversão, aprofundo análise, validação e recuperação.</p><ul><li>Rigor proporcional</li><li>Alternativas materiais</li><li>Recuperação prevista</li></ul></section><section class="project-tab-panel" id="panel-evidencia" role="tabpanel" aria-labelledby="tab-evidencia" hidden><h2>Conclusão exige prova compatível com a mudança.</h2><p>A versão 1.0.0 passou pela suíte Pester do núcleo, por verificações no ambiente instalado, avaliações comparativas e teste de restauração em perfil descartável.</p><ul><li>Testes do núcleo</li><li>Verificações instaladas</li><li>Restauração em perfil descartável</li></ul></section><section class="project-tab-panel" id="panel-ambiente" role="tabpanel" aria-labelledby="tab-ambiente" hidden><h2>O plano respeita a capacidade disponível.</h2><p>Organizo etapas e validações de acordo com CPU, memória, paginação e armazenamento, evitando repetir trabalho já comprovado.</p><ul><li>Carga proporcional</li><li>Etapas serializadas quando necessário</li><li>Validações reaproveitadas</li></ul></section><section class="project-tab-panel" id="panel-continuidade" role="tabpanel" aria-labelledby="tab-continuidade" hidden><h2>Trabalho válido não precisa ser refeito.</h2><p>Registro decisões, testes e pontos de retomada para que cada etapa comece a partir do estado real do projeto.</p><ul><li>Decisões preservadas</li><li>Retomada objetiva</li><li>Menos repetição</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Papel</dt><dd>Concepção do método, arquitetura do sistema e validação da versão instalada.</dd></div><div data-case-source="tab:risco"><dt><a href="#panel-risco" data-case-tab="risco">Risco<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Tarefas simples continuam simples. Quando aumentam o alcance, o custo do erro ou a dificuldade de reversão, aprofundo análise, validação e recuperação.</dd></div><div data-case-source="tab:evidencia"><dt><a href="#panel-evidencia" data-case-tab="evidencia">Evidência<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>A versão 1.0.0 passou pela suíte Pester do núcleo, por verificações no ambiente instalado, avaliações comparativas e teste de restauração em perfil descartável.</dd></div><div data-case-source="tab:continuidade"><dt><a href="#panel-continuidade" data-case-tab="continuidade">Continuidade<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Registro decisões, testes e pontos de retomada para que cada etapa comece a partir do estado real do projeto.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Detalhes do projeto">
+    <button type="button" role="tab" id="tab-contexto" data-project-tab="contexto" aria-controls="panel-contexto" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Preparação</button><button type="button" role="tab" id="tab-risco" data-project-tab="risco" aria-controls="panel-risco" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Risco</button><button type="button" role="tab" id="tab-evidencia" data-project-tab="evidencia" aria-controls="panel-evidencia" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Evidência</button><button type="button" role="tab" id="tab-ambiente" data-project-tab="ambiente" aria-controls="panel-ambiente" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">04</span>Ambiente</button><button type="button" role="tab" id="tab-continuidade" data-project-tab="continuidade" aria-controls="panel-continuidade" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">05</span>Continuidade</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-contexto" role="tabpanel" aria-labelledby="tab-contexto"><h2>Preparar antes de executar.</h2><p>Antes de construir, defino a necessidade, o público, o escopo e o critério de conclusão. Isso reduz retrabalho e protege a coerência do produto.</p><ul><li>Necessidade e público definidos</li><li>Escopo protegido</li><li>Conclusão verificável</li></ul></section><section class="project-tab-panel" id="panel-risco" role="tabpanel" aria-labelledby="tab-risco" hidden><h2>O rigor acompanha o impacto.</h2><p>Tarefas simples continuam simples. Quando aumentam o alcance, o custo do erro ou a dificuldade de reversão, aprofundo análise, validação e recuperação.</p><ul><li>Rigor proporcional</li><li>Alternativas materiais</li><li>Recuperação prevista</li></ul></section><section class="project-tab-panel" id="panel-evidencia" role="tabpanel" aria-labelledby="tab-evidencia" hidden><h2>Conclusão exige prova compatível com a mudança.</h2><p>A versão 1.0.0 passou pela suíte Pester do núcleo, por verificações no ambiente instalado, avaliações comparativas e teste de restauração em perfil descartável.</p><ul><li>Testes do núcleo</li><li>Verificações instaladas</li><li>Restauração em perfil descartável</li></ul></section><section class="project-tab-panel" id="panel-ambiente" role="tabpanel" aria-labelledby="tab-ambiente" hidden><h2>O plano respeita a capacidade disponível.</h2><p>Organizo etapas e validações de acordo com CPU, memória, paginação e armazenamento, evitando repetir trabalho já comprovado.</p><ul><li>Carga proporcional</li><li>Etapas serializadas quando necessário</li><li>Validações reaproveitadas</li></ul></section><section class="project-tab-panel" id="panel-continuidade" role="tabpanel" aria-labelledby="tab-continuidade" hidden><h2>Trabalho válido não precisa ser refeito.</h2><p>Registro decisões, testes e pontos de retomada para que cada etapa comece a partir do estado real do projeto.</p><ul><li>Decisões preservadas</li><li>Retomada objetiva</li><li>Menos repetição</li></ul></section>
+  </div>
+</div>
 
       </section>
       <a class="next-project" href="/projetos/local-first-checklist/" style="--next-accent:#f2bb62"><span>Próximo projeto</span><strong>Local First Checklist</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

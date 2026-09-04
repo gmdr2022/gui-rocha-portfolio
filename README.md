@@ -14,7 +14,7 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - páginas curtas com navegação direta, teclado, toque e redução de movimento;
 - tema, acessibilidade e consentimento funcionais no navegador;
 - identidade oceânica própria nos temas claro e escuro, com preferência aplicada antes do CSS e movimento progressivamente aprimorado;
-- profundidade ambiental orientada por estado, sem telemetria nem animação contínua;
+- profundidade ambiental orientada pela seção visível e pelas interações, com resposta limitada ao ponteiro, calibração clara/escura e sem loop JavaScript em repouso;
 - conceitos de Maeve sempre identificados como conceito, nunca como captura do jogo;
 - build estático compatível com Cloudflare Pages no plano gratuito.
 
@@ -28,6 +28,8 @@ Produção: [gui-rocha.pages.dev](https://gui-rocha.pages.dev/)
 - o portal não anuncia instalação nem mantém manifestos PWA; ele funciona como site de apresentação.
 
 ## Desenvolvimento
+
+A evolução visual de setembro, suas decisões protegidas, contratos e validação estão em [docs/portal-evolution-2026-09.md](docs/portal-evolution-2026-09.md). O mural, suas sete partículas e os dois canvases de energia do deck fazem parte da assinatura autoral preservada.
 
 Requer Node.js 20 ou superior; a automação fixa a linha LTS 24 por meio de `.nvmrc`.
 

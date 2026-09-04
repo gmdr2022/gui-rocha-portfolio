@@ -30,10 +30,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/brand/favicon-512.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/assets/img/brand/favicon-512.png" sizes="512x512">
-  <script src="/assets/js/theme-boot.js?v=1d011e62b3ac"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=1d011e62b3ac">
-  <script src="/assets/js/site.js?v=1d011e62b3ac" defer></script>
-  <script src="/assets/js/project.js?v=1d011e62b3ac" defer></script>
+  <script src="/assets/js/theme-boot.js?v=40b7c49b2368"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=40b7c49b2368">
+  <script src="/assets/js/site.js?v=40b7c49b2368" defer></script>
+  <script src="/assets/js/project.js?v=40b7c49b2368" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Proyectos","item":"https://gui-rocha.pages.dev/es/proyectos/"},{"@type":"ListItem","position":2,"name":"Demonyza","item":"https://gui-rocha.pages.dev/es/proyectos/demonyza/"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Demonyza","description":"El sitio reúne presentación, agenda, transmisiones y comunidad en una experiencia responsiva para móvil y ordenador.","url":"https://gui-rocha.pages.dev/es/proyectos/demonyza/","image":"https://gui-rocha.pages.dev/assets/img/demonyza/home.webp","creator":{"@type":"Person","name":"Guilherme Rocha","url":"https://gui-rocha.pages.dev/es/"},"inLanguage":"es"}</script>
   <title>Demonyza — Gui Rocha</title>
@@ -74,7 +74,7 @@
 
   <main class="project-main" id="content">
     <article class="project-shell" data-project-shell style="--project-accent:#c769ff;--project-accent-rgb:199 105 255">
-      <div class="project-content">
+      <div class="project-content" data-depth="surface">
         <a class="project-breadcrumb" href="/es/sitios/"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 5 7.5 12l7 7"/></svg><span>Todos los sitios</span></a>
         <header class="project-heading">
           <p class="project-number">02 · Caso de presencia digital para creadora de contenido</p>
@@ -86,7 +86,7 @@
 
         </header>
       </div>
-      <div class="project-visual-column">
+      <div class="project-visual-column" data-depth="mid">
         <figure class="project-visual" data-kind="website" style="--gallery-ratio:1600 / 900">
           <div class="project-image-frame">
             <img src="/assets/img/demonyza/home.webp" alt="Página inicial actual de Demonyza con identidad visual morada, navegación y áreas interactivas" width="1600" height="900" decoding="async" draggable="false" data-protected-media fetchpriority="high">
@@ -102,16 +102,18 @@
           <a class="site-case-next" href="/es/sitios/clubal/" rel="next"><span><small>Siguiente sitio</small><strong>Sitio de ClubAL</strong></span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>
         </nav>
       </div>
-      <section class="project-explorer" aria-label="Detalles del proyecto">
+      <section class="project-explorer" data-depth="deep" aria-label="Detalles del proyecto">
         <dl class="project-case-summary" data-case-count="4">
-          <div><dt>Rol</dt><dd>Dirección de producto, arquitectura de contenido, diseño responsivo y publicación del sitio para la cliente.</dd></div><div><dt>Desafío</dt><dd>El punto de partida era presentar a la creadora, organizar sus canales públicos y ofrecer rutas claras a la comunidad sin borrar la identidad de la cliente.</dd></div><div><dt>Solución</dt><dd>Presentación, agenda, Twitch, Discord y OpenDota forman una experiencia responsiva propia para móvil y ordenador.</dd></div><div><dt>Evidencia y resultado</dt><dd>Sitio publicado y disponible en móvil y ordenador, con presentación, agenda y caminos públicos hacia la comunidad.</dd></div>
-        </dl>
-        <div class="project-tabs" role="tablist" aria-label="Detalles del proyecto">
-          <button type="button" role="tab" id="tab-desafio" data-project-tab="desafio" aria-controls="panel-desafio" aria-selected="true" tabindex="0">Desafío</button><button type="button" role="tab" id="tab-solucion" data-project-tab="solucion" aria-controls="panel-solucion" aria-selected="false" tabindex="-1">Solución</button><button type="button" role="tab" id="tab-entrega" data-project-tab="entrega" aria-controls="panel-entrega" aria-selected="false" tabindex="-1">Entrega</button>
-        </div>
-        <div class="project-panels">
-          <section class="project-tab-panel" id="panel-desafio" role="tabpanel" aria-labelledby="tab-desafio"><h2>Más que una página de enlaces.</h2><p>El punto de partida era presentar a la creadora, organizar sus canales públicos y ofrecer rutas claras a la comunidad sin borrar la identidad de la cliente.</p><ul><li>Contenido y agenda juntos</li><li>Rutas claras para la comunidad</li><li>Identidad de la cliente preservada</li></ul></section><section class="project-tab-panel" id="panel-solucion" role="tabpanel" aria-labelledby="tab-solucion" hidden><h2>La identidad de la cliente, con navegación clara.</h2><p>Presentación, agenda, Twitch, Discord y OpenDota forman una experiencia responsiva propia para móvil y ordenador.</p><ul><li>Navegación en capas</li><li>Integraciones públicas</li><li>Regreso fácil al flujo principal</li></ul></section><section class="project-tab-panel" id="panel-entrega" role="tabpanel" aria-labelledby="tab-entrega" hidden><h2>Publicado y mantenido de forma independiente.</h2><p>El sitio está publicado en Cloudflare Pages; el código de la cliente permanece protegido en un repositorio privado.</p><ul><li>Sitio público</li><li>Sin costo recurrente de hospedaje actual</li><li>Crédito de autoría discreto</li></ul></section>
-        </div>
+  <div data-case-source="role"><dt>Rol</dt><dd>Dirección de producto, arquitectura de contenido, diseño responsivo y publicación del sitio para la cliente.</dd></div><div data-case-source="tab:desafio"><dt><a href="#panel-desafio" data-case-tab="desafio">Desafío<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>El punto de partida era presentar a la creadora, organizar sus canales públicos y ofrecer rutas claras a la comunidad sin borrar la identidad de la cliente.</dd></div><div data-case-source="tab:solucion"><dt><a href="#panel-solucion" data-case-tab="solucion">Solución<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9.5 7 7 7-7"/></svg></a></dt><dd>Presentación, agenda, Twitch, Discord y OpenDota forman una experiencia responsiva propia para móvil y ordenador.</dd></div><div data-case-source="evidence"><dt>Evidencia y resultado</dt><dd>Sitio publicado y disponible en móvil y ordenador, con presentación, agenda y caminos públicos hacia la comunidad.</dd></div>
+</dl>
+        <div class="project-reading-lens" data-reading-lens>
+  <div class="project-tabs" role="tablist" aria-label="Detalles del proyecto">
+    <button type="button" role="tab" id="tab-desafio" data-project-tab="desafio" aria-controls="panel-desafio" aria-selected="true" tabindex="0"><span class="project-tab-index" aria-hidden="true">01</span>Desafío</button><button type="button" role="tab" id="tab-solucion" data-project-tab="solucion" aria-controls="panel-solucion" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">02</span>Solución</button><button type="button" role="tab" id="tab-entrega" data-project-tab="entrega" aria-controls="panel-entrega" aria-selected="false" tabindex="-1"><span class="project-tab-index" aria-hidden="true">03</span>Entrega</button>
+  </div>
+  <div class="project-panels">
+    <section class="project-tab-panel" id="panel-desafio" role="tabpanel" aria-labelledby="tab-desafio"><h2>Más que una página de enlaces.</h2><p>El punto de partida era presentar a la creadora, organizar sus canales públicos y ofrecer rutas claras a la comunidad sin borrar la identidad de la cliente.</p><ul><li>Contenido y agenda juntos</li><li>Rutas claras para la comunidad</li><li>Identidad de la cliente preservada</li></ul></section><section class="project-tab-panel" id="panel-solucion" role="tabpanel" aria-labelledby="tab-solucion" hidden><h2>La identidad de la cliente, con navegación clara.</h2><p>Presentación, agenda, Twitch, Discord y OpenDota forman una experiencia responsiva propia para móvil y ordenador.</p><ul><li>Navegación en capas</li><li>Integraciones públicas</li><li>Regreso fácil al flujo principal</li></ul></section><section class="project-tab-panel" id="panel-entrega" role="tabpanel" aria-labelledby="tab-entrega" hidden><h2>Publicado y mantenido de forma independiente.</h2><p>El sitio está publicado en Cloudflare Pages; el código de la cliente permanece protegido en un repositorio privado.</p><ul><li>Sitio público</li><li>Sin costo recurrente de hospedaje actual</li><li>Crédito de autoría discreto</li></ul></section>
+  </div>
+</div>
         <div class="project-actions"><a class="button primary" href="https://demonyza.pages.dev/es/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span class="sr-only"> (se abre en una pestaña nueva)</span></a></div>
       </section>
       <a class="next-project" href="/es/proyectos/codex-checkpoint/" style="--next-accent:#36d6c0"><span>Siguiente proyecto</span><strong>Codex Checkpoint</strong><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></a>

@@ -8,8 +8,18 @@ const galleryLabel = document.querySelector("[data-visual-label]");
 const galleryCurrent = document.querySelector("[data-gallery-current]");
 const galleryLive = document.querySelector("[data-gallery-live]");
 const galleryRoot = document.querySelector("[data-project-gallery]");
+const projectShell = document.querySelector("[data-project-shell]");
+const caseSources = [...document.querySelectorAll("[data-case-source]")];
+const readingLens = document.querySelector("[data-reading-lens]");
 let activeGalleryIndex = 0;
 const preloadedGalleryItems = new Set();
+
+const publishEvidenceAmbient = (element, id, index) => {
+  if (!projectShell || !element) return;
+  window.dispatchEvent(new CustomEvent("portal:ambientchange", {
+    detail: { source: "evidence", id, index, element, interactive: true, accentRgb: projectShell.style.getPropertyValue("--project-accent-rgb").trim() },
+  }));
+};
 
 if (galleryRoot) galleryRoot.tabIndex = 0;
 
@@ -24,7 +34,9 @@ const revealTab = (button) => {
   }
 };
 
-const activateTab = (id, focus = false) => {
+const activateTab = (id, focus = false, { writeUrl = true, ambient = true } = {}) => {
+  const index = tabButtons.findIndex((button) => button.dataset.projectTab === id);
+  if (index < 0) return;
   let selectedButton = null;
   tabButtons.forEach((button) => {
     const selected = button.dataset.projectTab === id;
@@ -38,9 +50,22 @@ const activateTab = (id, focus = false) => {
   panels.forEach((panel) => {
     panel.hidden = panel.id !== `panel-${id}`;
   });
+  caseSources.forEach((entry) => {
+    entry.dataset.caseActive = String(entry.dataset.caseSource === `tab:${id}`);
+  });
+  readingLens?.style.setProperty("--lens-progress", `${((index + 1) / tabButtons.length) * 100}%`);
   revealTab(selectedButton);
-  history.replaceState(null, "", `#${id}`);
+  if (writeUrl) history.replaceState(null, "", `#panel-${id}`);
+  if (ambient) publishEvidenceAmbient(selectedButton, `facet-${id}`, index);
 };
+
+document.querySelectorAll("[data-case-tab]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    activateTab(link.dataset.caseTab, true);
+  });
+});
 
 tablist?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-project-tab]");
@@ -48,26 +73,39 @@ tablist?.addEventListener("click", (event) => {
 });
 
 tablist?.addEventListener("keydown", (event) => {
-  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+  const vertical = tablist.getAttribute("aria-orientation") === "vertical";
+  const previousKey = vertical ? "ArrowUp" : "ArrowLeft";
+  const nextKey = vertical ? "ArrowDown" : "ArrowRight";
+  if (event.altKey || event.ctrlKey || event.metaKey || ![previousKey, nextKey, "Home", "End"].includes(event.key)) return;
   const current = tabButtons.indexOf(document.activeElement);
   let target = current;
-  if (event.key === "ArrowRight") target = (current + 1) % tabButtons.length;
-  if (event.key === "ArrowLeft") target = (current - 1 + tabButtons.length) % tabButtons.length;
+  if (event.key === nextKey) target = (current + 1) % tabButtons.length;
+  if (event.key === previousKey) target = (current - 1 + tabButtons.length) % tabButtons.length;
   if (event.key === "Home") target = 0;
   if (event.key === "End") target = tabButtons.length - 1;
   event.preventDefault();
   activateTab(tabButtons[target].dataset.projectTab, true);
 });
 
-let requestedTab = "";
-try {
-  requestedTab = decodeURIComponent(location.hash.slice(1));
-} catch {
-  requestedTab = "";
-}
-if (requestedTab && tabButtons.some((button) => button.dataset.projectTab === requestedTab)) {
-  activateTab(requestedTab);
-}
+const syncTabOrientation = () => {
+  if (tablist) tablist.setAttribute("aria-orientation", getComputedStyle(tablist).flexDirection === "column" ? "vertical" : "horizontal");
+};
+syncTabOrientation();
+if (tablist && typeof window.ResizeObserver === "function") new ResizeObserver(syncTabOrientation).observe(tablist);
+else window.addEventListener("resize", syncTabOrientation, { passive: true });
+
+const tabFromHash = () => {
+  try {
+    return decodeURIComponent(location.hash.slice(1)).replace(/^panel-/, "");
+  } catch {
+    return "";
+  }
+};
+const requestedTab = tabFromHash();
+const initialTab = tabButtons.some((button) => button.dataset.projectTab === requestedTab)
+  ? requestedTab : tabButtons[0]?.dataset.projectTab;
+if (initialTab) activateTab(initialTab, false, { writeUrl: false, ambient: false });
+window.addEventListener("hashchange", () => activateTab(tabFromHash(), false, { writeUrl: false }));
 
 const showGalleryItem = (requestedIndex, announce = false) => {
   if (!galleryItems.length || !galleryImage) return;
@@ -85,6 +123,7 @@ const showGalleryItem = (requestedIndex, announce = false) => {
   if (galleryLabel) galleryLabel.textContent = item.label;
   if (galleryCurrent) galleryCurrent.textContent = String(activeGalleryIndex + 1);
   if (announce && galleryLive) galleryLive.textContent = `${item.label}. ${activeGalleryIndex + 1} / ${galleryItems.length}.`;
+  if (announce) publishEvidenceAmbient(galleryRoot, `gallery-${activeGalleryIndex}`, activeGalleryIndex);
 
   if (announce && galleryItems.length > 1) {
     const nextItem = galleryItems[(activeGalleryIndex + 1) % galleryItems.length];
