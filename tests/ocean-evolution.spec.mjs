@@ -7,6 +7,11 @@ const preferences = async (page, theme = "dark", reduceMotion = false) => {
   }, { theme, reduceMotion });
 };
 
+const settlePointerTarget = (target) => target.evaluate((element) => {
+  element.scrollIntoView({ behavior: "instant", block: "center" });
+  return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+});
+
 const ambientState = (page) => page.evaluate(() => {
   const root = document.documentElement;
   const style = root.style;
@@ -173,15 +178,20 @@ test("reading lens links only explicit editorial sources and keeps the gallery i
     await expect(page.locator(`[data-project-tab="${source}"]`)).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(`[data-case-source="tab:${source}"]`)).toHaveAttribute("data-case-active", "true");
     if (interactiveGallery) await expect(image).toHaveAttribute("src", initialImage);
-    await tabs.last().focus();
+    await tabs.last().evaluate((button) => button.focus({ preventScroll: true }));
     await page.keyboard.press("Home");
     await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
     await expect(page.locator('[role="tabpanel"]:visible')).toHaveCount(1);
     const selectedTab = await tabs.first().getAttribute("data-project-tab");
     if (interactiveGallery) {
-      await page.locator("[data-gallery-next]").click();
+      const next = page.locator("[data-gallery-next]");
+      await settlePointerTarget(next);
+      await next.click();
       await expect(image).not.toHaveAttribute("src", initialImage);
+      await image.evaluate((element) => element.decode());
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       await expect(page.locator("html")).toHaveAttribute("data-ambient-source", "evidence");
+      await expect(page.locator("html")).toHaveAttribute("data-ambient-id", "gallery-1");
     } else {
       await expect(page.locator("[data-gallery-next]")).toHaveCount(0);
     }
@@ -218,8 +228,7 @@ test("contact signals preserve direct destinations and scoped subject", async ({
       await expect(clubal).toHaveAttribute("data-context-channel", "true");
       expect(new URL(await clubal.getAttribute("href")).searchParams.get("subject")).toContain("ClubAL");
     }
-    await clubal.evaluate((link) => link.scrollIntoView({ behavior: "instant", block: "center" }));
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await settlePointerTarget(clubal);
     await clubal.hover();
     await expect.poll(() => clubal.evaluate((link) => link.matches(":hover"))).toBe(true);
     await clubal.evaluate((link) => link.blur());
@@ -230,6 +239,27 @@ test("contact signals preserve direct destinations and scoped subject", async ({
     expect(await page.locator(".contact-main").evaluate((node) => node.style.getPropertyValue("--contact-accent-rgb")))
       .toBe(query.includes("clubal") ? "37 201 151" : "76 164 214");
   }
+});
+
+test("explicit gallery atmosphere survives layout resize until subsequent scroll", async ({ page }) => {
+  await preferences(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/projetos/clubal/");
+  const image = page.locator("[data-project-image]");
+  await image.evaluate((element) => element.decode());
+  const next = page.locator("[data-gallery-next]");
+  await settlePointerTarget(next);
+  const scrollBefore = await page.evaluate(() => scrollY);
+  await next.click();
+  await expect(page.locator("[data-gallery-current]")).toHaveText("2");
+  await image.evaluate((element) => element.decode());
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  expect(await page.evaluate(() => scrollY)).toBe(scrollBefore);
+  await expect(page.locator("html")).toHaveAttribute("data-ambient-id", "gallery-1");
+  await expect(page.locator("html")).toHaveAttribute("data-depth", "mid");
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(page.locator("html")).toHaveAttribute("data-ambient-source", "scroll");
+  await expect(page.locator("html")).toHaveAttribute("data-depth", "surface");
 });
 
 test("no-JavaScript current and reading-lens links remain useful", async ({ browser, baseURL }) => {

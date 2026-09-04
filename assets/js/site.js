@@ -330,6 +330,7 @@ let ambientColor = [...ambientOceanBase];
 let ambientIndex = 0;
 let ambientDepth = "surface";
 let ambientSection = null;
+let ambientInteractiveSection = null;
 const ambientSelections = new WeakMap();
 let ambientFrame = 0;
 let ambientPointer = { x: 0, y: 0 };
@@ -377,6 +378,7 @@ window.addEventListener("portal:ambientchange", (event) => {
       ambientSection = section;
       ambientDepth = section.dataset.depth;
     }
+    ambientInteractiveSection = detail.interactive ? section : null;
   }
   ambientColor = color;
   ambientIndex = index;
@@ -390,6 +392,12 @@ const ambientPointerEnabled = () => ambientPointerMedia.matches
   && !ambientForcedColors.matches && !document.hidden;
 
 const updateAmbientDepth = () => {
+  if (ambientInteractiveSection) {
+    const bounds = ambientInteractiveSection.getBoundingClientRect();
+    // Layout changes must not cancel explicit input while its section remains visible.
+    if (bounds.height && bounds.bottom > 0 && bounds.top < window.innerHeight) return;
+    ambientInteractiveSection = null;
+  }
   // Compare distance to the reading line, not ratios of differently sized sections.
   const readingLine = window.innerHeight * 0.46;
   let closest = null;
@@ -450,7 +458,10 @@ window.addEventListener("pointermove", (event) => {
 }, { passive: true });
 document.documentElement.addEventListener("pointerleave", resetAmbientPointer);
 window.addEventListener("blur", resetAmbientPointer);
-window.addEventListener("scroll", scheduleAmbientDepth, { passive: true });
+window.addEventListener("scroll", () => {
+  ambientInteractiveSection = null;
+  scheduleAmbientDepth();
+}, { passive: true });
 window.addEventListener("resize", scheduleAmbientDepth, { passive: true });
 window.addEventListener("pageshow", scheduleAmbientDepth);
 window.addEventListener("portal:preferenceschange", resetAmbientPointer);
