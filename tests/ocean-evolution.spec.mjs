@@ -207,21 +207,25 @@ test("contact signals preserve direct destinations and scoped subject", async ({
     const personal = page.locator("[data-email-link]");
     const clubal = page.locator("[data-clubal-email-link]");
     const original = await personal.getAttribute("href");
-    await personal.focus();
+    // Separate focus and scroll setup so WebKit computes hover coordinates after scrolling.
+    await personal.evaluate((link) => link.focus({ preventScroll: true }));
     await expect(personal).toHaveAttribute("data-signal-active", "true");
     await expect(personal).toHaveAttribute("href", original);
-    await clubal.focus();
+    await clubal.evaluate((link) => link.focus({ preventScroll: true }));
     await expect(clubal).toHaveAttribute("data-signal-active", "true");
     await expect(personal).toHaveAttribute("data-signal-active", "false");
     if (query.includes("clubal")) {
       await expect(clubal).toHaveAttribute("data-context-channel", "true");
       expect(new URL(await clubal.getAttribute("href")).searchParams.get("subject")).toContain("ClubAL");
     }
+    await clubal.evaluate((link) => link.scrollIntoView({ behavior: "instant", block: "center" }));
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     await clubal.hover();
+    await expect.poll(() => clubal.evaluate((link) => link.matches(":hover"))).toBe(true);
     await clubal.evaluate((link) => link.blur());
     await expect(clubal).toHaveAttribute("data-signal-active", "true");
     await page.mouse.move(1, 1);
-    await page.locator("[data-theme-toggle]").focus();
+    await page.locator("[data-theme-toggle]").evaluate((button) => button.focus({ preventScroll: true }));
     await expect(clubal).toHaveAttribute("data-signal-active", "false");
     expect(await page.locator(".contact-main").evaluate((node) => node.style.getPropertyValue("--contact-accent-rgb")))
       .toBe(query.includes("clubal") ? "37 201 151" : "76 164 214");
